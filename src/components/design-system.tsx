@@ -18,6 +18,13 @@ export const BRAND_COLORS = {
   },
 }
 
+// --- Spacing & Layout Constants ---
+export const LAYOUT = {
+  // Scroll margin for anchor links to account for fixed header
+  // This ensures sections with IDs scroll into view with proper offset
+  scrollMarginTop: "6rem", // 96px - accounts for fixed header height
+}
+
 // --- Typography ---
 
 const headingVariants = cva(
@@ -167,7 +174,7 @@ export const Section = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLEl
     const bgColors = {
       white: "bg-white",
       gray: "bg-gray-50",
-      olive: "bg-olive-900",
+      olive: "bg-[#5a6c40]",
     }
 
     return (
@@ -178,6 +185,7 @@ export const Section = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLEl
           bgColors[background],
           className
         )}
+        style={{ scrollMarginTop: LAYOUT.scrollMarginTop, ...props.style }}
         {...props}
       />
     )

@@ -4,6 +4,7 @@ import {
   CheckCircle,
   ChevronRight
 } from 'lucide-react'
+import { IntroCallForm } from '@/components/Forms'
 import {
   Section,
   Container,
@@ -13,7 +14,8 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem
+  StaggerItem,
+  LAYOUT
 } from '@/components/design-system'
 
 const fundingSolutions = [
@@ -370,7 +372,7 @@ export default function Solutions() {
           <StaggerContainer className="space-y-24">
             {fundingSolutions.map((solution, index) => (
               <StaggerItem key={solution.id} className="scroll-mt-24">
-                <div id={solution.id} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-cols-2 lg:direction-rtl' : ''}`} style={{ scrollMarginTop: '6rem' }}>
+                <div id={solution.id} style={{ scrollMarginTop: LAYOUT.scrollMarginTop }} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-cols-2 lg:direction-rtl' : ''}`}>
                   {/* Text Content */}
                   <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
                     <Heading as="h3" size="h2" className="mb-6 text-olive-900">
@@ -420,24 +422,7 @@ export default function Solutions() {
         </Container>
       </Section>
 
-      {/* Contact Section */}
-      <Section background="olive" className="relative overflow-hidden">
-        <Container className="relative z-10">
-          <div className="max-w-2xl mx-auto text-center">
-            <FadeIn>
-              <Heading as="h2" size="h1" color="white" className="mb-6">
-                Ready to Get Started?
-              </Heading>
-              <Text size="lg" color="white" className="mb-8">
-                Contact our team to discuss your funding needs
-              </Text>
-              <Button variant="gold" size="lg">
-                Schedule a Call
-              </Button>
-            </FadeIn>
-          </div>
-        </Container>
-      </Section>
+      <IntroCallForm />
     </div>
   )
 }

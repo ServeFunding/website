@@ -18,14 +18,10 @@ import {
   FadeIn,
   StaggerContainer,
   StaggerItem,
-  FormField,
-  FormLabel,
-  FormInput,
-  FormTextarea,
-  FormGroup,
   BRAND_COLORS
 } from '@/components/design-system'
 import { IndustriesGrid } from '@/components/IndustriesGrid'
+import { IntroCallForm } from '@/components/Forms'
 
 export default function Home() {
   return (
@@ -257,66 +253,7 @@ export default function Home() {
         </Container>
       </Section>
 
-      {/* Contact Section */}
-      <Section background="olive" className="relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-            <Leaf size={400} className="absolute -right-20 -bottom-20 text-white transform rotate-45" />
-            <Leaf size={200} className="absolute left-10 top-10 text-white transform -rotate-12" />
-        </div>
-
-        <Container className="relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <FadeIn className="text-center">
-              <Heading as="h3" size="h1" color="white" className="mb-12">Let's Talk.</Heading>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <Card className="p-8 md:p-12">
-                <form className="space-y-6">
-                  <FormGroup columns={2}>
-                    <FormField>
-                      <FormLabel>First Name</FormLabel>
-                      <FormInput type="text" placeholder="John" />
-                    </FormField>
-                    <FormField>
-                      <FormLabel>Last Name</FormLabel>
-                      <FormInput type="text" placeholder="Doe" />
-                    </FormField>
-                  </FormGroup>
-
-                  <FormField>
-                    <FormLabel>Company Name</FormLabel>
-                    <FormInput type="text" placeholder="Your Company" />
-                  </FormField>
-
-                  <FormGroup columns={2}>
-                    <FormField>
-                      <FormLabel>Email</FormLabel>
-                      <FormInput type="email" placeholder="you@company.com" />
-                    </FormField>
-                    <FormField>
-                      <FormLabel>Phone</FormLabel>
-                      <FormInput type="tel" placeholder="+1 (555) 123-4567" />
-                    </FormField>
-                  </FormGroup>
-
-                  <FormField>
-                    <FormLabel>Capital For</FormLabel>
-                    <FormInput type="text" placeholder="e.g., Inventory, Equipment" />
-                  </FormField>
-
-                  <FormField>
-                    <FormLabel>Message</FormLabel>
-                    <FormTextarea rows={4} placeholder="Tell us more about your needs..." />
-                  </FormField>
-
-                  <Button variant="default" size="lg" className="w-full">Get Started</Button>
-                </form>
-              </Card>
-            </FadeIn>
-          </div>
-        </Container>
-      </Section>
+      <IntroCallForm />
     </div>
   )
 }

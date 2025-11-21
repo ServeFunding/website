@@ -2,7 +2,6 @@
 
 import {
   CheckCircle,
-  Heart,
   Handshake
 } from 'lucide-react'
 import {
@@ -14,7 +13,8 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem
+  StaggerItem,
+  LAYOUT
 } from '@/components/design-system'
 
 const coreValues = [
@@ -60,9 +60,9 @@ export default function AboutUs() {
       </Section>
 
       {/* Founder's Story Section */}
-      <Section className="scroll-mt-32">
+      <Section>
         <Container>
-          <div className="max-w-3xl mx-auto" id="our-story">
+          <div className="max-w-3xl mx-auto" id="our-story" style={{ scrollMarginTop: LAYOUT.scrollMarginTop }}>
             <FadeIn>
               <Heading as="h2" size="h2" className="mb-8 text-olive-900">
                 Our Story
@@ -110,7 +110,7 @@ export default function AboutUs() {
       </Section>
 
       {/* Core Values Section */}
-      <Section id="core-values" className="scroll-mt-32">
+      <Section id="core-values">
         <Container>
           <FadeIn className="text-center mb-16">
             <Heading as="h2" size="h2" className="mb-3">Our Core Values</Heading>
@@ -174,7 +174,7 @@ export default function AboutUs() {
       </Section>
 
       {/* Community Section */}
-      <Section id="doing-good" className="scroll-mt-32">
+      <Section id="doing-good">
         <Container>
           <FadeIn className="text-center">
             <Heading as="h2" size="h2" className="mb-8 text-olive-900">
@@ -189,13 +189,13 @@ export default function AboutUs() {
 
             <div className="flex flex-wrap justify-center items-center gap-8 py-8">
               <div className="h-24 flex items-center px-4">
-                <Text className="text-gray-600 font-semibold">Hope for the Homeless</Text>
+                <img src="/About Us Serve Funding.png" alt="Hope for the Homeless" className="h-full object-contain" />
               </div>
               <div className="h-24 flex items-center px-4">
-                <Text className="text-gray-600 font-semibold">Frontline Response</Text>
+                <img src="/About Us Serve Funding (1).png" alt="Frontline Response" className="h-full object-contain" />
               </div>
               <div className="h-24 flex items-center px-4">
-                <Text className="text-gray-600 font-semibold">JAM Quest</Text>
+                <img src="/About Us Serve Funding (2).png" alt="JAM Quest" className="h-full object-contain" />
               </div>
             </div>
           </FadeIn>

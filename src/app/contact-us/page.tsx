@@ -12,17 +12,12 @@ import {
   Container,
   Heading,
   Text,
-  Button,
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem,
-  FormField,
-  FormLabel,
-  FormInput,
-  FormTextarea,
-  FormGroup
+  StaggerItem
 } from '@/components/design-system'
+import { IntroCallForm } from '@/components/Forms'
 
 export default function ContactUs() {
   return (
@@ -111,48 +106,7 @@ export default function ContactUs() {
             </FadeIn>
 
             <FadeIn>
-              <Card className="p-8 md:p-12">
-                <form className="space-y-6">
-                  <FormGroup columns={2}>
-                    <FormField>
-                      <FormLabel>First Name *</FormLabel>
-                      <FormInput type="text" required placeholder="John" />
-                    </FormField>
-                    <FormField>
-                      <FormLabel>Last Name *</FormLabel>
-                      <FormInput type="text" required placeholder="Doe" />
-                    </FormField>
-                  </FormGroup>
-
-                  <FormField>
-                    <FormLabel>Company *</FormLabel>
-                    <FormInput type="text" required placeholder="Your Company" />
-                  </FormField>
-
-                  <FormGroup columns={2}>
-                    <FormField>
-                      <FormLabel>Email Address *</FormLabel>
-                      <FormInput type="email" required placeholder="you@company.com" />
-                    </FormField>
-                    <FormField>
-                      <FormLabel>Phone Number *</FormLabel>
-                      <FormInput type="tel" required placeholder="+1 (555) 123-4567" />
-                    </FormField>
-                  </FormGroup>
-
-                  <FormField>
-                    <FormLabel>Capital For *</FormLabel>
-                    <FormInput type="text" required placeholder="e.g., Inventory, Equipment" />
-                  </FormField>
-
-                  <FormField>
-                    <FormLabel>Note</FormLabel>
-                    <FormTextarea rows={4} maxLength={180} placeholder="Please add any details you'd like us to know before we speak" />
-                  </FormField>
-
-                  <Button variant="default" size="lg" className="w-full">Get Started</Button>
-                </form>
-              </Card>
+              <IntroCallForm />
             </FadeIn>
           </div>
         </Container>

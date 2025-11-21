@@ -13,8 +13,10 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem
+  StaggerItem,
 } from '@/components/design-system'
+import { PartnerInquiryForm } from '@/components/Forms'
+import { LAYOUT } from '@/components/design-system'
 
 const partnerTypes = [
   {
@@ -217,7 +219,7 @@ export default function Partners() {
               const partnerId = partner.title.toLowerCase().replace(/[\s/&]/g, '-')
               return (
                 <StaggerItem key={idx} className="scroll-mt-24">
-                  <div id={partnerId} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${idx % 2 === 1 ? 'lg:grid-cols-2 lg:direction-rtl' : ''}`} style={{ scrollMarginTop: '6rem' }}>
+                  <div id={partnerId} style={{ scrollMarginTop: LAYOUT.scrollMarginTop }} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${idx % 2 === 1 ? 'lg:grid-cols-2 lg:direction-rtl' : ''}`}>
                     {/* Text Content */}
                     <div className={idx % 2 === 1 ? 'lg:order-2' : ''}>
                       <Heading as="h3" size="h2" className="mb-6">
@@ -297,65 +299,7 @@ export default function Partners() {
         </Container>
       </Section>
 
-      {/* CTA Section */}
-      <Section background="olive" className="relative overflow-hidden">
-        <Container className="relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <FadeIn className="text-center">
-              <Heading as="h2" size="h1" color="white" className="mb-8">Let's Connect</Heading>
-              <Text size="lg" color="white" className="mb-12">
-                Please fill out this form and we'll schedule a call
-              </Text>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <form className="space-y-6 text-left bg-white/5 p-8 md:p-12 rounded-3xl backdrop-blur-sm border border-white/10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">First Name *</label>
-                    <input type="text" required className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">Last Name *</label>
-                    <input type="text" required className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gold-500 ml-1">Company Name *</label>
-                  <input type="text" required className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">Email Address *</label>
-                    <input type="email" required className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">Phone Number *</label>
-                    <input type="tel" required className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gold-500 ml-1">Capital For *</label>
-                  <input type="text" required className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gold-500 ml-1">Please add any details you'd like us to know before we speak</label>
-                  <textarea rows={4} maxLength={180} className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"></textarea>
-                </div>
-
-                <div className="flex gap-4 pt-6 border-t border-white/20">
-                  <Button variant="default" size="lg" className="flex-1">
-                    Get Started
-                  </Button>
-                </div>
-              </form>
-            </FadeIn>
-          </div>
-        </Container>
-      </Section>
+      <PartnerInquiryForm />
     </div>
   )
 }

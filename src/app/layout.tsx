@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
-import { Newsletter } from "@/components/Newsletter"
+import { NewsletterForm } from "@/components/Forms"
 import { Chatbot } from "@/components/Chatbot"
 import "@/app/globals.css"
 
@@ -35,7 +35,7 @@ export default function RootLayout({
         <main className="flex-grow pt-20">
           {children}
         </main>
-        <Newsletter />
+        <NewsletterForm />
         <Footer />
         <Chatbot />
       </body>
