@@ -17,7 +17,8 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem
+  StaggerItem,
+  BRAND_COLORS
 } from '@/components/design-system'
 
 export default function Home() {
@@ -85,9 +86,9 @@ export default function Home() {
               }
             ].map((item, index) => (
               <StaggerItem key={index} className={index === 1 ? "md:-translate-y-6 relative z-10" : ""}>
-                <Card className="flex flex-col items-center text-center h-full group hover:bg-gold-400 transition-all duration-300 hover:-translate-y-2 bg-white">
-                  <div className="w-24 h-24 bg-olive-900 rounded-full flex items-center justify-center mb-8 transition-transform duration-500 group-hover:[transform:rotateY(180deg)]">
-                    <item.icon size={40} className="text-gold-500" strokeWidth={1.5} />
+                <Card className="flex flex-col items-center text-center h-full group transition-all duration-300 hover:-translate-y-2 bg-white hover:bg-opacity-100" style={{ backgroundColor: 'white' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = BRAND_COLORS.primary.lightGreen; const circle = e.currentTarget.querySelector('[data-flip-circle]'); if (circle) (circle as HTMLElement).style.transform = 'rotateY(180deg)' }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'white'; const circle = e.currentTarget.querySelector('[data-flip-circle]'); if (circle) (circle as HTMLElement).style.transform = 'rotateY(0deg)' }}>
+                  <div className="w-24 h-24 rounded-full flex items-center justify-center mb-8 transition-all duration-500" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }} data-flip-circle>
+                    <item.icon size={40} className="transition-colors" style={{ color: BRAND_COLORS.primary.lightGreen }} strokeWidth={1.5} />
                   </div>
                   <Heading as="h3" size="h3" className="mb-4 text-olive-900">{item.title}</Heading>
                   <Text className="text-gray-600 group-hover:text-olive-900 transition-colors font-medium">
