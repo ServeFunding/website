@@ -18,8 +18,14 @@ import {
   FadeIn,
   StaggerContainer,
   StaggerItem,
+  FormField,
+  FormLabel,
+  FormInput,
+  FormTextarea,
+  FormGroup,
   BRAND_COLORS
 } from '@/components/design-system'
+import { IndustriesGrid } from '@/components/IndustriesGrid'
 
 export default function Home() {
   return (
@@ -142,49 +148,7 @@ export default function Home() {
           <FadeIn>
             <Heading as="h3" size="h2" className="mb-16 text-center">Industries Served</Heading>
           </FadeIn>
-          <div className="space-y-6">
-            {[
-              { row: [0, 1, 2, 3, 4], direction: "left" },
-              { row: [5, 6, 7, 8, 9], direction: "right" },
-              { row: [10, 11, 12, 13, 14], direction: "left" }
-            ].map((rowData, rowIndex) => (
-              <div key={rowIndex} className="flex gap-4 justify-center flex-wrap">
-                {rowData.row.map((industryIndex) => {
-                  const industries = [
-                    { name: "Manufacturing", desc: "Purchase raw materials upfront. Bridge cash gaps during long production cycles." },
-                    { name: "Wholesale & Distribution", desc: "Buy inventory in bulk to meet demand. Smooth cash flow between buying and selling cycles." },
-                    { name: "Government Contractors", desc: "Cover expenses while awaiting government payments. Maintain operations during long billing cycles." },
-                    { name: "Staffing Firms", desc: "Pay staff before clients pay invoices. Keep talent onboard without cash flow issues." },
-                    { name: "Food & Beverage", desc: "Purchase perishables upfront. Navigate tight margins and fluctuating demand." },
-                    { name: "Advertising & Media", desc: "Fund campaigns before client payments arrive. Keep creative projects on track." },
-                    { name: "E-Commerce & Retail", desc: "Stock up on inventory ahead of sales. Manage cash flow during seasonal peaks." },
-                    { name: "Consumer Products", desc: "Cover production and marketing costs upfront. Keep products flowing to market." },
-                    { name: "Consulting & IT Services", desc: "Pay staff before clients pay. Maintain operations during long project cycles." },
-                    { name: "Cleaning & Janitorial", desc: "Cover payroll and supplies upfront. Keep services running smoothly." },
-                    { name: "Security Guard Services", desc: "Pay guards before clients pay. Ensure continuous protection services." },
-                    { name: "Telecommunications & IoT", desc: "Invest in equipment and infrastructure upfront. Keep up with fast-paced tech demands." },
-                    { name: "Construction", desc: "Purchase materials and equipment upfront. Manage cash flow during long project timelines." },
-                    { name: "Transportation & Logistics", desc: "Cover fuel and maintenance costs. Bridge cash flow gaps between deliveries and payments." },
-                    { name: "Healthcare Services", desc: "Fund operations and payroll ahead of reimbursements. Invest in equipment and supplies." }
-                  ]
-                  const industry = industries[industryIndex]
-                  return (
-                    <div key={industry.name} className="group relative flex-1 min-w-[140px] h-[100px]">
-                      <div className="absolute inset-0 bg-white border border-gray-200 rounded-xl shadow-sm p-4 flex flex-col items-center justify-center text-center text-gray-700 font-medium cursor-pointer transition-all duration-300 group-hover:shadow-lg group-hover:border-gold-500 group-hover:text-olive-900 group-hover:scale-125 group-hover:z-10">
-                        <div className="opacity-100 group-hover:opacity-0 transition-opacity duration-300 line-clamp-2">
-                          {industry.name}
-                        </div>
-                        <div className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center">
-                          <p className="font-semibold text-sm text-olive-900 mb-2">{industry.name}</p>
-                          <p className="text-xs text-gray-600 leading-snug">{industry.desc}</p>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            ))}
-          </div>
+          <IndustriesGrid />
         </Container>
       </Section>
 
@@ -195,32 +159,53 @@ export default function Home() {
             <Heading as="h3" size="h2" className="mb-16 text-center">Outlining Our Process</Heading>
           </FadeIn>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-            {/* Connecting Line (Desktop) */}
-            <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gray-200 -z-10"></div>
-
             {[
-              { 
-                step: 1, 
-                title: "Discovery", 
-                desc: "We genuinely care and listen to your needs and objectives so our process stays strategic to your growth goals." 
+              {
+                step: 1,
+                title: "Discovery",
+                desc: "We genuinely care and listen to your needs and objectives so our process stays strategic to your growth goals."
               },
-              { 
-                step: 2, 
-                title: "Diligence", 
-                desc: "We lead a comprehensive capital search and advise you on your evolving options for short and long-term growth." 
+              {
+                step: 2,
+                title: "Diligence",
+                desc: "We lead a comprehensive capital search and advise you on your evolving options for short and long-term growth."
               },
-              { 
-                step: 3, 
-                title: "Delivery", 
-                desc: "We take responsibility to guide your lender engagements all the way to a timely closing. We are here to serve you." 
+              {
+                step: 3,
+                title: "Delivery",
+                desc: "We take responsibility to guide your lender engagements all the way to a timely closing. We are here to serve you."
               }
             ].map((item) => (
               <StaggerItem key={item.step} className="flex flex-col items-center text-center group">
-                <div className="w-24 h-24 bg-white border-4 border-gold-500 rounded-full flex items-center justify-center text-olive-900 text-3xl font-bold mb-8 shadow-lg group-hover:bg-gold-500 group-hover:text-white transition-colors duration-300">
+                <div
+                  className="w-16 h-16 rounded-lg border-3 flex items-center justify-center text-2xl font-bold mb-8 transition-all duration-300"
+                  style={{
+                    backgroundColor: 'transparent',
+                    borderColor: BRAND_COLORS.primary.darkGreen,
+                    color: BRAND_COLORS.primary.darkGreen,
+                  }}
+                >
                   {item.step}
                 </div>
-                <Heading as="h4" size="h3" color="dark" className="mb-3">{item.title}</Heading>
-                <Text size="lg">{item.desc}</Text>
+                <Card
+                  className="h-full flex flex-col justify-between"
+                  style={{
+                    background: `linear-gradient(180deg, ${BRAND_COLORS.primary.lightGreen}80 0%, ${BRAND_COLORS.primary.darkGreen} 100%)`,
+                  }}
+                >
+                  <div>
+                    <Heading as="h4" size="h3" className="mb-6" style={{ color: BRAND_COLORS.primary.darkGreen }}>
+                      {item.title}
+                    </Heading>
+                    <Text
+                      size="lg"
+                      className="font-serif"
+                      style={{ color: BRAND_COLORS.primary.darkGreen }}
+                    >
+                      {item.desc}
+                    </Text>
+                  </div>
+                </Card>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -286,46 +271,48 @@ export default function Home() {
               <Heading as="h3" size="h1" color="white" className="mb-12">Let's Talk.</Heading>
             </FadeIn>
             <FadeIn delay={0.2}>
-              <form className="space-y-6 text-left bg-white/5 p-8 md:p-12 rounded-3xl backdrop-blur-sm border border-white/10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">First Name</label>
-                    <input type="text" className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">Last Name</label>
-                    <input type="text" className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                </div>
+              <Card className="p-8 md:p-12">
+                <form className="space-y-6">
+                  <FormGroup columns={2}>
+                    <FormField>
+                      <FormLabel>First Name</FormLabel>
+                      <FormInput type="text" placeholder="John" />
+                    </FormField>
+                    <FormField>
+                      <FormLabel>Last Name</FormLabel>
+                      <FormInput type="text" placeholder="Doe" />
+                    </FormField>
+                  </FormGroup>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gold-500 ml-1">Company Name</label>
-                  <input type="text" className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                </div>
+                  <FormField>
+                    <FormLabel>Company Name</FormLabel>
+                    <FormInput type="text" placeholder="Your Company" />
+                  </FormField>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">Email</label>
-                    <input type="email" className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">Phone</label>
-                    <input type="tel" className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                </div>
+                  <FormGroup columns={2}>
+                    <FormField>
+                      <FormLabel>Email</FormLabel>
+                      <FormInput type="email" placeholder="you@company.com" />
+                    </FormField>
+                    <FormField>
+                      <FormLabel>Phone</FormLabel>
+                      <FormInput type="tel" placeholder="+1 (555) 123-4567" />
+                    </FormField>
+                  </FormGroup>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gold-500 ml-1">Capital For</label>
-                  <input type="text" className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                </div>
+                  <FormField>
+                    <FormLabel>Capital For</FormLabel>
+                    <FormInput type="text" placeholder="e.g., Inventory, Equipment" />
+                  </FormField>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gold-500 ml-1">Message</label>
-                  <textarea rows={4} className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"></textarea>
-                </div>
+                  <FormField>
+                    <FormLabel>Message</FormLabel>
+                    <FormTextarea rows={4} placeholder="Tell us more about your needs..." />
+                  </FormField>
 
-                <Button variant="light" size="lg" className="w-full">Get Started</Button>
-              </form>
+                  <Button variant="default" size="lg" className="w-full">Get Started</Button>
+                </form>
+              </Card>
             </FadeIn>
           </div>
         </Container>

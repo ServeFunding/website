@@ -8,7 +8,13 @@ import {
   Text,
   Button,
   Card,
-  FadeIn
+  FadeIn,
+  FormField,
+  FormLabel,
+  FormInput,
+  FormTextarea,
+  FormSelect,
+  FormGroup
 } from '@/components/design-system'
 
 export default function Refer() {
@@ -73,7 +79,7 @@ export default function Refer() {
                 </Text>
               </div>
 
-              <Card variant="default" className="p-8 rounded-3xl shadow-sm border border-gray-100">
+              <Card variant="default" className="p-8">
                 <form
                   action="https://formspree.io/f/xrbjwwyp"
                   method="POST"
@@ -85,67 +91,62 @@ export default function Refer() {
                       Your Information
                     </Heading>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                      <div>
-                        <label htmlFor="banker_first_name" className="block text-sm font-medium text-olive-900 mb-2">First Name *</label>
-                        <input
+                    <FormGroup columns={2} className="mb-4">
+                      <FormField>
+                        <FormLabel>First Name *</FormLabel>
+                        <FormInput
                           type="text"
                           id="banker_first_name"
                           name="banker_first_name"
                           required
-                          className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"
                           placeholder="John"
                         />
-                      </div>
-                      <div>
-                        <label htmlFor="banker_last_name" className="block text-sm font-medium text-olive-900 mb-2">Last Name *</label>
-                        <input
+                      </FormField>
+                      <FormField>
+                        <FormLabel>Last Name *</FormLabel>
+                        <FormInput
                           type="text"
                           id="banker_last_name"
                           name="banker_last_name"
                           required
-                          className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"
                           placeholder="Smith"
                         />
-                      </div>
-                    </div>
+                      </FormField>
+                    </FormGroup>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                      <div>
-                        <label htmlFor="banker_email" className="block text-sm font-medium text-olive-900 mb-2">Email *</label>
-                        <input
+                    <FormGroup columns={2} className="mb-4">
+                      <FormField>
+                        <FormLabel>Email *</FormLabel>
+                        <FormInput
                           type="email"
                           id="banker_email"
                           name="banker_email"
                           required
-                          className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"
                           placeholder="john@bank.com"
                         />
-                      </div>
-                      <div>
-                        <label htmlFor="banker_phone" className="block text-sm font-medium text-olive-900 mb-2">Phone *</label>
-                        <input
+                      </FormField>
+                      <FormField>
+                        <FormLabel>Phone *</FormLabel>
+                        <FormInput
                           type="tel"
                           id="banker_phone"
                           name="banker_phone"
                           required
-                          className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"
                           placeholder="+1-770-820-7409"
                         />
-                      </div>
-                    </div>
+                      </FormField>
+                    </FormGroup>
 
-                    <div>
-                      <label htmlFor="banker_institution" className="block text-sm font-medium text-olive-900 mb-2">Bank/Institution Name *</label>
-                      <input
+                    <FormField>
+                      <FormLabel>Bank/Institution Name *</FormLabel>
+                      <FormInput
                         type="text"
                         id="banker_institution"
                         name="banker_institution"
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"
                         placeholder="Your Bank Name"
                       />
-                    </div>
+                    </FormField>
                   </div>
 
                   {/* Client Information Section */}
@@ -154,75 +155,69 @@ export default function Refer() {
                       Client Information
                     </Heading>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                      <div>
-                        <label htmlFor="client_first_name" className="block text-sm font-medium text-olive-900 mb-2">First Name *</label>
-                        <input
+                    <FormGroup columns={2} className="mb-4">
+                      <FormField>
+                        <FormLabel>First Name *</FormLabel>
+                        <FormInput
                           type="text"
                           id="client_first_name"
                           name="client_first_name"
                           required
-                          className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"
                           placeholder="Jane"
                         />
-                      </div>
-                      <div>
-                        <label htmlFor="client_last_name" className="block text-sm font-medium text-olive-900 mb-2">Last Name *</label>
-                        <input
+                      </FormField>
+                      <FormField>
+                        <FormLabel>Last Name *</FormLabel>
+                        <FormInput
                           type="text"
                           id="client_last_name"
                           name="client_last_name"
                           required
-                          className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"
                           placeholder="Doe"
                         />
-                      </div>
-                    </div>
+                      </FormField>
+                    </FormGroup>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                      <div>
-                        <label htmlFor="client_email" className="block text-sm font-medium text-olive-900 mb-2">Email *</label>
-                        <input
+                    <FormGroup columns={2} className="mb-4">
+                      <FormField>
+                        <FormLabel>Email *</FormLabel>
+                        <FormInput
                           type="email"
                           id="client_email"
                           name="client_email"
                           required
-                          className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"
                           placeholder="jane@company.com"
                         />
-                      </div>
-                      <div>
-                        <label htmlFor="client_phone" className="block text-sm font-medium text-olive-900 mb-2">Phone *</label>
-                        <input
+                      </FormField>
+                      <FormField>
+                        <FormLabel>Phone *</FormLabel>
+                        <FormInput
                           type="tel"
                           id="client_phone"
                           name="client_phone"
                           required
-                          className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"
                           placeholder="+1-555-123-4567"
                         />
-                      </div>
-                    </div>
+                      </FormField>
+                    </FormGroup>
 
-                    <div className="mb-4">
-                      <label htmlFor="company_name" className="block text-sm font-medium text-olive-900 mb-2">Company Name *</label>
-                      <input
+                    <FormField className="mb-4">
+                      <FormLabel>Company Name *</FormLabel>
+                      <FormInput
                         type="text"
                         id="company_name"
                         name="company_name"
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"
                         placeholder="Client's Business Name"
                       />
-                    </div>
+                    </FormField>
 
-                    <div className="mb-4">
-                      <label htmlFor="capital_needed" className="block text-sm font-medium text-olive-900 mb-2">Capital Needed (Range) *</label>
-                      <select
+                    <FormField className="mb-4">
+                      <FormLabel>Capital Needed (Range) *</FormLabel>
+                      <FormSelect
                         id="capital_needed"
                         name="capital_needed"
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"
                       >
                         <option value="">Select a range</option>
                         <option value="25k-50k">$25,000 - $50,000</option>
@@ -231,31 +226,29 @@ export default function Refer() {
                         <option value="250k-500k">$250,000 - $500,000</option>
                         <option value="500k-1m">$500,000 - $1,000,000</option>
                         <option value="1m+">$1,000,000+</option>
-                      </select>
-                    </div>
+                      </FormSelect>
+                    </FormField>
 
-                    <div className="mb-4">
-                      <label htmlFor="use_of_funds" className="block text-sm font-medium text-olive-900 mb-2">Use of Funds *</label>
-                      <textarea
+                    <FormField className="mb-4">
+                      <FormLabel>Use of Funds *</FormLabel>
+                      <FormTextarea
                         id="use_of_funds"
                         name="use_of_funds"
                         required
                         rows={3}
-                        className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all resize-none"
                         placeholder="Describe how the client will use the capital (e.g., inventory, equipment, payroll, expansion)"
                       />
-                    </div>
+                    </FormField>
 
-                    <div>
-                      <label htmlFor="additional_notes" className="block text-sm font-medium text-olive-900 mb-2">Additional Notes</label>
-                      <textarea
+                    <FormField>
+                      <FormLabel>Additional Notes</FormLabel>
+                      <FormTextarea
                         id="additional_notes"
                         name="additional_notes"
                         rows={3}
-                        className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all resize-none"
                         placeholder="Any additional information about the client or their situation"
                       />
-                    </div>
+                    </FormField>
                   </div>
 
                   {/* Submit Button */}

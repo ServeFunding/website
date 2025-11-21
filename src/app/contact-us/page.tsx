@@ -16,7 +16,12 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem
+  StaggerItem,
+  FormField,
+  FormLabel,
+  FormInput,
+  FormTextarea,
+  FormGroup
 } from '@/components/design-system'
 
 export default function ContactUs() {
@@ -106,46 +111,48 @@ export default function ContactUs() {
             </FadeIn>
 
             <FadeIn>
-              <form className="space-y-6 bg-white p-8 md:p-12 rounded-3xl shadow-lg">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">First Name *</label>
-                    <input type="text" required className="w-full p-4 rounded-xl bg-white border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">Last Name *</label>
-                    <input type="text" required className="w-full p-4 rounded-xl bg-white border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                </div>
+              <Card className="p-8 md:p-12">
+                <form className="space-y-6">
+                  <FormGroup columns={2}>
+                    <FormField>
+                      <FormLabel>First Name *</FormLabel>
+                      <FormInput type="text" required placeholder="John" />
+                    </FormField>
+                    <FormField>
+                      <FormLabel>Last Name *</FormLabel>
+                      <FormInput type="text" required placeholder="Doe" />
+                    </FormField>
+                  </FormGroup>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gold-500 ml-1">Company *</label>
-                  <input type="text" required className="w-full p-4 rounded-xl bg-white border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                </div>
+                  <FormField>
+                    <FormLabel>Company *</FormLabel>
+                    <FormInput type="text" required placeholder="Your Company" />
+                  </FormField>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">Email Address *</label>
-                    <input type="email" required className="w-full p-4 rounded-xl bg-white border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">Phone Number *</label>
-                    <input type="tel" required className="w-full p-4 rounded-xl bg-white border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                </div>
+                  <FormGroup columns={2}>
+                    <FormField>
+                      <FormLabel>Email Address *</FormLabel>
+                      <FormInput type="email" required placeholder="you@company.com" />
+                    </FormField>
+                    <FormField>
+                      <FormLabel>Phone Number *</FormLabel>
+                      <FormInput type="tel" required placeholder="+1 (555) 123-4567" />
+                    </FormField>
+                  </FormGroup>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gold-500 ml-1">Capital For *</label>
-                  <input type="text" required className="w-full p-4 rounded-xl bg-white border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                </div>
+                  <FormField>
+                    <FormLabel>Capital For *</FormLabel>
+                    <FormInput type="text" required placeholder="e.g., Inventory, Equipment" />
+                  </FormField>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gold-500 ml-1">Note</label>
-                  <textarea rows={4} maxLength={180} className="w-full p-4 rounded-xl bg-white border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" placeholder="Please add any details you'd like us to know before we speak"></textarea>
-                </div>
+                  <FormField>
+                    <FormLabel>Note</FormLabel>
+                    <FormTextarea rows={4} maxLength={180} placeholder="Please add any details you'd like us to know before we speak" />
+                  </FormField>
 
-                <Button variant="default" size="lg" className="w-full">Get Started</Button>
-              </form>
+                  <Button variant="default" size="lg" className="w-full">Get Started</Button>
+                </form>
+              </Card>
             </FadeIn>
           </div>
         </Container>

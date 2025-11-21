@@ -277,3 +277,154 @@ export const StaggerItem = ({ children, className }: { children: React.ReactNode
     {children}
   </motion.div>
 )
+
+// --- Form Components ---
+
+const formLabelVariants = cva(
+  "block text-sm font-medium transition-colors",
+  {
+    variants: {
+      variant: {
+        default: "text-olive-900",
+        gold: "text-gold-500",
+      }
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
+
+export interface FormLabelProps
+  extends React.LabelHTMLAttributes<HTMLLabelElement>,
+    VariantProps<typeof formLabelVariants> {}
+
+export const FormLabel = React.forwardRef<HTMLLabelElement, FormLabelProps>(
+  ({ className, variant, ...props }, ref) => (
+    <label
+      ref={ref}
+      className={cn(formLabelVariants({ variant }), className)}
+      {...props}
+    />
+  )
+)
+FormLabel.displayName = "FormLabel"
+
+const formInputVariants = cva(
+  "w-full px-4 py-3 rounded-xl border transition-all outline-none",
+  {
+    variants: {
+      variant: {
+        default: "bg-white border-gray-200 text-gray-800 placeholder-gray-400 focus:border-gold-500 focus:ring-1 focus:ring-gold-500",
+      }
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
+
+export interface FormInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement>,
+    VariantProps<typeof formInputVariants> {}
+
+export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
+  ({ className, variant, ...props }, ref) => (
+    <input
+      ref={ref}
+      className={cn(formInputVariants({ variant }), className)}
+      {...props}
+    />
+  )
+)
+FormInput.displayName = "FormInput"
+
+const formTextareaVariants = cva(
+  "w-full px-4 py-3 rounded-xl border transition-all outline-none resize-none",
+  {
+    variants: {
+      variant: {
+        default: "bg-white border-gray-200 text-gray-800 placeholder-gray-400 focus:border-gold-500 focus:ring-1 focus:ring-gold-500",
+      }
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
+
+export interface FormTextareaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    VariantProps<typeof formTextareaVariants> {}
+
+export const FormTextarea = React.forwardRef<HTMLTextAreaElement, FormTextareaProps>(
+  ({ className, variant, ...props }, ref) => (
+    <textarea
+      ref={ref}
+      className={cn(formTextareaVariants({ variant }), className)}
+      {...props}
+    />
+  )
+)
+FormTextarea.displayName = "FormTextarea"
+
+const formSelectVariants = cva(
+  "w-full px-4 py-3 rounded-xl border transition-all outline-none",
+  {
+    variants: {
+      variant: {
+        default: "bg-white border-gray-200 text-gray-800 focus:border-gold-500 focus:ring-1 focus:ring-gold-500",
+      }
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
+
+export interface FormSelectProps
+  extends React.SelectHTMLAttributes<HTMLSelectElement>,
+    VariantProps<typeof formSelectVariants> {}
+
+export const FormSelect = React.forwardRef<HTMLSelectElement, FormSelectProps>(
+  ({ className, variant, ...props }, ref) => (
+    <select
+      ref={ref}
+      className={cn(formSelectVariants({ variant }), className)}
+      {...props}
+    />
+  )
+)
+FormSelect.displayName = "FormSelect"
+
+export interface FormFieldProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn("space-y-2", className)}
+      {...props}
+    />
+  )
+)
+FormField.displayName = "FormField"
+
+export interface FormGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  columns?: 1 | 2
+}
+
+export const FormGroup = React.forwardRef<HTMLDivElement, FormGroupProps>(
+  ({ className, columns = 1, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn(
+        "space-y-6",
+        columns === 2 && "grid grid-cols-1 md:grid-cols-2 gap-6",
+        className
+      )}
+      {...props}
+    />
+  )
+)
+FormGroup.displayName = "FormGroup"

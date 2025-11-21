@@ -1,9 +1,34 @@
 import Link from "next/link"
 import { Container, Heading, Text } from "./design-system"
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Serve Funding",
+  "url": "https://servefunding.com",
+  "logo": "https://servefunding.com/Logo_Full-color_long_samecolor-1.png",
+  "description": "Creative working capital solutions for growing businesses",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+770-820-7409",
+    "email": "michael@servefunding.com",
+    "contactType": "customer service"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/serve-funding"
+  ]
+}
+
 export function Footer() {
   return (
-    <footer className="bg-white text-gray-800 py-16 border-t border-gray-200 font-sans">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationSchema),
+        }}
+      />
+      <footer className="bg-white text-gray-800 py-16 border-t border-gray-200 font-sans">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Menu */}
@@ -63,5 +88,6 @@ export function Footer() {
         </div>
       </Container>
     </footer>
+    </>
   )
 }

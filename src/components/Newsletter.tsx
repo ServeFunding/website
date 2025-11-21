@@ -1,6 +1,6 @@
 'use client'
 
-import { Container, Heading, Text, Button } from "./design-system"
+import { Container, Heading, Text, Button, FormField, FormLabel, FormInput } from "./design-system"
 
 export function Newsletter() {
   return (
@@ -32,34 +32,32 @@ export function Newsletter() {
           </div>
 
           {/* Right Form */}
-          <div className="bg-white/50 backdrop-blur-sm p-8 rounded-3xl border border-olive-900/10">
+          <div className="bg-white p-8 rounded-3xl shadow-lg">
             <form
               action="https://formspree.io/f/xrbjwwlp"
               method="POST"
               className="space-y-4"
             >
-              <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-olive-900 mb-1">First Name</label>
-                <input
+              <FormField>
+                <FormLabel>First Name</FormLabel>
+                <FormInput
                   type="text"
                   id="firstName"
                   name="first_name"
                   required
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-olive-900 focus:border-transparent outline-none transition-all bg-white"
                   placeholder="Your first name"
                 />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-olive-900 mb-1">Email Address</label>
-                <input
+              </FormField>
+              <FormField>
+                <FormLabel>Email Address</FormLabel>
+                <FormInput
                   type="email"
                   id="email"
                   name="email"
                   required
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-olive-900 focus:border-transparent outline-none transition-all bg-white"
                   placeholder="you@company.com"
                 />
-              </div>
+              </FormField>
               <div className="flex gap-4">
                 <Button
                   type="submit"

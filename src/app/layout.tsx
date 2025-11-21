@@ -6,8 +6,21 @@ import { Chatbot } from "@/components/Chatbot"
 import "@/app/globals.css"
 
 export const metadata: Metadata = {
-  title: "Serve Funding - Working Capital Solutions",
-  description: "Creative working capital solutions for growing businesses",
+  title: "Serve Funding - Working Capital Solutions for Growing Businesses",
+  description: "Creative working capital solutions from $250K to $100MM. Asset-based lending, invoice factoring, equipment leasing, and more for entrepreneurs.",
+  keywords: "working capital, business loans, asset-based lending, invoice factoring, equipment leasing, business funding",
+  openGraph: {
+    title: "Serve Funding - Working Capital Solutions for Growing Businesses",
+    description: "Creative working capital solutions from $250K to $100MM. Asset-based lending, invoice factoring, equipment leasing, and more for entrepreneurs.",
+    url: "https://servefunding.com/",
+    siteName: "Serve Funding",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Serve Funding - Working Capital Solutions for Growing Businesses",
+    description: "Creative working capital solutions from $250K to $100MM. Asset-based lending, invoice factoring, equipment leasing, and more for entrepreneurs.",
+  },
 }
 
 export default function RootLayout({
