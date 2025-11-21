@@ -1,7 +1,6 @@
 'use client'
 
-import { ArrowRight } from "lucide-react"
-import { Container, Heading, Text } from "./design-system"
+import { Container, Heading, Text, Button } from "./design-system"
 
 export function Newsletter() {
   return (
@@ -52,24 +51,25 @@ export function Newsletter() {
               </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-olive-900 mb-1">Email Address</label>
-                <div className="relative">
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-olive-900 focus:border-transparent outline-none transition-all bg-white pr-12"
-                    placeholder="you@company.com"
-                  />
-                  <button
-                    type="submit"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded flex items-center justify-center transition-colors"
-                  >
-                    <ArrowRight size={16} />
-                  </button>
-                </div>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-olive-900 focus:border-transparent outline-none transition-all bg-white"
+                  placeholder="you@company.com"
+                />
               </div>
-              <p className="text-xs text-gray-500 mt-2">
+              <div className="flex gap-4">
+                <Button
+                  type="submit"
+                  variant="default"
+                  className="flex-1"
+                >
+                  Subscribe
+                </Button>
+              </div>
+              <p className="text-xs text-gray-500 text-center">
                 We respect your privacy. Unsubscribe at any time.
               </p>
             </form>

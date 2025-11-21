@@ -5,6 +5,19 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
+// --- Brand Colors ---
+export const BRAND_COLORS = {
+  primary: {
+    darkGreen: "#65773D",     // Dark olive green from logo
+    lightGreen: "#D3CE75",    // Light yellow-green from logo
+  },
+  neutral: {
+    white: "#ffffff",
+    gray: "#f5f5f5",
+    "gray-dark": "#333333",
+  },
+}
+
 // --- Typography ---
 
 const headingVariants = cva(
@@ -106,12 +119,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-olive-900 text-white hover:bg-olive-800 shadow-lg shadow-olive-900/20",
-        gold: "bg-gold-500 text-olive-900 hover:bg-white hover:text-olive-900 shadow-lg shadow-gold-500/20",
-        outline: "border-2 border-olive-900 text-olive-900 hover:bg-olive-900 hover:text-white",
-        ghost: "hover:bg-gray-100 text-gray-700 hover:text-olive-900",
-        link: "text-olive-900 underline-offset-4 hover:underline",
-        white: "bg-white text-olive-900 hover:bg-gray-100 shadow-lg",
+        default: "bg-[#5a6c40] text-white hover:bg-[#4a5c30] shadow-lg shadow-[#5a6c40]/20",
+        light: "bg-[#c4d45a] text-[#5a6c40] hover:bg-[#d4e46a] shadow-lg shadow-[#c4d45a]/20",
+        gold: "bg-[#D3CE75] text-[#333333] hover:bg-[#c4bf63] shadow-lg shadow-[#D3CE75]/20",
+        outline: "border-2 border-[#5a6c40] text-[#5a6c40] hover:bg-[#5a6c40] hover:text-white",
+        ghost: "hover:bg-gray-100 text-gray-700 hover:text-[#5a6c40]",
+        link: "text-[#5a6c40] underline-offset-4 hover:underline",
+        white: "bg-white text-[#5a6c40] hover:bg-gray-100 shadow-lg",
       },
       size: {
         default: "h-12 px-8 py-3",
@@ -222,7 +236,8 @@ export const FadeIn = ({ children, delay = 0, className }: { children: React.Rea
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
+    animate={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "0px 0px -100px 0px" }}
     transition={{ duration: 0.6, delay, ease: "easeOut" }}
     className={className}
   >
@@ -234,7 +249,8 @@ export const StaggerContainer = ({ children, className, delay = 0 }: { children:
   <motion.div
     initial="hidden"
     whileInView="show"
-    viewport={{ once: true }}
+    animate="show"
+    viewport={{ once: true, margin: "0px 0px -100px 0px" }}
     variants={{
       hidden: {},
       show: {

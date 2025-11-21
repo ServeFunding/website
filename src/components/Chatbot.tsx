@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { X, Send, MessageCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getAIResponse } from '@/lib/ai'
+import { BRAND_COLORS } from './design-system'
 
 interface Message {
   id: string
@@ -77,7 +78,10 @@ export function Chatbot() {
       {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-gold-500 hover:bg-gold-600 text-white rounded-full shadow-lg flex items-center justify-center transition-colors z-40"
+        style={{
+          backgroundColor: BRAND_COLORS.primary.lightGreen,
+        }}
+        className="fixed bottom-6 right-6 w-14 h-14 text-white rounded-full shadow-lg flex items-center justify-center transition-colors z-40 hover:opacity-90"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -95,14 +99,17 @@ export function Chatbot() {
             className="fixed bottom-24 right-6 w-96 max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-2xl flex flex-col h-[500px] z-50"
           >
             {/* Header */}
-            <div className="bg-olive-900 text-white px-6 py-4 rounded-t-2xl flex items-center justify-between">
+            <div
+              style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}
+              className="text-white px-6 py-4 rounded-t-2xl flex items-center justify-between"
+            >
               <div>
                 <h3 className="font-semibold">Serve Funding Assistant</h3>
-                <p className="text-sm text-olive-100">Always here to help</p>
+                <p className="text-sm opacity-90">Always here to help</p>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-white hover:bg-olive-800 p-1 rounded transition-colors"
+                className="text-white hover:opacity-80 p-1 rounded transition-opacity"
               >
                 <X size={20} />
               </button>
@@ -118,10 +125,14 @@ export function Chatbot() {
                   className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
+                    style={{
+                      backgroundColor: message.sender === 'user' ? BRAND_COLORS.primary.lightGreen : '#f3f4f6',
+                      color: message.sender === 'user' ? '#333333' : '#1f2937',
+                    }}
                     className={`max-w-xs px-4 py-2 rounded-lg ${
                       message.sender === 'user'
-                        ? 'bg-gold-500 text-white rounded-br-none'
-                        : 'bg-gray-100 text-gray-800 rounded-bl-none'
+                        ? 'rounded-br-none'
+                        : 'rounded-bl-none'
                     }`}
                   >
                     <p className="text-sm">{message.text}</p>
@@ -155,13 +166,20 @@ export function Chatbot() {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Ask a question..."
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"
+                  style={{
+                    borderColor: BRAND_COLORS.primary.darkGreen,
+                    '--tw-ring-color': BRAND_COLORS.primary.darkGreen,
+                  } as React.CSSProperties}
+                  className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 transition-all"
                   disabled={isLoading}
                 />
                 <button
                   onClick={handleSendMessage}
                   disabled={isLoading || !inputValue.trim()}
-                  className="bg-gold-500 hover:bg-gold-600 disabled:bg-gray-400 text-white p-2 rounded-lg transition-colors"
+                  style={{
+                    backgroundColor: BRAND_COLORS.primary.lightGreen,
+                  }}
+                  className="text-gray-800 p-2 rounded-lg transition-opacity hover:opacity-90 disabled:opacity-50"
                 >
                   <Send size={20} />
                 </button>

@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     }
 
     const response = await anthropic.messages.create({
-      model: "claude-3-5-sonnet-20241022",
+      model: "claude-haiku-4-5-20251001",
       max_tokens: 1024,
       system: websiteContext,
       messages: [
@@ -33,9 +33,10 @@ export async function POST(request: Request) {
 
     return Response.json({ reply })
   } catch (error) {
-    console.error("Chat API error:", error)
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    console.error("Chat API error:", errorMessage)
     return Response.json(
-      { error: "Failed to process chat request" },
+      { error: `Failed to process chat request: ${errorMessage}` },
       { status: 500 }
     )
   }
