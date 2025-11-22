@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import {
   Search,
   Clock,
@@ -28,39 +29,72 @@ import { IntroCallForm } from '@/components/Forms'
 import { HeroAnimation } from '@/components/HeroAnimation'
 
 export default function Home() {
+  const heroSlides = [
+    {
+      heading: "The Right Funding Solutions for Healthy Business Growth",
+      desc: "An advisory service committed to serve the best interests of your company's current needs and future goals.",
+      image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+    },
+    {
+      heading: "You Value Relationships Over Bots & Quick Fixes",
+      desc: "We partner with like-minded business leaders who want trusted advisors in their corner to ensure they make the best decisions.",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+    },
+    {
+      heading: "Creative Working Capital Empowering Entrepreneurs",
+      desc: "Because your company is unique, you want partners who truly understand your story and align with your objectives.",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+    }
+  ]
+
+  const [heroIndex, setHeroIndex] = React.useState(0)
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % heroSlides.length)
+    }, 5000) // Change slide every 5 seconds
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const handlePrev = () => setHeroIndex((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+  const handleNext = () => setHeroIndex((prev) => (prev + 1) % heroSlides.length)
+
+  const slide = heroSlides[heroIndex]
+
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
       <Section className="!pt-0 !pb-0 md:!py-0 overflow-hidden -mt-[96px]">
         <Container>
           <HeroAnimation>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[600px] pt-[96px]">
-              <FadeIn className="px-4 sm:px-6 lg:px-8 py-12 lg:py-0 z-10">
-                <Heading as="h1" size="h1" className="mb-6">
-                  <span className="block">Creative Working Capital</span>
-                  <span className="text-gold-500 block">Empowering Entrepreneurs</span>
-                </Heading>
-                <Text size="lg" className="mb-8 max-w-lg">
-                  Because your company is unique, you want partners who truly understand your story and align with your objectives.
-                </Text>
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-center min-h-[500px] pt-[96px]">
+              <FadeIn className="px-4 sm:px-6 lg:px-0 py-12 lg:py-0 z-10">
+                <div key={heroIndex} className="animate-fadeIn">
+                  <Heading as="h1" size="h2" color="gradient" className="mb-4">
+                    {slide.heading}
+                  </Heading>
+                  <Text size="lg" className="mb-8">
+                    {slide.desc}
+                  </Text>
+                </div>
                 <div className="flex gap-4">
-                  {/* Slider Controls Placeholder - Visual only as per screenshot */}
-                  <button className="w-12 h-12 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center hover:bg-olive-900 hover:text-white transition-all duration-300">
+                  <button onClick={handlePrev} className="w-12 h-12 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center hover:bg-olive-900 hover:text-white transition-all duration-300">
                     <ChevronLeft size={24} />
                   </button>
-                  <button className="w-12 h-12 rounded-full bg-gray-800 text-white flex items-center justify-center hover:bg-olive-900 transition-all duration-300">
+                  <button onClick={handleNext} className="w-12 h-12 rounded-full bg-gray-800 text-white flex items-center justify-center hover:bg-olive-900 transition-all duration-300">
                     <ChevronRight size={24} />
                   </button>
                 </div>
               </FadeIn>
-              <FadeIn delay={0.2} className="relative h-full min-h-[400px] lg:min-h-[600px] flex items-center justify-center">
-                <div className="relative w-full max-w-md h-96 rounded-2xl overflow-hidden shadow-2xl">
+              <FadeIn delay={0.2} className="relative h-full min-h-[400px] lg:min-h-[500px] flex items-center justify-center">
+                <div className="relative w-full max-w-md h-80 rounded-2xl overflow-hidden shadow-2xl">
                   <img
-                    src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                    alt="Construction workers"
-                    className="w-full h-full object-cover"
+                    key={heroIndex}
+                    src={slide.image}
+                    alt={slide.heading}
+                    className="w-full h-full object-cover animate-fadeIn"
                   />
-                  {/* Gradient Overlay for text readability if needed, though design shows clean image */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
               </FadeIn>
