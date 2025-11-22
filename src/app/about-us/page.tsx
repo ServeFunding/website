@@ -14,7 +14,8 @@ import {
   FadeIn,
   StaggerContainer,
   StaggerItem,
-  LAYOUT
+  LAYOUT,
+  BRAND_COLORS
 } from '@/components/design-system'
 
 const coreValues = [
@@ -44,7 +45,7 @@ export default function AboutUs() {
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: '#5a6c40' }}>
+      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
         <Container>
           <div className="flex flex-col items-center justify-center min-h-[400px] py-20 text-center">
             <FadeIn className="text-white max-w-3xl">
@@ -120,14 +121,14 @@ export default function AboutUs() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {coreValues.map((value, index) => (
               <StaggerItem key={index}>
-                <Card className="text-center h-full flex flex-col items-center justify-center group hover:bg-gold-400 transition-all duration-300 hover:-translate-y-2">
+                <Card className="text-center h-full flex flex-col items-center justify-center group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
                   <div className="w-16 h-16 bg-olive-900 rounded-full flex items-center justify-center mb-4 group-hover:bg-white transition-colors">
-                    <CheckCircle size={32} className="text-gold-500 group-hover:text-olive-900 transition-colors" />
+                    <CheckCircle size={32} className="text-[#D3CE75] group-hover:text-olive-900 transition-colors" />
                   </div>
-                  <Heading as="h3" size="h4" className="mb-3 text-olive-900 group-hover:text-white transition-colors">
+                  <Heading as="h3" size="h4" className="mb-3 text-olive-900 group-hover:text-olive-900 transition-colors">
                     {value.title}
                   </Heading>
-                  <Text className="text-gray-600 group-hover:text-white transition-colors text-sm">
+                  <Text className="text-gray-600 group-hover:text-gray-700 transition-colors text-sm">
                     {value.desc}
                   </Text>
                 </Card>

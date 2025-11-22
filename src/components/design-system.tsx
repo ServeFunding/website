@@ -28,7 +28,7 @@ export const LAYOUT = {
 // --- Typography ---
 
 const headingVariants = cva(
-  "font-serif font-bold tracking-tight text-olive-900",
+  "font-serif font-bold tracking-tight",
   {
     variants: {
       size: {
@@ -42,6 +42,7 @@ const headingVariants = cva(
         gold: "text-gold-500",
         white: "text-white",
         dark: "text-gray-900",
+        gradient: "",
       }
     },
     defaultVariants: {
@@ -56,12 +57,26 @@ interface HeadingProps extends Omit<React.HTMLAttributes<HTMLHeadingElement>, "c
 }
 
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
-  ({ className, size, color, as = "h2", ...props }, ref) => {
+  ({ className, size, color, as = "h2", style, ...props }, ref) => {
     const Comp = as as React.ElementType
+    let headingStyle = style || {}
+
+    // Apply gradient style if color is 'gradient'
+    if (color === 'gradient') {
+      headingStyle = {
+        ...headingStyle,
+        background: `linear-gradient(to right, ${BRAND_COLORS.primary.darkGreen}, ${BRAND_COLORS.primary.lightGreen})`,
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text',
+      }
+    }
+
     return (
       <Comp
         ref={ref}
         className={cn(headingVariants({ size, color, className }))}
+        style={headingStyle}
         {...props}
       />
     )
@@ -174,7 +189,7 @@ export const Section = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLEl
     const bgColors = {
       white: "bg-white",
       gray: "bg-gray-50",
-      olive: "bg-[#5a6c40]",
+      olive: "bg-[#65773D]",
     }
 
     return (
@@ -244,7 +259,6 @@ export const FadeIn = ({ children, delay = 0, className }: { children: React.Rea
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
-    animate={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "0px 0px -100px 0px" }}
     transition={{ duration: 0.6, delay, ease: "easeOut" }}
     className={className}
@@ -295,6 +309,7 @@ const formLabelVariants = cva(
       variant: {
         default: "text-olive-900",
         gold: "text-gold-500",
+        white: "text-white",
       }
     },
     defaultVariants: {
@@ -319,7 +334,7 @@ export const FormLabel = React.forwardRef<HTMLLabelElement, FormLabelProps>(
 FormLabel.displayName = "FormLabel"
 
 const formInputVariants = cva(
-  "w-full px-4 py-3 rounded-xl border transition-all outline-none",
+  "w-full px-4 py-3 rounded-xl border outline-none",
   {
     variants: {
       variant: {
@@ -348,7 +363,7 @@ export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 FormInput.displayName = "FormInput"
 
 const formTextareaVariants = cva(
-  "w-full px-4 py-3 rounded-xl border transition-all outline-none resize-none",
+  "w-full px-4 py-3 rounded-xl border outline-none resize-none",
   {
     variants: {
       variant: {

@@ -15,7 +15,8 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem
+  StaggerItem,
+  BRAND_COLORS
 } from '@/components/design-system'
 import { IntroCallForm } from '@/components/Forms'
 
@@ -23,7 +24,7 @@ export default function ContactUs() {
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: '#5a6c40' }}>
+      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
         <Container>
           <div className="flex flex-col items-center justify-center min-h-[400px] py-20 text-center">
             <FadeIn className="text-white max-w-3xl">
@@ -72,17 +73,17 @@ export default function ContactUs() {
               }
             ].map((item, index) => (
               <StaggerItem key={index}>
-                <Card className="text-center h-full flex flex-col items-center justify-center group hover:bg-gold-400 transition-all duration-300 hover:-translate-y-2">
+                <Card className="text-center h-full flex flex-col items-center justify-center group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
                   <div className="w-16 h-16 bg-olive-900 rounded-full flex items-center justify-center mb-4 group-hover:bg-white transition-colors">
-                    <item.icon size={32} className="text-gold-500 group-hover:text-olive-900 transition-colors" />
+                    <item.icon size={32} className="text-[#D3CE75] group-hover:text-olive-900 transition-colors" />
                   </div>
-                  <Heading as="h3" size="h3" className="mb-2 text-olive-900 group-hover:text-white transition-colors">
+                  <Heading as="h3" size="h3" className="mb-2 text-olive-900 group-hover:text-olive-900 transition-colors">
                     {item.title}
                   </Heading>
-                  <Text className="text-gray-700 group-hover:text-white transition-colors font-semibold mb-2">
+                  <Text className="text-gray-700 group-hover:text-gray-700 transition-colors font-semibold mb-2">
                     {item.content}
                   </Text>
-                  <Text className="text-sm text-gray-600 group-hover:text-white/80 transition-colors">
+                  <Text className="text-sm text-gray-600 group-hover:text-gray-600 transition-colors">
                     {item.subContent}
                   </Text>
                 </Card>
@@ -125,10 +126,10 @@ export default function ContactUs() {
                   Stay up-to-date with the latest news, funding tips, and success stories by following us on social media.
                 </Text>
                 <div className="flex gap-4">
-                  <a href="https://www.facebook.com/ServeFunding/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-olive-900 rounded-full flex items-center justify-center text-white hover:bg-gold-500 transition-colors">
+                  <a href="https://www.facebook.com/ServeFunding/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-olive-900 rounded-full flex items-center justify-center text-white hover:bg-[#D3CE75] transition-colors">
                     <Facebook size={24} />
                   </a>
-                  <a href="https://www.linkedin.com/company/serve-funding/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-olive-900 rounded-full flex items-center justify-center text-white hover:bg-gold-500 transition-colors">
+                  <a href="https://www.linkedin.com/company/serve-funding/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-olive-900 rounded-full flex items-center justify-center text-white hover:bg-[#D3CE75] transition-colors">
                     <Linkedin size={24} />
                   </a>
                 </div>

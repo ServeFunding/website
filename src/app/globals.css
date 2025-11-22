@@ -4,6 +4,27 @@ html {
   scroll-behavior: smooth;
 }
 
+.icon-flip-outer {
+  perspective: 1000px;
+}
+
+.icon-flip-inner {
+  transition: transform 500ms ease-in-out, background-color 500ms ease-in-out;
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.value-card:hover {
+  background-color: #D3CE75 !important;
+}
+
+.value-card:hover .icon-flip-inner {
+  background-color: #D3CE75;
+  transform: rotateY(180deg);
+}
+
 @layer base {
   body {
     @apply bg-white font-sans text-gray-800;

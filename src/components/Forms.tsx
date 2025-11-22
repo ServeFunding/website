@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import {
   Section,
   Container,
@@ -26,58 +25,49 @@ export const FORM_URLS = {
 // Standard Lead Form (for homepage, solutions, fundings, contact, etc.)
 export function IntroCallForm() {
   return (
-    <Section background="olive" className="relative overflow-hidden">
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
-        <svg className="absolute -right-20 -bottom-20 text-white transform rotate-45 w-96 h-96" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-        </svg>
-        <svg className="absolute left-10 top-10 text-white transform -rotate-12 w-48 h-48" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-        </svg>
-      </div>
-
-      <Container className="relative z-10">
+    <Section background="olive">
+      <Container>
         <div className="max-w-4xl mx-auto">
-          <FadeIn className="text-center">
-            <Heading as="h3" size="h1" color="white" className="mb-12 text-white">Let's Talk.</Heading>
+          <FadeIn className="text-center mb-12">
+            <Heading as="h3" size="h1" color="white">Let's Talk.</Heading>
           </FadeIn>
           <FadeIn delay={0.2}>
             <Card className="p-8 md:p-12">
               <form action={FORM_URLS.intro_call} method="POST" className="space-y-6">
                 <FormGroup columns={2}>
                   <FormField>
-                    <FormLabel className="text-gray-900">First Name</FormLabel>
+                    <FormLabel>First Name</FormLabel>
                     <FormInput type="text" name="first_name" placeholder="John" required />
                   </FormField>
                   <FormField>
-                    <FormLabel className="text-gray-900">Last Name</FormLabel>
+                    <FormLabel>Last Name</FormLabel>
                     <FormInput type="text" name="last_name" placeholder="Doe" required />
                   </FormField>
                 </FormGroup>
 
                 <FormField>
-                  <FormLabel className="text-gray-900">Company Name</FormLabel>
+                  <FormLabel>Company Name</FormLabel>
                   <FormInput type="text" name="company" placeholder="Your Company" required />
                 </FormField>
 
                 <FormGroup columns={2}>
                   <FormField>
-                    <FormLabel className="text-gray-900">Email</FormLabel>
+                    <FormLabel>Email</FormLabel>
                     <FormInput type="email" name="email" placeholder="you@company.com" required />
                   </FormField>
                   <FormField>
-                    <FormLabel className="text-gray-900">Phone</FormLabel>
+                    <FormLabel>Phone</FormLabel>
                     <FormInput type="tel" name="phone" placeholder="+1 (555) 123-4567" required />
                   </FormField>
                 </FormGroup>
 
                 <FormField>
-                  <FormLabel className="text-gray-900">Capital For</FormLabel>
+                  <FormLabel>Capital For</FormLabel>
                   <FormInput type="text" name="capital_for" placeholder="e.g., Inventory, Equipment" required />
                 </FormField>
 
                 <FormField>
-                  <FormLabel className="text-gray-900">Message</FormLabel>
+                  <FormLabel>Message</FormLabel>
                   <FormTextarea name="message" rows={4} placeholder="Tell us more about your needs..." />
                 </FormField>
 

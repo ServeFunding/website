@@ -14,9 +14,10 @@ import {
   FadeIn,
   StaggerContainer,
   StaggerItem,
+  BRAND_COLORS,
+  LAYOUT
 } from '@/components/design-system'
 import { PartnerInquiryForm } from '@/components/Forms'
-import { LAYOUT } from '@/components/design-system'
 
 const partnerTypes = [
   {
@@ -125,7 +126,7 @@ export default function Partners() {
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: '#5a6c40' }}>
+      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
         <Container>
           <div className="flex flex-col items-center justify-center min-h-[400px] py-20 text-center">
             <FadeIn className="text-white max-w-3xl">
@@ -190,11 +191,11 @@ export default function Partners() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
             {commitments.map((commitment, idx) => (
               <StaggerItem key={idx}>
-                <Card className="h-full group hover:bg-gold-400 transition-all duration-300 hover:-translate-y-2">
-                  <Heading as="h3" size="h4" className="mb-3 text-olive-900 group-hover:text-white transition-colors">
+                <Card className="h-full group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
+                  <Heading as="h3" size="h4" className="mb-3 text-olive-900 group-hover:text-olive-900 transition-colors">
                     {commitment.title}
                   </Heading>
-                  <Text className="text-gray-600 group-hover:text-white transition-colors">
+                  <Text className="text-gray-600 group-hover:text-gray-700 transition-colors">
                     {commitment.desc}
                   </Text>
                 </Card>

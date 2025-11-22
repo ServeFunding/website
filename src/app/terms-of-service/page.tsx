@@ -1,12 +1,12 @@
 'use client'
 
-import { Container, Heading, Text, Section } from '@/components/design-system'
+import { Container, Heading, Text, Section, BRAND_COLORS } from '@/components/design-system'
 
 export default function TermsOfService() {
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: '#5a6c40' }}>
+      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
         <Container>
           <div className="flex flex-col items-center justify-center min-h-[300px] py-16 text-center">
             <Heading as="h1" size="h1" color="white" className="mb-4">

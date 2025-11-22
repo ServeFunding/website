@@ -7,8 +7,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        darkGreen: "#5a6c40",
-        lightGreen: "#c4d45a",
+        darkGreen: "#65773D",
+        olive: {
+          900: "#5a6c40",
+        },
+        gold: {
+          500: "#D3CE75",
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
