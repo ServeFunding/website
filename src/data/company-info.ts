@@ -16,15 +16,17 @@ export const companyInfo = {
   name: "Serve Funding LLC",
   tagline: "Working Capital Solutions for Growing Businesses",
 
+  description: "A strategic business financing advisory firm empowering growing companies. We lead comprehensive debt capital searches on behalf of our clients' best interests. As a channel-neutral advisor, Serve Funding leverages industry expertise and lender relationships to source and negotiate financing options. Our team brings over 20 years of business consulting in asset-based and cash-flow based lending, international trade risk management, sales & marketing, human capital management and start-up leadership experience. We operate as a servant-leadership-based advisory firm.",
+
   // VERIFY: Correct address, phone, email
   contact: {
     phone: "+1 770-820-7409",
     email: "michael@servefunding.com",
     address: {
-      street: "[VERIFY: Street address]",
-      city: "Marietta",
+      street: "3101 Cobb Pkwy SE, Ste 124",
+      city: "Atlanta",
       state: "GA",
-      zip: "[VERIFY: ZIP]",
+      zip: "30339",
       country: "United States"
     }
   },
@@ -75,7 +77,7 @@ export const founder = {
     memberships: ["Association for Corporate Growth", "Secured Finance Network", "IFA"]
   },
 
-  linkedinUrl: "[VERIFY: LinkedIn profile URL]"
+  linkedinUrl: "https://www.linkedin.com/in/michael-kodinsky/"
 }
 
 // ============================================================================

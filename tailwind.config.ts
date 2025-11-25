@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { tailwindColors } from "./src/lib/colors";
 
 const config: Config = {
   content: [
@@ -6,15 +7,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        darkGreen: "#65773D",
-        olive: {
-          900: "#5a6c40",
-        },
-        gold: {
-          500: "#D3CE75",
-        },
-      },
+      colors: tailwindColors,
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },

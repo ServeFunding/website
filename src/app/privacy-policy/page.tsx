@@ -1,6 +1,5 @@
-'use client'
-
-import { Container, Heading, Text, Section, BRAND_COLORS } from '@/components/design-system'
+import { Container, Heading, Text, Section,  } from '@/components/design-system'
+import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 export default function PrivacyPolicy() {
   return (

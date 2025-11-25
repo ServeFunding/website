@@ -1,5 +1,3 @@
-'use client'
-
 import {
   CheckCircle,
   Quote
@@ -14,8 +12,8 @@ import {
   FadeIn,
   StaggerContainer,
   StaggerItem,
-  BRAND_COLORS,
-  LAYOUT
+  LAYOUT,
+  HeroFadeIn
 } from '@/components/design-system'
 import { PartnerInquiryForm } from '@/components/Forms'
 
@@ -126,20 +124,10 @@ export default function Partners() {
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
-        <Container>
-          <div className="flex flex-col items-center justify-center min-h-[400px] py-20 text-center">
-            <FadeIn className="text-white max-w-3xl">
-              <Heading as="h1" size="h1" color="white" className="mb-6">
-                Our Trusted Advisor Partners
-              </Heading>
-              <Text size="lg" className="text-white/90">
-                Why Partner with Us?
-              </Text>
-            </FadeIn>
-          </div>
-        </Container>
-      </Section>
+      <HeroFadeIn
+        title="Our Trusted Advisor Partners"
+        subtitle="Partner with Serve Funding as a commercial banker, fractional CFO, investment banker, CPA, or business advisor. Access 10+ funding solutions from $250K-$100MM. Earn referral fees, expand client services, strengthen relationships, and tap into a network of specialized lenders for mid-market businesses."
+      />
 
       {/* Partnership Overview */}
       <Section>
@@ -205,7 +193,7 @@ export default function Partners() {
         </Container>
       </Section>
 
-      {/* Partner Types */}
+      {/* Partnership Opportunities Heading */}
       <Section>
         <Container>
           <FadeIn className="text-center mb-16">
@@ -213,14 +201,18 @@ export default function Partners() {
               Partnership Opportunities
             </Heading>
           </FadeIn>
+        </Container>
+      </Section>
 
-          <StaggerContainer className="space-y-24">
-            {partnerTypes.map((partner, idx) => {
+      {/* Partner Types */}
+      <>
+        {partnerTypes.map((partner, idx) => {
               // Create ID from partner title
               const partnerId = partner.title.toLowerCase().replace(/[\s/&]/g, '-')
               return (
-                <StaggerItem key={idx} className="scroll-mt-24">
-                  <div id={partnerId} style={{ scrollMarginTop: LAYOUT.scrollMarginTop }} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${idx % 2 === 1 ? 'lg:grid-cols-2 lg:direction-rtl' : ''}`}>
+                <Section key={idx} id={partnerId} className="!py-0 mb-48">
+                  <Container>
+                    <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${idx % 2 === 1 ? 'lg:grid-cols-2 lg:direction-rtl' : ''}`}>
                     {/* Text Content */}
                     <div className={idx % 2 === 1 ? 'lg:order-2' : ''}>
                       <Heading as="h3" size="h2" className="mb-6">
@@ -266,12 +258,11 @@ export default function Partners() {
                       <div className="absolute inset-0 bg-gradient-to-t from-olive-900/40 to-transparent"></div>
                     </div>
                   </div>
-                </StaggerItem>
+                  </Container>
+                </Section>
               )
             })}
-          </StaggerContainer>
-        </Container>
-      </Section>
+      </>
 
       {/* Testimonials */}
       <Section background="gray">

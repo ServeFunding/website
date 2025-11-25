@@ -21,9 +21,9 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem,
-  BRAND_COLORS
+  StaggerItem
 } from '@/components/design-system'
+import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { IndustriesGrid } from '@/components/IndustriesGrid'
 import { IntroCallForm } from '@/components/Forms'
 import { HeroAnimation } from '@/components/HeroAnimation'
@@ -71,7 +71,7 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-center min-h-[500px] pt-[96px]">
               <FadeIn className="px-4 sm:px-6 lg:px-0 py-12 lg:py-0 z-10">
                 <div key={heroIndex} className="animate-fadeIn">
-                  <Heading as="h1" size="h2" color="gradient" className="mb-4">
+                  <Heading as="h1" size="h1" color="gradient" className="mb-4">
                     {slide.heading}
                   </Heading>
                   <Text size="lg" className="mb-8">
@@ -107,8 +107,8 @@ export default function Home() {
       <Section>
         <Container>
           <FadeIn className="text-center mb-20">
-            <Heading as="h2" size="h2" color="gradient" className="mb-3">Need Business Growth Capital?</Heading>
-            <Heading as="h2" size="h2" color="gradient">We Are Here to Serve You.</Heading>
+            <Heading as="h2" size="h2" className="mb-3">Need Business Growth Capital?</Heading>
+            <Heading as="h2" size="h2">We Are Here to Serve You.</Heading>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
@@ -165,7 +165,7 @@ export default function Home() {
       <Section background="gray">
         <Container>
           <FadeIn className="text-center mb-20">
-            <Heading as="h2" size="h1" color="gradient" className="mb-4">
+            <Heading as="h2" size="h1" className="mb-4">
               Funding Solutions From $250K to $100MM
             </Heading>
           </FadeIn>
@@ -268,7 +268,7 @@ export default function Home() {
       <Section>
         <Container>
           <FadeIn className="text-center mb-16">
-            <Heading as="h2" size="h2" color="gradient">Successful Client Fundings</Heading>
+            <Heading as="h2" size="h2">Successful Client Fundings</Heading>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8">

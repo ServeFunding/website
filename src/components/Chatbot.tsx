@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { X, Send, MessageCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getAIResponse } from '@/lib/ai'
-import { BRAND_COLORS } from './design-system'
+import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 interface Message {
   id: string

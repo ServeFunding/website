@@ -1,5 +1,3 @@
-'use client'
-
 import {
   Mail,
   Phone,
@@ -16,7 +14,7 @@ import {
   FadeIn,
   StaggerContainer,
   StaggerItem,
-  BRAND_COLORS
+  HeroFadeIn
 } from '@/components/design-system'
 import { IntroCallForm } from '@/components/Forms'
 
@@ -24,20 +22,10 @@ export default function ContactUs() {
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
-        <Container>
-          <div className="flex flex-col items-center justify-center min-h-[400px] py-20 text-center">
-            <FadeIn className="text-white max-w-3xl">
-              <Heading as="h1" size="h1" color="white" className="mb-6">
-                Contact Us
-              </Heading>
-              <Text size="lg" className="text-white/90">
-                Get In Touch
-              </Text>
-            </FadeIn>
-          </div>
-        </Container>
-      </Section>
+      <HeroFadeIn
+        title="Contact Us"
+        subtitle="Contact Serve Funding for expert working capital solutions. Our team of funding specialists provides personalized advisory for businesses seeking $250K-$100MM in creative financing. We specialize in asset-based lending, invoice factoring, equipment leasing, PO financing, and government contract funding for mid-market companies."
+      />
 
       {/* Main Contact Info Section */}
       <Section>
@@ -94,10 +82,10 @@ export default function ContactUs() {
       </Section>
 
       {/* Schedule Consultation Section */}
-      <Section background="gray">
+      <div>
         <Container>
-          <div className="max-w-2xl mx-auto">
-            <FadeIn className="text-center mb-12">
+          <div className="max-w-2xl mx-auto py-16 text-center">
+            <FadeIn className="mb-12">
               <Heading as="h2" size="h2" className="mb-4 text-olive-900">
                 Schedule a Consultation
               </Heading>
@@ -105,13 +93,13 @@ export default function ContactUs() {
                 Ready to discuss your business financing needs? Schedule a free consultation with one of our funding experts. Simply fill out the form below, and we'll get in touch to arrange a time that works for you.
               </Text>
             </FadeIn>
-
-            <FadeIn>
-              <IntroCallForm />
-            </FadeIn>
           </div>
         </Container>
-      </Section>
+      </div>
+
+      <FadeIn>
+        <IntroCallForm />
+      </FadeIn>
 
       {/* Social Media & Partnerships Section */}
       <Section>

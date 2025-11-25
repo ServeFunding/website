@@ -15,7 +15,7 @@ export const getOrganizationSchema = (config: {
   name: string
   description: string
   url: string
-  logo: string
+  logo?: string
   phone: string
   email: string
   address: {
@@ -39,8 +39,7 @@ export const getOrganizationSchema = (config: {
   "name": config.name,
   "description": config.description,
   "url": config.url,
-  "logo": config.logo,
-  "image": config.logo,
+  ...(config.logo && { "logo": config.logo, "image": config.logo }),
   "telephone": config.phone,
   "email": config.email,
   "address": {

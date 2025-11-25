@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { BRAND_COLORS } from './design-system'
+import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 interface Leaf {
   id: number

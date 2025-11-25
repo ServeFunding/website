@@ -4,19 +4,7 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
-
-// --- Brand Colors ---
-export const BRAND_COLORS = {
-  primary: {
-    darkGreen: "#65773D",     // Dark olive green from logo
-    lightGreen: "#D3CE75",    // Light yellow-green from logo
-  },
-  neutral: {
-    white: "#ffffff",
-    gray: "#f5f5f5",
-    "gray-dark": "#333333",
-  },
-}
+import { COLORS } from "@/lib/colors"
 
 // --- Spacing & Layout Constants ---
 export const LAYOUT = {
@@ -61,15 +49,16 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     const Comp = as as React.ElementType
     let headingStyle = style || {}
 
-    // Apply gradient style if color is 'gradient'
-    if (color === 'gradient') {
+    // Apply gradient by default for h2
+    if (as === 'h2' && color !== 'white') {
       headingStyle = {
         ...headingStyle,
-        background: `linear-gradient(to right, ${BRAND_COLORS.primary.darkGreen}, ${BRAND_COLORS.primary.lightGreen})`,
+        background: `linear-gradient(to right, ${COLORS.primary.darkGreen}, ${COLORS.primary.lightGreen})`,
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
         backgroundClip: 'text',
       }
+      color = 'gradient'
     }
 
     return (
@@ -267,6 +256,35 @@ export const FadeIn = ({ children, delay = 0, className }: { children: React.Rea
   </motion.div>
 )
 
+interface HeroFadeInProps {
+  title: string
+  subtitle?: string
+}
+
+export const HeroFadeIn = ({ title, subtitle }: HeroFadeInProps) => (
+  <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: COLORS.primary.darkGreen, scrollMarginTop: LAYOUT.scrollMarginTop }}>
+    <Container>
+      <div className="flex flex-col items-center justify-center min-h-[400px] py-20 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="max-w-3xl"
+        >
+          <Heading as="h1" size="h1" color="white" className="mb-6">
+            {title}
+          </Heading>
+          {subtitle && (
+            <Text size="lg" className="text-white/90">
+              {subtitle}
+            </Text>
+          )}
+        </motion.div>
+      </div>
+    </Container>
+  </Section>
+)
+
 export const StaggerContainer = ({ children, className, delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) => (
   <motion.div
     initial="hidden"
@@ -302,43 +320,12 @@ export const StaggerItem = ({ children, className }: { children: React.ReactNode
 
 // --- Form Components ---
 
-const formLabelVariants = cva(
-  "block text-sm font-medium transition-colors",
-  {
-    variants: {
-      variant: {
-        default: "text-olive-900",
-        gold: "text-gold-500",
-        white: "text-white",
-      }
-    },
-    defaultVariants: {
-      variant: "default",
-    },
-  }
-)
-
-export interface FormLabelProps
-  extends React.LabelHTMLAttributes<HTMLLabelElement>,
-    VariantProps<typeof formLabelVariants> {}
-
-export const FormLabel = React.forwardRef<HTMLLabelElement, FormLabelProps>(
-  ({ className, variant, ...props }, ref) => (
-    <label
-      ref={ref}
-      className={cn(formLabelVariants({ variant }), className)}
-      {...props}
-    />
-  )
-)
-FormLabel.displayName = "FormLabel"
-
 const formInputVariants = cva(
   "w-full px-4 py-3 rounded-xl border outline-none",
   {
     variants: {
       variant: {
-        default: "bg-white border-gray-200 text-gray-800 placeholder-gray-400 focus:border-gold-500 focus:ring-1 focus:ring-gold-500",
+        default: "bg-white border border-gray-300 text-gray-800 placeholder-gray-400 focus:border-gold-500 focus:ring-1 focus:ring-gold-500",
       }
     },
     defaultVariants: {
@@ -349,15 +336,24 @@ const formInputVariants = cva(
 
 export interface FormInputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
-    VariantProps<typeof formInputVariants> {}
+    VariantProps<typeof formInputVariants> {
+  label?: string
+}
 
 export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
-  ({ className, variant, ...props }, ref) => (
-    <input
-      ref={ref}
-      className={cn(formInputVariants({ variant }), className)}
-      {...props}
-    />
+  ({ className, variant, label, ...props }, ref) => (
+    <div className="flex flex-col gap-2">
+      {label && (
+        <label className="text-sm font-medium text-gray-700">
+          {label}
+        </label>
+      )}
+      <input
+        ref={ref}
+        className={cn(formInputVariants({ variant }), className)}
+        {...props}
+      />
+    </div>
   )
 )
 FormInput.displayName = "FormInput"
@@ -367,7 +363,7 @@ const formTextareaVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-white border-gray-200 text-gray-800 placeholder-gray-400 focus:border-gold-500 focus:ring-1 focus:ring-gold-500",
+        default: "bg-white border border-gray-300 text-gray-800 placeholder-gray-400 focus:border-gold-500 focus:ring-1 focus:ring-gold-500",
       }
     },
     defaultVariants: {
@@ -378,15 +374,24 @@ const formTextareaVariants = cva(
 
 export interface FormTextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
-    VariantProps<typeof formTextareaVariants> {}
+    VariantProps<typeof formTextareaVariants> {
+  label?: string
+}
 
 export const FormTextarea = React.forwardRef<HTMLTextAreaElement, FormTextareaProps>(
-  ({ className, variant, ...props }, ref) => (
-    <textarea
-      ref={ref}
-      className={cn(formTextareaVariants({ variant }), className)}
-      {...props}
-    />
+  ({ className, variant, label, ...props }, ref) => (
+    <div className="flex flex-col gap-2">
+      {label && (
+        <label className="text-sm font-medium text-gray-700">
+          {label}
+        </label>
+      )}
+      <textarea
+        ref={ref}
+        className={cn(formTextareaVariants({ variant }), className)}
+        {...props}
+      />
+    </div>
   )
 )
 FormTextarea.displayName = "FormTextarea"
@@ -419,19 +424,6 @@ export const FormSelect = React.forwardRef<HTMLSelectElement, FormSelectProps>(
   )
 )
 FormSelect.displayName = "FormSelect"
-
-export interface FormFieldProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn("space-y-2", className)}
-      {...props}
-    />
-  )
-)
-FormField.displayName = "FormField"
 
 export interface FormGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   columns?: 1 | 2

@@ -1,7 +1,4 @@
-'use client'
-
 import {
-  CheckCircle,
   Handshake
 } from 'lucide-react'
 import {
@@ -9,14 +6,14 @@ import {
   Container,
   Heading,
   Text,
-  Button,
   Card,
   FadeIn,
+  HeroFadeIn,
   StaggerContainer,
   StaggerItem,
-  LAYOUT,
-  BRAND_COLORS
 } from '@/components/design-system'
+import { IntroCallForm } from '@/components/Forms'
+import { COLORS } from '@/lib/colors'
 
 const coreValues = [
   {
@@ -45,27 +42,17 @@ export default function AboutUs() {
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
-        <Container>
-          <div className="flex flex-col items-center justify-center min-h-[400px] py-20 text-center">
-            <FadeIn className="text-white max-w-3xl">
-              <Heading as="h1" size="h1" color="white" className="mb-6">
-                Working Capital Advisory
-              </Heading>
-              <Text size="lg" className="text-white/90">
-                Entrepreneurship Runs In Our Blood
-              </Text>
-            </FadeIn>
-          </div>
-        </Container>
-      </Section>
+      <HeroFadeIn
+        title="Working Capital Advisory"
+        subtitle="Serve Funding is a boutique working capital advisory firm providing creative financing solutions from $250K to $100MM for mid-market businesses. Founded in 2021, we specialize in asset-based lending, invoice factoring, equipment leasing, and specialized funding for growing companies seeking fast, flexible capital."
+      />
 
       {/* Founder's Story Section */}
-      <Section>
+      <Section id="our-story">
         <Container>
-          <div className="max-w-3xl mx-auto" id="our-story" style={{ scrollMarginTop: LAYOUT.scrollMarginTop }}>
+          <div className="max-w-3xl mx-auto">
             <FadeIn>
-              <Heading as="h2" size="h2" className="mb-8 text-olive-900">
+              <Heading as="h2" size="h2" className="mb-8">
                 Our Story
               </Heading>
               
@@ -95,7 +82,7 @@ export default function AboutUs() {
       <Section background="gray">
         <Container>
           <FadeIn className="max-w-3xl mx-auto text-center">
-            <Heading as="h2" size="h2" className="mb-8 text-olive-900">
+            <Heading as="h2" size="h2" className="mb-8">
               Our Commitment to Entrepreneurs
             </Heading>
             
@@ -121,10 +108,10 @@ export default function AboutUs() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {coreValues.map((value, index) => (
               <StaggerItem key={index}>
-                <Card className="text-center h-full flex flex-col items-center justify-center group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
-                  <div className="w-16 h-16 bg-olive-900 rounded-full flex items-center justify-center mb-4 group-hover:bg-white transition-colors">
-                    <CheckCircle size={32} className="text-[#D3CE75] group-hover:text-olive-900 transition-colors" />
-                  </div>
+                <Card className="text-center h-full flex flex-col items-center justify-start pt-8 group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
+                  <span className="font-serif font-bold text-5xl mb-6 block" style={{ color: COLORS.primary.darkGreen }}>
+                    {value.title.charAt(0)}
+                  </span>
                   <Heading as="h3" size="h4" className="mb-3 text-olive-900 group-hover:text-olive-900 transition-colors">
                     {value.title}
                   </Heading>
@@ -146,7 +133,7 @@ export default function AboutUs() {
               <div className="bg-white rounded-2xl p-12 shadow-lg">
                 <div className="flex items-center gap-4 mb-6">
                   <Handshake size={40} className="text-gold-500" />
-                  <Heading as="h3" size="h2" className="text-olive-900">
+                  <Heading as="h3" size="h2">
                     Relationships {'>'}  Bots
                   </Heading>
                 </div>
@@ -178,7 +165,7 @@ export default function AboutUs() {
       <Section id="doing-good">
         <Container>
           <FadeIn className="text-center">
-            <Heading as="h2" size="h2" className="mb-8 text-olive-900">
+            <Heading as="h2" size="h2" className="mb-8">
               Doing Good: Supporting Our Community
             </Heading>
             
@@ -204,60 +191,7 @@ export default function AboutUs() {
       </Section>
 
       {/* Contact Section */}
-      <Section background="olive" className="relative overflow-hidden">
-        <Container className="relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <FadeIn className="text-center">
-              <Heading as="h2" size="h1" color="white" className="mb-8">Let's Talk.</Heading>
-              <Text size="lg" color="white" className="mb-12">
-                Please fill out this form and we'll schedule a call
-              </Text>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <form className="space-y-6 text-left bg-white/5 p-8 md:p-12 rounded-3xl backdrop-blur-sm border border-white/10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">First Name</label>
-                    <input type="text" className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">Last Name</label>
-                    <input type="text" className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gold-500 ml-1">Company Name</label>
-                  <input type="text" className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">Email Address</label>
-                    <input type="email" className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gold-500 ml-1">Phone Number</label>
-                    <input type="tel" className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gold-500 ml-1">Capital For</label>
-                  <input type="text" className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all" />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gold-500 ml-1">Please add any details you'd like us to know before we speak</label>
-                  <textarea rows={4} className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all"></textarea>
-                </div>
-
-                <Button variant="gold" size="lg" className="w-full">Get Started</Button>
-              </form>
-            </FadeIn>
-          </div>
-        </Container>
-      </Section>
+      <IntroCallForm />
     </div>
   )
 }

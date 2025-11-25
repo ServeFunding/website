@@ -12,9 +12,9 @@ import {
   Button,
   FadeIn,
   StaggerContainer,
-  StaggerItem,
-  BRAND_COLORS
+  StaggerItem
 } from '@/components/design-system'
+import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false)

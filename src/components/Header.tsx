@@ -4,15 +4,17 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ChevronDown } from "lucide-react"
 import { useState, useEffect } from "react"
-import { Button, Container, BRAND_COLORS } from "./design-system"
+import { Button, Container } from "./design-system"
 import { motion } from "framer-motion"
+import { fundingSolutions } from "@/data/company-info"
+import { COLORS } from "@/lib/colors"
 
 interface DropdownItem {
   name: string
   id: string
 }
 
-const navItemClasses = "text-gray-700 font-medium text-base h-full relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:bg-[#65773D] after:transition-all after:duration-300 after:w-0"
+const navItemClasses = "text-gray-700 font-medium text-base h-full relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:bg-olive-green after:transition-all after:duration-300 after:w-0"
 
 interface NavItemProps {
   href: string
@@ -38,26 +40,50 @@ interface NavDropdownProps {
   items: DropdownItem[]
   basePath: string
   onAnchorClick: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
+  type?: 'pages' | 'anchors'
 }
 
-function NavDropdown({ label, items, basePath, onAnchorClick }: NavDropdownProps) {
+function NavDropdown({ label, items, basePath, onAnchorClick, type = 'pages' }: NavDropdownProps) {
+  const isAnchorBased = type === 'anchors'
+
   return (
     <div className="group relative h-full flex items-center">
       <Link href={basePath} className={`${navItemClasses} group-hover:after:w-full flex items-center gap-1`}>{label} <ChevronDown size={18} /></Link>
 
       {/* Dropdown Menu */}
-      <div className="absolute top-full left-1/2 -translate-x-1/2 w-96 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-4 group-hover:translate-y-2 z-50 overflow-hidden mt-2" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
+      <div className="absolute top-full left-1/2 -translate-x-1/2 w-96 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-4 group-hover:translate-y-2 z-50 overflow-hidden mt-2" style={{ backgroundColor: COLORS.primary.darkGreen }}>
         <div className="py-2 flex flex-col">
-          {items.map((item) => (
-            <a
-              key={item.id}
-              href={`${basePath}#${item.id}`}
-              onClick={(e) => onAnchorClick(e, `${basePath}#${item.id}`)}
-              className="px-6 py-3.5 text-white transition-colors text-base font-medium border-b border-white/10 last:border-0 hover:bg-[#D3CE75]"
-            >
-              {item.name}
-            </a>
-          ))}
+          {items.map((item) => {
+            const href = isAnchorBased ? `${basePath}#${item.id}` : `${basePath}/${item.id}`
+
+            if (isAnchorBased) {
+              return (
+                <a
+                  key={item.id}
+                  href={href}
+                  onClick={(e) => onAnchorClick(e, href)}
+                  className="px-6 py-3.5 text-white transition-colors text-base font-medium border-b border-white/10 last:border-0"
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.lightGreen}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                >
+                  {item.name}
+                </a>
+              )
+            }
+
+            return (
+              <Link
+                key={item.id}
+                href={href}
+                className="px-6 py-3.5 text-white transition-colors text-base font-medium border-b border-white/10 last:border-0 block"
+                style={{ cursor: 'pointer' }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.lightGreen}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+              >
+                {item.name}
+              </Link>
+            )
+          })}
         </div>
       </div>
     </div>
@@ -129,18 +155,10 @@ export function Header() {
             <NavDropdown
               label="Solutions"
               basePath="/solutions"
-              items={[
-                { name: "Asset-Based Lending", id: "asset-based-lending" },
-                { name: "Invoice Factoring", id: "invoice-factoring" },
-                { name: "Working Capital Loans", id: "working-capital-loans" },
-                { name: "Inventory Financing", id: "inventory-financing" },
-                { name: "Equipment Leasing", id: "equipment-leasing" },
-                { name: "Real Estate Lending", id: "real-estate-lending" },
-                { name: "Purchase Order Funding", id: "purchase-order-funding" },
-                { name: "Government Contracts", id: "government-contracts" },
-                { name: "Unsecured & Sub-Debt", id: "unsecured-debt" },
-                { name: "SBA Loans", id: "sba-loans" }
-              ]}
+              items={fundingSolutions.map(solution => ({
+                name: solution.title,
+                id: solution.id
+              }))}
               onAnchorClick={handleAnchorClick}
             />
 
@@ -158,6 +176,7 @@ export function Header() {
                 { name: "Business Advisors", id: "business-advisors" }
               ]}
               onAnchorClick={handleAnchorClick}
+              type="anchors"
             />
 
             <NavDropdown
@@ -169,6 +188,7 @@ export function Header() {
                 { name: "Doing Good", id: "doing-good" }
               ]}
               onAnchorClick={handleAnchorClick}
+              type="anchors"
             />
           </nav>
 
@@ -216,14 +236,13 @@ export function Header() {
             {/* Navigation Links */}
             <div className="space-y-0 px-4 py-4">
             {/* Home */}
-            <Link href="/" className="block text-base font-medium py-3 border-b border-gray-200" style={{ color: BRAND_COLORS.primary.darkGreen }}>Home</Link>
+            <Link href="/" className="block text-base font-medium py-3 border-b border-gray-200 text-olive-green">Home</Link>
 
             {/* Solutions - Expandable */}
             <div className="border-b border-gray-200">
               <button
                 onClick={() => setExpandedMenu(expandedMenu === 'solutions' ? null : 'solutions')}
-                className="w-full flex items-center justify-between text-base font-medium py-3 text-gray-700"
-                style={{ color: BRAND_COLORS.primary.darkGreen }}
+                className="w-full flex items-center justify-between text-base font-medium py-3 text-olive-green"
               >
                 Solutions
                 <motion.div animate={{ rotate: expandedMenu === 'solutions' ? 180 : 0 }} transition={{ duration: 0.3 }}>
@@ -239,21 +258,10 @@ export function Header() {
                   className="overflow-hidden"
                 >
                   <div className="space-y-0">
-                    {[
-                      { name: "Asset-Based Lending", id: "asset-based-lending" },
-                      { name: "Invoice Factoring", id: "invoice-factoring" },
-                      { name: "Working Capital Loans", id: "working-capital-loans" },
-                      { name: "Inventory Financing", id: "inventory-financing" },
-                      { name: "Equipment Leasing", id: "equipment-leasing" },
-                      { name: "Real Estate Lending", id: "real-estate-lending" },
-                      { name: "Purchase Order Funding", id: "purchase-order-funding" },
-                      { name: "Government Contracts", id: "government-contracts" },
-                      { name: "Unsecured & Sub-Debt", id: "unsecured-debt" },
-                      { name: "SBA Loans", id: "sba-loans" }
-                    ].map((item) => (
-                      <a key={item.id} href={`/solutions#${item.id}`} onClick={(e) => handleAnchorClick(e, `/solutions#${item.id}`)} className="block text-base font-medium py-3 border-b border-gray-200 text-gray-700 pl-6">
-                        {item.name}
-                      </a>
+                    {fundingSolutions.map((solution) => (
+                      <Link key={solution.id} href={`/solutions/${solution.id}`} className="block text-base font-medium py-3 border-b border-gray-200 text-gray-700 pl-6">
+                        {solution.title}
+                      </Link>
                     ))}
                   </div>
                 </motion.div>
@@ -267,8 +275,7 @@ export function Header() {
             <div className="border-b border-gray-200">
               <button
                 onClick={() => setExpandedMenu(expandedMenu === 'partners' ? null : 'partners')}
-                className="w-full flex items-center justify-between text-base font-medium py-3 text-gray-700"
-                style={{ color: BRAND_COLORS.primary.darkGreen }}
+                className="w-full flex items-center justify-between text-base font-medium py-3 text-olive-green"
               >
                 Partners
                 <motion.div animate={{ rotate: expandedMenu === 'partners' ? 180 : 0 }} transition={{ duration: 0.3 }}>
@@ -305,8 +312,7 @@ export function Header() {
             <div className="border-b border-gray-200">
               <button
                 onClick={() => setExpandedMenu(expandedMenu === 'about' ? null : 'about')}
-                className="w-full flex items-center justify-between text-base font-medium py-3 text-gray-700"
-                style={{ color: BRAND_COLORS.primary.darkGreen }}
+                className="w-full flex items-center justify-between text-base font-medium py-3 text-olive-green"
               >
                 About Us
                 <motion.div animate={{ rotate: expandedMenu === 'about' ? 180 : 0 }} transition={{ duration: 0.3 }}>

@@ -15,7 +15,7 @@ import {
   FadeIn,
   StaggerContainer,
   StaggerItem,
-  BRAND_COLORS
+  HeroFadeIn
 } from '@/components/design-system'
 import { CaseStudyModal } from '@/components/CaseStudyModal'
 import { IntroCallForm } from '@/components/Forms'
@@ -140,20 +140,10 @@ export default function Fundings() {
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
-        <Container>
-          <div className="flex flex-col items-center justify-center min-h-[400px] py-20 text-center">
-            <FadeIn className="text-white max-w-3xl">
-              <Heading as="h1" size="h1" color="white" className="mb-6">
-                Creative Working Capital Solutions
-              </Heading>
-              <Text size="lg" className="text-white/90">
-                At Serve Funding, we provide flexible, customized working capital solutions to help businesses overcome financial challenges and seize new growth opportunities. From acquisition funding to payroll financing and beyond, we deliver fast, reliable financial solutions that drive success.
-              </Text>
-            </FadeIn>
-          </div>
-        </Container>
-      </Section>
+      <HeroFadeIn
+        title="Creative Working Capital Solutions"
+        subtitle="At Serve Funding, we provide flexible, customized working capital solutions to help businesses overcome financial challenges and seize new growth opportunities. From acquisition funding to payroll financing and beyond, we deliver fast, reliable financial solutions that drive success."
+      />
 
       {/* Recent Fundings Grid */}
       <Section>

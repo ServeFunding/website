@@ -1,5 +1,3 @@
-'use client'
-
 import { Handshake, Zap, Headphones } from 'lucide-react'
 import {
   Section,
@@ -9,7 +7,7 @@ import {
   Button,
   Card,
   FadeIn,
-  BRAND_COLORS
+  HeroFadeIn
 } from '@/components/design-system'
 import { ReferralForm } from '@/components/Forms'
 
@@ -17,20 +15,10 @@ export default function Refer() {
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
-        <Container>
-          <div className="flex flex-col items-center justify-center min-h-[400px] py-20 text-center">
-            <FadeIn className="text-white max-w-3xl">
-              <Heading as="h1" size="h1" color="white" className="mb-6">
-                Banker Referral Program
-              </Heading>
-              <Text size="lg" className="text-white/90">
-                Partner with Serve Funding to provide your clients with flexible working capital solutions. Submit referrals quickly and easily.
-              </Text>
-            </FadeIn>
-          </div>
-        </Container>
-      </Section>
+      <HeroFadeIn
+        title="Banker Referral Program"
+        subtitle="Serve Funding's banker referral program enables commercial bankers, CPAs, accountants, and financial advisors to earn referral fees while providing clients with specialized working capital solutions. Funding: $250K-$100MM. Fast underwriting, transparent pricing, and white-label partnership options available for financial professionals."
+      />
 
       {/* Benefits Section */}
       <Section>
