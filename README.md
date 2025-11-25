@@ -195,6 +195,60 @@ All design system components are in `src/components/design-system.tsx` for easy 
 - Safari (latest)
 - Edge (latest)
 
+## AIEO/GEO Optimization (LLM Visibility)
+
+This project is optimized for AI Engine Optimization (AIEO) to maximize visibility in LLM responses (ChatGPT, Claude, Perplexity, Google AI Overviews).
+
+### Current Status: Phase 1 Complete
+- ✅ Master data file: `src/data/company-info.ts` (46 items need verification)
+- ✅ Schema generators: `src/lib/schema-generators.ts` (8 reusable functions)
+- ✅ Organization schema live on every page
+
+### Week 1: Verification (NOW)
+**See:** `WEEK-1-VERIFICATION-CHECKLIST.md`
+
+Fill in 46 verification items in `src/data/company-info.ts`:
+- Company basics (address, phone, team size)
+- Business metrics (capital facilitated, clients served)
+- Founder information (background, education, credentials)
+- Product rates & terms (verify with lending partners)
+- Qualification criteria (credit score, revenue minimums)
+
+**Timeline:** 3-4 hours to complete
+
+### Weeks 2-4: Implementation
+See `IMPLEMENTATION-GUIDE.md` for detailed roadmap:
+- **Week 2:** FAQ page with 224 questions + FAQPage schema
+- **Week 3:** Solutions page with Service schema (10 funding types)
+- **Week 4:** Case studies with Review schema + Process with How-To schema
+
+### How It Works
+1. Data stored in `src/data/company-info.ts`
+2. Schema generators transform to JSON-LD in `src/lib/schema-generators.ts`
+3. React components render both visible content and invisible schema scripts
+4. Next.js SSR ensures complete HTML sent to browsers and AI crawlers
+5. AI bots parse schema, understand your offerings, cite your site in responses
+
+**See:** `HOW-AI-SEES-YOUR-SITE.md` for complete technical details
+
+### Key Files
+- **Data:** `src/data/company-info.ts` - Master information hub
+- **Schema:** `src/lib/schema-generators.ts` - Schema markup functions
+- **Guides:**
+  - `WEEK-1-VERIFICATION-CHECKLIST.md` - This week's tasks
+  - `IMPLEMENTATION-GUIDE.md` - 4-week roadmap
+  - `MARKET-RESEARCH-MOST-SEARCHED-QUESTIONS.md` - 224 FAQ questions
+  - `HOW-AI-SEES-YOUR-SITE.md` - Architecture explanation
+
+### Getting Started
+1. Read: `WEEK-1-VERIFICATION-CHECKLIST.md`
+2. Open: `src/data/company-info.ts`
+3. Fill in: All 46 `[VERIFY:]` items
+4. Validate: Schema with Google Rich Results Test
+5. Commit: Changes to git
+
+---
+
 ## License
 
 © 2024 Serve Funding, LLC. All Rights Reserved.

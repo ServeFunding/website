@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     title: "Serve Funding - Working Capital Solutions for Growing Businesses",
     description: "Creative working capital solutions from $250K to $100MM. Asset-based lending, invoice factoring, equipment leasing, and more for entrepreneurs.",
   },
+  robots: "index, follow",
 }
 
 export default function RootLayout({
@@ -30,6 +31,40 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Organization Schema - Global */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FinancialService",
+              "@id": "https://servefunding.com",
+              "name": "Serve Funding LLC",
+              "description": "Boutique working capital advisory providing creative financing solutions from $250K to $100MM for growing businesses",
+              "url": "https://servefunding.com",
+              "areaServed": {
+                "@type": "Country",
+                "name": "United States"
+              },
+              "serviceType": "Working Capital Advisory",
+              "knowsAbout": [
+                "Asset-Based Lending",
+                "Invoice Factoring",
+                "Equipment Leasing",
+                "Working Capital Loans",
+                "Purchase Order Financing",
+                "Government Contract Financing",
+                "Real Estate Financing",
+                "SBA Loans",
+                "Inventory Financing",
+                "Unsecured Debt"
+              ],
+              "foundingDate": "2021"
+            })
+          }}
+        />
+      </head>
       <body className="bg-white">
         <Header />
         <main className="flex-grow pt-20">
