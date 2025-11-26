@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { X, Send, MessageCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getAIResponse } from '@/lib/ai'
@@ -25,6 +25,21 @@ export function Chatbot() {
   ])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // Enable VirtualKeyboard API for Chrome to handle keyboard overlays
+  useEffect(() => {
+    if ('virtualKeyboard' in navigator) {
+      (navigator as any).virtualKeyboard.overlaysContent = true
+    }
+  }, [])
+
+  // Auto-scroll to bottom when new messages arrive
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [messages, isOpen, isLoading])
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return
@@ -42,8 +57,8 @@ export function Chatbot() {
     setIsLoading(true)
 
     try {
-      // Get AI response
-      const reply = await getAIResponse(inputValue)
+      // Get AI response with conversation history
+      const reply = await getAIResponse(inputValue, messages)
 
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -66,13 +81,6 @@ export function Chatbot() {
     }
   }
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      handleSendMessage()
-    }
-  }
-
   return (
     <>
       {/* Floating Button */}
@@ -81,9 +89,10 @@ export function Chatbot() {
         style={{
           backgroundColor: BRAND_COLORS.primary.lightGreen,
         }}
-        className="fixed bottom-6 right-6 w-14 h-14 text-white rounded-full shadow-lg flex items-center justify-center transition-colors z-40 hover:opacity-90"
+        className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 w-14 h-14 text-white rounded-full shadow-lg flex items-center justify-center transition-colors z-50 hover:opacity-90"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
+        aria-label="Open chat"
       >
         <MessageCircle size={24} />
       </motion.button>
@@ -96,27 +105,37 @@ export function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-24 right-6 w-96 max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-2xl flex flex-col h-[500px] z-50"
+            className="fixed inset-0 sm:inset-auto sm:bottom-20 sm:right-5 sm:w-96 sm:h-[600px] bg-white rounded-none sm:rounded-2xl shadow-2xl flex flex-col z-50"
+            style={{
+              // Mobile: full viewport height with keyboard handling
+              height: typeof window !== 'undefined' && window.innerWidth < 640 ? '100vh' : undefined,
+              // @ts-ignore - dvh is valid CSS but TypeScript doesn't recognize it yet
+              height: typeof window !== 'undefined' && window.innerWidth < 640 ? '100dvh' : undefined,
+              maxHeight: typeof window !== 'undefined' && window.innerWidth < 640 ? 'calc(100dvh - env(keyboard-inset-height, 0px))' : 'calc(100vh - 80px)',
+            }}
+            role="dialog"
+            aria-label="Serve Funding Chat Assistant"
           >
             {/* Header */}
             <div
               style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}
-              className="text-white px-6 py-4 rounded-t-2xl flex items-center justify-between"
+              className="text-white px-6 py-4 rounded-none sm:rounded-t-2xl flex items-center justify-between flex-shrink-0"
             >
               <div>
-                <h3 className="font-semibold">Serve Funding Assistant</h3>
-                <p className="text-sm opacity-90">Always here to help</p>
+                <h3 className="font-semibold">Serve Funding AI Assistant</h3>
+                <p className="text-sm opacity-90">Always here to serve</p>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-white hover:opacity-80 p-1 rounded transition-opacity"
+                aria-label="Close chat"
               >
                 <X size={20} />
               </button>
             </div>
 
             {/* Messages Container */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0" role="log" aria-label="Chat messages">
               {messages.map((message) => (
                 <motion.div
                   key={message.id}
@@ -129,7 +148,7 @@ export function Chatbot() {
                       backgroundColor: message.sender === 'user' ? BRAND_COLORS.primary.lightGreen : '#f3f4f6',
                       color: message.sender === 'user' ? '#333333' : '#1f2937',
                     }}
-                    className={`max-w-xs px-4 py-2 rounded-lg ${
+                    className={`max-w-[85%] sm:max-w-[70%] px-4 py-2 rounded-lg break-words ${
                       message.sender === 'user'
                         ? 'rounded-br-none'
                         : 'rounded-bl-none'
@@ -148,30 +167,37 @@ export function Chatbot() {
                 >
                   <div className="bg-gray-100 text-gray-800 px-4 py-2 rounded-lg rounded-bl-none">
                     <div className="flex space-x-2">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                     </div>
                   </div>
                 </motion.div>
               )}
+              <div ref={messagesEndRef} />
             </div>
 
             {/* Input Area */}
-            <div className="border-t border-gray-200 p-4 rounded-b-2xl">
-              <div className="flex gap-2">
+            <div className="border-t border-gray-200 p-4 rounded-none sm:rounded-b-2xl flex-shrink-0">
+              <div className="flex gap-2 items-center">
                 <input
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault()
+                      handleSendMessage()
+                    }
+                  }}
                   placeholder="Ask a question..."
                   style={{
                     borderColor: BRAND_COLORS.primary.darkGreen,
                     '--tw-ring-color': BRAND_COLORS.primary.darkGreen,
                   } as React.CSSProperties}
-                  className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 transition-all"
+                  className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 transition-all text-base"
                   disabled={isLoading}
+                  aria-label="Chat message input"
                 />
                 <button
                   onClick={handleSendMessage}
@@ -180,6 +206,7 @@ export function Chatbot() {
                     backgroundColor: BRAND_COLORS.primary.lightGreen,
                   }}
                   className="text-gray-800 p-2 rounded-lg transition-opacity hover:opacity-90 disabled:opacity-50"
+                  aria-label="Send message"
                 >
                   <Send size={20} />
                 </button>
