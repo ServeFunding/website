@@ -19,6 +19,7 @@ import {
 } from '@/components/design-system'
 import { CaseStudyModal } from '@/components/CaseStudyModal'
 import { IntroCallForm } from '@/components/Forms'
+import { FundingResultsTable } from '@/components/FundingResultsTable'
 
 const caseStudies = [
   {
@@ -145,11 +146,14 @@ export default function Fundings() {
         subtitle="At Serve Funding, we provide flexible, customized working capital solutions to help businesses overcome financial challenges and seize new growth opportunities. From acquisition funding to payroll financing and beyond, we deliver fast, reliable financial solutions that drive success."
       />
 
+      {/* AI-Optimized Data Table */}
+      <FundingResultsTable />
+
       {/* Recent Fundings Grid */}
       <Section>
         <Container>
           <FadeIn className="text-center mb-16">
-            <Heading as="h2" size="h2" className="mb-3">Recent Funding Transactions</Heading>
+            <Heading size="h2" className="mb-3">Full Case Study Details</Heading>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -166,7 +170,7 @@ export default function Fundings() {
                       </Text>
                     </div>
 
-                    <Heading as="h3" size="h3" className="mb-2 text-olive-900 group-hover:text-gold-500 transition-colors">
+                    <Heading size="h3" className="mb-2 text-olive-900 group-hover:text-gold-500 transition-colors">
                       {study.title}
                     </Heading>
 
@@ -194,7 +198,7 @@ export default function Fundings() {
       <Section background="gray">
         <Container>
           <FadeIn className="text-center mb-16">
-            <Heading as="h2" size="h2">Why Serve Funding?</Heading>
+            <Heading size="h2">Why Serve Funding?</Heading>
             <Text className="mt-4 text-gray-600 max-w-2xl mx-auto">
               Whether you need capital for acquisitions, bridging cash flow gaps, or payroll funding, we deliver the right funding at the right time. Our expertise has empowered companies across industries to achieve their goals, even in difficult market conditions.
             </Text>

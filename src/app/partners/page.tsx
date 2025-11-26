@@ -7,12 +7,10 @@ import {
   Container,
   Heading,
   Text,
-  Button,
   Card,
   FadeIn,
   StaggerContainer,
   StaggerItem,
-  LAYOUT,
   HeroFadeIn
 } from '@/components/design-system'
 import { PartnerInquiryForm } from '@/components/Forms'
@@ -140,7 +138,7 @@ export default function Partners() {
             </FadeIn>
 
             <FadeIn>
-              <Heading as="h3" size="h3" className="mb-8 text-olive-900">
+              <Heading size="h3" className="mb-8 text-olive-900">
                 Our Trusted Network
               </Heading>
               <ul className="space-y-3 mb-12">
@@ -155,7 +153,7 @@ export default function Partners() {
 
             <FadeIn>
               <Card className="bg-gold-50 border-2 border-gold-500 p-8">
-                <Heading as="h3" size="h3" className="mb-4 text-olive-900">
+                <Heading size="h3" className="mb-4 text-olive-900">
                   The Importance of Trust: Your Reputation Matters
                 </Heading>
                 <Text className="text-gray-700">
@@ -171,7 +169,7 @@ export default function Partners() {
       <Section background="gray">
         <Container>
           <FadeIn className="text-center mb-16">
-            <Heading as="h2" size="h2" className="mb-6 text-olive-900">
+            <Heading size="h2" className="mb-6 text-olive-900">
               Our Commitment to You
             </Heading>
           </FadeIn>
@@ -180,7 +178,7 @@ export default function Partners() {
             {commitments.map((commitment, idx) => (
               <StaggerItem key={idx}>
                 <Card className="h-full group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
-                  <Heading as="h3" size="h4" className="mb-3 text-olive-900 group-hover:text-olive-900 transition-colors">
+                  <Heading size="h3" className="mb-3 text-olive-900 group-hover:text-olive-900 transition-colors">
                     {commitment.title}
                   </Heading>
                   <Text className="text-gray-600 group-hover:text-gray-700 transition-colors">
@@ -197,7 +195,7 @@ export default function Partners() {
       <Section>
         <Container>
           <FadeIn className="text-center mb-16">
-            <Heading as="h2" size="h2" className="text-olive-900">
+            <Heading size="h2" className="text-olive-900">
               Partnership Opportunities
             </Heading>
           </FadeIn>
@@ -215,7 +213,7 @@ export default function Partners() {
                     <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${idx % 2 === 1 ? 'lg:grid-cols-2 lg:direction-rtl' : ''}`}>
                     {/* Text Content */}
                     <div className={idx % 2 === 1 ? 'lg:order-2' : ''}>
-                      <Heading as="h3" size="h2" className="mb-6">
+                      <Heading size="h3" className="mb-6">
                         <span className="text-olive-900">{partner.title.split(' ').slice(0, -1).join(' ')}</span>
                         {partner.title.split(' ').length > 1 && <span className="text-gold-500"> {partner.title.split(' ').slice(-1)[0]}</span>}
                       </Heading>
@@ -268,7 +266,7 @@ export default function Partners() {
       <Section background="gray">
         <Container>
           <FadeIn className="text-center mb-16">
-            <Heading as="h2" size="h2" className="text-olive-900">
+            <Heading size="h2" className="text-olive-900">
               Feedback From Our Partners
             </Heading>
           </FadeIn>

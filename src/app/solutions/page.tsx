@@ -36,24 +36,28 @@ export default function Solutions() {
             <div className="lg:col-span-2">
               <FadeIn>
                 <div className="mb-12">
-                  <Heading as="h2" size="h2" className="text-olive-900">
+                  <Heading size="h2" className="text-olive-900">
                     <span className="text-olive-900">Explore Our Options for</span>
                     <br />
                     <span className="text-gold-500">Creative Working Capital</span>
                   </Heading>
                 </div>
 
-                <StaggerContainer className="space-y-6">
+                <StaggerContainer className="space-y-8">
                   {fundingSolutions.slice(0, 6).map((solution) => (
                     <StaggerItem key={solution.id}>
-                      <div className="group cursor-pointer">
-                        <Heading as="h3" size="h4" className="mb-2 text-olive-900 group-hover:text-gold-500 transition-colors">
+                      <Link href={`/solutions/${solution.id}`} className="group cursor-pointer block">
+                        <Heading size="h4" className="mb-3 text-olive-900 group-hover:text-gold-500 transition-colors">
                           {solution.title}
                         </Heading>
+                        {/* Answer Capsule - AI Optimized */}
+                        <Text className="text-gray-700 text-sm leading-relaxed mb-3 italic border-l-2 border-gold-500 pl-4">
+                          {solution.whatIs}
+                        </Text>
                         <Text className="text-gray-600 text-sm leading-relaxed">
                           {solution.shortDesc}
                         </Text>
-                      </div>
+                      </Link>
                     </StaggerItem>
                   ))}
                 </StaggerContainer>
@@ -64,7 +68,7 @@ export default function Solutions() {
             <div className="lg:col-span-3">
               <FadeIn delay={0.2}>
                 <div className="bg-gradient-to-br from-gold-400 to-gold-500 rounded-3xl p-8 md:p-12 sticky top-20">
-                  <Heading as="h3" size="h2" color="white" className="mb-2">
+                  <Heading size="h2" color="white" className="mb-2">
                     Let's Talk.
                   </Heading>
                   <Text size="lg" color="white" className="mb-8 font-semibold">
@@ -159,7 +163,7 @@ export default function Solutions() {
         <Container>
           <FadeIn>
             <div className="text-center mb-16">
-              <Heading as="h2" size="h2" className="mb-4 text-olive-900">
+              <Heading size="h2" className="mb-4 text-olive-900">
                 Why Choose <span className="text-gold-500">Serve Funding?</span>
               </Heading>
             </div>
@@ -170,7 +174,7 @@ export default function Solutions() {
                   <div className="w-16 h-16 bg-gold-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                     <CheckCircle size={32} className="text-olive-900" fill="currentColor" />
                   </div>
-                  <Heading as="h3" size="h3" className="mb-4 text-olive-900">
+                  <Heading size="h3" className="mb-4 text-olive-900">
                     Tailored Solutions
                   </Heading>
                   <Text className="text-gray-600">
@@ -184,7 +188,7 @@ export default function Solutions() {
                   <div className="w-16 h-16 bg-gold-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                     <CheckCircle size={32} className="text-olive-900" fill="currentColor" />
                   </div>
-                  <Heading as="h3" size="h3" className="mb-4 text-olive-900">
+                  <Heading size="h3" className="mb-4 text-olive-900">
                     Expert Guidance
                   </Heading>
                   <Text className="text-gray-600">
@@ -198,7 +202,7 @@ export default function Solutions() {
                   <div className="w-16 h-16 bg-gold-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                     <CheckCircle size={32} className="text-olive-900" fill="currentColor" />
                   </div>
-                  <Heading as="h3" size="h3" className="mb-4 text-olive-900">
+                  <Heading size="h3" className="mb-4 text-olive-900">
                     Flexible Terms
                   </Heading>
                   <Text className="text-gray-600">
@@ -219,7 +223,7 @@ export default function Solutions() {
                 <div id={solution.id} style={{ scrollMarginTop: LAYOUT.scrollMarginTop }} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-cols-2 lg:direction-rtl' : ''}`}>
                   {/* Text Content */}
                   <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
-                    <Heading as="h3" size="h2" className="mb-6 text-olive-900">
+                    <Heading size="h2" className="mb-6 text-olive-900">
                       <span className="text-olive-900">{solution.title}</span>
                     </Heading>
                     <Text className="text-gray-700 mb-6 leading-relaxed text-lg">

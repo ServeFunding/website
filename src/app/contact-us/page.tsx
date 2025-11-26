@@ -17,6 +17,7 @@ import {
   HeroFadeIn
 } from '@/components/design-system'
 import { IntroCallForm } from '@/components/Forms'
+import { COLORS } from '@/lib/colors'
 
 export default function ContactUs() {
   return (
@@ -31,7 +32,7 @@ export default function ContactUs() {
       <Section>
         <Container>
           <FadeIn className="max-w-3xl mx-auto text-center mb-16">
-            <Heading as="h2" size="h2" className="mb-6 text-olive-900">
+            <Heading size="h2" className="mb-6 text-olive-900">
               We're Here to Serve Your Business Growth
             </Heading>
             <Text size="lg" className="text-gray-700">
@@ -65,7 +66,7 @@ export default function ContactUs() {
                   <div className="w-16 h-16 bg-olive-900 rounded-full flex items-center justify-center mb-4 group-hover:bg-white transition-colors">
                     <item.icon size={32} className="text-[#D3CE75] group-hover:text-olive-900 transition-colors" />
                   </div>
-                  <Heading as="h3" size="h3" className="mb-2 text-olive-900 group-hover:text-olive-900 transition-colors">
+                  <Heading size="h3" className="mb-2 text-olive-900 group-hover:text-olive-900 transition-colors">
                     {item.title}
                   </Heading>
                   <Text className="text-gray-700 group-hover:text-gray-700 transition-colors font-semibold mb-2">
@@ -82,24 +83,10 @@ export default function ContactUs() {
       </Section>
 
       {/* Schedule Consultation Section */}
-      <div>
-        <Container>
-          <div className="max-w-2xl mx-auto py-16 text-center">
-            <FadeIn className="mb-12">
-              <Heading as="h2" size="h2" className="mb-4 text-olive-900">
-                Schedule a Consultation
-              </Heading>
-              <Text className="text-gray-700">
-                Ready to discuss your business financing needs? Schedule a free consultation with one of our funding experts. Simply fill out the form below, and we'll get in touch to arrange a time that works for you.
-              </Text>
-            </FadeIn>
-          </div>
-        </Container>
-      </div>
-
-      <FadeIn>
-        <IntroCallForm />
-      </FadeIn>
+      <IntroCallForm
+        title="Schedule a Consultation"
+        subtitle="Ready to discuss your business financing needs? Schedule a free consultation with one of our funding experts. Simply fill out the form below, and we'll get in touch to arrange a time that works for you."
+      />
 
       {/* Social Media & Partnerships Section */}
       <Section>
@@ -107,18 +94,18 @@ export default function ContactUs() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-3xl mx-auto">
             <FadeIn>
               <Card className="h-full p-8">
-                <Heading as="h3" size="h3" className="mb-4 text-olive-900">
+                <Heading size="h3" className="mb-4 text-olive-900">
                   Connect With Us On Social Media
                 </Heading>
                 <Text className="text-gray-700 mb-6">
                   Stay up-to-date with the latest news, funding tips, and success stories by following us on social media.
                 </Text>
                 <div className="flex gap-4">
-                  <a href="https://www.facebook.com/ServeFunding/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-olive-900 rounded-full flex items-center justify-center text-white hover:bg-[#D3CE75] transition-colors">
-                    <Facebook size={24} />
+                  <a href="https://www.facebook.com/ServeFunding/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center transition-colors group/icon" style={{ backgroundColor: COLORS.primary.lightGreen, color: COLORS.primary.darkGreen }}>
+                    <Facebook size={24} className="group-hover/icon:text-white" />
                   </a>
-                  <a href="https://www.linkedin.com/company/serve-funding/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-olive-900 rounded-full flex items-center justify-center text-white hover:bg-[#D3CE75] transition-colors">
-                    <Linkedin size={24} />
+                  <a href="https://www.linkedin.com/company/serve-funding/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center transition-colors group/icon" style={{ backgroundColor: COLORS.primary.lightGreen, color: COLORS.primary.darkGreen }}>
+                    <Linkedin size={24} className="group-hover/icon:text-white" />
                   </a>
                 </div>
               </Card>
@@ -126,7 +113,7 @@ export default function ContactUs() {
 
             <FadeIn>
               <Card className="h-full p-8">
-                <Heading as="h3" size="h3" className="mb-4 text-olive-900">
+                <Heading size="h3" className="mb-4 text-olive-900">
                   Partnership Opportunities
                 </Heading>
                 <Text className="text-gray-700 mb-6">

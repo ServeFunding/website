@@ -40,17 +40,15 @@ const headingVariants = cva(
   }
 )
 
-interface HeadingProps extends Omit<React.HTMLAttributes<HTMLHeadingElement>, "color">, VariantProps<typeof headingVariants> {
-  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "div"
-}
+interface HeadingProps extends Omit<React.HTMLAttributes<HTMLHeadingElement>, "color">, VariantProps<typeof headingVariants> {}
 
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
-  ({ className, size, color, as = "h2", style, ...props }, ref) => {
-    const Comp = as as React.ElementType
+  ({ className, size = "h2", color, style, ...props }, ref) => {
+    const Comp = size as React.ElementType
     let headingStyle = style || {}
 
     // Apply gradient by default for h2
-    if (as === 'h2' && color !== 'white') {
+    if (size === 'h2' && color !== 'white') {
       headingStyle = {
         ...headingStyle,
         background: `linear-gradient(to right, ${COLORS.primary.darkGreen}, ${COLORS.primary.lightGreen})`,
@@ -261,6 +259,11 @@ interface HeroFadeInProps {
   subtitle?: string
 }
 
+interface BlogHeroFadeInProps extends HeroFadeInProps {
+  date?: string
+  author?: string
+}
+
 export const HeroFadeIn = ({ title, subtitle }: HeroFadeInProps) => (
   <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: COLORS.primary.darkGreen, scrollMarginTop: LAYOUT.scrollMarginTop }}>
     <Container>
@@ -271,7 +274,7 @@ export const HeroFadeIn = ({ title, subtitle }: HeroFadeInProps) => (
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="max-w-3xl"
         >
-          <Heading as="h1" size="h1" color="white" className="mb-6">
+          <Heading size="h1" color="white" className="mb-6">
             {title}
           </Heading>
           {subtitle && (
@@ -284,6 +287,68 @@ export const HeroFadeIn = ({ title, subtitle }: HeroFadeInProps) => (
     </Container>
   </Section>
 )
+
+export const BlogHeroFadeIn = ({ title, subtitle, date, author }: BlogHeroFadeInProps) => (
+  <Section className="py-12 md:py-16 overflow-hidden" style={{ backgroundColor: COLORS.primary.darkGreen, scrollMarginTop: LAYOUT.scrollMarginTop }}>
+    <Container>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="max-w-3xl mx-auto"
+      >
+        {(date || author) && (
+          <Text size="sm" className="text-white/70 mb-3">
+            {date && <span>{date}</span>}
+            {date && author && <span> • </span>}
+            {author && <span>{author}</span>}
+          </Text>
+        )}
+        <Heading size="h1" color="white" className="mb-4">
+          {title}
+        </Heading>
+        {subtitle && (
+          <Text size="lg" className="text-white/90">
+            {subtitle}
+          </Text>
+        )}
+      </motion.div>
+    </Container>
+  </Section>
+)
+
+interface CTAProps {
+  title: string
+  text: string
+  buttonText: string
+  href?: string
+  source?: string
+}
+
+export const CTA = ({ title, text, buttonText, href = "/contact-us", source }: CTAProps) => {
+  const buttonHref = source ? `${href}?source=${source}` : href
+  return (
+    <Section background="white">
+      <Container>
+        <FadeIn className="max-w-3xl mx-auto">
+          <Card className="p-8 bg-olive-50 border border-olive-200">
+            <Heading size="h2" className="mb-4 text-olive-900">
+              {title}
+            </Heading>
+            <Text className="text-gray-700 mb-6">
+              {text}
+            </Text>
+            <a href={buttonHref}>
+              <Button variant="gold" size="lg">
+                {buttonText}
+              </Button>
+            </a>
+          </Card>
+        </FadeIn>
+      </Container>
+    </Section>
+  )
+}
 
 export const StaggerContainer = ({ children, className, delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) => (
   <motion.div

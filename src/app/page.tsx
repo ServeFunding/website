@@ -27,6 +27,7 @@ import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { IndustriesGrid } from '@/components/IndustriesGrid'
 import { IntroCallForm } from '@/components/Forms'
 import { HeroAnimation } from '@/components/HeroAnimation'
+import { LogoGrid } from '@/components/LogoGrid'
 
 export default function Home() {
   const heroSlides = [
@@ -71,7 +72,7 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-center min-h-[500px] pt-[96px]">
               <FadeIn className="px-4 sm:px-6 lg:px-0 py-12 lg:py-0 z-10">
                 <div key={heroIndex} className="animate-fadeIn">
-                  <Heading as="h1" size="h1" color="gradient" className="mb-4">
+                  <Heading size="h1" color="gradient" className="mb-4">
                     {slide.heading}
                   </Heading>
                   <Text size="lg" className="mb-8">
@@ -107,8 +108,8 @@ export default function Home() {
       <Section>
         <Container>
           <FadeIn className="text-center mb-20">
-            <Heading as="h2" size="h2" className="mb-3">Need Business Growth Capital?</Heading>
-            <Heading as="h2" size="h2">We Are Here to Serve You.</Heading>
+            <Heading size="h2" className="mb-3">Need Business Growth Capital?</Heading>
+            <Heading size="h2">We Are Here to Serve You.</Heading>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
@@ -150,7 +151,7 @@ export default function Home() {
                       />
                     </div>
                   </div>
-                  <Heading as="h3" size="h3" className="mb-4 text-olive-900" style={{ color: BRAND_COLORS.primary.darkGreen }}>{item.title}</Heading>
+                  <Heading size="h3" className="mb-4 text-olive-900" style={{ color: BRAND_COLORS.primary.darkGreen }}>{item.title}</Heading>
                   <Text className="text-gray-600 font-medium">
                     {item.desc}
                   </Text>
@@ -165,7 +166,7 @@ export default function Home() {
       <Section background="gray">
         <Container>
           <FadeIn className="text-center mb-20">
-            <Heading as="h2" size="h1" className="mb-4">
+            <Heading size="h2" className="mb-4">
               Funding Solutions From $250K to $100MM
             </Heading>
           </FadeIn>
@@ -198,7 +199,7 @@ export default function Home() {
       <Section>
         <Container>
           <FadeIn>
-            <Heading as="h3" size="h2" color="gradient" className="mb-16 text-center">Industries Served</Heading>
+            <Heading size="h3" color="gradient" className="mb-16 text-center">Industries Served</Heading>
           </FadeIn>
           <IndustriesGrid />
         </Container>
@@ -208,7 +209,7 @@ export default function Home() {
       <Section background="gray">
         <Container>
           <FadeIn>
-            <Heading as="h3" size="h2" color="gradient" className="mb-16 text-center">Outlining Our Process</Heading>
+            <Heading size="h3" color="gradient" className="mb-16 text-center">Outlining Our Process</Heading>
           </FadeIn>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
             {[
@@ -246,7 +247,7 @@ export default function Home() {
                   }}
                 >
                   <div>
-                    <Heading as="h4" size="h3" className="mb-6" style={{ color: BRAND_COLORS.primary.darkGreen }}>
+                    <Heading size="h4" className="mb-6" style={{ color: BRAND_COLORS.primary.darkGreen }}>
                       {item.title}
                     </Heading>
                     <Text
@@ -268,7 +269,7 @@ export default function Home() {
       <Section>
         <Container>
           <FadeIn className="text-center mb-16">
-            <Heading as="h2" size="h2">Successful Client Fundings</Heading>
+            <Heading size="h2">Successful Client Fundings</Heading>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -304,7 +305,7 @@ export default function Home() {
                   <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen, border: `2px solid ${BRAND_COLORS.primary.lightGreen}` }}>
                     <item.icon size={32} color={BRAND_COLORS.primary.lightGreen} />
                   </div>
-                  <Heading as="h3" size="h3" className="mb-4 text-white">
+                  <Heading size="h3" className="mb-4 text-white">
                     {item.title}
                   </Heading>
                   <Text className="text-white/90 flex-1 mb-6">
@@ -328,36 +329,17 @@ export default function Home() {
       {/* Network Affiliations - Logo Section */}
       <Section background="gray">
         <Container>
-          <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-center">
-            {[
-              {
-                image: '/ACG Global Logo.png',
-                alt: 'ACG Global'
-              },
-              {
-                image: '/IFA.png',
-                alt: 'IFA'
-              },
-              {
-                image: '/Secured Finance Network.jpg',
-                alt: 'Secured Finance Network'
-              },
-              {
-                image: '/TMA.webp',
-                alt: 'TMA'
-              }
-            ].map((item, index) => (
-              <StaggerItem key={index}>
-                <div className="flex items-center justify-center h-32 bg-white rounded-lg p-4 hover:shadow-lg transition-all duration-300">
-                  <img
-                    src={item.image}
-                    alt={item.alt}
-                    className="h-28 w-auto object-contain"
-                  />
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+          <FadeIn>
+            <LogoGrid
+              logos={[
+                { src: '/ACG Global Logo.png', alt: 'ACG Global' },
+                { src: '/IFA.png', alt: 'IFA' },
+                { src: '/Secured Finance Network.jpg', alt: 'Secured Finance Network' },
+                { src: '/TMA.webp', alt: 'TMA' }
+              ]}
+              maxHeight={16}
+            />
+          </FadeIn>
         </Container>
       </Section>
     </div>

@@ -14,7 +14,7 @@ interface DropdownItem {
   id: string
 }
 
-const navItemClasses = "text-gray-700 font-medium text-base h-full relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:bg-olive-green after:transition-all after:duration-300 after:w-0"
+const navItemClasses = "text-gray-700 font-medium text-base h-full relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 after:w-0 hover:after:w-full"
 
 interface NavItemProps {
   href: string
@@ -28,7 +28,10 @@ function NavItem({ href, label, isActive, onAnchorClick }: NavItemProps) {
     <Link
       href={href}
       onClick={(e) => onAnchorClick?.(e as React.MouseEvent<HTMLAnchorElement>, href)}
-      className={`${navItemClasses} ${isActive ? 'hover:after:w-full after:w-full' : 'hover:after:w-full'} flex items-center`}
+      className={`${navItemClasses} ${isActive ? 'after:w-full' : ''} flex items-center`}
+      style={{
+        '--after-bg-color': COLORS.primary.darkGreen,
+      } as React.CSSProperties & { '--after-bg-color': string }}
     >
       {label}
     </Link>
@@ -41,14 +44,23 @@ interface NavDropdownProps {
   basePath: string
   onAnchorClick: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
   type?: 'pages' | 'anchors'
+  isActive?: boolean
 }
 
-function NavDropdown({ label, items, basePath, onAnchorClick, type = 'pages' }: NavDropdownProps) {
+function NavDropdown({ label, items, basePath, onAnchorClick, type = 'pages', isActive }: NavDropdownProps) {
   const isAnchorBased = type === 'anchors'
 
   return (
     <div className="group relative h-full flex items-center">
-      <Link href={basePath} className={`${navItemClasses} group-hover:after:w-full flex items-center gap-1`}>{label} <ChevronDown size={18} /></Link>
+      <Link
+        href={basePath}
+        className={`${navItemClasses} group-hover:after:w-full ${isActive ? 'after:w-full' : ''} flex items-center gap-1`}
+        style={{
+          '--after-bg-color': COLORS.primary.darkGreen,
+        } as React.CSSProperties & { '--after-bg-color': string }}
+      >
+        {label} <ChevronDown size={18} />
+      </Link>
 
       {/* Dropdown Menu */}
       <div className="absolute top-full left-1/2 -translate-x-1/2 w-96 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-4 group-hover:translate-y-2 z-50 overflow-hidden mt-2" style={{ backgroundColor: COLORS.primary.darkGreen }}>
@@ -159,6 +171,7 @@ export function Header() {
                 name: solution.title,
                 id: solution.id
               }))}
+              isActive={pathname.startsWith('/solutions')}
               onAnchorClick={handleAnchorClick}
             />
 
@@ -175,6 +188,7 @@ export function Header() {
                 { name: "Private Equity Firms", id: "private-equity-firms" },
                 { name: "Business Advisors", id: "business-advisors" }
               ]}
+              isActive={pathname === '/partners'}
               onAnchorClick={handleAnchorClick}
               type="anchors"
             />
@@ -187,6 +201,7 @@ export function Header() {
                 { name: "Core Values", id: "core-values" },
                 { name: "Doing Good", id: "doing-good" }
               ]}
+              isActive={pathname === '/about-us'}
               onAnchorClick={handleAnchorClick}
               type="anchors"
             />

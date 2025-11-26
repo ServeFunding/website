@@ -25,7 +25,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
         onClick={() => setIsOpen(!isOpen)}
         className="w-full p-6 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors"
       >
-        <Heading as="h3" size="h4" className="text-left text-olive-900">
+        <Heading size="h4" className="text-left text-olive-900">
           {question}
         </Heading>
         <ChevronDown
@@ -54,7 +54,7 @@ export default function FAQClient({ faqs }: FAQClientProps) {
         <Container>
           <div className="flex flex-col items-center justify-center min-h-[400px] py-20 text-center">
             <FadeIn className="text-white max-w-3xl">
-              <Heading as="h1" size="h1" color="white" className="mb-6">
+              <Heading size="h1" color="white" className="mb-6">
                 FAQ
               </Heading>
               <Text size="lg" className="text-white/90">
@@ -69,7 +69,7 @@ export default function FAQClient({ faqs }: FAQClientProps) {
       <Section>
         <Container>
           <FadeIn className="max-w-3xl mx-auto mb-16 text-center">
-            <Heading as="h2" size="h2" className="mb-6 text-olive-900">
+            <Heading size="h2" className="mb-6 text-olive-900">
               Have Questions?
             </Heading>
             <Text size="lg" className="text-gray-700">
@@ -91,7 +91,7 @@ export default function FAQClient({ faqs }: FAQClientProps) {
       <Section background="gray">
         <Container>
           <FadeIn className="max-w-2xl mx-auto text-center">
-            <Heading as="h2" size="h2" className="mb-6 text-olive-900">
+            <Heading size="h2" className="mb-6 text-olive-900">
               Still Have Questions?
             </Heading>
             <Text size="lg" className="text-gray-700 mb-8">

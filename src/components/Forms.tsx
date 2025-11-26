@@ -38,7 +38,7 @@ function FormContainer({
       <Container>
         <div className="max-w-4xl mx-auto">
           <FadeIn className="text-center mb-12">
-            <Heading as="h3" size="h1" color={background === "olive" ? "white" : "default"}>
+            <Heading size="h3" color={background === "olive" ? "white" : "default"}>
               {title}
             </Heading>
             {subtitle && (
@@ -59,9 +59,14 @@ function FormContainer({
 }
 
 // Standard Lead Form (for homepage, solutions, fundings, contact, etc.)
-export function IntroCallForm() {
+interface IntroCallFormProps {
+  title?: string
+  subtitle?: string
+}
+
+export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallFormProps = {}) {
   return (
-    <FormContainer title="Let's Talk.">
+    <FormContainer title={title} subtitle={subtitle}>
       <form action={FORM_URLS.intro_call} method="POST" className="space-y-6">
         <FormGroup columns={2}>
           <FormInput type="text" name="first_name" label="First Name" required />
@@ -96,7 +101,7 @@ export function ReferralForm() {
       <form action={FORM_URLS.referral} method="POST" className="space-y-6">
         {/* Banker Information Section */}
         <div>
-          <Heading as="h3" size="h4" className="text-olive-900 mb-4">
+          <Heading size="h3" className="text-olive-900 mb-4">
             Your Information
           </Heading>
 
@@ -115,7 +120,7 @@ export function ReferralForm() {
 
         {/* Client Information Section */}
         <div>
-          <Heading as="h3" size="h4" className="text-olive-900 mb-4">
+          <Heading size="h3" className="text-olive-900 mb-4">
             Client Information
           </Heading>
 
@@ -183,9 +188,9 @@ export function NewsletterForm() {
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-8">
+          <div className="flex flex-col justify-center space-y-8">
             {/* "Logo" recreation */}
-            <div className="flex items-center gap-4 mb-8">
+            <div className="flex items-center gap-4">
               <img src="/android-chrome-192x192.png" alt="Serve Funding" className="w-16 h-16 flex-shrink-0" />
               <div>
                 <h3 className="text-3xl font-serif font-bold text-olive-900 leading-none">creative<br/>working<br/>capital</h3>
@@ -194,31 +199,35 @@ export function NewsletterForm() {
             </div>
 
             <div>
-              <Heading as="h2" size="h2" className="text-olive-800 mb-2">
-                Sign-up for our newsletter:
-              </Heading>
-              <Heading as="h2" size="h2" className="text-olive-900 font-bold mb-6">
-                CREATIVE WORKING CAPITAL
-              </Heading>
               <Text className="text-olive-800/80 max-w-md text-lg">
                 Receive exclusive access to monthly client success stories and detailed credit criteria from our preferred lender network.
               </Text>
             </div>
           </div>
 
-          {/* Right Form */}
-          <Card variant="default" className="space-y-4">
-            <form action={FORM_URLS.newsletter} method="POST" className="space-y-4">
-              <FormInput type="text" id="firstName" name="first_name" label="First Name" required />
-              <FormInput type="email" id="email" name="email" label="Email Address" required />
-              <Button type="submit" variant="default" size="lg" className="w-full">
-                Subscribe
-              </Button>
-              <p className="text-xs text-gray-500 text-center">
-                We respect your privacy. Unsubscribe at any time.
-              </p>
-            </form>
-          </Card>
+          {/* Right Form Column */}
+          <div className="space-y-6">
+            {/* Sign-up Text Above Form */}
+            <div>
+              <Heading size="h3" className='text-center mb-8'>
+                Sign-up for our newsletter
+              </Heading>
+            </div>
+
+            {/* Form Card */}
+            <Card variant="default" className="space-y-4">
+              <form action={FORM_URLS.newsletter} method="POST" className="space-y-4">
+                <FormInput type="text" id="firstName" name="first_name" label="First Name" required />
+                <FormInput type="email" id="email" name="email" label="Email Address" required />
+                <Button type="submit" variant="default" size="lg" className="w-full">
+                  Subscribe
+                </Button>
+                <p className="text-xs text-gray-500 text-center">
+                  We respect your privacy. Unsubscribe at any time.
+                </p>
+              </form>
+            </Card>
+          </div>
         </div>
       </Container>
     </section>

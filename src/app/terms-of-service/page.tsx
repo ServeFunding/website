@@ -8,7 +8,7 @@ export default function TermsOfService() {
       <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
         <Container>
           <div className="flex flex-col items-center justify-center min-h-[300px] py-16 text-center">
-            <Heading as="h1" size="h1" color="white" className="mb-4">
+            <Heading size="h1" color="white" className="mb-4">
               Terms of Service
             </Heading>
             <Text size="lg" className="text-white/90 max-w-3xl">
@@ -24,7 +24,7 @@ export default function TermsOfService() {
           <div className="max-w-3xl mx-auto prose prose-lg">
             {/* Acceptance & Eligibility */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 Acceptance & Eligibility
               </Heading>
               <Text className="text-gray-700 mb-4">
@@ -40,7 +40,7 @@ export default function TermsOfService() {
 
             {/* Services Offered */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 Services Offered
               </Heading>
               <Text className="text-gray-700 mb-4">
@@ -59,7 +59,7 @@ export default function TermsOfService() {
 
             {/* User Obligations */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 User Obligations
               </Heading>
               <Text className="text-gray-700 mb-4">
@@ -76,7 +76,7 @@ export default function TermsOfService() {
 
             {/* Important Disclaimers */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 Important Disclaimers
               </Heading>
               <Text className="text-gray-700 mb-4">
@@ -92,7 +92,7 @@ export default function TermsOfService() {
 
             {/* Liability & Compensation */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 Compensation & Liability
               </Heading>
               <Text className="text-gray-700 mb-4">
@@ -108,7 +108,7 @@ export default function TermsOfService() {
 
             {/* Data Protection & Privacy */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 Data Protection & Privacy
               </Heading>
               <Text className="text-gray-700 mb-4">
@@ -121,7 +121,7 @@ export default function TermsOfService() {
 
             {/* Intellectual Property */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 Intellectual Property Rights
               </Heading>
               <Text className="text-gray-700">
@@ -131,7 +131,7 @@ export default function TermsOfService() {
 
             {/* Termination & Modifications */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 Termination & Modifications
               </Heading>
               <Text className="text-gray-700 mb-4">
@@ -144,7 +144,7 @@ export default function TermsOfService() {
 
             {/* Governing Law */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 Governing Law & Jurisdiction
               </Heading>
               <Text className="text-gray-700">
@@ -154,7 +154,7 @@ export default function TermsOfService() {
 
             {/* Contact */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 Contact Us
               </Heading>
               <Text className="text-gray-700 mb-2">

@@ -27,7 +27,7 @@ export default function Refer() {
             <FadeIn>
               <Card variant="flat" className="p-8 flex flex-col items-center text-center">
                 <Handshake size={48} className="mb-4 text-gold-500" />
-                <Heading as="h3" size="h4" className="mb-3">Partnership Focused</Heading>
+                <Heading size="h3" className="mb-3">Partnership Focused</Heading>
                 <Text>We work collaboratively with your team to ensure smooth, successful outcomes for your clients.</Text>
               </Card>
             </FadeIn>
@@ -35,7 +35,7 @@ export default function Refer() {
             <FadeIn delay={0.1}>
               <Card variant="flat" className="p-8 flex flex-col items-center text-center">
                 <Zap size={48} className="mb-4 text-gold-500" />
-                <Heading as="h3" size="h4" className="mb-3">Fast Turnaround</Heading>
+                <Heading size="h3" className="mb-3">Fast Turnaround</Heading>
                 <Text>Quick underwriting and funding timelines help your clients access capital when they need it most.</Text>
               </Card>
             </FadeIn>
@@ -43,7 +43,7 @@ export default function Refer() {
             <FadeIn delay={0.2}>
               <Card variant="flat" className="p-8 flex flex-col items-center text-center">
                 <Headphones size={48} className="mb-4 text-gold-500" />
-                <Heading as="h3" size="h4" className="mb-3">Dedicated Support</Heading>
+                <Heading size="h3" className="mb-3">Dedicated Support</Heading>
                 <Text>Our team provides personalized support throughout the referral process for both banker and client.</Text>
               </Card>
             </FadeIn>

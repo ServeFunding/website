@@ -93,7 +93,7 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ isOpen, onClose,
                 </div>
 
                 {/* Title */}
-                <Heading as="h1" size="h2" className="mb-3 text-olive-900">
+                <Heading size="h2" className="mb-3 text-olive-900">
                   {caseStudy.title}
                 </Heading>
 

@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
       <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
         <Container>
           <div className="flex flex-col items-center justify-center min-h-[300px] py-16 text-center">
-            <Heading as="h1" size="h1" color="white" className="mb-4">
+            <Heading size="h1" color="white" className="mb-4">
               Privacy Policy
             </Heading>
             <Text size="lg" className="text-white/90 max-w-3xl">
@@ -34,11 +34,11 @@ export default function PrivacyPolicy() {
 
             {/* Information We Collect */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 1. Information We Collect
               </Heading>
 
-              <Heading as="h3" size="h4" className="text-olive-800 mb-3">
+              <Heading size="h4" className="text-olive-800 mb-3">
                 Personal Information
               </Heading>
               <Text className="text-gray-700 mb-4">
@@ -61,7 +61,7 @@ export default function PrivacyPolicy() {
                 <li>Any other information you choose to provide</li>
               </ul>
 
-              <Heading as="h3" size="h4" className="text-olive-800 mb-3">
+              <Heading size="h4" className="text-olive-800 mb-3">
                 Automatically Collected Information
               </Heading>
               <Text className="text-gray-700 mb-4">
@@ -77,7 +77,7 @@ export default function PrivacyPolicy() {
                 <li>Device information</li>
               </ul>
 
-              <Heading as="h3" size="h4" className="text-olive-800 mb-3">
+              <Heading size="h4" className="text-olive-800 mb-3">
                 Cookies and Tracking Technology
               </Heading>
               <Text className="text-gray-700">
@@ -87,7 +87,7 @@ export default function PrivacyPolicy() {
 
             {/* How We Use Information */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 2. How We Use Your Information
               </Heading>
               <Text className="text-gray-700 mb-4">
@@ -107,35 +107,35 @@ export default function PrivacyPolicy() {
 
             {/* Information Sharing */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 3. How We Share Your Information
               </Heading>
               <Text className="text-gray-700 mb-4">
                 We may share your information in the following circumstances:
               </Text>
 
-              <Heading as="h3" size="h4" className="text-olive-800 mb-3">
+              <Heading size="h4" className="text-olive-800 mb-3">
                 Service Providers
               </Heading>
               <Text className="text-gray-700 mb-6">
                 We share information with third-party service providers who assist us in operating our website and conducting our business, such as hosting providers, analytics services, and customer support platforms.
               </Text>
 
-              <Heading as="h3" size="h4" className="text-olive-800 mb-3">
+              <Heading size="h4" className="text-olive-800 mb-3">
                 Lenders and Financial Institutions
               </Heading>
               <Text className="text-gray-700 mb-6">
                 To facilitate funding opportunities, we share your information with lenders, financial institutions, and other funding partners who are involved in evaluating your application.
               </Text>
 
-              <Heading as="h3" size="h4" className="text-olive-800 mb-3">
+              <Heading size="h4" className="text-olive-800 mb-3">
                 Legal Requirements
               </Heading>
               <Text className="text-gray-700 mb-6">
                 We may disclose your information when required by law, such as to comply with subpoenas, court orders, or other legal processes.
               </Text>
 
-              <Heading as="h3" size="h4" className="text-olive-800 mb-3">
+              <Heading size="h4" className="text-olive-800 mb-3">
                 Business Transfers
               </Heading>
               <Text className="text-gray-700">
@@ -145,7 +145,7 @@ export default function PrivacyPolicy() {
 
             {/* Data Security */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 4. Data Security
               </Heading>
               <Text className="text-gray-700 mb-4">
@@ -164,35 +164,35 @@ export default function PrivacyPolicy() {
 
             {/* Your Privacy Rights */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 5. Your Privacy Rights
               </Heading>
               <Text className="text-gray-700 mb-4">
                 Depending on your location and applicable laws, you may have the following rights regarding your personal information:
               </Text>
 
-              <Heading as="h3" size="h4" className="text-olive-800 mb-3">
+              <Heading size="h4" className="text-olive-800 mb-3">
                 Right to Access
               </Heading>
               <Text className="text-gray-700 mb-4">
                 You can request access to the personal information we hold about you.
               </Text>
 
-              <Heading as="h3" size="h4" className="text-olive-800 mb-3">
+              <Heading size="h4" className="text-olive-800 mb-3">
                 Right to Correction
               </Heading>
               <Text className="text-gray-700 mb-4">
                 You can request that we correct inaccuracies in your personal information.
               </Text>
 
-              <Heading as="h3" size="h4" className="text-olive-800 mb-3">
+              <Heading size="h4" className="text-olive-800 mb-3">
                 Right to Opt-Out
               </Heading>
               <Text className="text-gray-700 mb-4">
                 You can opt out of receiving marketing communications by clicking the "unsubscribe" link in our emails or by contacting us directly.
               </Text>
 
-              <Heading as="h3" size="h4" className="text-olive-800 mb-3">
+              <Heading size="h4" className="text-olive-800 mb-3">
                 Right to Deletion
               </Heading>
               <Text className="text-gray-700 mb-4">
@@ -206,7 +206,7 @@ export default function PrivacyPolicy() {
 
             {/* Cookies & Tracking */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 6. Cookies & Tracking Technologies
               </Heading>
               <Text className="text-gray-700 mb-4">
@@ -225,7 +225,7 @@ export default function PrivacyPolicy() {
 
             {/* Third-Party Links */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 7. Third-Party Links
               </Heading>
               <Text className="text-gray-700">
@@ -235,7 +235,7 @@ export default function PrivacyPolicy() {
 
             {/* Children's Privacy */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 8. Children's Privacy
               </Heading>
               <Text className="text-gray-700">
@@ -245,7 +245,7 @@ export default function PrivacyPolicy() {
 
             {/* Policy Updates */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 9. Updates to This Privacy Policy
               </Heading>
               <Text className="text-gray-700 mb-4">
@@ -258,7 +258,7 @@ export default function PrivacyPolicy() {
 
             {/* Contact Us */}
             <div className="mb-12">
-              <Heading as="h2" size="h2" className="text-olive-900 mb-4">
+              <Heading size="h2" className="text-olive-900 mb-4">
                 10. Contact Us
               </Heading>
               <Text className="text-gray-700 mb-4">

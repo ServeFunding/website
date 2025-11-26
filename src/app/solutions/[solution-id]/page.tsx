@@ -7,12 +7,11 @@ import {
   Container,
   Heading,
   Text,
-  Button,
   Card,
   StaggerContainer,
-  StaggerItem
+  StaggerItem,
+  CTA
 } from '@/components/design-system'
-import { IntroCallForm } from '@/components/Forms'
 
 interface SolutionDetailPageProps {
   params: {
@@ -87,7 +86,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
 
             {/* Header Section */}
             <section className="mb-12">
-              <Heading as="h1" size="h1" className="mb-4">
+              <Heading size="h1" className="mb-4">
                 {`What ${solution.title.endsWith('s') ? 'are' : 'is'} ${solution.title}?`}
               </Heading>
 
@@ -142,7 +141,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
 
             {/* Full Description Section */}
             <section className="mb-12">
-              <Heading as="h2" size="h2" className="mb-4">How It Works</Heading>
+              <Heading size="h2" className="mb-4">How It Works</Heading>
               <Text size="lg">
                 {solution.fullDesc}
               </Text>
@@ -150,7 +149,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
 
             {/* Features/Benefits Section */}
             <section className="mb-12">
-              <Heading as="h2" size="h2" className="mb-6">Key Features & Benefits</Heading>
+              <Heading size="h2" className="mb-6">Key Features & Benefits</Heading>
               <ul className="space-y-3">
                 {solution.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-3">
@@ -165,7 +164,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
 
             {/* Rates & Terms Section */}
             <section className="mb-12">
-              <Heading as="h2" size="h2" className="mb-6">Rates & Terms</Heading>
+              <Heading size="h2" className="mb-6">Rates & Terms</Heading>
               <div className="p-8 rounded-lg bg-gold-light/20 border border-olive-green">
                 <table className="w-full">
                   <tbody>
@@ -185,11 +184,11 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
             {/* FAQ Section */}
             {solution.commonQuestions && solution.commonQuestions.length > 0 && (
               <section className="mb-12">
-                <Heading as="h2" size="h2" className="mb-6">Common Questions</Heading>
+                <Heading size="h2" className="mb-6">Common Questions</Heading>
                 <div className="space-y-6">
                   {solution.commonQuestions.map((qa, idx) => (
                     <div key={idx} className="pl-6 border-l-4 border-olive-green">
-                      <Heading as="h3" size="h4" className="mb-2">
+                      <Heading size="h3" className="mb-2">
                         {qa.q}
                       </Heading>
                       <Text>
@@ -202,16 +201,17 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
             )}
 
             {/* CTA Button Section */}
-            <section className="mb-12 text-center">
-              <Button variant="default" size="lg">
-                <a href="#intro-form" className="text-white no-underline">Ready to Get Started? Get Your Free Consultation →</a>
-              </Button>
-            </section>
+            <CTA
+              title="Ready to Get Started?"
+              text={`Learn more about ${solution.title} and how it can help your business grow. Schedule a consultation with one of our funding experts today.`}
+              buttonText="Schedule Your Consultation"
+              source={`solution-${solution.id}`}
+            />
 
             {/* Qualification Criteria */}
             {solution.qualificationCriteria && Object.keys(solution.qualificationCriteria).length > 0 && (
               <section className="mb-12">
-                <Heading as="h2" size="h2" className="mb-6">Who Qualifies?</Heading>
+                <Heading size="h2" className="mb-6">Who Qualifies?</Heading>
                 <div className="p-6 rounded-lg bg-gold-light/10 border border-gold-light/50">
                   <ul className="space-y-3">
                     {Object.entries(solution.qualificationCriteria).map(([key, value]) => (
@@ -226,7 +226,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
 
             {/* Related Solutions */}
             <section className="mb-12">
-              <Heading as="h2" size="h2" className="mb-6">Other Funding Solutions</Heading>
+              <Heading size="h2" className="mb-6">Other Funding Solutions</Heading>
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {fundingSolutions
                   .filter(s => s.id !== solution.id)
@@ -235,7 +235,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                     <StaggerItem key={relatedSolution.id}>
                       <Link href={`/solutions/${relatedSolution.id}`} className="h-full block">
                         <Card className="h-full">
-                          <Heading as="h3" size="h4" className="mb-2">
+                          <Heading size="h3" className="mb-2">
                             {relatedSolution.title}
                           </Heading>
                           <Text size="sm" className="mb-4 line-clamp-2">
@@ -261,11 +261,6 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
           </article>
         </Container>
       </Section>
-
-      {/* Full-Width IntroCall Form */}
-      <div id="intro-form">
-        <IntroCallForm />
-      </div>
     </main>
   )
 }

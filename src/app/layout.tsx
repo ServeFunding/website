@@ -60,7 +60,20 @@ export default function RootLayout({
                 "Inventory Financing",
                 "Unsecured Debt"
               ],
-              "foundingDate": "2021"
+              "foundingDate": "2021",
+              "founder": {
+                "@type": "Person",
+                "name": "Michael Kodinsky",
+                "jobTitle": "Founder & CEO",
+                "url": "https://www.linkedin.com/in/michael-kodinsky/",
+                "sameAs": "https://www.linkedin.com/in/michael-kodinsky/",
+                "description": "15+ years of commercial banking and alternative financing experience"
+              },
+              "sameAs": [
+                "https://www.linkedin.com/company/serve-funding",
+                "https://www.facebook.com/servefunding",
+                "https://twitter.com/servefunding"
+              ]
             })
           }}
         />
