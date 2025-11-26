@@ -7,6 +7,7 @@ import {
   FadeIn,
   StaggerContainer,
   StaggerItem,
+  SocialIcon,
 } from '@/components/ui'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CTA } from '@/components/cta'
@@ -285,12 +286,16 @@ export default function AboutUs() {
 
                   {/* Social Media Icons */}
                   <div className="flex gap-4">
-                    <a href="https://www.linkedin.com/in/michael-kodinsky-61258313/" target="_blank" rel="noopener noreferrer" className="text-white p-3 rounded-lg transition-opacity hover:opacity-80" style={{ backgroundColor: COLORS.primary.darkGreen }}>
-                      <Linkedin size={24} />
-                    </a>
-                    <a href="https://web.facebook.com/ServeFunding/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer" className="text-white p-3 rounded-lg transition-opacity hover:opacity-80" style={{ backgroundColor: COLORS.primary.darkGreen }}>
-                      <Facebook size={24} />
-                    </a>
+                    <SocialIcon
+                      href="https://www.linkedin.com/in/michael-kodinsky-61258313/"
+                      icon={Linkedin}
+                      label="LinkedIn"
+                    />
+                    <SocialIcon
+                      href="https://web.facebook.com/ServeFunding/?_rdc=1&_rdr"
+                      icon={Facebook}
+                      label="Facebook"
+                    />
                   </div>
                 </div>
               </div>

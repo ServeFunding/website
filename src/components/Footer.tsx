@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { Container, Heading, Text } from "./ui"
+import { Container, Heading, Text, SocialIcon } from "./ui"
+import { Linkedin, Facebook } from "lucide-react"
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -57,7 +58,7 @@ export function Footer() {
           {/* Get In Touch */}
           <div>
             <Heading size="h3" className="text-olive-900 mb-6">Get In Touch</Heading>
-            <div className="space-y-3">
+            <div className="space-y-3 mb-6">
               <div className="flex items-center gap-3">
                 <svg className="w-5 h-5 text-olive-900" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
@@ -71,6 +72,19 @@ export function Footer() {
                 </svg>
                 <a href="tel:+7708207409" className="text-olive-900 hover:text-gold-500 transition-colors">+770-820-7409</a>
               </div>
+            </div>
+            {/* Social Icons */}
+            <div className="flex gap-3">
+              <SocialIcon
+                href="https://www.linkedin.com/company/serve-funding"
+                icon={Linkedin}
+                label="LinkedIn"
+              />
+              <SocialIcon
+                href="https://web.facebook.com/ServeFunding/?_rdc=1&_rdr"
+                icon={Facebook}
+                label="Facebook"
+              />
             </div>
           </div>
 

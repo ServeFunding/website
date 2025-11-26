@@ -13,11 +13,11 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem
+  StaggerItem,
+  SocialIcon
 } from '@/components/ui'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { IntroCallForm } from '@/components/Forms'
-import { COLORS } from '@/lib/colors'
 
 export default function ContactUs() {
   return (
@@ -101,12 +101,16 @@ export default function ContactUs() {
                   Stay up-to-date with the latest news, funding tips, and success stories by following us on social media.
                 </Text>
                 <div className="flex gap-4">
-                  <a href="https://www.facebook.com/ServeFunding/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center transition-colors group/icon" style={{ backgroundColor: COLORS.primary.lightGreen, color: COLORS.primary.darkGreen }}>
-                    <Facebook size={24} className="group-hover/icon:text-white" />
-                  </a>
-                  <a href="https://www.linkedin.com/company/serve-funding/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center transition-colors group/icon" style={{ backgroundColor: COLORS.primary.lightGreen, color: COLORS.primary.darkGreen }}>
-                    <Linkedin size={24} className="group-hover/icon:text-white" />
-                  </a>
+                  <SocialIcon
+                    href="https://www.facebook.com/ServeFunding/"
+                    icon={Facebook}
+                    label="Facebook"
+                  />
+                  <SocialIcon
+                    href="https://www.linkedin.com/company/serve-funding/"
+                    icon={Linkedin}
+                    label="LinkedIn"
+                  />
                 </div>
               </Card>
             </FadeIn>
