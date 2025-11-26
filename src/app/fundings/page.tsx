@@ -14,9 +14,9 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem,
-  HeroFadeIn
-} from '@/components/design-system'
+  StaggerItem
+} from '@/components/ui'
+import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CaseStudyModal } from '@/components/CaseStudyModal'
 import { IntroCallForm } from '@/components/Forms'
 import { FundingResultsTable } from '@/components/FundingResultsTable'

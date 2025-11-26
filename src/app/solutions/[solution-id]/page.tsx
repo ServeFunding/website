@@ -9,9 +9,9 @@ import {
   Text,
   Card,
   StaggerContainer,
-  StaggerItem,
-  CTA
-} from '@/components/design-system'
+  StaggerItem
+} from '@/components/ui'
+import { CTA } from '@/components/cta'
 
 interface SolutionDetailPageProps {
   params: {

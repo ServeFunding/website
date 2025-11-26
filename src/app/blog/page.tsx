@@ -8,9 +8,9 @@ import {
   FadeIn,
   StaggerContainer,
   StaggerItem,
-  HeroFadeIn,
   Button
-} from '@/components/design-system'
+} from '@/components/ui'
+import { HeroFadeIn } from '@/components/hero-fade-in'
 import { IntroCallForm } from '@/components/Forms'
 import Link from 'next/link'
 

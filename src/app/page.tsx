@@ -22,7 +22,7 @@ import {
   FadeIn,
   StaggerContainer,
   StaggerItem
-} from '@/components/design-system'
+} from '@/components/ui'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { IndustriesGrid } from '@/components/IndustriesGrid'
 import { IntroCallForm } from '@/components/Forms'

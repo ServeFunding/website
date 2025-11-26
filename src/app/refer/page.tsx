@@ -6,9 +6,9 @@ import {
   Text,
   Button,
   Card,
-  FadeIn,
-  HeroFadeIn
-} from '@/components/design-system'
+  FadeIn
+} from '@/components/ui'
+import { HeroFadeIn } from '@/components/hero-fade-in'
 import { ReferralForm } from '@/components/Forms'
 
 export default function Refer() {

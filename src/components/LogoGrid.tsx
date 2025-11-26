@@ -1,4 +1,4 @@
-import { Text, Heading } from './design-system'
+import { Text, Heading } from './ui'
 
 interface LogoGridProps {
   logos: Array<{

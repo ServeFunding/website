@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Container, Heading, Text } from "./design-system"
+import { Container, Heading, Text } from "./ui"
 
 const organizationSchema = {
   "@context": "https://schema.org",

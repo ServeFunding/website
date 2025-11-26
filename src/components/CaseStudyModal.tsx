@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
-import { Heading, Text } from '@/components/design-system'
+import { Heading, Text } from '@/components/ui'
 
 interface CaseStudy {
   amount: string

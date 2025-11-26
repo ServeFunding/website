@@ -13,9 +13,9 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem,
-  HeroFadeIn
-} from '@/components/design-system'
+  StaggerItem
+} from '@/components/ui'
+import { HeroFadeIn } from '@/components/hero-fade-in'
 import { IntroCallForm } from '@/components/Forms'
 import { COLORS } from '@/lib/colors'
 

@@ -6,10 +6,10 @@ import {
   Text,
   Card,
   FadeIn,
-  BlogHeroFadeIn,
-  Button,
-  CTA
-} from '@/components/design-system'
+  Button
+} from '@/components/ui'
+import { BlogHeroFadeIn } from '@/components/blog-hero-fade-in'
+import { CTA } from '@/components/cta'
 import { IntroCallForm } from '@/components/Forms'
 import Link from 'next/link'
 

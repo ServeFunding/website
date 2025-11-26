@@ -13,7 +13,7 @@ import {
   FadeIn,
   StaggerContainer,
   StaggerItem
-} from '@/components/design-system'
+} from '@/components/ui'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {

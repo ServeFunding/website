@@ -9,7 +9,7 @@ import {
   Text,
   Button,
   FadeIn
-} from '@/components/design-system'
+} from '@/components/ui'
 
 export default function NotFound() {
   return (

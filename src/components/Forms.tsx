@@ -9,9 +9,8 @@ import {
   Card,
   FadeIn,
   FormInput,
-  FormTextarea,
   FormGroup,
-} from '@/components/design-system'
+} from '@/components/ui'
 
 // Formspree URLs for different form types
 export const FORM_URLS = {
@@ -81,8 +80,7 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
         </FormGroup>
 
         <FormInput type="text" name="capital_for" label="Capital For (e.g., Inventory, Equipment)" required />
-
-        <FormTextarea name="message" rows={4} label="Tell us more about your needs..." />
+        <FormInput as="textarea" name="message" rows={4} label="Tell us more about your needs..." />
 
         <Button variant="default" size="lg" className="w-full" type="submit">Get Started</Button>
       </form>
@@ -139,7 +137,8 @@ export function ReferralForm() {
           <FormInput type="text" name="client_industry" label="Industry (e.g., Manufacturing, Retail)" required />
           <FormInput type="text" name="client_capital_needed" label="Capital Needed (e.g., $250K - $1MM)" required />
 
-          <FormTextarea
+          <FormInput
+            as="textarea"
             name="client_needs"
             rows={4}
             label="How can Serve Funding help? (Briefly describe your client's funding needs...)"
@@ -171,7 +170,7 @@ export function PartnerInquiryForm() {
 
         <FormInput type="text" name="interest" label="Partnership Interest (e.g., Commercial Banking, Advisory)" required />
 
-        <FormTextarea name="message" rows={4} label="Tell us more about you (Share a bit about your background and interests...)" />
+        <FormInput as="textarea" name="message" rows={4} label="Tell us more about you (Share a bit about your background and interests...)" />
 
         <Button variant="default" size="lg" className="w-full" type="submit">
           Get Started

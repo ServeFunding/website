@@ -34,18 +34,3 @@ html {
     @apply font-serif;
   }
 }
-
-/* Navigation underline effect */
-a[style*="--after-bg-color"]::after {
-  background-color: var(--after-bg-color);
-}
-
-/* Social icon hover effect - swap background and text colors */
-.group\/icon:hover {
-  background-color: rgb(101, 119, 61) !important;
-  transition: background-color 300ms ease-in-out;
-}
-
-.group\/icon:hover svg {
-  color: white !important;
-}

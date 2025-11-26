@@ -12,10 +12,10 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem,
-  LAYOUT,
-  HeroFadeIn
-} from '@/components/design-system'
+  StaggerItem
+} from '@/components/ui'
+import { LAYOUT } from '@/lib/layout'
+import { HeroFadeIn } from '@/components/hero-fade-in'
 import { fundingSolutions } from '@/data/company-info'
 import Link from 'next/link'
 

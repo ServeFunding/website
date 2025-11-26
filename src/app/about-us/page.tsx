@@ -5,11 +5,11 @@ import {
   Text,
   Card,
   FadeIn,
-  HeroFadeIn,
   StaggerContainer,
   StaggerItem,
-  CTA,
-} from '@/components/design-system'
+} from '@/components/ui'
+import { HeroFadeIn } from '@/components/hero-fade-in'
+import { CTA } from '@/components/cta'
 import { LogoGrid } from '@/components/LogoGrid'
 import { COLORS } from '@/lib/colors'
 import { Linkedin, Facebook } from 'lucide-react'

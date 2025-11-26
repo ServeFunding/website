@@ -1,6 +1,6 @@
 'use client'
 
-import { Container, Section, Heading, Text } from '@/components/design-system'
+import { Container, Section, Heading, Text } from '@/components/ui'
 
 // Structured data optimized for AI parsing
 const fundingResults = [

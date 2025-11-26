@@ -1,4 +1,4 @@
-import { Container, Heading, Text, Section,  } from '@/components/design-system'
+import { Container, Heading, Text, Section } from '@/components/ui'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 export default function PrivacyPolicy() {
