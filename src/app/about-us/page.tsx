@@ -7,13 +7,12 @@ import {
   FadeIn,
   StaggerContainer,
   StaggerItem,
-  SocialIcon,
+  SocialIcons,
 } from '@/components/ui'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CTA } from '@/components/cta'
 import { LogoGrid } from '@/components/LogoGrid'
 import { COLORS } from '@/lib/colors'
-import { Linkedin, Facebook } from 'lucide-react'
 
 const coreValues = [
   {
@@ -285,18 +284,7 @@ export default function AboutUs() {
                   </div>
 
                   {/* Social Media Icons */}
-                  <div className="flex gap-4">
-                    <SocialIcon
-                      href="https://www.linkedin.com/in/michael-kodinsky-61258313/"
-                      icon={Linkedin}
-                      label="LinkedIn"
-                    />
-                    <SocialIcon
-                      href="https://web.facebook.com/ServeFunding/?_rdc=1&_rdr"
-                      icon={Facebook}
-                      label="Facebook"
-                    />
-                  </div>
+                  <SocialIcons />
                 </div>
               </div>
             </div>

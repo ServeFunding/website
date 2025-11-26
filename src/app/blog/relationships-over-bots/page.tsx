@@ -189,22 +189,17 @@ export default function BlogPost() {
             </Text>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                title: "The True Cost of Bank Rejection",
-                excerpt: "What banks really mean when they say 'no' and why alternative financing might be your fastest path forward.",
-                slug: "#"
+                title: "Asset-Based Lending vs. Invoice Factoring vs. Bank Lines",
+                excerpt: "Compare ABL, invoice factoring, and traditional bank lines of credit to understand which funding solution fits your business needs.",
+                slug: "/blog/abl-vs-factoring"
               },
               {
-                title: "Asset-Based Lending Decoded",
-                excerpt: "Everything you need to know about ABL, how it works, and when it makes sense for your business.",
-                slug: "#"
-              },
-              {
-                title: "5 Funding Mistakes We See Entrepreneurs Make",
-                excerpt: "Common pitfalls in working capital financing and how to avoid them.",
-                slug: "#"
+                title: "Government Financing vs. Private Lenders",
+                excerpt: "Explore the differences between SBA loans, government contract financing, and private lending options for your business.",
+                slug: "/blog/government-vs-private"
               }
             ].map((article, index) => (
               <Card key={index} className="p-8 hover:shadow-lg transition-all duration-300">

@@ -2,8 +2,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  Facebook,
-  Linkedin
 } from 'lucide-react'
 import {
   Section,
@@ -14,18 +12,19 @@ import {
   FadeIn,
   StaggerContainer,
   StaggerItem,
-  SocialIcon
+  SocialIcons
 } from '@/components/ui'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { IntroCallForm } from '@/components/Forms'
+import Link from 'next/link'
 
 export default function ContactUs() {
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
       <HeroFadeIn
-        title="Contact Us"
-        subtitle="Contact Serve Funding for expert working capital solutions. Our team of funding specialists provides personalized advisory for businesses seeking $250K-$100MM in creative financing. We specialize in asset-based lending, invoice factoring, equipment leasing, PO financing, and government contract funding for mid-market companies."
+        title="We're Here to Serve Your Business Growth"
+        subtitle="We believe that great relationships start with a conversation. Whether you have questions about our services, need assistance with financing, or want to explore partnership opportunities, our team is here to help. Reach out to us using the contact information below, and we'll get back to you as soon as possible."
       />
 
       {/* Main Contact Info Section */}
@@ -33,11 +32,8 @@ export default function ContactUs() {
         <Container>
           <FadeIn className="max-w-3xl mx-auto text-center mb-16">
             <Heading size="h2" className="mb-6 text-olive-900">
-              We're Here to Serve Your Business Growth
+              Contact Us
             </Heading>
-            <Text size="lg" className="text-gray-700">
-              We believe that great relationships start with a conversation. Whether you have questions about our services, need assistance with financing, or want to explore partnership opportunities, our team is here to help. Reach out to us using the contact information below, and we'll get back to you as soon as possible.
-            </Text>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
@@ -46,22 +42,26 @@ export default function ContactUs() {
                 icon: MapPin,
                 title: 'Visit Us',
                 content: '3101 Cobb Pkwy SE, Ste 124',
-                subContent: 'Atlanta, Georgia 30339, US'
+                subContent: 'Atlanta, Georgia 30339, US',
+                href: 'https://maps.google.com/?q=3101+Cobb+Pkwy+SE,+Ste+124,+Atlanta,+GA+30339',
+                external: true
               },
               {
                 icon: Phone,
                 title: 'Phone Number',
                 content: '+1 (770) 820-7409',
-                subContent: 'Speak directly with a funding advisor'
+                subContent: 'Speak directly with a funding advisor',
+                href: 'tel:7708207409'
               },
               {
                 icon: Mail,
                 title: 'Email Address',
                 content: 'michael@servefunding.com',
-                subContent: 'For general inquiries and support'
+                subContent: 'For general inquiries and support',
+                href: 'mailto:michael@servefunding.com'
               }
-            ].map((item, index) => (
-              <StaggerItem key={index}>
+            ].map((item, index) => {
+              const CardContent = (
                 <Card className="text-center h-full flex flex-col items-center justify-center group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
                   <div className="w-16 h-16 bg-olive-900 rounded-full flex items-center justify-center mb-4 group-hover:bg-white transition-colors">
                     <item.icon size={32} className="text-[#D3CE75] group-hover:text-olive-900 transition-colors" />
@@ -76,8 +76,22 @@ export default function ContactUs() {
                     {item.subContent}
                   </Text>
                 </Card>
-              </StaggerItem>
-            ))}
+              );
+
+              return (
+                <StaggerItem key={index}>
+                  {item.external ? (
+                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="block">
+                      {CardContent}
+                    </a>
+                  ) : (
+                    <a href={item.href} className="block">
+                      {CardContent}
+                    </a>
+                  )}
+                </StaggerItem>
+              );
+            })}
           </StaggerContainer>
         </Container>
       </Section>
@@ -100,18 +114,7 @@ export default function ContactUs() {
                 <Text className="text-gray-700 mb-6">
                   Stay up-to-date with the latest news, funding tips, and success stories by following us on social media.
                 </Text>
-                <div className="flex gap-4">
-                  <SocialIcon
-                    href="https://www.facebook.com/ServeFunding/"
-                    icon={Facebook}
-                    label="Facebook"
-                  />
-                  <SocialIcon
-                    href="https://www.linkedin.com/company/serve-funding/"
-                    icon={Linkedin}
-                    label="LinkedIn"
-                  />
-                </div>
+                <SocialIcons />
               </Card>
             </FadeIn>
 

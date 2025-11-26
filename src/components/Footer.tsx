@@ -1,6 +1,5 @@
 import Link from "next/link"
-import { Container, Heading, Text, SocialIcon } from "./ui"
-import { Linkedin, Facebook } from "lucide-react"
+import { Container, Heading, Text, SocialIcons } from "./ui"
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -74,18 +73,7 @@ export function Footer() {
               </div>
             </div>
             {/* Social Icons */}
-            <div className="flex gap-3">
-              <SocialIcon
-                href="https://www.linkedin.com/company/serve-funding"
-                icon={Linkedin}
-                label="LinkedIn"
-              />
-              <SocialIcon
-                href="https://web.facebook.com/ServeFunding/?_rdc=1&_rdr"
-                icon={Facebook}
-                label="Facebook"
-              />
-            </div>
+            <SocialIcons />
           </div>
 
           {/* Logo */}
