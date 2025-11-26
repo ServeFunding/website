@@ -16,6 +16,7 @@ import {
 } from '@/components/ui'
 import { LAYOUT } from '@/lib/layout'
 import { HeroFadeIn } from '@/components/hero-fade-in'
+import { CTA } from '@/components/cta'
 import { fundingSolutions } from '@/data/company-info'
 import Link from 'next/link'
 
@@ -28,190 +29,94 @@ export default function Solutions() {
         subtitle="Serve Funding offers 10+ working capital solutions including asset-based lending, invoice factoring, equipment leasing, PO financing, government contracts, inventory financing, and unsecured loans. Funding range: $250K-$100MM. Fast decisions within 24 hours. Trusted by manufacturers, distributors, and professional services firms."
       />
 
-      {/* Solutions Overview with Contact Form */}
+      {/* Solutions Overview with CTA */}
       <Section background="white" className="py-16">
         <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-            {/* Left Column - Solutions List */}
-            <div className="lg:col-span-2">
-              <FadeIn>
-                <div className="mb-12">
-                  <Heading size="h2" className="text-olive-900">
-                    <span className="text-olive-900">Explore Our Options for</span>
-                    <br />
-                    <span className="text-gold-500">Creative Working Capital</span>
-                  </Heading>
-                </div>
-
-                <StaggerContainer className="space-y-8">
-                  {fundingSolutions.slice(0, 6).map((solution) => (
-                    <StaggerItem key={solution.id}>
-                      <Link href={`/solutions/${solution.id}`} className="group cursor-pointer block">
-                        <Heading size="h4" className="mb-3 text-olive-900 group-hover:text-gold-500 transition-colors">
-                          {solution.title}
-                        </Heading>
-                        {/* Answer Capsule - AI Optimized */}
-                        <Text className="text-gray-700 text-sm leading-relaxed mb-3 italic border-l-2 border-gold-500 pl-4">
-                          {solution.whatIs}
-                        </Text>
-                        <Text className="text-gray-600 text-sm leading-relaxed">
-                          {solution.shortDesc}
-                        </Text>
-                      </Link>
-                    </StaggerItem>
-                  ))}
-                </StaggerContainer>
-              </FadeIn>
+          <FadeIn>
+            <div className="mb-12">
+              <Heading size="h2" className="text-olive-900">
+                <span className="text-olive-900">Explore Our Options for</span>
+                <br />
+                <span className="text-gold-500">Creative Working Capital</span>
+              </Heading>
             </div>
 
-            {/* Right Column - Contact Form */}
-            <div className="lg:col-span-3">
-              <FadeIn delay={0.2}>
-                <div className="bg-gradient-to-br from-gold-400 to-gold-500 rounded-3xl p-8 md:p-12 sticky top-20">
-                  <Heading size="h2" color="white" className="mb-2">
-                    Let's Talk.
-                  </Heading>
-                  <Text size="lg" color="white" className="mb-8 font-semibold">
-                    Please Fill Out This Form To Schedule A Call:
-                  </Text>
-
-                  <form className="space-y-4">
-                    <div className="space-y-1">
-                      <label className="text-sm font-medium text-white ml-1">First Name *</label>
-                      <input 
-                        type="text" 
-                        required 
-                        className="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" 
-                        placeholder="First Name"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-sm font-medium text-white ml-1">Last Name *</label>
-                      <input 
-                        type="text" 
-                        required 
-                        className="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" 
-                        placeholder="Last Name"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-sm font-medium text-white ml-1">Company Name *</label>
-                      <input 
-                        type="text" 
-                        required 
-                        className="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" 
-                        placeholder="Company"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-sm font-medium text-white ml-1">Email Address *</label>
-                      <input 
-                        type="email" 
-                        required 
-                        className="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" 
-                        placeholder="Email"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-sm font-medium text-white ml-1">Phone Number *</label>
-                      <input 
-                        type="tel" 
-                        required 
-                        className="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" 
-                        placeholder="Phone"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-sm font-medium text-white ml-1">Capital For *</label>
-                      <input 
-                        type="text" 
-                        required 
-                        className="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" 
-                        placeholder="What do you need capital for?"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-sm font-medium text-white ml-1">Message</label>
-                      <textarea 
-                        rows={3}
-                        maxLength={180}
-                        className="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all resize-none" 
-                        placeholder="Please add any details you'd like us to know before we speak"
-                      ></textarea>
-                      <Text className="text-xs text-white/70 text-right">0 / 180</Text>
-                    </div>
-
-                    <Button variant="gold" size="lg" className="w-full mt-6 bg-white text-gold-500 hover:bg-gray-100">
-                      Get Started
-                    </Button>
-                  </form>
-                </div>
-              </FadeIn>
-            </div>
-          </div>
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+              {fundingSolutions.map((solution) => (
+                <StaggerItem key={solution.id}>
+                  <Link href={`/solutions/${solution.id}`} className="group cursor-pointer block h-full">
+                    <Card className="p-8 h-full hover:shadow-lg transition-all duration-300">
+                      <Heading size="h3" className="mb-3 text-olive-900 group-hover:text-gold-500 transition-colors">
+                        {solution.title}
+                      </Heading>
+                      {/* Answer Capsule - AI Optimized */}
+                      <Text className="text-gray-700 text-sm leading-relaxed mb-3 italic border-l-2 border-gold-500 pl-4">
+                        {solution.whatIs}
+                      </Text>
+                      <Text className="text-gray-600 text-sm leading-relaxed">
+                        {solution.shortDesc}
+                      </Text>
+                    </Card>
+                  </Link>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </FadeIn>
         </Container>
       </Section>
+
+      {/* CTA Section */}
+      <CTA
+        title="Still Have Questions?"
+        text="Our team has helped hundreds of companies find the right financing. Let's discuss your specific situation and identify the best path forward."
+        buttonText="Schedule a Free Consultation"
+        source="solutions"
+        useGreenBackground
+      />
 
       {/* Why Choose Serve Funding Section */}
       <Section background="gray" className="py-16">
         <Container>
-          <FadeIn>
-            <div className="text-center mb-16">
-              <Heading size="h2" className="mb-4 text-olive-900">
-                Why Choose <span className="text-gold-500">Serve Funding?</span>
-              </Heading>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <FadeIn delay={0.1}>
-                <Card className="text-center p-8 hover:shadow-2xl transition-all duration-300">
-                  <div className="w-16 h-16 bg-gold-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle size={32} className="text-olive-900" fill="currentColor" />
-                  </div>
-                  <Heading size="h3" className="mb-4 text-olive-900">
-                    Tailored Solutions
-                  </Heading>
-                  <Text className="text-gray-600">
-                    Every business is unique. Our funding options are customized to your specific needs.
-                  </Text>
-                </Card>
-              </FadeIn>
-
-              <FadeIn delay={0.2}>
-                <Card className="text-center p-8 hover:shadow-2xl transition-all duration-300">
-                  <div className="w-16 h-16 bg-gold-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle size={32} className="text-olive-900" fill="currentColor" />
-                  </div>
-                  <Heading size="h3" className="mb-4 text-olive-900">
-                    Expert Guidance
-                  </Heading>
-                  <Text className="text-gray-600">
-                    Our team has years of experience in structuring financing that drives growth.
-                  </Text>
-                </Card>
-              </FadeIn>
-
-              <FadeIn delay={0.3}>
-                <Card className="text-center p-8 hover:shadow-2xl transition-all duration-300">
-                  <div className="w-16 h-16 bg-gold-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle size={32} className="text-olive-900" fill="currentColor" />
-                  </div>
-                  <Heading size="h3" className="mb-4 text-olive-900">
-                    Flexible Terms
-                  </Heading>
-                  <Text className="text-gray-600">
-                    We offer flexible terms that adapt as your business evolves.
-                  </Text>
-                </Card>
-              </FadeIn>
-            </div>
+          <FadeIn className="text-center mb-12">
+            <Heading size="h2">
+              Why Choose <span className="text-gold-500">Serve Funding?</span>
+            </Heading>
           </FadeIn>
+
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <StaggerItem>
+              <Card className="p-8 h-full">
+                <Heading size="h3" className="mb-4 text-olive-900">
+                  Tailored Solutions
+                </Heading>
+                <Text className="text-gray-700">
+                  Every business is unique. Our funding options are customized to your specific needs.
+                </Text>
+              </Card>
+            </StaggerItem>
+
+            <StaggerItem>
+              <Card className="p-8 h-full">
+                <Heading size="h3" className="mb-4 text-olive-900">
+                  Expert Guidance
+                </Heading>
+                <Text className="text-gray-700">
+                  Our team has years of experience in structuring financing that drives growth.
+                </Text>
+              </Card>
+            </StaggerItem>
+
+            <StaggerItem>
+              <Card className="p-8 h-full">
+                <Heading size="h3" className="mb-4 text-olive-900">
+                  Flexible Terms
+                </Heading>
+                <Text className="text-gray-700">
+                  We offer flexible terms that adapt as your business evolves.
+                </Text>
+              </Card>
+            </StaggerItem>
+          </StaggerContainer>
         </Container>
       </Section>
       {/* Detailed Solutions Section */}

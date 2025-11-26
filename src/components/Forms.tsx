@@ -33,19 +33,21 @@ function FormContainer({
   background?: "olive" | "gray"
 }) {
   return (
-    <Section background={background}>
+    <Section background={background} className={title ? '' : '!pt-0'}>
       <Container>
         <div className="max-w-4xl mx-auto">
-          <FadeIn className="text-center mb-12">
-            <Heading size="h3" color={background === "olive" ? "white" : "default"}>
-              {title}
-            </Heading>
-            {subtitle && (
-              <Text size="lg" color={background === "olive" ? "white" : "default"} className="mt-2">
-                {subtitle}
-              </Text>
-            )}
-          </FadeIn>
+          {title && (
+            <FadeIn className="text-center mb-12">
+              <Heading size="h3" color={background === "olive" ? "white" : "default"}>
+                {title}
+              </Heading>
+              {subtitle && (
+                <Text size="lg" color={background === "olive" ? "white" : "default"} className="mt-2">
+                  {subtitle}
+                </Text>
+              )}
+            </FadeIn>
+          )}
           <FadeIn delay={0.2}>
             <Card variant="default" className="p-8 md:p-12 bg-white">
               {children}

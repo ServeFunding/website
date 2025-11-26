@@ -25,7 +25,11 @@ export default function ContactUs() {
       <HeroFadeIn
         title="We're Here to Serve Your Business Growth"
         subtitle="We believe that great relationships start with a conversation. Whether you have questions about our services, need assistance with financing, or want to explore partnership opportunities, our team is here to help. Reach out to us using the contact information below, and we'll get back to you as soon as possible."
+        compact
       />
+
+      {/* Schedule Consultation Section */}
+      <IntroCallForm title="" />
 
       {/* Main Contact Info Section */}
       <Section>
@@ -95,12 +99,6 @@ export default function ContactUs() {
           </StaggerContainer>
         </Container>
       </Section>
-
-      {/* Schedule Consultation Section */}
-      <IntroCallForm
-        title="Schedule a Consultation"
-        subtitle="Ready to discuss your business financing needs? Schedule a free consultation with one of our funding experts. Simply fill out the form below, and we'll get in touch to arrange a time that works for you."
-      />
 
       {/* Social Media & Partnerships Section */}
       <Section>

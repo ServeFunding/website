@@ -8,12 +8,13 @@ import { Section, Container, Heading, Text } from "./ui"
 interface HeroFadeInProps {
   title: string
   subtitle?: string
+  compact?: boolean
 }
 
-export const HeroFadeIn = ({ title, subtitle }: HeroFadeInProps) => (
-  <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: COLORS.primary.darkGreen, scrollMarginTop: LAYOUT.scrollMarginTop }}>
+export const HeroFadeIn = ({ title, subtitle, compact }: HeroFadeInProps) => (
+  <Section className={`pt-20 pb-0 md:py-0 overflow-hidden ${compact ? '!pb-0' : ''}`} style={{ backgroundColor: COLORS.primary.darkGreen, scrollMarginTop: LAYOUT.scrollMarginTop }}>
     <Container>
-      <div className="flex flex-col items-center justify-center min-h-[400px] py-20 text-center">
+      <div className={`flex flex-col items-center justify-center ${compact ? 'min-h-[200px] py-12' : 'min-h-[400px] py-20'} text-center`}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
