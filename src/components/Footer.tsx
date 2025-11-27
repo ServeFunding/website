@@ -82,7 +82,7 @@ export function Footer() {
             <Image
               src="/Logo_Full-color_long_samecolor-1.png"
               alt="Serve Funding"
-              className="h-12"
+              className="h-12 w-auto"
               width={305}
               height={84}
             />

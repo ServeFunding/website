@@ -11,28 +11,33 @@ export interface FormInputProps
 }
 
 export const FormInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, FormInputProps>(
-  ({ className, label, as = "input", rows = 3, ...props }, ref) => (
-    <div className="flex flex-col gap-2">
-      {label && (
-        <label className="text-sm font-medium text-gray-700">
-          {label}
-        </label>
-      )}
-      {as === "textarea" ? (
-        <textarea
-          ref={ref as React.ForwardedRef<HTMLTextAreaElement>}
-          className={cn(formFieldClasses, "resize-none", className)}
-          rows={rows}
-          {...(props as TextareaHTMLAttributes<HTMLTextAreaElement>)}
-        />
-      ) : (
-        <input
-          ref={ref as React.ForwardedRef<HTMLInputElement>}
-          className={cn(formFieldClasses, className)}
-          {...props}
-        />
-      )}
-    </div>
-  )
+  ({ className, label, as = "input", rows = 3, ...props }, ref) => {
+    const inputId = props.id || props.name
+    return (
+      <div className="flex flex-col gap-2">
+        {label && (
+          <label htmlFor={inputId} className="text-sm font-medium text-gray-700">
+            {label}
+          </label>
+        )}
+        {as === "textarea" ? (
+          <textarea
+            ref={ref as React.ForwardedRef<HTMLTextAreaElement>}
+            id={inputId}
+            className={cn(formFieldClasses, "resize-none", className)}
+            rows={rows}
+            {...(props as TextareaHTMLAttributes<HTMLTextAreaElement>)}
+          />
+        ) : (
+          <input
+            ref={ref as React.ForwardedRef<HTMLInputElement>}
+            id={inputId}
+            className={cn(formFieldClasses, className)}
+            {...props}
+          />
+        )}
+      </div>
+    )
+  }
 )
 FormInput.displayName = "FormInput"

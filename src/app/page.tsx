@@ -81,10 +81,18 @@ export default function Home() {
                   </Text>
                 </div>
                 <div className="flex gap-4">
-                  <button onClick={handlePrev} className="w-12 h-12 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center hover:bg-olive-900 hover:text-white transition-all duration-300">
+                  <button
+                    onClick={handlePrev}
+                    className="w-12 h-12 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center hover:bg-olive-900 hover:text-white transition-all duration-300"
+                    aria-label="Previous slide"
+                  >
                     <ChevronLeft size={24} />
                   </button>
-                  <button onClick={handleNext} className="w-12 h-12 rounded-full bg-gray-800 text-white flex items-center justify-center hover:bg-olive-900 transition-all duration-300">
+                  <button
+                    onClick={handleNext}
+                    className="w-12 h-12 rounded-full bg-gray-800 text-white flex items-center justify-center hover:bg-olive-900 transition-all duration-300"
+                    aria-label="Next slide"
+                  >
                     <ChevronRight size={24} />
                   </button>
                 </div>
@@ -316,7 +324,7 @@ export default function Home() {
                     {item.desc}
                   </Text>
                   <div className="flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all duration-200">
-                    <span className="px-4 py-2 rounded-full" style={{ backgroundColor: BRAND_COLORS.primary.lightGreen, color: BRAND_COLORS.primary.darkGreen }}>
+                    <span className="px-4 py-2 rounded-full bg-white text-olive-900">
                       Read More
                     </span>
                     <ChevronRight size={18} />
@@ -336,10 +344,10 @@ export default function Home() {
           <FadeIn>
             <LogoGrid
               logos={[
-                { src: '/ACG Global Logo.png', alt: 'ACG Global' },
-                { src: '/IFA.png', alt: 'IFA' },
-                { src: '/Secured Finance Network.jpg', alt: 'Secured Finance Network' },
-                { src: '/TMA.webp', alt: 'TMA' }
+                { src: '/ACG Global Logo.png', alt: 'ACG Global', width: 280, height: 120 },
+                { src: '/IFA.png', alt: 'IFA', width: 200, height: 100 },
+                { src: '/Secured Finance Network.jpg', alt: 'Secured Finance Network', width: 320, height: 100 },
+                { src: '/TMA.webp', alt: 'TMA', width: 240, height: 100 }
               ]}
               maxHeight={16}
             />
