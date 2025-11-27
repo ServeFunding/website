@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Container, Heading, Text, SocialIcons } from "./ui"
 
 const organizationSchema = {
@@ -78,7 +79,13 @@ export function Footer() {
 
           {/* Logo */}
           <div className="flex items-center justify-center md:justify-start">
-            <img src="/Logo_Full-color_long_samecolor-1.png" alt="Serve Funding" className="h-12" />
+            <Image
+              src="/Logo_Full-color_long_samecolor-1.png"
+              alt="Serve Funding"
+              className="h-12"
+              width={305}
+              height={84}
+            />
           </div>
         </div>
 

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Text, Heading } from './ui'
 
 interface LogoGridProps {
@@ -36,7 +37,13 @@ export function LogoGrid({ logos, maxHeight = 24, title, subtitle }: LogoGridPro
       <div className="flex flex-wrap justify-center items-center gap-8 py-8">
         {logos.map((logo, index) => (
           <div key={index} style={{ height: `${heightInPixels}px` }} className="flex items-center px-4">
-            <img src={logo.src} alt={logo.alt} className="h-full object-contain" />
+            <Image
+              src={logo.src}
+              alt={logo.alt}
+              className="h-full object-contain"
+              width={heightInPixels * 2.5}
+              height={heightInPixels}
+            />
           </div>
         ))}
       </div>

@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
 import { NewsletterForm } from "@/components/Forms"
-import { Chatbot } from "@/components/Chatbot"
+import { ChatbotWrapper } from "@/components/ChatbotWrapper"
 import "@/app/globals.css"
 
 export const metadata: Metadata = {
@@ -32,6 +32,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Preconnect to critical third-party resources */}
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://umami-production-25e0.up.railway.app" />
+
         {/* Umami Analytics */}
         <script
           defer
@@ -91,7 +95,7 @@ export default function RootLayout({
         </main>
         <NewsletterForm />
         <Footer />
-        <Chatbot />
+        <ChatbotWrapper />
       </body>
     </html>
   )

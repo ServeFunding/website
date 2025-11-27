@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import {
   Search,
   Clock,
@@ -90,11 +91,14 @@ export default function Home() {
               </FadeIn>
               <FadeIn delay={0.2} className="relative h-full min-h-[400px] lg:min-h-[500px] flex items-center justify-center">
                 <div className="relative w-full max-w-md h-80 rounded-2xl overflow-hidden shadow-2xl">
-                  <img
+                  <Image
                     key={heroIndex}
                     src={slide.image}
                     alt={slide.heading}
-                    className="w-full h-full object-cover animate-fadeIn"
+                    fill
+                    className="object-cover animate-fadeIn"
+                    priority={heroIndex === 0}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 416px, 416px"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>

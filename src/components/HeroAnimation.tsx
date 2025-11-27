@@ -129,6 +129,7 @@ const FloatingLeaf = ({
       style={{
         position: 'absolute',
         pointerEvents: 'none',
+        willChange: 'transform, opacity',
       }}
     >
       <LeafShape
@@ -273,6 +274,7 @@ export const HeroAnimation = ({
         className="absolute inset-0 pointer-events-none"
         initial={{ opacity: 1 }}
         animate={{ opacity: 1 }}
+        style={{ willChange: 'opacity' }}
       >
         {leaves.map((leaf) => (
           <FloatingLeaf

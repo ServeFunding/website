@@ -1,6 +1,7 @@
 'use client'
 
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { ChevronDown } from "lucide-react"
 import { useState, useEffect } from "react"
@@ -162,10 +163,13 @@ export function Header() {
         <div className="relative flex items-center justify-between gap-8">
           {/* Logo - Left */}
           <Link href="/" className="flex items-center gap-2 transition-transform duration-300 flex-shrink-0">
-            <img
+            <Image
               src="/Logo_Full-color_long_samecolor-1.png"
               alt="Serve Funding"
               className={`w-auto transition-all duration-300 ${isScrolled ? "h-10" : "h-12"}`}
+              width={305}
+              height={84}
+              priority
             />
           </Link>
 
@@ -232,16 +236,19 @@ export function Header() {
                   animate={isMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
                   transition={{ duration: 0.4 }}
                   className="block w-6 h-0.5 bg-gray-700 origin-center"
+                  style={{ willChange: 'transform' }}
                 />
                 <motion.span
                   animate={isMenuOpen ? { opacity: 0, scale: 0 } : { opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4 }}
                   className="block w-6 h-0.5 bg-gray-700"
+                  style={{ willChange: 'transform, opacity' }}
                 />
                 <motion.span
                   animate={isMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
                   transition={{ duration: 0.4 }}
                   className="block w-6 h-0.5 bg-gray-700 origin-center"
+                  style={{ willChange: 'transform' }}
                 />
               </button>
             </div>
