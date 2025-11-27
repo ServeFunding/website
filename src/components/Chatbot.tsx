@@ -5,6 +5,7 @@ import { X, Send, MessageCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getAIResponse } from '@/lib/ai'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
+import { trackChatbotSessionStart, trackChatbotMessage } from '@/lib/tracking'
 
 interface Message {
   id: string
@@ -34,6 +35,13 @@ export function Chatbot() {
     }
   }, [])
 
+  // Track chatbot session start
+  useEffect(() => {
+    if (isOpen) {
+      trackChatbotSessionStart()
+    }
+  }, [isOpen])
+
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -43,6 +51,9 @@ export function Chatbot() {
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return
+
+    // Track message sent
+    trackChatbotMessage()
 
     // Add user message
     const userMessage: Message = {

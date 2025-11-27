@@ -12,6 +12,7 @@ import {
   StaggerItem
 } from '@/components/ui'
 import { CTA } from '@/components/cta'
+import { SolutionDetailClient } from './client'
 
 interface SolutionDetailPageProps {
   params: {
@@ -72,17 +73,18 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
         }}
       />
 
-      <Section>
-        <Container>
-          <article className="max-w-4xl mx-auto">
-            {/* Breadcrumb Navigation */}
-            <nav className="mb-8 text-sm text-gray-600">
-              <Link href="/solutions" className="hover:underline text-olive-green">
-                Solutions
-              </Link>
-              <span className="mx-2">/</span>
-              <span className="text-gray-900 font-semibold">{solution.title}</span>
-            </nav>
+      <SolutionDetailClient solution={solution}>
+        <Section>
+          <Container>
+            <article className="max-w-4xl mx-auto">
+              {/* Breadcrumb Navigation */}
+              <nav className="mb-8 text-sm text-gray-600">
+                <Link href="/solutions" className="hover:underline text-olive-green">
+                  Solutions
+                </Link>
+                <span className="mx-2">/</span>
+                <span className="text-gray-900 font-semibold">{solution.title}</span>
+              </nav>
 
             {/* Header Section */}
             <section className="mb-12">
@@ -249,18 +251,19 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
               </StaggerContainer>
             </section>
 
-            {/* Navigation Back */}
-            <div className="text-center">
-              <Link
-                href="/solutions"
-                className="inline-block hover:underline font-semibold text-olive-green"
-              >
-                ← Back to All Solutions
-              </Link>
-            </div>
-          </article>
-        </Container>
-      </Section>
+              {/* Navigation Back */}
+              <div className="text-center">
+                <Link
+                  href="/solutions"
+                  className="inline-block hover:underline font-semibold text-olive-green"
+                >
+                  ← Back to All Solutions
+                </Link>
+              </div>
+            </article>
+          </Container>
+        </Section>
+      </SolutionDetailClient>
     </main>
   )
 }

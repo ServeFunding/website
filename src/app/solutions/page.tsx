@@ -1,8 +1,9 @@
+'use client'
+
 import {
   CheckCircle,
   ChevronRight
 } from 'lucide-react'
-import { IntroCallForm } from '@/components/Forms'
 import {
   Section,
   Container,
@@ -19,8 +20,13 @@ import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CTA } from '@/components/cta'
 import { fundingSolutions } from '@/data/company-info'
 import Link from 'next/link'
+import { trackSolutionClick } from '@/lib/tracking'
 
 export default function Solutions() {
+  const handleSolutionClick = (solutionName: string) => {
+    trackSolutionClick(solutionName)
+  }
+
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
@@ -44,7 +50,7 @@ export default function Solutions() {
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
               {fundingSolutions.map((solution) => (
                 <StaggerItem key={solution.id}>
-                  <Link href={`/solutions/${solution.id}`} className="group cursor-pointer block h-full">
+                  <Link href={`/solutions/${solution.id}`} onClick={() => handleSolutionClick(solution.title)} className="group cursor-pointer block h-full">
                     <Card className="p-8 h-full hover:shadow-lg transition-all duration-300">
                       <Heading size="h3" className="mb-3 text-olive-900 group-hover:text-gold-500 transition-colors">
                         {solution.title}
@@ -65,13 +71,13 @@ export default function Solutions() {
         </Container>
       </Section>
 
-      {/* CTA Section */}
+      {/* CTA Section - Contact Us */}
       <CTA
-        title="Still Have Questions?"
-        text="Our team has helped hundreds of companies find the right financing. Let's discuss your specific situation and identify the best path forward."
-        buttonText="Schedule a Free Consultation"
-        source="solutions"
-        useGreenBackground
+        title="Ready to Find the Right Solution?"
+        text="Explore our comprehensive range of funding options and discover which solution best fits your business needs. Our team is ready to guide you through every step."
+        buttonText="Get Started Today"
+        href="/contact-us"
+        source="solutions-page"
       />
 
       {/* Why Choose Serve Funding Section */}
@@ -147,7 +153,7 @@ export default function Solutions() {
                     </div>
 
                     {/* Learn More Link to Detail Page */}
-                    <Link href={`/solutions/${solution.id}`}>
+                    <Link href={`/solutions/${solution.id}`} onClick={() => handleSolutionClick(solution.title)}>
                       <Button variant="default" className="flex items-center gap-2">
                         Learn More <ChevronRight size={18} />
                       </Button>
@@ -182,7 +188,14 @@ export default function Solutions() {
         </Container>
       </Section>
 
-      <IntroCallForm />
+      {/* Final CTA */}
+      <CTA
+        title="Ready to Take the Next Step?"
+        text="Connect with our team of funding experts to discuss which solution is right for your business and get started on your path to growth."
+        buttonText="Schedule Your Consultation"
+        href="/contact-us"
+        source="solutions-bottom"
+      />
     </div>
   )
 }

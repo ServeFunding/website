@@ -11,6 +11,7 @@ import {
   FormInput,
   FormGroup,
 } from '@/components/ui'
+import { trackFormSubmission } from '@/lib/tracking'
 
 // Formspree URLs for different form types
 export const FORM_URLS = {
@@ -33,7 +34,7 @@ function FormContainer({
   background?: "olive" | "gray"
 }) {
   return (
-    <Section background={background} className={title ? '' : '!pt-0'}>
+    <Section background={background} className={`${title ? '' : '!pt-0'} overflow-visible`}>
       <Container>
         <div className="max-w-4xl mx-auto">
           {title && (
@@ -66,9 +67,13 @@ interface IntroCallFormProps {
 }
 
 export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallFormProps = {}) {
+  const handleSubmit = () => {
+    trackFormSubmission('intro_call')
+  }
+
   return (
     <FormContainer title={title} subtitle={subtitle}>
-      <form action={FORM_URLS.intro_call} method="POST" className="space-y-6">
+      <form action={FORM_URLS.intro_call} method="POST" className="space-y-6" onSubmit={handleSubmit}>
         <FormGroup columns={2}>
           <FormInput type="text" name="first_name" label="First Name" required />
           <FormInput type="text" name="last_name" label="Last Name" required />
@@ -92,13 +97,17 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
 
 // Referral Form (for refer page)
 export function ReferralForm() {
+  const handleSubmit = () => {
+    trackFormSubmission('referral')
+  }
+
   return (
     <FormContainer
       title="Submit a Referral"
       subtitle="Tell us about your client and how we can help. Our team will review the information and follow up promptly."
       background="gray"
     >
-      <form action={FORM_URLS.referral} method="POST" className="space-y-6">
+      <form action={FORM_URLS.referral} method="POST" className="space-y-6" onSubmit={handleSubmit}>
         {/* Banker Information Section */}
         <div>
           <Heading size="h3" className="text-olive-900 mb-4">
@@ -155,9 +164,13 @@ export function ReferralForm() {
 
 // Partner Inquiry Form (for partners page)
 export function PartnerInquiryForm() {
+  const handleSubmit = () => {
+    trackFormSubmission('partner_inquiry')
+  }
+
   return (
     <FormContainer title="Let's Connect" subtitle="Please fill out this form and we'll schedule a call">
-      <form action={FORM_URLS.partner_inquiry} method="POST" className="space-y-6">
+      <form action={FORM_URLS.partner_inquiry} method="POST" className="space-y-6" onSubmit={handleSubmit}>
         <FormGroup columns={2}>
           <FormInput type="text" name="first_name" label="First Name" required />
           <FormInput type="text" name="last_name" label="Last Name" required />
@@ -184,6 +197,10 @@ export function PartnerInquiryForm() {
 
 // Newsletter Signup Form
 export function NewsletterForm() {
+  const handleSubmit = () => {
+    trackFormSubmission('newsletter')
+  }
+
   return (
     <section className="bg-[#f4f6e3] py-20 relative overflow-hidden">
       <Container>
@@ -217,7 +234,7 @@ export function NewsletterForm() {
 
             {/* Form Card */}
             <Card variant="default" className="space-y-4">
-              <form action={FORM_URLS.newsletter} method="POST" className="space-y-4">
+              <form action={FORM_URLS.newsletter} method="POST" className="space-y-4" onSubmit={handleSubmit}>
                 <FormInput type="text" id="firstName" name="first_name" label="First Name" required />
                 <FormInput type="email" id="email" name="email" label="Email Address" required />
                 <Button type="submit" variant="default" size="lg" className="w-full">

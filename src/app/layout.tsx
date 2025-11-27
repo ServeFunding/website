@@ -32,6 +32,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Umami Analytics */}
+        <script
+          defer
+          src="https://umami-production-25e0.up.railway.app/script.js"
+          data-website-id="4493b6db-f043-4505-a592-03c371ce8998"
+        />
         {/* Organization Schema - Global */}
         <script
           type="application/ld+json"

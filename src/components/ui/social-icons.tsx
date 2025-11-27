@@ -1,3 +1,5 @@
+'use client'
+
 import { Linkedin, Facebook } from 'lucide-react'
 import { SocialIcon } from './social-icon'
 

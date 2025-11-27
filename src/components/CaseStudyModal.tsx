@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import { Heading, Text } from '@/components/ui'
+import { trackCaseStudyOpen } from '@/lib/tracking'
 
 interface CaseStudy {
   amount: string
@@ -20,6 +21,13 @@ interface CaseStudyModalProps {
 }
 
 export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ isOpen, onClose, caseStudy }) => {
+  // Track case study modal opens
+  useEffect(() => {
+    if (isOpen && caseStudy) {
+      trackCaseStudyOpen(caseStudy.title, caseStudy.amount)
+    }
+  }, [isOpen, caseStudy])
+
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {

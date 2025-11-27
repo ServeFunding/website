@@ -8,6 +8,7 @@ import { Button, Container } from "./ui"
 import { motion } from "framer-motion"
 import { fundingSolutions } from "@/data/company-info"
 import { COLORS } from "@/lib/colors"
+import { trackNavClick, trackExternalLinkClick } from "@/lib/tracking"
 
 interface DropdownItem {
   name: string
@@ -24,10 +25,15 @@ interface NavItemProps {
 }
 
 function NavItem({ href, label, isActive, onAnchorClick }: NavItemProps) {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    trackNavClick(label, href)
+    onAnchorClick?.(e, href)
+  }
+
   return (
     <Link
       href={href}
-      onClick={(e) => onAnchorClick?.(e as React.MouseEvent<HTMLAnchorElement>, href)}
+      onClick={handleClick}
       className={`${navItemClasses} ${isActive ? 'after:w-full' : ''} flex items-center`}
     >
       {label}
@@ -47,10 +53,15 @@ interface NavDropdownProps {
 function NavDropdown({ label, items, basePath, onAnchorClick, type = 'pages', isActive }: NavDropdownProps) {
   const isAnchorBased = type === 'anchors'
 
+  const handleDropdownClick = (itemName: string, href: string) => {
+    trackNavClick(`${label} - ${itemName}`, href)
+  }
+
   return (
     <div className="group relative h-full flex items-center">
       <Link
         href={basePath}
+        onClick={() => trackNavClick(label, basePath)}
         className={`${navItemClasses} group-hover:after:w-full ${isActive ? 'after:w-full' : ''} flex items-center gap-1`}
       >
         {label} <ChevronDown size={18} />
@@ -67,7 +78,10 @@ function NavDropdown({ label, items, basePath, onAnchorClick, type = 'pages', is
                 <a
                   key={item.id}
                   href={href}
-                  onClick={(e) => onAnchorClick(e, href)}
+                  onClick={(e) => {
+                    handleDropdownClick(item.name, href)
+                    onAnchorClick(e, href)
+                  }}
                   className="px-6 py-3.5 text-white transition-colors text-base font-medium border-b border-white/10 last:border-0"
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.lightGreen}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
@@ -81,6 +95,7 @@ function NavDropdown({ label, items, basePath, onAnchorClick, type = 'pages', is
               <Link
                 key={item.id}
                 href={href}
+                onClick={() => handleDropdownClick(item.name, href)}
                 className="px-6 py-3.5 text-white transition-colors text-base font-medium border-b border-white/10 last:border-0 block"
                 style={{ cursor: 'pointer' }}
                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.lightGreen}
@@ -204,7 +219,7 @@ export function Header() {
           {/* Right side: CTA Button + Mobile Menu */}
           <div className="flex items-center gap-4">
             {/* CTA Button */}
-            <a href="https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?month=2025-11" target="_blank" rel="noopener noreferrer">
+            <a href="https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?month=2025-11" target="_blank" rel="noopener noreferrer" onClick={() => trackExternalLinkClick('Intro Call (Header)')}>
               <Button variant="default" size="sm" className="rounded-full flex-shrink-0">
                 Intro Call
               </Button>
@@ -245,7 +260,7 @@ export function Header() {
             {/* Navigation Links */}
             <div className="space-y-0 px-4 py-4">
             {/* Home */}
-            <Link href="/" className="block text-base font-medium py-3 border-b border-gray-200 text-olive-green">Home</Link>
+            <Link href="/" onClick={() => trackNavClick('Home', '/')} className="block text-base font-medium py-3 border-b border-gray-200 text-olive-green">Home</Link>
 
             {/* Solutions - Expandable */}
             <div className="border-b border-gray-200">
@@ -268,7 +283,7 @@ export function Header() {
                 >
                   <div className="space-y-0">
                     {fundingSolutions.map((solution) => (
-                      <Link key={solution.id} href={`/solutions/${solution.id}`} className="block text-base font-medium py-3 border-b border-gray-200 text-gray-700 pl-6">
+                      <Link key={solution.id} href={`/solutions/${solution.id}`} onClick={() => trackNavClick(`Solutions - ${solution.title}`, `/solutions/${solution.id}`)} className="block text-base font-medium py-3 border-b border-gray-200 text-gray-700 pl-6">
                         {solution.title}
                       </Link>
                     ))}
@@ -278,7 +293,7 @@ export function Header() {
             </div>
 
             {/* Fundings */}
-            <Link href="/fundings" className="block text-base font-medium py-3 border-b border-gray-200 text-gray-700">Fundings</Link>
+            <Link href="/fundings" onClick={() => trackNavClick('Fundings', '/fundings')} className="block text-base font-medium py-3 border-b border-gray-200 text-gray-700">Fundings</Link>
 
             {/* Partners - Expandable */}
             <div className="border-b border-gray-200">
@@ -308,7 +323,10 @@ export function Header() {
                       { name: "Private Equity Firms", id: "private-equity-firms" },
                       { name: "Business Advisors", id: "business-advisors" }
                     ].map((item) => (
-                      <a key={item.id} href={`/partners#${item.id}`} onClick={(e) => handleAnchorClick(e, `/partners#${item.id}`)} className="block text-base font-medium py-3 border-b border-gray-200 text-gray-700 pl-6">
+                      <a key={item.id} href={`/partners#${item.id}`} onClick={(e) => {
+                        trackNavClick(`Partners - ${item.name}`, `/partners#${item.id}`)
+                        handleAnchorClick(e, `/partners#${item.id}`)
+                      }} className="block text-base font-medium py-3 border-b border-gray-200 text-gray-700 pl-6">
                         {item.name}
                       </a>
                     ))}
@@ -342,7 +360,7 @@ export function Header() {
                       { name: "Core Values", id: "core-values" },
                       { name: "Doing Good", id: "doing-good" }
                     ].map((item) => (
-                      <Link key={item.id} href={`/about-us#${item.id}`} className="block text-base font-medium py-3 border-b border-gray-200 text-gray-700 pl-6">
+                      <Link key={item.id} href={`/about-us#${item.id}`} onClick={() => trackNavClick(`About Us - ${item.name}`, `/about-us#${item.id}`)} className="block text-base font-medium py-3 border-b border-gray-200 text-gray-700 pl-6">
                         {item.name}
                       </Link>
                     ))}
@@ -352,7 +370,7 @@ export function Header() {
             </div>
 
             {/* Intro Call Button */}
-            <a href="https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?month=2025-11" target="_blank" rel="noopener noreferrer" className="w-full block pt-4">
+            <a href="https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?month=2025-11" target="_blank" rel="noopener noreferrer" onClick={() => trackExternalLinkClick('Intro Call (Mobile Menu)')} className="w-full block pt-4">
               <Button variant="default" className="w-full">
                 Intro Call
               </Button>
