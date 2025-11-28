@@ -21,6 +21,8 @@ import { COLORS } from '@/lib/colors'
 interface PartnerType {
   title: string
   image: string
+  imageWidth: number
+  imageHeight: number
   benefits: string[]
   description: string
 }
@@ -29,6 +31,8 @@ const partnerTypes: PartnerType[] = [
   {
     title: 'Commercial Bankers',
     image: '/partners/Professioanls talking.png',
+    imageWidth: 1024,
+    imageHeight: 829,
     benefits: [
       'Elevate Client Trust: Provide access to specialized funding.',
       'Expand Your Network: Benefit from reciprocal client referrals.',
@@ -41,6 +45,8 @@ const partnerTypes: PartnerType[] = [
   {
     title: 'Fractional CFOs',
     image: '/partners/Professional giving presentation.png',
+    imageWidth: 1024,
+    imageHeight: 936,
     benefits: [
       'Enhance Service Range: Offer access to specialized funding.',
       'Forge Strategic Alliances: Strengthen your professional network.',
@@ -53,6 +59,8 @@ const partnerTypes: PartnerType[] = [
   {
     title: 'Investment Bankers',
     image: '/partners/Business Professionals looking at camera.png',
+    imageWidth: 1024,
+    imageHeight: 905,
     benefits: [
       'Broaden Financial Solutions: Access specialized capital and lending options.',
       'Enhance Deal Flow: Connect with mid-market companies for new opportunities.',
@@ -65,6 +73,8 @@ const partnerTypes: PartnerType[] = [
   {
     title: 'CPAs / Accountants',
     image: '/partners/Handshake.png',
+    imageWidth: 1024,
+    imageHeight: 882,
     benefits: [
       'Expand Financial Solutions: Access specialized funding beyond conventional options.',
       'Generate Additional Revenue: Earn referral fees from successful placements.',
@@ -77,6 +87,8 @@ const partnerTypes: PartnerType[] = [
   {
     title: 'Private Equity Firms',
     image: '/partners/Equity close up.png',
+    imageWidth: 1024,
+    imageHeight: 889,
     benefits: [
       'Optimize Portfolio Performance: Access specialized capital options for growth.',
       'Discover Investment Opportunities: Identify potential investments early.',
@@ -89,6 +101,8 @@ const partnerTypes: PartnerType[] = [
   {
     title: 'Business Advisors',
     image: '/partners/Professional giving presentation.png',
+    imageWidth: 1024,
+    imageHeight: 936,
     benefits: [
       'Provide Tailored Financial Options: Enhance your ability to meet clients\' strategic and operational needs.',
       'Strengthen Your Credibility: Broaden your expertise with bespoke funding solutions.',
@@ -327,10 +341,13 @@ export default function Partners() {
 
                     {/* Image Content */}
                     <div className={`relative h-96 bg-gradient-to-br from-olive-800 to-olive-700 rounded-3xl overflow-hidden group ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                      <img
+                      <Image
                         src={partner.image}
                         alt={partner.title}
+                        width={partner.imageWidth}
+                        height={partner.imageHeight}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        priority={false}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-olive-900/40 to-transparent"></div>
                     </div>
