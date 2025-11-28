@@ -3,10 +3,19 @@
  * Provides a consistent interface for tracking events throughout the application
  */
 
+'use client'
+
+import { useEffect } from 'react'
+
 declare global {
   interface Window {
     umami?: {
       track: (name: string, properties?: Record<string, string | number | boolean>) => void
+    }
+    hbspt?: {
+      forms: {
+        addEventListener: (event: string, callback: () => void) => void
+      }
     }
   }
 }
@@ -109,4 +118,19 @@ export function trackExternalLinkClick(linkName: string, url?: string) {
     link: linkName,
     ...(url && { url }),
   })
+}
+
+/**
+ * Hook to track HubSpot form submissions
+ * Use this hook in components that embed HubSpot forms
+ * @param formType - Type of form (e.g., 'intro_call', 'newsletter', 'contact')
+ */
+export function useHubSpotFormTracking(formType: string) {
+  useEffect(() => {
+    if (window.hbspt) {
+      window.hbspt.forms.addEventListener("onFormSubmit", () => {
+        trackFormSubmission(formType)
+      })
+    }
+  }, [formType])
 }

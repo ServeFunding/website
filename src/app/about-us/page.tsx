@@ -304,7 +304,7 @@ export default function AboutUs() {
                 { src: "/About Us Serve Funding (1).png", alt: "Frontline Response" },
                 { src: "/About Us Serve Funding (2).png", alt: "JAM Quest" }
               ]}
-              maxHeight={16}
+              maxHeight={32}
             />
           </FadeIn>
         </Container>

@@ -349,7 +349,7 @@ export default function Home() {
                 { src: '/Secured Finance Network.jpg', alt: 'Secured Finance Network', width: 320, height: 100 },
                 { src: '/TMA.webp', alt: 'TMA', width: 240, height: 100 }
               ]}
-              maxHeight={16}
+              maxHeight={24}
             />
           </FadeIn>
         </Container>

@@ -18,7 +18,7 @@ import {
 } from '@/components/ui'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CaseStudyModal } from '@/components/CaseStudyModal'
-import { IntroCallForm } from '@/components/Forms'
+import { CTA } from '@/components/cta'
 import { FundingResultsTable } from '@/components/FundingResultsTable'
 
 const caseStudies = [
@@ -207,7 +207,12 @@ export default function Fundings() {
       </Section>
 
       {/* Contact Section */}
-      <IntroCallForm />
+      <CTA
+        title="Ready to explore your financing options?"
+        text="Let's discuss how we can help your business grow with the right working capital solution."
+        buttonText="Start Your Consultation"
+        source="fundings"
+      />
 
       {/* Case Study Modal */}
       <CaseStudyModal

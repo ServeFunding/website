@@ -12,7 +12,6 @@ import {
 } from '@/components/ui'
 import { BlogHeroFadeIn } from '@/components/blog-hero-fade-in'
 import { CTA } from '@/components/cta'
-import { IntroCallForm } from '@/components/Forms'
 import Link from 'next/link'
 
 export const metadata = {
@@ -367,7 +366,12 @@ export default function GovernmentVsPrivate() {
         source="blog-government-vs-private"
       />
 
-      <IntroCallForm />
+      <CTA
+        title="Ready to explore your financing options?"
+        text="Let's discuss how we can help your business grow with the right working capital solution."
+        buttonText="Start Your Consultation"
+        source="blog-government"
+      />
     </div>
   )
 }

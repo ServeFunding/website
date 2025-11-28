@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import {
   Section,
   Container,
@@ -11,7 +12,7 @@ import {
   FormInput,
   FormGroup,
 } from '@/components/ui'
-import { trackFormSubmission } from '@/lib/tracking'
+import { trackFormSubmission, useHubSpotFormTracking } from '@/lib/tracking'
 import { COLORS } from '@/lib/colors'
 
 // Formspree URLs for different form types
@@ -51,7 +52,7 @@ function FormContainer({
             </FadeIn>
           )}
           <FadeIn delay={0.2}>
-            <Card variant="default" className="p-8 md:p-12 bg-white">
+            <Card variant="default" className="!p-0 md:p-12 bg-white min-h-[500px]">
               {children}
             </Card>
           </FadeIn>
@@ -61,37 +62,16 @@ function FormContainer({
   )
 }
 
-// Standard Lead Form (for homepage, solutions, fundings, contact, etc.)
+// Standard Lead Form (for homepage, solutions, fundings, contact, etc.) - using HubSpot
 interface IntroCallFormProps {
   title?: string
   subtitle?: string
 }
 
 export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallFormProps = {}) {
-  const handleSubmit = () => {
-    trackFormSubmission('intro_call')
-  }
-
   return (
     <FormContainer title={title} subtitle={subtitle}>
-      <form action={FORM_URLS.intro_call} method="POST" className="space-y-6" onSubmit={handleSubmit}>
-        <FormGroup columns={2}>
-          <FormInput type="text" name="first_name" label="First Name" required />
-          <FormInput type="text" name="last_name" label="Last Name" required />
-        </FormGroup>
-
-        <FormInput type="text" name="company" label="Company Name" required />
-
-        <FormGroup columns={2}>
-          <FormInput type="email" name="email" label="Email Address" required />
-          <FormInput type="tel" name="phone" label="Phone Number" required />
-        </FormGroup>
-
-        <FormInput type="text" name="capital_for" label="Capital For (e.g., Inventory, Equipment)" required />
-        <FormInput as="textarea" name="message" rows={4} label="Tell us more about your needs..." />
-
-        <Button variant="default" size="lg" className="w-full" type="submit">Get Started</Button>
-      </form>
+      <HubSpotContactForm />
     </FormContainer>
   )
 }
@@ -165,50 +145,38 @@ export function ReferralForm() {
 
 // Partner Inquiry Form (for partners page)
 export function PartnerInquiryForm() {
-  const handleSubmit = () => {
-    trackFormSubmission('partner_inquiry')
-  }
-
   return (
     <FormContainer title="Let's Connect" subtitle="Please fill out this form and we'll schedule a call">
-      <form action={FORM_URLS.partner_inquiry} method="POST" className="space-y-6" onSubmit={handleSubmit}>
-        <FormGroup columns={2}>
-          <FormInput type="text" name="first_name" label="First Name" required />
-          <FormInput type="text" name="last_name" label="Last Name" required />
-        </FormGroup>
-
-        <FormInput type="text" name="company" label="Company Name" required />
-
-        <FormGroup columns={2}>
-          <FormInput type="email" name="email" label="Email Address" required />
-          <FormInput type="tel" name="phone" label="Phone Number" required />
-        </FormGroup>
-
-        <FormInput type="text" name="interest" label="Partnership Interest (e.g., Commercial Banking, Advisory)" required />
-
-        <FormInput as="textarea" name="message" rows={4} label="Tell us more about you (Share a bit about your background and interests...)" />
-
-        <Button variant="default" size="lg" className="w-full" type="submit">
-          Get Started
-        </Button>
-      </form>
+      <HubSpotPartnershipForm />
     </FormContainer>
   )
 }
 
-// HubSpot Form Embed Component
-export function HubSpotNewsletterForm() {
-  return (
-    <div className="hs-form-frame" data-region="na1" data-form-id="6c04f5d5-c53e-41d0-9923-d57a6b1b92ec" data-portal-id="23433903"></div>
-  )
+// Factory function to create HubSpot form components
+function createHubSpotForm(formId: string, formType: string) {
+  return function HubSpotForm() {
+    const [mounted, setMounted] = useState(false)
+    useHubSpotFormTracking(formType)
+
+    useEffect(() => {
+      setMounted(true)
+    }, [])
+
+    if (!mounted) return null
+
+    return (
+      <div className="hs-form-frame" data-region="na1" data-form-id={formId} data-portal-id="23433903"></div>
+    )
+  }
 }
+
+// HubSpot Form Components
+export const HubSpotContactForm = createHubSpotForm('8a572bcd-b7ce-45c4-bdab-bf2c78b69dac', 'hubspot_contact')
+export const HubSpotNewsletterForm = createHubSpotForm('6c04f5d5-c53e-41d0-9923-d57a6b1b92ec', 'hubspot_newsletter')
+export const HubSpotPartnershipForm = createHubSpotForm('4fe9c04e-0d8b-4567-ad88-720bce746884', 'hubspot_partnership')
 
 // Newsletter Signup Form
 export function NewsletterForm() {
-  const handleSubmit = () => {
-    trackFormSubmission('newsletter')
-  }
-
   return (
     <section className="py-20 relative overflow-hidden" style={{ backgroundColor: COLORS.primary.bgGreen }}>
       <Container>
