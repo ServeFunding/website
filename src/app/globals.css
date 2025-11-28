@@ -25,26 +25,6 @@ html {
   transform: rotateY(180deg);
 }
 
-/* Navigation underline color - use main dark green */
-nav a::after {
-  background-color: #758d5b !important;
-}
-
-/* Override HubSpot form fonts */
-.hs-form-frame,
-.hs-form-frame * {
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
-}
-
-.hs-form-frame h1,
-.hs-form-frame h2,
-.hs-form-frame h3,
-.hs-form-frame h4,
-.hs-form-frame h5,
-.hs-form-frame h6 {
-  font-family: Georgia, Cambria, "Times New Roman", Times, serif !important;
-}
-
 @layer base {
   body {
     @apply bg-white font-sans text-gray-800;
