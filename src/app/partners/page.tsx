@@ -1,4 +1,6 @@
+import Image from 'next/image'
 import {
+  Check,
   CheckCircle,
   Quote
 } from 'lucide-react'
@@ -14,10 +16,19 @@ import {
 } from '@/components/ui'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { PartnerInquiryForm } from '@/components/Forms'
+import { COLORS } from '@/lib/colors'
 
-const partnerTypes = [
+interface PartnerType {
+  title: string
+  image: string
+  benefits: string[]
+  description: string
+}
+
+const partnerTypes: PartnerType[] = [
   {
     title: 'Commercial Bankers',
+    image: '/partners/Professioanls talking.png',
     benefits: [
       'Elevate Client Trust: Provide access to specialized funding.',
       'Expand Your Network: Benefit from reciprocal client referrals.',
@@ -29,6 +40,7 @@ const partnerTypes = [
   },
   {
     title: 'Fractional CFOs',
+    image: '/partners/Professional giving presentation.png',
     benefits: [
       'Enhance Service Range: Offer access to specialized funding.',
       'Forge Strategic Alliances: Strengthen your professional network.',
@@ -40,6 +52,7 @@ const partnerTypes = [
   },
   {
     title: 'Investment Bankers',
+    image: '/partners/Business Professionals looking at camera.png',
     benefits: [
       'Broaden Financial Solutions: Access specialized capital and lending options.',
       'Enhance Deal Flow: Connect with mid-market companies for new opportunities.',
@@ -51,6 +64,7 @@ const partnerTypes = [
   },
   {
     title: 'CPAs / Accountants',
+    image: '/partners/Handshake.png',
     benefits: [
       'Expand Financial Solutions: Access specialized funding beyond conventional options.',
       'Generate Additional Revenue: Earn referral fees from successful placements.',
@@ -62,6 +76,7 @@ const partnerTypes = [
   },
   {
     title: 'Private Equity Firms',
+    image: '/partners/Equity close up.png',
     benefits: [
       'Optimize Portfolio Performance: Access specialized capital options for growth.',
       'Discover Investment Opportunities: Identify potential investments early.',
@@ -73,6 +88,7 @@ const partnerTypes = [
   },
   {
     title: 'Business Advisors',
+    image: '/partners/Professional giving presentation.png',
     benefits: [
       'Provide Tailored Financial Options: Enhance your ability to meet clients\' strategic and operational needs.',
       'Strengthen Your Credibility: Broaden your expertise with bespoke funding solutions.',
@@ -127,46 +143,106 @@ export default function Partners() {
         subtitle="Partner with Serve Funding as a commercial banker, fractional CFO, investment banker, CPA, or business advisor. Access 10+ funding solutions from $250K-$100MM. Earn referral fees, expand client services, strengthen relationships, and tap into a network of specialized lenders for mid-market businesses."
       />
 
-      {/* Partnership Overview */}
+      {/* The Problem We Solve */}
       <Section>
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <FadeIn className="text-center mb-16">
-              <Text size="lg" className="text-gray-700 mb-4">
-                We value our trusted network. Partnering with Serve Funding means you're working with a committed team that understands the importance of your reputation with every referral.
+              <Heading size="h2" className="mb-6 text-olive-900">
+                The Referral Challenge
+              </Heading>
+              <Text size="lg" className="text-gray-700 mb-8">
+                We know the reality: when you refer a client to an alternative lender, you often don't see a second win. Time gets wasted. Relationships get strained.
               </Text>
             </FadeIn>
 
-            <FadeIn>
-              <Heading size="h3" className="mb-8 text-olive-900">
-                Our Trusted Network
-              </Heading>
-              <ul className="space-y-3 mb-12">
-                {['Commercial Bankers', 'Fractional CFOs', 'Investment Bankers', 'Accountants', 'Private Equity', 'Business Advisors'].map((type, idx) => (
-                  <li key={idx} className="flex items-center gap-3 text-gray-700">
-                    <CheckCircle size={20} className="text-gold-500 flex-shrink-0" />
-                    <span className="font-semibold">{type}</span>
-                  </li>
-                ))}
-              </ul>
-            </FadeIn>
+            <StaggerContainer className="space-y-6">
+              <StaggerItem>
+                <Card className="bg-white border-l-4 border-gold-500 p-8">
+                  <Heading size="h3" className="text-olive-900 mb-3">Time Wasted, Credibility Lost</Heading>
+                  <Text className="text-gray-700 leading-relaxed">
+                    You refer a prospect or client to an alternative lender. They go down the road. Two to four weeks of underwriting pass. Then the lender hits a wall—maybe it's a customer contract clause that makes the deal impossible, maybe it's collateral issues, maybe the leverage doesn't work. The business owner gets turned down. Again. Meanwhile, weeks have passed, their opportunity window is closing, and your credibility takes a hit for the referral that didn't work out.
+                  </Text>
+                </Card>
+              </StaggerItem>
 
-            <FadeIn>
-              <Card className="bg-gold-50 border-2 border-gold-500 p-8">
-                <Heading size="h3" className="mb-4 text-olive-900">
-                  The Importance of Trust: Your Reputation Matters
-                </Heading>
-                <Text className="text-gray-700">
-                  We get it—when a banker declines credit and wants to refer a client to an alternative funding solution, they need assurance that their client is in trusted hands. By referring your clients and prospects to Serve Funding, you're introducing them to a trusted advisor who prioritizes their best interests.
-                </Text>
-              </Card>
-            </FadeIn>
+              <StaggerItem>
+                <Card className="bg-white border-l-4 border-gold-500 p-8">
+                  <Heading size="h3" className="text-olive-900 mb-3">If There's a Way, We'll Find It</Heading>
+                  <Text className="text-gray-700 leading-relaxed">
+                    Here's our commitment: if there's a way to get it done, we will find a way. We're not locked into one product or one box. We can layer solutions. We can look at multiple lenders at once. We can use real estate, equipment, personal assets, cash flow—whatever combination works. The only time we can't help is if expectations are just unrealistic. But as long as there's something viable to build on, we'll sweep the corners of the known credit universe to find it. That's how we protect your reputation.
+                  </Text>
+                </Card>
+              </StaggerItem>
+
+              <StaggerItem>
+                <Card className="bg-white border-l-4 border-gold-500 p-8">
+                  <Heading size="h3" className="text-olive-900 mb-3">You Look Like the Hero</Heading>
+                  <Text className="text-gray-700 leading-relaxed">
+                    When we come through for your prospect, they remember that you went out of your way. They see you as the banker who didn't give up, who found a solution. They often come back to you as a stronger, more loyal client. When we solve for your existing clients, you protect that relationship by being the one who delivered. Either way—you've deepened trust, enhanced your reputation, and positioned yourself as the banker your clients can count on.
+                  </Text>
+                </Card>
+              </StaggerItem>
+            </StaggerContainer>
           </div>
         </Container>
       </Section>
 
+      {/* Partnership Overview */}
+      <Section background='gray'>
+        <Container>
+          <FadeIn className="text-center max-w-3xl mx-auto mb-16">
+            <Heading size="h2" className="mb-6 text-olive-900">
+              Why Partner With Us
+            </Heading>
+            <Text size="lg" className="text-gray-700 mb-4">
+              We value our trusted network. Partnering with Serve Funding means you're working with a committed team that understands the importance of your reputation with every referral.
+            </Text>
+            <Heading size="h3" className="mb-6 mt-12 text-center text-olive-900">
+              Our Trusted Network
+            </Heading>
+            <div className="flex flex-wrap gap-3 justify-center">
+              {['Commercial Bankers', 'Fractional CFOs', 'Investment Bankers', 'Accountants', 'Private Equity', 'Business Advisors'].map((type, idx) => (
+                <div key={idx} className="inline-flex items-center gap-2 bg-gold-50 border border-gold-200 rounded-full px-4 py-2">
+                  <CheckCircle size={16} className="text-gold-500 flex-shrink-0" />
+                  <span className="text-sm font-semibold text-gray-700">{type}</span>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+
+          <FadeIn className='max-w-5xl mx-auto'>
+            <Card>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                {/* Left: Text Content */}
+                <div>
+                  <Heading size="h3" className="mb-4 text-olive-900">
+                    The Importance of Trust: Your Reputation Matters
+                  </Heading>
+                  <Text className="text-gray-700">
+                    We get it—when a banker declines credit and wants to refer a client to an alternative funding solution, they need assurance that their client is in trusted hands. By referring your clients and prospects to Serve Funding, you're introducing them to a trusted advisor who prioritizes their best interests.
+                  </Text>
+                </div>
+
+                {/* Right: Trust Image */}
+                <div className="relative h-96 rounded-2xl overflow-hidden">
+                  <Image
+                    src="/partners/Trust.png"
+                    alt="Trust"
+                    width={1024}
+                    height={889}
+                    className="w-full h-full object-cover rounded-2xl"
+                    priority={false}
+                  />
+                </div>
+              </div>
+            </Card>
+          </FadeIn>
+        </Container>
+      </Section>
+
       {/* Our Commitment */}
-      <Section background="gray">
+      <Section>
         <Container>
           <FadeIn className="text-center mb-16">
             <Heading size="h2" className="mb-6 text-olive-900">
@@ -191,76 +267,6 @@ export default function Partners() {
         </Container>
       </Section>
 
-      {/* Partnership Opportunities Heading */}
-      <Section>
-        <Container>
-          <FadeIn className="text-center mb-16">
-            <Heading size="h2" className="text-olive-900">
-              Partnership Opportunities
-            </Heading>
-          </FadeIn>
-        </Container>
-      </Section>
-
-      {/* Partner Types */}
-      <>
-        {partnerTypes.map((partner, idx) => {
-              // Create ID from partner title
-              const partnerId = partner.title.toLowerCase().replace(/[\s/&]/g, '-')
-              return (
-                <Section key={idx} id={partnerId} className="!py-0 mb-48">
-                  <Container>
-                    <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${idx % 2 === 1 ? 'lg:grid-cols-2 lg:direction-rtl' : ''}`}>
-                    {/* Text Content */}
-                    <div className={idx % 2 === 1 ? 'lg:order-2' : ''}>
-                      <Heading size="h3" className="mb-6">
-                        <span className="text-olive-900">{partner.title.split(' ').slice(0, -1).join(' ')}</span>
-                        {partner.title.split(' ').length > 1 && <span className="text-gold-500"> {partner.title.split(' ').slice(-1)[0]}</span>}
-                      </Heading>
-
-                      <Text className="text-gray-700 mb-6 leading-relaxed text-lg">
-                        {partner.description}
-                      </Text>
-
-                      <div className="space-y-3">
-                        {partner.benefits.map((benefit, bidx) => (
-                          <div key={bidx} className="flex items-start gap-3">
-                            <div className="p-1 bg-gold-500/20 rounded-full mt-1">
-                              <CheckCircle size={16} className="text-olive-900 flex-shrink-0" fill="currentColor" />
-                            </div>
-                            <Text className="text-gray-700">{benefit}</Text>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Image Content */}
-                    <div className={`relative h-96 bg-gradient-to-br from-olive-800 to-olive-700 rounded-3xl overflow-hidden group ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                      <img
-                        src={`https://images.unsplash.com/photo-${
-                          idx === 0
-                            ? '1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-                            : idx === 1
-                            ? '1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-                            : idx === 2
-                            ? '1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-                            : idx === 3
-                            ? '1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-                            : idx === 4
-                            ? '1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-                            : '1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-                        }`}
-                        alt={partner.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-olive-900/40 to-transparent"></div>
-                    </div>
-                  </div>
-                  </Container>
-                </Section>
-              )
-            })}
-      </>
 
       {/* Testimonials */}
       <Section background="gray">
@@ -288,6 +294,52 @@ export default function Partners() {
           </StaggerContainer>
         </Container>
       </Section>
+
+      {/* Partner Types */}
+      <>
+        {partnerTypes.map((partner, idx) => {
+              // Create ID from partner title
+              const partnerId = partner.title.toLowerCase().replace(/[\s/&]/g, '-')
+              return (
+                <Section key={idx} id={partnerId}>
+                  <Container>
+                    <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${idx % 2 === 1 ? 'lg:grid-cols-2 lg:direction-rtl' : ''}`}>
+                    {/* Text Content */}
+                    <div className={idx % 2 === 1 ? 'lg:order-2' : ''}>
+                      <Heading size="h3" className="mb-6">
+                        <span className="text-olive-900">{partner.title.split(' ').slice(0, -1).join(' ')}</span>
+                        {partner.title.split(' ').length > 1 && <span className="text-gold-500"> {partner.title.split(' ').slice(-1)[0]}</span>}
+                      </Heading>
+
+                      <Text className="text-gray-700 mb-6 leading-relaxed text-lg">
+                        {partner.description}
+                      </Text>
+
+                      <div className="space-y-3">
+                        {partner.benefits.map((benefit, bidx) => (
+                          <div key={bidx} className="flex items-start gap-3">
+                            <Check size={20} className="flex-shrink-0 mt-0.5" style={{ color: COLORS.primary.darkGreen }} />
+                            <Text className="text-gray-700">{benefit}</Text>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Image Content */}
+                    <div className={`relative h-96 bg-gradient-to-br from-olive-800 to-olive-700 rounded-3xl overflow-hidden group ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+                      <img
+                        src={partner.image}
+                        alt={partner.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-olive-900/40 to-transparent"></div>
+                    </div>
+                  </div>
+                  </Container>
+                </Section>
+              )
+            })}
+      </>
 
       <PartnerInquiryForm />
     </div>
