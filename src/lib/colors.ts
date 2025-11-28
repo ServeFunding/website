@@ -5,8 +5,9 @@
 
 export const COLORS = {
   primary: {
-    darkGreen: "#65773D",    // Olive green from logo
+    darkGreen: "#758d5b",    // Olive green from logo
     lightGreen: "#D3CE75",   // Gold/light from logo
+    bgGreen: "#f1f0d5",      // Light background green
   },
 } as const;
 
@@ -17,4 +18,5 @@ export const COLORS = {
 export const tailwindColors = {
   "olive-green": COLORS.primary.darkGreen,
   "gold-light": COLORS.primary.lightGreen,
+  "bg-green": COLORS.primary.bgGreen,
 } as const;

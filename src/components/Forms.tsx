@@ -12,6 +12,7 @@ import {
   FormGroup,
 } from '@/components/ui'
 import { trackFormSubmission } from '@/lib/tracking'
+import { COLORS } from '@/lib/colors'
 
 // Formspree URLs for different form types
 export const FORM_URLS = {
@@ -110,7 +111,7 @@ export function ReferralForm() {
       <form action={FORM_URLS.referral} method="POST" className="space-y-6" onSubmit={handleSubmit}>
         {/* Banker Information Section */}
         <div>
-          <Heading size="h3" className="text-olive-900 mb-4">
+          <Heading size="h3" className="mb-4" style={{ color: COLORS.primary.darkGreen }}>
             Your Information
           </Heading>
 
@@ -129,7 +130,7 @@ export function ReferralForm() {
 
         {/* Client Information Section */}
         <div>
-          <Heading size="h3" className="text-olive-900 mb-4">
+          <Heading size="h3" className="mb-4" style={{ color: COLORS.primary.darkGreen }}>
             Client Information
           </Heading>
 
@@ -195,6 +196,13 @@ export function PartnerInquiryForm() {
   )
 }
 
+// HubSpot Form Embed Component
+export function HubSpotNewsletterForm() {
+  return (
+    <div className="hs-form-frame" data-region="na1" data-form-id="6c04f5d5-c53e-41d0-9923-d57a6b1b92ec" data-portal-id="23433903"></div>
+  )
+}
+
 // Newsletter Signup Form
 export function NewsletterForm() {
   const handleSubmit = () => {
@@ -202,7 +210,7 @@ export function NewsletterForm() {
   }
 
   return (
-    <section className="bg-[#f4f6e3] py-20 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden" style={{ backgroundColor: COLORS.primary.bgGreen }}>
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
@@ -223,7 +231,7 @@ export function NewsletterForm() {
             </div>
           </div>
 
-          {/* Right Form Column */}
+          {/* Original Form Column */}
           <div className="space-y-6">
             {/* Sign-up Text Above Form */}
             <div>
@@ -233,17 +241,8 @@ export function NewsletterForm() {
             </div>
 
             {/* Form Card */}
-            <Card variant="default" className="space-y-4">
-              <form action={FORM_URLS.newsletter} method="POST" className="space-y-4" onSubmit={handleSubmit}>
-                <FormInput type="text" id="firstName" name="first_name" label="First Name" required />
-                <FormInput type="email" id="email" name="email" label="Email Address" required />
-                <Button type="submit" variant="default" size="lg" className="w-full">
-                  Subscribe
-                </Button>
-                <p className="text-xs text-gray-500 text-center">
-                  We respect your privacy. Unsubscribe at any time.
-                </p>
-              </form>
+            <Card variant="default" className="!p-0">
+              <HubSpotNewsletterForm />
             </Card>
           </div>
         </div>

@@ -16,7 +16,7 @@ interface DropdownItem {
   id: string
 }
 
-const navItemClasses = "text-gray-700 font-medium text-base h-full relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:bg-[#65773D] after:transition-all after:duration-300 after:w-0 hover:after:w-full"
+const navItemClasses = "text-gray-700 font-medium text-base h-full relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 after:w-0 hover:after:w-full"
 
 interface NavItemProps {
   href: string

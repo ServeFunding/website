@@ -1,13 +1,14 @@
 import { forwardRef, type HTMLAttributes } from "react"
 import { cn } from "@/lib/utils"
 import { LAYOUT } from "@/lib/layout"
+import { COLORS } from "@/lib/colors"
 
 export const Section = forwardRef<HTMLElement, HTMLAttributes<HTMLElement> & { background?: "white" | "gray" | "olive" }>(
   ({ className, background = "white", ...props }, ref) => {
     const bgColors = {
       white: "bg-white",
       gray: "bg-gray-50",
-      olive: "bg-[#65773D]",
+      olive: "bg-[#758d5b]",
     }
 
     return (
