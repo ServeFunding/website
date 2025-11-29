@@ -35,6 +35,10 @@ export default function RootLayout({
         {/* Preconnect to critical third-party resources */}
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://umami-production-25e0.up.railway.app" />
+        {/* Preconnect to HubSpot domains for faster form loading */}
+        <link rel="preconnect" href="https://forms.hsforms.com" />
+        <link rel="preconnect" href="https://forms-na1.hsforms.com" />
+        <link rel="preconnect" href="https://js.hsforms.net" />
 
         {/* Umami Analytics */}
         <script

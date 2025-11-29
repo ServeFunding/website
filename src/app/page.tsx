@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import {
   Search,
@@ -18,7 +19,6 @@ import {
   Container,
   Heading,
   Text,
-  Button,
   Card,
   FadeIn,
   StaggerContainer,
@@ -26,9 +26,14 @@ import {
 } from '@/components/ui'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { IndustriesGrid } from '@/components/IndustriesGrid'
-import { IntroCallForm } from '@/components/Forms'
 import { HeroAnimation } from '@/components/HeroAnimation'
 import { LogoGrid } from '@/components/LogoGrid'
+
+// Lazy load IntroCallForm since it's below the fold
+const IntroCallForm = dynamic(() => import('@/components/Forms').then(mod => ({ default: mod.IntroCallForm })), {
+  loading: () => <div className="h-[600px]" />, // Placeholder while loading
+  ssr: false
+})
 
 export default function Home() {
   const heroSlides = [
