@@ -7,16 +7,25 @@ import { ChevronDown } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Button, Container } from "./ui"
 import { motion } from "framer-motion"
-import { fundingSolutions } from "@/data/company-info"
 import { COLORS } from "@/lib/colors"
 import { trackNavClick, trackExternalLinkClick } from "@/lib/tracking"
-
-interface DropdownItem {
-  name: string
-  id: string
-}
+import { CALENDLY_URL, headerNavConfig, getExpandMenuKey, type SimpleNavItem, type DropdownNavItem, type NavItem } from "@/lib/header-nav"
+import { DropdownMenuItems, MobileMenuSection, HamburgerIcon } from "./header-components"
 
 const navItemClasses = "text-gray-700 font-medium text-base h-full relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 after:w-0 hover:after:w-full flex items-center"
+const underlineStyle = {
+  '--underline-color': COLORS.primary.darkGreen,
+} as React.CSSProperties & { '--underline-color': string }
+
+// Type guards for discriminated union
+const isSimpleNavItem = (item: NavItem): item is SimpleNavItem => item.type === 'link'
+const isDropdownNavItem = (item: NavItem): item is DropdownNavItem => item.type === 'dropdown'
+
+const getIsActive = (item: DropdownNavItem, pathname: string): boolean => {
+  return item.basePath === '/solutions'
+    ? pathname.startsWith('/solutions')
+    : pathname === item.basePath
+}
 
 interface NavItemProps {
   href: string
@@ -36,9 +45,7 @@ function NavItem({ href, label, isActive, onAnchorClick }: NavItemProps) {
       href={href}
       onClick={handleClick}
       className={`${navItemClasses} ${isActive ? 'after:w-full' : ''}`}
-      style={{
-        '--underline-color': COLORS.primary.darkGreen,
-      } as React.CSSProperties & { '--underline-color': string }}
+      style={underlineStyle}
     >
       {label}
     </Link>
@@ -47,7 +54,7 @@ function NavItem({ href, label, isActive, onAnchorClick }: NavItemProps) {
 
 interface NavDropdownProps {
   label: string
-  items: DropdownItem[]
+  items: Array<{ name: string; id: string }>
   basePath: string
   onAnchorClick: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
   type?: 'pages' | 'anchors'
@@ -55,21 +62,13 @@ interface NavDropdownProps {
 }
 
 function NavDropdown({ label, items, basePath, onAnchorClick, type = 'pages', isActive }: NavDropdownProps) {
-  const isAnchorBased = type === 'anchors'
-
-  const handleDropdownClick = (itemName: string, href: string) => {
-    trackNavClick(`${label} - ${itemName}`, href)
-  }
-
   return (
     <div className="group relative h-full flex items-center">
       <Link
         href={basePath}
         onClick={() => trackNavClick(label, basePath)}
         className={`${navItemClasses} group-hover:after:w-full ${isActive ? 'after:w-full' : ''} gap-1`}
-        style={{
-          '--underline-color': COLORS.primary.darkGreen,
-        } as React.CSSProperties & { '--underline-color': string }}
+        style={underlineStyle}
       >
         {label} <ChevronDown size={18} />
       </Link>
@@ -77,41 +76,7 @@ function NavDropdown({ label, items, basePath, onAnchorClick, type = 'pages', is
       {/* Dropdown Menu */}
       <div className="absolute top-full left-1/2 -translate-x-1/2 w-96 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-4 group-hover:translate-y-2 z-50 overflow-hidden mt-2" style={{ backgroundColor: COLORS.primary.darkGreen }}>
         <div className="py-2 flex flex-col">
-          {items.map((item) => {
-            const href = isAnchorBased ? `${basePath}#${item.id}` : `${basePath}/${item.id}`
-
-            if (isAnchorBased) {
-              return (
-                <a
-                  key={item.id}
-                  href={href}
-                  onClick={(e) => {
-                    handleDropdownClick(item.name, href)
-                    onAnchorClick(e, href)
-                  }}
-                  className="px-6 py-3.5 text-white transition-colors text-base font-medium border-b border-white/10 last:border-0"
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.lightGreen}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                >
-                  {item.name}
-                </a>
-              )
-            }
-
-            return (
-              <Link
-                key={item.id}
-                href={href}
-                onClick={() => handleDropdownClick(item.name, href)}
-                className="px-6 py-3.5 text-white transition-colors text-base font-medium border-b border-white/10 last:border-0 block"
-                style={{ cursor: 'pointer' }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.lightGreen}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              >
-                {item.name}
-              </Link>
-            )
-          })}
+          <DropdownMenuItems items={items} basePath={basePath} label={label} type={type} onAnchorClick={onAnchorClick} />
         </div>
       </div>
     </div>
@@ -181,82 +146,47 @@ export function Header() {
 
           {/* Center Nav - Hidden on small screens, flex-1 to center it */}
           <nav className="hidden lg:flex items-stretch space-x-8 flex-1 justify-center">
-            <NavItem href="/" label="Home" isActive={pathname === '/'} onAnchorClick={handleAnchorClick} />
+            {headerNavConfig.items.map((item) => {
+              if (isSimpleNavItem(item)) {
+                return (
+                  <NavItem
+                    key={item.label}
+                    href={item.href}
+                    label={item.label}
+                    isActive={pathname === item.href}
+                    onAnchorClick={handleAnchorClick}
+                  />
+                )
+              }
 
-            <NavDropdown
-              label="Solutions"
-              basePath="/solutions"
-              items={fundingSolutions.map(solution => ({
-                name: solution.title,
-                id: solution.id
-              }))}
-              isActive={pathname.startsWith('/solutions')}
-              onAnchorClick={handleAnchorClick}
-            />
-
-            <NavItem href="/fundings" label="Fundings" isActive={pathname === '/fundings'} onAnchorClick={handleAnchorClick} />
-
-            <NavDropdown
-              label="Partners"
-              basePath="/partners"
-              items={[
-                { name: "Commercial Bankers", id: "commercial-bankers" },
-                { name: "Fractional CFOs", id: "fractional-cfos" },
-                { name: "Investment Bankers", id: "investment-bankers" },
-                { name: "CPAs / Accountants", id: "cpas---accountants" },
-                { name: "Private Equity Firms", id: "private-equity-firms" },
-                { name: "Business Advisors", id: "business-advisors" }
-              ]}
-              isActive={pathname === '/partners'}
-              onAnchorClick={handleAnchorClick}
-              type="anchors"
-            />
-
-            <NavDropdown
-              label="About Us"
-              basePath="/about-us"
-              items={[
-                { name: "Our Story", id: "our-story" },
-                { name: "Core Values", id: "core-values" },
-                { name: "Doing Good", id: "doing-good" }
-              ]}
-              isActive={pathname === '/about-us'}
-              onAnchorClick={handleAnchorClick}
-              type="anchors"
-            />
+              if (isDropdownNavItem(item)) {
+                return (
+                  <NavDropdown
+                    key={item.label}
+                    label={item.label}
+                    basePath={item.basePath}
+                    items={item.items}
+                    isActive={getIsActive(item, pathname)}
+                    onAnchorClick={handleAnchorClick}
+                    type={item.itemType || 'pages'}
+                  />
+                )
+              }
+            })}
           </nav>
 
           {/* Right side: CTA Button + Mobile Menu */}
           <div className="flex items-center gap-4">
             {/* CTA Button */}
-            <a href="https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?month=2025-11" target="_blank" rel="noopener noreferrer" onClick={() => trackExternalLinkClick('Intro Call (Header)')}>
+            <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackExternalLinkClick('Intro Call (Header)')}>
               <Button variant="default" size="sm" className="rounded-full flex-shrink-0">
                 Intro Call
               </Button>
             </a>
 
             {/* Mobile Menu Button - Animated */}
-            <div className="lg:hidden">
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-700 w-6 h-6 flex flex-col justify-center gap-1.5 relative">
-                <motion.span
-                  animate={isMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="block w-6 h-0.5 bg-gray-700 origin-center"
-                  style={{ willChange: 'transform' }}
-                />
-                <motion.span
-                  animate={isMenuOpen ? { opacity: 0, scale: 0 } : { opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4 }}
-                  className="block w-6 h-0.5 bg-gray-700"
-                  style={{ willChange: 'transform, opacity' }}
-                />
-                <motion.span
-                  animate={isMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="block w-6 h-0.5 bg-gray-700 origin-center"
-                  style={{ willChange: 'transform' }}
-                />
-              </button>
+            <div className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              <HamburgerIcon isOpen={isMenuOpen} />
             </div>
           </div>
         </div>
@@ -272,123 +202,54 @@ export function Header() {
           >
             {/* Navigation Links */}
             <div className="space-y-0 px-4 py-4">
-            {/* Home */}
-            <Link href="/" onClick={() => trackNavClick('Home', '/')} className="block text-base font-medium py-3 border-b border-gray-200 text-olive-green">Home</Link>
+              {headerNavConfig.items.map((item) => {
+                const closeMenu = () => {
+                  setIsMenuOpen(false)
+                  setExpandedMenu(null)
+                }
 
-            {/* Solutions - Expandable */}
-            <div className="border-b border-gray-200">
-              <button
-                onClick={() => setExpandedMenu(expandedMenu === 'solutions' ? null : 'solutions')}
-                className="w-full flex items-center justify-between text-base font-medium py-3 text-olive-green"
-              >
-                Solutions
-                <motion.div animate={{ rotate: expandedMenu === 'solutions' ? 180 : 0 }} transition={{ duration: 0.3 }}>
-                  <ChevronDown size={20} />
-                </motion.div>
-              </button>
-              {expandedMenu === 'solutions' && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <div className="space-y-0">
-                    {fundingSolutions.map((solution) => (
-                      <Link key={solution.id} href={`/solutions/${solution.id}`} onClick={() => trackNavClick(`Solutions - ${solution.title}`, `/solutions/${solution.id}`)} className="block text-base font-medium py-3 border-b border-gray-200 text-gray-700 pl-6">
-                        {solution.title}
-                      </Link>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
+                if (isSimpleNavItem(item)) {
+                  return (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => {
+                        trackNavClick(item.label, item.href)
+                        closeMenu()
+                      }}
+                      className="block text-base font-medium py-3 border-b border-gray-200 text-olive-green"
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                }
+
+                if (isDropdownNavItem(item)) {
+                  const expandKey = getExpandMenuKey(item.label)
+
+                  return (
+                    <MobileMenuSection
+                      key={item.label}
+                      label={item.label}
+                      basePath={item.basePath}
+                      items={item.items}
+                      type={item.itemType || 'pages'}
+                      isExpanded={expandedMenu === expandKey}
+                      onToggle={() => setExpandedMenu(expandedMenu === expandKey ? null : expandKey)}
+                      onClose={closeMenu}
+                      onAnchorClick={handleAnchorClick}
+                    />
+                  )
+                }
+              })}
+
+              {/* Intro Call Button */}
+              <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackExternalLinkClick('Intro Call (Mobile Menu)')} className="w-full block pt-4">
+                <Button variant="default" className="w-full">
+                  Intro Call
+                </Button>
+              </a>
             </div>
-
-            {/* Fundings */}
-            <Link href="/fundings" onClick={() => trackNavClick('Fundings', '/fundings')} className="block text-base font-medium py-3 border-b border-gray-200 text-gray-700">Fundings</Link>
-
-            {/* Partners - Expandable */}
-            <div className="border-b border-gray-200">
-              <button
-                onClick={() => setExpandedMenu(expandedMenu === 'partners' ? null : 'partners')}
-                className="w-full flex items-center justify-between text-base font-medium py-3 text-olive-green"
-              >
-                Partners
-                <motion.div animate={{ rotate: expandedMenu === 'partners' ? 180 : 0 }} transition={{ duration: 0.3 }}>
-                  <ChevronDown size={20} />
-                </motion.div>
-              </button>
-              {expandedMenu === 'partners' && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <div className="space-y-0">
-                    {[
-                      { name: "Commercial Bankers", id: "commercial-bankers" },
-                      { name: "Fractional CFOs", id: "fractional-cfos" },
-                      { name: "Investment Bankers", id: "investment-bankers" },
-                      { name: "CPAs / Accountants", id: "cpas---accountants" },
-                      { name: "Private Equity Firms", id: "private-equity-firms" },
-                      { name: "Business Advisors", id: "business-advisors" }
-                    ].map((item) => (
-                      <a key={item.id} href={`/partners#${item.id}`} onClick={(e) => {
-                        trackNavClick(`Partners - ${item.name}`, `/partners#${item.id}`)
-                        handleAnchorClick(e, `/partners#${item.id}`)
-                      }} className="block text-base font-medium py-3 border-b border-gray-200 text-gray-700 pl-6">
-                        {item.name}
-                      </a>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </div>
-
-            {/* About Us - Expandable */}
-            <div className="border-b border-gray-200">
-              <button
-                onClick={() => setExpandedMenu(expandedMenu === 'about' ? null : 'about')}
-                className="w-full flex items-center justify-between text-base font-medium py-3 text-olive-green"
-              >
-                About Us
-                <motion.div animate={{ rotate: expandedMenu === 'about' ? 180 : 0 }} transition={{ duration: 0.3 }}>
-                  <ChevronDown size={20} />
-                </motion.div>
-              </button>
-              {expandedMenu === 'about' && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <div className="space-y-0">
-                    {[
-                      { name: "Our Story", id: "our-story" },
-                      { name: "Core Values", id: "core-values" },
-                      { name: "Doing Good", id: "doing-good" }
-                    ].map((item) => (
-                      <Link key={item.id} href={`/about-us#${item.id}`} onClick={() => trackNavClick(`About Us - ${item.name}`, `/about-us#${item.id}`)} className="block text-base font-medium py-3 border-b border-gray-200 text-gray-700 pl-6">
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </div>
-
-            {/* Intro Call Button */}
-            <a href="https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?month=2025-11" target="_blank" rel="noopener noreferrer" onClick={() => trackExternalLinkClick('Intro Call (Mobile Menu)')} className="w-full block pt-4">
-              <Button variant="default" className="w-full">
-                Intro Call
-              </Button>
-            </a>
-          </div>
         </motion.div>
         )}
       </Container>
