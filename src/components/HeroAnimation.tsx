@@ -17,7 +17,7 @@ interface Leaf {
   fadeOut?: boolean
 }
 
-// Leaf shape SVG component - pointed tip with rounded base
+// Leaf shape SVG component - Rounded organic leaf
 const LeafShape = ({
   size = 100,
   angle = 0,
@@ -31,27 +31,19 @@ const LeafShape = ({
 }) => (
   <svg
     width={size}
-    height={size * 1.3}
-    viewBox="0 0 60 80"
+    height={size}
+    viewBox="0 0 100 100"
     style={{
       transform: `rotate(${angle}deg)`,
       opacity,
       filter: `drop-shadow(0 0 8px ${color}60) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15))`,
     }}
   >
-    {/* Leaf shape - pointed tip at top, rounded base at bottom */}
+    {/* Pointed teardrop leaf shape */}
     <path
-      d="M 30 5 Q 50 25 48 45 Q 45 60 30 75 Q 15 60 12 45 Q 10 25 30 5 Z"
+      d="M 50 5 Q 70 20 72 45 Q 70 70 50 90 Q 30 70 28 45 Q 30 20 50 5 Z"
       fill={color}
       opacity="1"
-    />
-    {/* Center vein detail */}
-    <path
-      d="M 30 8 Q 30 40 30 72"
-      stroke={color}
-      strokeWidth="1"
-      fill="none"
-      opacity="0.4"
     />
   </svg>
 )
@@ -154,10 +146,10 @@ export const HeroAnimation = ({
   const nextLeafIdRef = useRef(0)
   const lastSpawnTimeRef = useRef(0)
 
-  // Generate initial background leaves (1-5)
+  // Generate initial background leaves (8-15)
   useEffect(() => {
     const generateInitialLeaves = () => {
-      const leafCount = Math.floor(Math.random() * 5) + 1 // 1-5 leaves
+      const leafCount = Math.floor(Math.random() * 16) + 16 // 8-15 leaves
       const newLeaves: Leaf[] = Array.from({ length: leafCount }, (_, i) => ({
         id: i,
         x: Math.random() * (containerRef.current?.clientWidth || 600),
