@@ -103,17 +103,22 @@ export default function Home() {
                 </div>
               </FadeIn>
               <FadeIn delay={0.2} className="relative h-full min-h-[400px] lg:min-h-[500px] flex items-center justify-center">
-                <div className="relative w-full max-w-md h-80 rounded-2xl overflow-hidden shadow-2xl">
+                <div className="relative w-full max-w-md h-80 rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-[0_20px_60px_rgba(117,141,91,0.3)] hover:-translate-y-2"
+                  style={{
+                    background: `linear-gradient(135deg, ${BRAND_COLORS.primary.darkGreen}10, ${BRAND_COLORS.primary.lightGreen}10)`,
+                    boxShadow: `0 25px 50px rgba(117,141,91,0.25), 0 0 1px rgba(117,141,91,0.1)`
+                  }}>
                   <Image
                     key={heroIndex}
                     src={slide.image}
                     alt={slide.heading}
                     fill
-                    className="object-cover animate-fadeIn"
+                    className="object-cover animate-fadeIn transition-transform duration-700 hover:scale-105"
                     priority={heroIndex === 0}
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 416px, 416px"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-olive-900/10 to-transparent pointer-events-none"></div>
                 </div>
               </FadeIn>
             </div>

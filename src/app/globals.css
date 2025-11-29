@@ -33,4 +33,9 @@ html {
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
   }
+
+  /* Navigation item underline effect */
+  a[style*="--underline-color"]::after {
+    background-color: var(--underline-color) !important;
+  }
 }

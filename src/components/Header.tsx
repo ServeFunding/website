@@ -16,7 +16,7 @@ interface DropdownItem {
   id: string
 }
 
-const navItemClasses = "text-gray-700 font-medium text-base h-full relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:bg-olive-green after:transition-all after:duration-300 after:w-0 hover:after:w-full"
+const navItemClasses = "text-gray-700 font-medium text-base h-full relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 after:w-0 hover:after:w-full flex items-center"
 
 interface NavItemProps {
   href: string
@@ -35,7 +35,10 @@ function NavItem({ href, label, isActive, onAnchorClick }: NavItemProps) {
     <Link
       href={href}
       onClick={handleClick}
-      className={`${navItemClasses} ${isActive ? 'after:w-full' : ''} flex items-center`}
+      className={`${navItemClasses} ${isActive ? 'after:w-full' : ''}`}
+      style={{
+        '--underline-color': COLORS.primary.darkGreen,
+      } as React.CSSProperties & { '--underline-color': string }}
     >
       {label}
     </Link>
@@ -63,7 +66,10 @@ function NavDropdown({ label, items, basePath, onAnchorClick, type = 'pages', is
       <Link
         href={basePath}
         onClick={() => trackNavClick(label, basePath)}
-        className={`${navItemClasses} group-hover:after:w-full ${isActive ? 'after:w-full' : ''} flex items-center gap-1`}
+        className={`${navItemClasses} group-hover:after:w-full ${isActive ? 'after:w-full' : ''} gap-1`}
+        style={{
+          '--underline-color': COLORS.primary.darkGreen,
+        } as React.CSSProperties & { '--underline-color': string }}
       >
         {label} <ChevronDown size={18} />
       </Link>
