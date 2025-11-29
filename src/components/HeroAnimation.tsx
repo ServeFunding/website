@@ -288,7 +288,7 @@ export const HeroAnimation = ({
       </motion.div>
 
       {/* Main content */}
-      <div className="relative z-10">
+      <div className="relative h-full z-10">
         {children}
       </div>
     </div>

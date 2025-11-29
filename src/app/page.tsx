@@ -40,7 +40,7 @@ export default function Home() {
     {
       heading: "The Right Funding Solutions for Healthy Business Growth",
       desc: "An advisory service committed to serve the best interests of your company's current needs and future goals.",
-      image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
     },
     {
       heading: "You Value Relationships Over Bots & Quick Fixes",
@@ -55,75 +55,86 @@ export default function Home() {
   ]
 
   const [heroIndex, setHeroIndex] = React.useState(0)
+  const [isUserInteracting, setIsUserInteracting] = React.useState(false)
 
   React.useEffect(() => {
+    if (isUserInteracting) return
+
     const interval = setInterval(() => {
       setHeroIndex((prev) => (prev + 1) % heroSlides.length)
-    }, 5000) // Change slide every 5 seconds
+    }, 8000) // Change slide every 8 seconds
 
     return () => clearInterval(interval)
-  }, [])
+  }, [isUserInteracting])
 
-  const handlePrev = () => setHeroIndex((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
-  const handleNext = () => setHeroIndex((prev) => (prev + 1) % heroSlides.length)
+  const handlePrev = () => {
+    setHeroIndex((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+    setIsUserInteracting(true)
+    setTimeout(() => setIsUserInteracting(false), 8000)
+  }
+
+  const handleNext = () => {
+    setHeroIndex((prev) => (prev + 1) % heroSlides.length)
+    setIsUserInteracting(true)
+    setTimeout(() => setIsUserInteracting(false), 8000)
+  }
 
   const slide = heroSlides[heroIndex]
 
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <Section className="!pt-0 !pb-0 md:!py-0 overflow-hidden -mt-[96px]">
-        <Container>
-          <HeroAnimation>
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-center min-h-[500px] pt-[96px]">
-              <FadeIn className="px-4 sm:px-6 lg:px-0 py-12 lg:py-0 z-10">
-                <div key={heroIndex} className="animate-fadeIn">
-                  <Heading size="h1" color="gradient" className="mb-4">
-                    {slide.heading}
-                  </Heading>
-                  <Text size="lg" className="mb-8">
-                    {slide.desc}
-                  </Text>
-                </div>
-                <div className="flex gap-4">
-                  <button
-                    onClick={handlePrev}
-                    className="w-12 h-12 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center hover:bg-olive-900 hover:text-white transition-all duration-300"
-                    aria-label="Previous slide"
-                  >
-                    <ChevronLeft size={24} />
-                  </button>
-                  <button
-                    onClick={handleNext}
-                    className="w-12 h-12 rounded-full bg-gray-800 text-white flex items-center justify-center hover:bg-olive-900 transition-all duration-300"
-                    aria-label="Next slide"
-                  >
-                    <ChevronRight size={24} />
-                  </button>
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.2} className="relative h-full min-h-[400px] lg:min-h-[500px] flex items-center justify-center">
-                <div className="relative w-full max-w-md h-80 rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-[0_20px_60px_rgba(117,141,91,0.3)] hover:-translate-y-2"
-                  style={{
-                    background: `linear-gradient(135deg, ${BRAND_COLORS.primary.darkGreen}10, ${BRAND_COLORS.primary.lightGreen}10)`,
-                    boxShadow: `0 25px 50px rgba(117,141,91,0.25), 0 0 1px rgba(117,141,91,0.1)`
-                  }}>
-                  <Image
-                    key={heroIndex}
-                    src={slide.image}
-                    alt={slide.heading}
-                    fill
-                    className="object-cover animate-fadeIn transition-transform duration-700 hover:scale-105"
-                    priority={heroIndex === 0}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 416px, 416px"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-olive-900/10 to-transparent pointer-events-none"></div>
-                </div>
-              </FadeIn>
+      <Section className="!pt-0 !pb-0 md:!py-0 overflow-hidden -mt-[96px] h-screen">
+        <HeroAnimation>
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center justify-center h-full pt-[96px] px-4 sm:px-6 lg:px-8 lg:justify-start">
+            {/* Text Column */}
+            <FadeIn className="z-10 flex-1">
+              <Heading key={heroIndex} size="h2" className="mb-4 animate-fadeIn">
+                {slide.heading}
+              </Heading>
+              <Text size="lg" className="mb-8 animate-fadeIn" style={{ animationDelay: '0.1s' }}>
+                {slide.desc}
+              </Text>
+              <div className="flex gap-4">
+                <button
+                  onClick={handlePrev}
+                  className="w-12 h-12 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center hover:bg-olive-900 hover:text-white transition-all duration-300"
+                  aria-label="Previous slide"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="w-12 h-12 rounded-full bg-gray-800 text-white flex items-center justify-center hover:bg-olive-900 transition-all duration-300"
+                  aria-label="Next slide"
+                >
+                  <ChevronRight size={24} />
+                </button>
+              </div>
+            </FadeIn>
+
+            {/* Image Column */}
+            <div className="relative w-full lg:flex-1 h-80 rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-[0_20px_60px_rgba(117,141,91,0.3)] hover:-translate-y-2"
+              style={{
+                background: `linear-gradient(135deg, ${BRAND_COLORS.primary.darkGreen}10, ${BRAND_COLORS.primary.lightGreen}10)`,
+                boxShadow: `0 25px 50px rgba(117,141,91,0.25), 0 0 1px rgba(117,141,91,0.1)`
+              }}>
+              <Image
+                key={heroIndex}
+                src={slide.image}
+                alt={slide.heading}
+                fill
+                className="object-cover transition-all duration-700 hover:scale-105"
+                style={{
+                  animation: 'fadeInSlide 0.8s ease-in-out'
+                }}
+                priority={heroIndex === 0}
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 400px, 400px"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
             </div>
-          </HeroAnimation>
-        </Container>
+          </div>
+        </HeroAnimation>
       </Section>
 
       {/* Value Props Section */}
