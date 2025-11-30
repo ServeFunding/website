@@ -146,10 +146,14 @@ export const HeroAnimation = ({
   const nextLeafIdRef = useRef(0)
   const lastSpawnTimeRef = useRef(0)
 
-  // Generate initial background leaves (8-15)
+  // Generate initial background leaves (fewer on mobile)
   useEffect(() => {
     const generateInitialLeaves = () => {
-      const leafCount = Math.floor(Math.random() * 16) + 16 // 8-15 leaves
+      // Reduce leaf count on mobile: 4-6 leaves, desktop: 8-12 leaves
+      const isMobile = window.innerWidth < 768
+      const leafCount = isMobile
+        ? Math.floor(Math.random() * 3) + 4  // 4-6 leaves on mobile
+        : Math.floor(Math.random() * 5) + 8  // 8-12 leaves on desktop
       const newLeaves: Leaf[] = Array.from({ length: leafCount }, (_, i) => ({
         id: i,
         x: Math.random() * (containerRef.current?.clientWidth || 600),
@@ -174,8 +178,11 @@ export const HeroAnimation = ({
     return () => clearTimeout(timer)
   }, [])
 
-  // Track mouse movement and spawn leaves
+  // Track mouse movement and spawn leaves (desktop only)
   useEffect(() => {
+    // Skip mouse interaction on mobile/touch devices
+    if (window.innerWidth < 768) return
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY })
 

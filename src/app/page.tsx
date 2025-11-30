@@ -114,7 +114,7 @@ export default function Home() {
             </FadeIn>
 
             {/* Image Column */}
-            <div className="relative w-full lg:flex-1 h-80 rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-[0_20px_60px_rgba(117,141,91,0.3)] hover:-translate-y-2"
+            <div className="relative w-full lg:flex-1 h-80 rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 lg:hover:shadow-[0_20px_60px_rgba(117,141,91,0.3)] lg:hover:-translate-y-2"
               style={{
                 background: `linear-gradient(135deg, ${BRAND_COLORS.primary.darkGreen}10, ${BRAND_COLORS.primary.lightGreen}10)`,
                 boxShadow: `0 25px 50px rgba(117,141,91,0.25), 0 0 1px rgba(117,141,91,0.1)`
@@ -124,12 +124,14 @@ export default function Home() {
                 src={slide.image}
                 alt={slide.heading}
                 fill
-                className="object-cover transition-all duration-700 hover:scale-105"
+                className="object-cover transition-all duration-700 lg:hover:scale-105"
                 style={{
-                  animation: 'fadeInSlide 0.8s ease-in-out'
+                  animation: 'fadeInSlide 0.6s ease-in-out'
                 }}
                 priority={heroIndex === 0}
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 400px, 400px"
+                loading={heroIndex === 0 ? 'eager' : 'lazy'}
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 500px, 600px"
+                quality={75}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
             </div>
@@ -164,7 +166,7 @@ export default function Home() {
               }
             ].map((item, index) => (
               <StaggerItem key={index} className={index === 1 ? "md:-translate-y-6 relative z-10" : ""}>
-                <Card className="flex flex-col items-center text-center h-full group transition-all duration-300 hover:-translate-y-2 bg-white value-card" style={{}}>
+                <Card className="flex flex-col items-center text-center h-full group transition-all duration-300 md:hover:-translate-y-2 bg-white value-card" style={{}}>
                   <div
                     className="icon-flip-outer w-24 h-24 rounded-full mb-8"
                     style={{

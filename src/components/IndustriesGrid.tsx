@@ -28,7 +28,9 @@ export function IndustriesGrid() {
   const [isTouchDevice, setIsTouchDevice] = useState(false)
 
   const handleMouseEnter = (index: number) => {
-    if (!isTouchDevice && touchedIndex === null) {
+    // Disable hover animations on mobile
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+    if (!isMobile && !isTouchDevice && touchedIndex === null) {
       setHoveredIndex(index)
     }
   }
