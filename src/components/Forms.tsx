@@ -152,10 +152,32 @@ export function PartnerInquiryForm() {
   )
 }
 
+// Load HubSpot script on demand
+function useLoadHubSpotScript() {
+  useEffect(() => {
+    // Only load if not already loaded
+    if (window.hbspt) return
+
+    const script = document.createElement('script')
+    script.src = 'https://js.hsforms.net/forms/embed/23433903.js'
+    script.async = true
+    script.defer = true
+    document.head.appendChild(script)
+
+    return () => {
+      // Cleanup script on unmount
+      if (document.head.contains(script)) {
+        document.head.removeChild(script)
+      }
+    }
+  }, [])
+}
+
 // Factory function to create HubSpot form components
 function createHubSpotForm(formId: string, formType: string) {
   return function HubSpotForm() {
     const [mounted, setMounted] = useState(false)
+    useLoadHubSpotScript()
     useHubSpotFormTracking(formType)
 
     useEffect(() => {
