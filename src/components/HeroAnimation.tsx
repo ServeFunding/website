@@ -145,9 +145,16 @@ export const HeroAnimation = ({
   const [containerRect, setContainerRect] = useState<DOMRect | null>(null)
   const nextLeafIdRef = useRef(0)
   const lastSpawnTimeRef = useRef(0)
+  const [isHydrated, setIsHydrated] = useState(false)
 
-  // Generate initial background leaves (fewer on mobile)
+  // Generate initial background leaves (fewer on mobile) - defer until after hydration
   useEffect(() => {
+    setIsHydrated(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isHydrated) return
+
     const generateInitialLeaves = () => {
       // Reduce leaf count on mobile: 4-6 leaves, desktop: 8-12 leaves
       const isMobile = window.innerWidth < 768
@@ -173,10 +180,12 @@ export const HeroAnimation = ({
       }
     }
 
-    // Small delay to ensure container is ready
-    const timer = setTimeout(generateInitialLeaves, 100)
-    return () => clearTimeout(timer)
-  }, [])
+    // Defer leaf generation to after paint
+    const timer = requestAnimationFrame(() => {
+      generateInitialLeaves()
+    })
+    return () => cancelAnimationFrame(timer)
+  }, [isHydrated])
 
   // Track mouse movement and spawn leaves (desktop only)
   useEffect(() => {

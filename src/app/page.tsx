@@ -89,10 +89,10 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center justify-center h-full pt-[96px] px-4 sm:px-6 lg:px-8 lg:justify-start">
             {/* Text Column */}
             <div className="z-10 flex-1">
-              <Heading key={heroIndex} size="h2" className="mb-4 animate-fadeIn">
+              <Heading key={heroIndex} size="h2" className="mb-4">
                 {slide.heading}
               </Heading>
-              <Text size="lg" className="mb-8 animate-fadeIn" style={{ animationDelay: '0.1s' }}>
+              <Text size="lg" className="mb-8">
                 {slide.desc}
               </Text>
               <div className="flex gap-4">
@@ -126,13 +126,13 @@ export default function Home() {
                 fill
                 className="object-cover transition-all duration-700 lg:hover:scale-105"
                 style={{
-                  animation: 'fadeInSlide 0.4s ease-out forwards'
+                  animation: 'fadeInSlide 0.3s ease-out forwards'
                 }}
                 priority={heroIndex === 0}
-                loading={heroIndex === 0 ? 'eager' : 'lazy'}
+                loading="eager"
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 500px, 600px"
-                quality={75}
-                fetchPriority={heroIndex === 0 ? 'high' : 'auto'}
+                quality={80}
+                fetchPriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
             </div>
