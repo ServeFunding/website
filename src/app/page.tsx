@@ -88,7 +88,7 @@ export default function Home() {
         <HeroAnimation>
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center justify-center h-full pt-[96px] px-4 sm:px-6 lg:px-8 lg:justify-start">
             {/* Text Column */}
-            <FadeIn className="z-10 flex-1">
+            <div className="z-10 flex-1">
               <Heading key={heroIndex} size="h2" className="mb-4 animate-fadeIn">
                 {slide.heading}
               </Heading>
@@ -111,7 +111,7 @@ export default function Home() {
                   <ChevronRight size={24} />
                 </button>
               </div>
-            </FadeIn>
+            </div>
 
             {/* Image Column */}
             <div className="relative w-full lg:flex-1 h-80 rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 lg:hover:shadow-[0_20px_60px_rgba(117,141,91,0.3)] lg:hover:-translate-y-2"
@@ -126,12 +126,13 @@ export default function Home() {
                 fill
                 className="object-cover transition-all duration-700 lg:hover:scale-105"
                 style={{
-                  animation: 'fadeInSlide 0.6s ease-in-out'
+                  animation: 'fadeInSlide 0.4s ease-out forwards'
                 }}
                 priority={heroIndex === 0}
                 loading={heroIndex === 0 ? 'eager' : 'lazy'}
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 500px, 600px"
                 quality={75}
+                fetchPriority={heroIndex === 0 ? 'high' : 'auto'}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
             </div>

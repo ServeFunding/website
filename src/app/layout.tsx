@@ -1,15 +1,9 @@
 import type { Metadata } from "next"
-import dynamic from "next/dynamic"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
+import { NewsletterForm } from "@/components/Forms"
 import { ChatbotWrapper } from "@/components/ChatbotWrapper"
 import "@/app/globals.css"
-
-// Lazy load NewsletterForm to defer HubSpot script loading
-const NewsletterForm = dynamic(() => import("@/components/Forms").then(mod => ({ default: mod.NewsletterForm })), {
-  loading: () => null,
-  ssr: true
-})
 
 export const metadata: Metadata = {
   title: "Serve Funding - Working Capital Solutions for Growing Businesses",
@@ -52,6 +46,8 @@ export default function RootLayout({
           src="https://umami-production-25e0.up.railway.app/script.js"
           data-website-id="4493b6db-f043-4505-a592-03c371ce8998"
         />
+        {/* HubSpot Forms - loaded globally since NewsletterForm is in footer on all pages */}
+        <script src="https://js.hsforms.net/forms/embed/23433903.js" defer></script>
         {/* Organization Schema - Global */}
         <script
           type="application/ld+json"
