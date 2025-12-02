@@ -7,6 +7,7 @@ interface LogoGridProps {
     alt: string
     width?: number
     height?: number
+    href?: string
   }>
   maxHeight?: number // in rem units (16 = 64px, 24 = 96px, etc)
   title?: string
@@ -43,6 +44,16 @@ export function LogoGrid({ logos, maxHeight = 24, title, subtitle }: LogoGridPro
           const aspectRatio = logoWidth / logoHeight
           const scaledWidth = heightInPixels * aspectRatio
 
+          const imageElement = (
+            <Image
+              src={logo.src}
+              alt={logo.alt}
+              className="h-full w-auto object-contain"
+              width={logoWidth}
+              height={logoHeight}
+            />
+          )
+
           return (
             <div
               key={index}
@@ -53,13 +64,19 @@ export function LogoGrid({ logos, maxHeight = 24, title, subtitle }: LogoGridPro
               }}
               className="flex items-center px-4"
             >
-              <Image
-                src={logo.src}
-                alt={logo.alt}
-                className="h-full w-auto object-contain"
-                width={logoWidth}
-                height={logoHeight}
-              />
+              {logo.href ? (
+                <a
+                  href={logo.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center h-full w-full hover:opacity-80 transition-opacity"
+                  title={`Visit ${logo.alt}`}
+                >
+                  {imageElement}
+                </a>
+              ) : (
+                imageElement
+              )}
             </div>
           )
         })}

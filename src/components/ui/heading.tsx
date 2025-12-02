@@ -4,14 +4,14 @@ import { cn } from "@/lib/utils"
 import { COLORS } from "@/lib/colors"
 
 const headingVariants = cva(
-  "font-serif font-bold tracking-tight",
+  "font-serif tracking-tight",
   {
     variants: {
       size: {
-        h1: "text-4xl md:text-5xl lg:text-6xl leading-tight",
-        h2: "text-3xl md:text-4xl lg:text-5xl leading-tight",
-        h3: "text-2xl md:text-3xl",
-        h4: "text-xl md:text-2xl",
+        h1: "text-5xl md:text-6xl lg:text-7xl leading-tight font-light",
+        h2: "text-3xl md:text-4xl lg:text-5xl leading-tight font-bold mb-12",
+        h3: "text-2xl md:text-3xl font-bold",
+        h4: "text-xl md:text-2xl font-bold",
       },
       color: {
         default: "text-olive-900",
@@ -35,8 +35,8 @@ export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
     const Comp = size as ElementType
     let headingStyle = style || {}
 
-    // Apply gradient by default for h2
-    if (size === 'h2' && color !== 'white') {
+    // Apply gradient by default for h1 and h2
+    if ((size === 'h1' || size === 'h2') && color !== 'white') {
       headingStyle = {
         ...headingStyle,
         background: `linear-gradient(to right, ${COLORS.primary.darkGreen}, ${COLORS.primary.lightGreen})`,

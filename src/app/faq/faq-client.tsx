@@ -4,6 +4,7 @@ import { useState } from 'react'
 import {
   ChevronDown
 } from 'lucide-react'
+import { CTA } from '@/components/cta'
 import {
   Section,
   Container,
@@ -87,22 +88,14 @@ export default function FAQClient({ faqs }: FAQClientProps) {
         </Container>
       </Section>
 
-      {/* CTA Section */}
-      <Section background="gray">
-        <Container>
-          <FadeIn className="max-w-2xl mx-auto text-center">
-            <Heading size="h2" className="mb-6 text-olive-900">
-              Still Have Questions?
-            </Heading>
-            <Text size="lg" className="text-gray-700 mb-8">
-              Don't see your question answered? Get in touch with our team and we'll be happy to help.
-            </Text>
-            <Button variant="gold" size="lg">
-              Contact Us
-            </Button>
-          </FadeIn>
-        </Container>
-      </Section>
+      {/* Contact Section */}
+      <CTA
+        title="Still Have Questions?"
+        text="Don't see your question answered? Get in touch with our team and we'll be happy to help."
+        buttonText="Contact Us"
+        source="fundings"
+        useBG
+      />
     </div>
   )
 }

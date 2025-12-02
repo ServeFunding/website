@@ -3,6 +3,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
+import Link from 'next/link'
 import {
   Search,
   Clock,
@@ -19,6 +20,7 @@ import {
   Container,
   Heading,
   Text,
+  Button,
   Card,
   FadeIn,
   StaggerContainer,
@@ -27,7 +29,6 @@ import {
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { IndustriesGrid } from '@/components/IndustriesGrid'
 import { HeroAnimation } from '@/components/HeroAnimation'
-import { LogoGrid } from '@/components/LogoGrid'
 
 // Lazy load IntroCallForm since it's below the fold
 const IntroCallForm = dynamic(() => import('@/components/Forms').then(mod => ({ default: mod.IntroCallForm })), {
@@ -311,24 +312,28 @@ export default function Home() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                title: 'Acquisition Funding',
+                title: 'Strategic Acquisition',
                 desc: 'An established, Ohio-based tech services firm was looking to acquire a staffing firm specializing in their field to empower growth in the labor shortage of 2022.',
-                icon: TrendingUp
+                icon: TrendingUp,
+                href: '/fundings#strategic-acquisition'
               },
               {
-                title: 'Payroll Save',
+                title: 'Fast Payroll Cover',
                 desc: 'A growing, Atlanta, GA-based, niche services firm was facing an unexpected cash flow shortfall due to a large receivable their customer delayed paying.',
-                icon: DollarSign
+                icon: DollarSign,
+                href: '/fundings#fast-payroll-cover'
               },
               {
                 title: 'Short-Term Cashflow',
                 desc: 'Florida-based, $50MM transportation company sought help from their banker for an unexpected scenario',
-                icon: Clock
+                icon: Clock,
+                href: '/fundings#short-term-cashflow'
               },
               {
-                title: 'Partner Buy-Out',
+                title: 'Partner Buyout',
                 desc: 'Two specialty construction firms based in Georgia and South Carolina, respectively, came together years ago to join forces.',
-                icon: Handshake
+                icon: Handshake,
+                href: '/fundings#partner-buyout'
               }
             ].map((item, index) => (
               <StaggerItem key={index}>
@@ -347,12 +352,12 @@ export default function Home() {
                   <Text className="text-white/90 flex-1 mb-6">
                     {item.desc}
                   </Text>
-                  <div className="flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all duration-200">
-                    <span className="px-4 py-2 rounded-full bg-white text-olive-900">
-                      Read More
-                    </span>
-                    <ChevronRight size={18} />
-                  </div>
+                  <Link href={item.href} className="mt-auto inline-block overflow-hidden">
+                    <Button size="default" variant="white" className="group/button transition-all duration-300 group-hover/button:translate-x-1">
+                      <span>Read More</span>
+                      <ChevronRight size={18} className="w-0 opacity-0 group-hover/button:w-5 group-hover/button:opacity-100 transition-all duration-300 ml-0 group-hover/button:ml-2" />
+                    </Button>
+                  </Link>
                 </div>
               </StaggerItem>
             ))}
@@ -361,23 +366,6 @@ export default function Home() {
       </Section>
 
       <IntroCallForm />
-
-      {/* Network Affiliations - Logo Section */}
-      <Section background="gray">
-        <Container>
-          <FadeIn>
-            <LogoGrid
-              logos={[
-                { src: '/ACG Global Logo.png', alt: 'ACG Global', width: 280, height: 120 },
-                { src: '/IFA.png', alt: 'IFA', width: 200, height: 100 },
-                { src: '/Secured Finance Network.jpg', alt: 'Secured Finance Network', width: 320, height: 100 },
-                { src: '/TMA.webp', alt: 'TMA', width: 240, height: 100 }
-              ]}
-              maxHeight={24}
-            />
-          </FadeIn>
-        </Container>
-      </Section>
     </div>
   )
 }

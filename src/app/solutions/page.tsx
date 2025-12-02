@@ -71,17 +71,8 @@ export default function Solutions() {
         </Container>
       </Section>
 
-      {/* CTA Section - Contact Us */}
-      <CTA
-        title="Ready to Find the Right Solution?"
-        text="Explore our comprehensive range of funding options and discover which solution best fits your business needs. Our team is ready to guide you through every step."
-        buttonText="Get Started Today"
-        href="/contact-us"
-        source="solutions-page"
-      />
-
       {/* Why Choose Serve Funding Section */}
-      <Section background="gray" className="py-16">
+      <Section background="gray">
         <Container>
           <FadeIn className="text-center mb-12">
             <Heading size="h2">
@@ -89,7 +80,7 @@ export default function Solutions() {
             </Heading>
           </FadeIn>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <StaggerItem>
               <Card className="p-8 h-full">
                 <Heading size="h3" className="mb-4 text-olive-900">
@@ -123,6 +114,15 @@ export default function Solutions() {
               </Card>
             </StaggerItem>
           </StaggerContainer>
+
+          <FadeIn className="text-center">
+            <Text size="lg" className="mb-6 text-gray-700">
+              Ready to find the right solution for your business? Our team is ready to guide you through every step.
+            </Text>
+            <Link href="/contact-us">
+              <Button>Get Started Today</Button>
+            </Link>
+          </FadeIn>
         </Container>
       </Section>
       {/* Detailed Solutions Section */}
@@ -145,7 +145,7 @@ export default function Solutions() {
                       {solution.features.map((feature, idx) => (
                         <div key={idx} className="flex items-start gap-3">
                           <div className="p-1 bg-gold-500/20 rounded-full mt-1">
-                            <CheckCircle size={16} className="text-olive-900 flex-shrink-0" fill="currentColor" />
+                            <CheckCircle size={16} className="text-olive-900 flex-shrink-0" />
                           </div>
                           <Text className="text-gray-700">{feature}</Text>
                         </div>
@@ -163,19 +163,7 @@ export default function Solutions() {
                   {/* Image Content */}
                   <div className={`relative h-96 bg-gradient-to-br from-olive-800 to-olive-700 rounded-3xl overflow-hidden group ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
                     <img
-                      src={`https://images.unsplash.com/photo-${
-                        index === 0 
-                          ? '1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-                          : index === 1
-                          ? '1460925895917-adc19c6ffcc2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-                          : index === 2
-                          ? '1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-                          : index === 3
-                          ? '1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-                          : index === 4
-                          ? '1504384308090-fb894fdccdfb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-                          : '1460925895917-adc19c6ffcc2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-                      }`}
+                      src={solution.image}
                       alt={solution.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />

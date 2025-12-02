@@ -1,4 +1,5 @@
-import { FadeIn, Section, Container, Card, Heading, Text, Button } from "./ui"
+import { FadeIn, Section, Container, Heading, Text, Button } from "./ui"
+import Link from "next/link"
 
 interface CTAProps {
   title: string
@@ -6,29 +7,25 @@ interface CTAProps {
   buttonText: string
   href?: string
   source?: string
-  useGreenBackground?: boolean
+  useBG?: boolean
 }
 
-export const CTA = ({ title, text, buttonText, href = "/contact-us", source, useGreenBackground }: CTAProps) => {
+export const CTA = ({ title, text, buttonText, href = "/contact-us", source, useBG }: CTAProps) => {
   const buttonHref = source ? `${href}?source=${source}` : href
 
   return (
-    <Section background={useGreenBackground ? "olive" : "white"}>
+    <Section background={useBG ? "gray" : "white"}>
       <Container>
-        <FadeIn className="max-w-3xl mx-auto">
-          <Card className="p-8 bg-olive-50 border border-olive-200">
-            <Heading size="h2" className="mb-4 text-olive-900">
-              {title}
-            </Heading>
-            <Text className="mb-6 text-gray-700">
-              {text}
-            </Text>
-            <a href={buttonHref}>
-              <Button variant="gold" size="lg">
-                {buttonText}
-              </Button>
-            </a>
-          </Card>
+        <FadeIn className="text-center mb-16">
+          <Heading size="h2">{title}</Heading>
+          <Text className="mt-4 text-gray-600 max-w-2xl mx-auto mb-8">
+            {text}
+          </Text>
+          <Link href={buttonHref}>
+            <Button variant="gold" size="lg">
+              {buttonText}
+            </Button>
+          </Link>
         </FadeIn>
       </Container>
     </Section>

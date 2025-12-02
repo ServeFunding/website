@@ -74,20 +74,23 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
       />
 
       <SolutionDetailClient solution={solution}>
+        {/* Breadcrumb Navigation */}
         <Section>
           <Container>
-            <article className="max-w-4xl mx-auto">
-              {/* Breadcrumb Navigation */}
-              <nav className="mb-8 text-sm text-gray-600">
-                <Link href="/solutions" className="hover:underline text-olive-green">
-                  Solutions
-                </Link>
-                <span className="mx-2">/</span>
-                <span className="text-gray-900 font-semibold">{solution.title}</span>
-              </nav>
+            <nav className="text-sm text-gray-600">
+              <Link href="/solutions" className="hover:underline text-olive-green">
+                Solutions
+              </Link>
+              <span className="mx-2">/</span>
+              <span className="text-gray-900 font-semibold">{solution.title}</span>
+            </nav>
+          </Container>
+        </Section>
 
-            {/* Header Section */}
-            <section className="mb-12">
+        {/* Header Section with Image */}
+        <Section>
+          <Container>
+            <div className="max-w-4xl mx-auto">
               <Heading size="h1" className="mb-4">
                 {`What ${solution.title.endsWith('s') ? 'are' : 'is'} ${solution.title}?`}
               </Heading>
@@ -99,6 +102,17 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                 </span>
               </div>
 
+              {/* Solution Image */}
+              {solution.image && (
+                <div className="mb-8 rounded-lg overflow-hidden shadow-lg h-80">
+                  <img
+                    src={solution.image}
+                    alt={solution.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+
               {/* Answer Capsule - AI-optimized definition */}
               <div className="p-6 mb-8 rounded-lg bg-gold-light/10 border-l-4 border-olive-green">
                 <Text size="lg">
@@ -107,7 +121,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
               </div>
 
               {/* Key Details Table */}
-              <table className="w-full mb-12 border-collapse border border-olive-green">
+              <table className="w-full border-collapse border border-olive-green">
                 <tbody>
                   <tr className="bg-gold-light/20">
                     <td className="border border-olive-green p-4 font-semibold text-olive-green">Typical Amount</td>
@@ -139,18 +153,26 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                   </tr>
                 </tbody>
               </table>
-            </section>
+            </div>
+          </Container>
+        </Section>
 
-            {/* Full Description Section */}
-            <section className="mb-12">
+        {/* Full Description Section */}
+        <Section background="gray">
+          <Container>
+            <div className="max-w-4xl mx-auto">
               <Heading size="h2" className="mb-4">How It Works</Heading>
               <Text size="lg">
                 {solution.fullDesc}
               </Text>
-            </section>
+            </div>
+          </Container>
+        </Section>
 
-            {/* Features/Benefits Section */}
-            <section className="mb-12">
+        {/* Features/Benefits Section */}
+        <Section>
+          <Container>
+            <div className="max-w-4xl mx-auto">
               <Heading size="h2" className="mb-6">Key Features & Benefits</Heading>
               <ul className="space-y-3">
                 {solution.features.map((feature, idx) => (
@@ -162,10 +184,14 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                   </li>
                 ))}
               </ul>
-            </section>
+            </div>
+          </Container>
+        </Section>
 
-            {/* Rates & Terms Section */}
-            <section className="mb-12">
+        {/* Rates & Terms Section */}
+        <Section background="gray">
+          <Container>
+            <div className="max-w-4xl mx-auto">
               <Heading size="h2" className="mb-6">Rates & Terms</Heading>
               <div className="p-8 rounded-lg bg-gold-light/20 border border-olive-green">
                 <table className="w-full">
@@ -181,11 +207,15 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                   </tbody>
                 </table>
               </div>
-            </section>
+            </div>
+          </Container>
+        </Section>
 
-            {/* FAQ Section */}
-            {solution.commonQuestions && solution.commonQuestions.length > 0 && (
-              <section className="mb-12">
+        {/* FAQ Section */}
+        {solution.commonQuestions && solution.commonQuestions.length > 0 && (
+          <Section>
+            <Container>
+              <div className="max-w-4xl mx-auto">
                 <Heading size="h2" className="mb-6">Common Questions</Heading>
                 <div className="space-y-6">
                   {solution.commonQuestions.map((qa, idx) => (
@@ -199,20 +229,25 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                     </div>
                   ))}
                 </div>
-              </section>
-            )}
+              </div>
+            </Container>
+          </Section>
+        )}
 
-            {/* CTA Button Section */}
-            <CTA
-              title="Ready to Get Started?"
-              text={`Learn more about ${solution.title} and how it can help your business grow. Schedule a consultation with one of our funding experts today.`}
-              buttonText="Schedule Your Consultation"
-              source={`solution-${solution.id}`}
-            />
+        {/* CTA Button Section */}
+        <CTA
+          title="Ready to Get Started?"
+          text={`Learn more about ${solution.title} and how it can help your business grow. Schedule a consultation with one of our funding experts today.`}
+          buttonText="Schedule Your Consultation"
+          source={`solution-${solution.id}`}
+          useBG
+        />
 
-            {/* Qualification Criteria */}
-            {solution.qualificationCriteria && Object.keys(solution.qualificationCriteria).length > 0 && (
-              <section className="mb-12">
+        {/* Qualification Criteria */}
+        {solution.qualificationCriteria && Object.keys(solution.qualificationCriteria).length > 0 && (
+          <Section background="gray">
+            <Container>
+              <div className="max-w-4xl mx-auto">
                 <Heading size="h2" className="mb-6">Who Qualifies?</Heading>
                 <div className="p-6 rounded-lg bg-gold-light/10 border border-gold-light/50">
                   <ul className="space-y-3">
@@ -223,11 +258,15 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                     ))}
                   </ul>
                 </div>
-              </section>
-            )}
+              </div>
+            </Container>
+          </Section>
+        )}
 
-            {/* Related Solutions */}
-            <section className="mb-12">
+        {/* Related Solutions */}
+        <Section>
+          <Container>
+            <div className="max-w-4xl mx-auto">
               <Heading size="h2" className="mb-6">Other Funding Solutions</Heading>
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {fundingSolutions
@@ -249,18 +288,21 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                     </StaggerItem>
                   ))}
               </StaggerContainer>
-            </section>
+            </div>
+          </Container>
+        </Section>
 
-              {/* Navigation Back */}
-              <div className="text-center">
-                <Link
-                  href="/solutions"
-                  className="inline-block hover:underline font-semibold text-olive-green"
-                >
-                  ← Back to All Solutions
-                </Link>
-              </div>
-            </article>
+        {/* Navigation Back */}
+        <Section>
+          <Container>
+            <div className="text-center">
+              <Link
+                href="/solutions"
+                className="inline-block hover:underline font-semibold text-olive-green"
+              >
+                ← Back to All Solutions
+              </Link>
+            </div>
           </Container>
         </Section>
       </SolutionDetailClient>

@@ -248,7 +248,7 @@ export default function AboutUs() {
           <FadeIn>
             <div className="max-w-5xl mx-auto rounded-3xl p-12 bg-white">
               {/* Full Width Heading */}
-              <Heading size="h2" className="text-olive-900 mb-12">
+              <Heading size="h2">
                 We Believe Relationships {'>'} Bots
               </Heading>
 
@@ -268,7 +268,7 @@ export default function AboutUs() {
                     We aim to partner with like-minded people, engaging in long-term, trusted relationships.
                   </Text>
 
-                  <Text size="lg" weight="bold">
+                  <Text size="lg" className="font-bold">
                     AND THAT's our WHY.
                   </Text>
                 </div>
@@ -316,6 +316,7 @@ export default function AboutUs() {
         text="Learn more about our funding solutions and how we can help your business grow. Schedule a consultation with one of our funding experts today."
         buttonText="Schedule Your Consultation"
         source="about-us"
+        useBG
       />
     </div>
   )
