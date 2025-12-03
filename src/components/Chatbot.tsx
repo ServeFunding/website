@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback, memo } from 'react'
 import { X, Send, MessageCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getAIResponse } from '@/lib/ai'
@@ -49,7 +49,7 @@ export function Chatbot() {
     }
   }, [messages, isOpen, isLoading])
 
-  const handleSendMessage = async () => {
+  const handleSendMessage = useCallback(async () => {
     if (!inputValue.trim()) return
 
     // Track message sent
@@ -90,7 +90,7 @@ export function Chatbot() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [inputValue, messages])
 
   return (
     <>

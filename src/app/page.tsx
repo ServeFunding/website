@@ -27,14 +27,27 @@ import {
   StaggerItem
 } from '@/components/ui'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
-import { IndustriesGrid } from '@/components/IndustriesGrid'
-import { HeroAnimation } from '@/components/HeroAnimation'
-import { FAQSectionWithSchema } from '@/components/FAQSection'
 import { topLevelFAQs } from '@/data/company-info'
+import { HeroSkeleton, LoadingSkeleton } from '@/components/LoadingSkeleton'
 
-// Lazy load IntroCallForm since it's below the fold
+// Lazy load components below the fold with proper loading states
+const IndustriesGrid = dynamic(() => import('@/components/IndustriesGrid').then(mod => ({ default: mod.IndustriesGrid })), {
+  loading: () => <LoadingSkeleton />,
+  ssr: true
+})
+
+const HeroAnimation = dynamic(() => import('@/components/HeroAnimation').then(mod => ({ default: mod.HeroAnimation })), {
+  loading: () => <HeroSkeleton />,
+  ssr: true
+})
+
+const FAQSectionWithSchema = dynamic(() => import('@/components/FAQSection').then(mod => ({ default: mod.FAQSectionWithSchema })), {
+  loading: () => <LoadingSkeleton />,
+  ssr: true
+})
+
 const IntroCallForm = dynamic(() => import('@/components/Forms').then(mod => ({ default: mod.IntroCallForm })), {
-  loading: () => <div className="h-[600px]" />, // Placeholder while loading
+  loading: () => <LoadingSkeleton />,
   ssr: false
 })
 
@@ -131,10 +144,11 @@ export default function Home() {
                   animation: 'slideIn 0.5s ease-out forwards'
                 }}
                 priority={heroIndex === 0}
-                loading="eager"
+                loading={heroIndex === 0 ? "eager" : "lazy"}
                 sizes="(max-width: 768px) 256px, 384px"
-                quality={75}
-                fetchPriority="high"
+                quality={85}
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAABAAEDAREAAhEBAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAAA//EABQQAQAAAAAAAAAAAAAAAAAAAAD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AVUAH/9k="
               />
             </div>
           </div>

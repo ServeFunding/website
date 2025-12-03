@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* Font display optimization */
+@layer base {
+  * {
+    font-display: swap;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }

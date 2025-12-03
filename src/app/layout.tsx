@@ -96,6 +96,17 @@ export default function RootLayout({
         <NewsletterForm />
         <Footer />
         <ChatbotWrapper />
+
+        {/* Load third-party scripts after main content */}
+        <Script
+          src="https://umami-production-25e0.up.railway.app/script.js"
+          data-website-id="4493b6db-f043-4505-a592-03c371ce8998"
+          strategy="lazyOnload"
+        />
+        <Script
+          src="https://js.hsforms.net/forms/embed/23433903.js"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   )
