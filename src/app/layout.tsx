@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer"
 import { NewsletterForm } from "@/components/Forms"
 import { ChatbotWrapper } from "@/components/ChatbotWrapper"
 import { ScrollToTop } from "@/components/ScrollToTop"
+import Script from "next/script"
 import "@/app/globals.css"
 
 export const metadata: Metadata = {
@@ -36,20 +37,10 @@ export default function RootLayout({
         {/* Preconnect to critical third-party resources */}
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://umami-production-25e0.up.railway.app" />
-        <link rel="preconnect" href="https://google.com" />
         {/* Preconnect to HubSpot domains for faster form loading */}
         <link rel="preconnect" href="https://forms.hsforms.com" />
         <link rel="preconnect" href="https://forms-na1.hsforms.com" />
         <link rel="preconnect" href="https://js.hsforms.net" />
-
-        {/* Umami Analytics */}
-        <script
-          defer
-          src="https://umami-production-25e0.up.railway.app/script.js"
-          data-website-id="4493b6db-f043-4505-a592-03c371ce8998"
-        />
-        {/* HubSpot Forms - loaded globally since NewsletterForm is in footer on all pages */}
-        <script src="https://js.hsforms.net/forms/embed/23433903.js" defer></script>
         {/* Organization Schema - Global */}
         <script
           type="application/ld+json"
