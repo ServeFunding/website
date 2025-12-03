@@ -11,9 +11,6 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
-      scale: {
-        "130": "1.3",
-      },
       keyframes: {
         fadeIn: {
           "0%": { opacity: "0" },

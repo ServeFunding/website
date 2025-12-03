@@ -28,6 +28,7 @@ import {
 } from '@/components/ui'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { topLevelFAQs } from '@/data/company-info'
+import { fundingSolutions } from '@/data/solutions'
 import { HeroSkeleton, LoadingSkeleton } from '@/components/LoadingSkeleton'
 
 // Lazy load components below the fold with proper loading states
@@ -201,7 +202,7 @@ export default function Home() {
                       />
                     </div>
                   </div>
-                  <Heading size="h3" className="mb-4 text-olive-900" style={{ color: BRAND_COLORS.primary.darkGreen }}>{item.title}</Heading>
+                  <Heading size="h4" className="mb-4 text-olive-900" style={{ color: BRAND_COLORS.primary.darkGreen }}>{item.title}</Heading>
                   <Text className="text-gray-600 font-medium">
                     {item.desc}
                   </Text>
@@ -245,6 +246,47 @@ export default function Home() {
         </Container>
       </Section>
 
+      {/* Solutions Showcase Section */}
+      <Section className="py-20" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
+        <Container>
+          <FadeIn className="text-center mb-16">
+            <Heading size="h3" className="mb-4" style={{ color: '#ffffff'}}>
+              Our Funding Solutions
+            </Heading>
+            <Text size="lg" className="text-white/90 max-w-2xl mx-auto">
+              From $250K to $100MM, we offer creative working capital solutions tailored to your business needs
+            </Text>
+          </FadeIn>
+
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {fundingSolutions.slice(0, 6).map((solution) => (
+              <StaggerItem key={solution.id}>
+                <Link href={`/solutions#${solution.id}`} className="group cursor-pointer block h-full">
+                  <Card className="p-8 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white">
+                    <Heading size="h3" className="mb-3 text-olive-900 group-hover:text-gold-500 transition-colors">
+                      {solution.title}
+                    </Heading>
+                    <Text className="text-gray-700 text-sm leading-relaxed">
+                      {solution.shortDesc}
+                    </Text>
+                    <div className="mt-4 flex items-center gap-2 text-gold-500 group-hover:gap-3 transition-all">
+                      <span className="text-sm font-semibold">Learn More</span>
+                      <ChevronRight size={16} />
+                    </div>
+                  </Card>
+                </Link>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+
+          <FadeIn className="text-center">
+            <Link href="/solutions">
+              <Button variant="white" size="lg">Explore All Solutions</Button>
+            </Link>
+          </FadeIn>
+        </Container>
+      </Section>
+
       {/* Industries Section */}
       <Section>
         <Container>
@@ -279,35 +321,21 @@ export default function Home() {
                 desc: "We take responsibility to guide your lender engagements all the way to a timely closing. We are here to serve you."
               }
             ].map((item) => (
-              <StaggerItem key={item.step} className="flex flex-col items-center text-center group">
-                <div
-                  className="w-16 h-16 rounded-lg border-3 flex items-center justify-center text-2xl font-bold mb-8 transition-all duration-300"
-                  style={{
-                    backgroundColor: 'transparent',
-                    borderColor: BRAND_COLORS.primary.darkGreen,
-                    color: BRAND_COLORS.primary.darkGreen,
-                  }}
-                >
-                  {item.step}
-                </div>
-                <Card
-                  className="h-full flex flex-col justify-between"
-                  style={{
-                    background: `linear-gradient(180deg, ${BRAND_COLORS.primary.lightGreen}80 0%, ${BRAND_COLORS.primary.darkGreen} 100%)`,
-                  }}
-                >
-                  <div>
-                    <Heading size="h4" className="mb-6" style={{ color: BRAND_COLORS.primary.darkGreen }}>
-                      {item.title}
-                    </Heading>
-                    <Text
-                      size="lg"
-                      className="font-serif"
-                      style={{ color: '#ffffff' }}
-                    >
-                      {item.desc}
-                    </Text>
+              <StaggerItem key={item.step}>
+                <Card className="h-full flex flex-col items-center text-center group transition-all duration-300 md:hover:-translate-y-2 bg-white" onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = BRAND_COLORS.primary.lightGreen;
+                }} onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'white';
+                }}>
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 transition-all duration-300 bg-white/50 border-2 border-gold-light" style={{ color: BRAND_COLORS.primary.darkGreen }}>
+                    <span className="text-2xl font-bold">{item.step}</span>
                   </div>
+                  <Heading size="h4" className="mb-4 transition-colors" style={{ color: BRAND_COLORS.primary.darkGreen }}>
+                    {item.title}
+                  </Heading>
+                  <Text className="text-gray-600 font-medium transition-colors group-hover:text-gray-600">
+                    {item.desc}
+                  </Text>
                 </Card>
               </StaggerItem>
             ))}
@@ -316,13 +344,16 @@ export default function Home() {
       </Section>
 
       {/* Successful Client Fundings Section */}
-      <Section>
+      <Section className="py-20" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
         <Container>
           <FadeIn className="text-center mb-16">
-            <Heading size="h2">Successful Client Fundings</Heading>
+            <Heading size="h3" style={{ color: '#ffffff' }} className="mb-4">Successful Client Fundings</Heading>
+            <Text size="lg" className="text-white/90 max-w-2xl mx-auto">
+              See how we've helped businesses across industries secure the capital they needed to grow
+            </Text>
           </FadeIn>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             {[
               {
                 title: 'Strategic Acquisition',
@@ -350,31 +381,32 @@ export default function Home() {
               }
             ].map((item, index) => (
               <StaggerItem key={index}>
-                <div
-                  className="flex flex-col h-full rounded-3xl p-8 group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 text-white"
-                  style={{
-                    background: `linear-gradient(135deg, ${BRAND_COLORS.primary.darkGreen} 0%, ${BRAND_COLORS.primary.darkGreen}dd 100%)`
-                  }}
-                >
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen, border: `2px solid ${BRAND_COLORS.primary.lightGreen}` }}>
-                    <item.icon size={32} color={BRAND_COLORS.primary.lightGreen} />
-                  </div>
-                  <Heading size="h3" className="mb-4 text-white">
-                    {item.title}
-                  </Heading>
-                  <Text className="text-white/90 flex-1 mb-6">
-                    {item.desc}
-                  </Text>
-                  <Link href={item.href} className="mt-auto inline-block overflow-hidden">
-                    <Button size="default" variant="white" className="group/button transition-all duration-300 group-hover/button:translate-x-1">
-                      <span>Read More</span>
-                      <ChevronRight size={18} className="w-0 opacity-0 group-hover/button:w-5 group-hover/button:opacity-100 transition-all duration-300 ml-0 group-hover/button:ml-2" />
-                    </Button>
-                  </Link>
-                </div>
+                <Link href={item.href} className="group cursor-pointer block h-full">
+                  <Card className="p-8 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white flex flex-col">
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen, border: `2px solid ${BRAND_COLORS.primary.lightGreen}` }}>
+                      <item.icon size={32} color={BRAND_COLORS.primary.lightGreen} />
+                    </div>
+                    <Heading size="h3" className="mb-4 text-olive-900 group-hover:text-gold-500 transition-colors">
+                      {item.title}
+                    </Heading>
+                    <Text className="text-gray-700 flex-1 mb-6">
+                      {item.desc}
+                    </Text>
+                    <div className="flex items-center gap-2 text-gold-500 group-hover:gap-3 transition-all">
+                      <span className="text-sm font-semibold">Read More</span>
+                      <ChevronRight size={16} />
+                    </div>
+                  </Card>
+                </Link>
               </StaggerItem>
             ))}
           </StaggerContainer>
+
+          <FadeIn className="text-center">
+            <Link href="/fundings">
+              <Button variant="white" size="lg">Explore All Fundings</Button>
+            </Link>
+          </FadeIn>
         </Container>
       </Section>
 
