@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, memo } from 'react'
 import { motion } from 'framer-motion'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
@@ -49,7 +49,7 @@ const LeafShape = ({
 )
 
 // Animated floating leaf that follows mouse
-const FloatingLeaf = ({
+const FloatingLeaf = memo(({
   leaf,
   mouseX,
   mouseY,
@@ -82,9 +82,6 @@ const FloatingLeaf = ({
     offsetY = -Math.sin(angle) * force * repulsionStrength
   }
 
-  // Subtle floating animation with sine wave
-  const floatOffset = Math.sin(Date.now() / 3000 + leaf.id) * 3
-
   // Calculate fade out opacity for spawned leaves
   let displayOpacity = leaf.opacity
   if (leaf.fadeOut && leaf.spawnTime) {
@@ -108,7 +105,7 @@ const FloatingLeaf = ({
       }}
       animate={{
         x: leaf.x + offsetX,
-        y: leaf.y + floatOffset + offsetY,
+        y: leaf.y + offsetY,
         opacity: leaf.fadeOut ? displayOpacity : leaf.opacity,
         rotate: leaf.angle,
       }}
@@ -132,7 +129,13 @@ const FloatingLeaf = ({
       />
     </motion.div>
   )
-}
+}, (prevProps, nextProps) => {
+  // Custom comparison - only re-render if leaf content or container changes
+  return prevProps.leaf === nextProps.leaf &&
+         prevProps.containerRect === nextProps.containerRect &&
+         Math.abs(prevProps.mouseX - nextProps.mouseX) < 5 &&
+         Math.abs(prevProps.mouseY - nextProps.mouseY) < 5
+})
 
 export const HeroAnimation = ({
   children,

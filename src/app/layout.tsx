@@ -34,13 +34,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Preconnect to critical third-party resources */}
-        <link rel="preconnect" href="https://images.unsplash.com" />
-        <link rel="preconnect" href="https://umami-production-25e0.up.railway.app" />
-        {/* Preconnect to HubSpot domains for faster form loading */}
-        <link rel="preconnect" href="https://forms.hsforms.com" />
-        <link rel="preconnect" href="https://forms-na1.hsforms.com" />
+        {/* Preconnect to HubSpot - forms used on most pages */}
         <link rel="preconnect" href="https://js.hsforms.net" />
+        {/* Prefetch other third-party resources */}
+        <link rel="prefetch" href="https://images.unsplash.com" />
+        <link rel="prefetch" href="https://forms.hsforms.com" />
+        <link rel="prefetch" href="https://forms-na1.hsforms.com" />
+        <link rel="prefetch" href="https://umami-production-25e0.up.railway.app" />
         {/* Organization Schema - Global */}
         <script
           type="application/ld+json"

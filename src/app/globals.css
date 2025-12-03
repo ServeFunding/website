@@ -7,10 +7,6 @@
   }
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 @keyframes fadeInSlide {
   from {
     opacity: 0;
