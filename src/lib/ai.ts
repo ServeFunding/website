@@ -2,9 +2,9 @@ import {
   companyInfo,
   coreValues,
   philosophy,
-  fundingSolutions,
   serveFundingProcess,
 } from '@/data/company-info'
+import { fundingSolutions } from '@/data/solutions'
 
 // Build comprehensive AI context from company data
 export function buildAIContext(): string {

@@ -1,4 +1,5 @@
-import { fundingSolutions, companyInfo } from '@/data/company-info'
+import { fundingSolutions } from '@/data/solutions'
+import { companyInfo } from '@/data/company-info'
 import { getOrganizationSchema, getFinancialServiceSchema } from '@/lib/schema-generators'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -12,7 +13,9 @@ import {
   StaggerItem
 } from '@/components/ui'
 import { CTA } from '@/components/cta'
+import { FAQSectionWithSchema } from '@/components/FAQSection'
 import { SolutionDetailClient } from './client'
+import { SolutionBreadcrumb } from './breadcrumb'
 
 interface SolutionDetailPageProps {
   params: {
@@ -74,18 +77,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
       />
 
       <SolutionDetailClient solution={solution}>
-        {/* Breadcrumb Navigation */}
-        <Section>
-          <Container>
-            <nav className="text-sm text-gray-600">
-              <Link href="/solutions" className="hover:underline text-olive-green">
-                Solutions
-              </Link>
-              <span className="mx-2">/</span>
-              <span className="text-gray-900 font-semibold">{solution.title}</span>
-            </nav>
-          </Container>
-        </Section>
+        <SolutionBreadcrumb solutionTitle={solution.title} />
 
         {/* Header Section with Image */}
         <Section>
@@ -121,38 +113,42 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
               </div>
 
               {/* Key Details Table */}
-              <table className="w-full border-collapse border border-olive-green">
-                <tbody>
-                  <tr className="bg-gold-light/20">
-                    <td className="border border-olive-green p-4 font-semibold text-olive-green">Typical Amount</td>
-                    <td className="border border-olive-green p-4">
-                      {solution.ratesAndTerms.minAmount} - {solution.ratesAndTerms.maxAmount}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-olive-green p-4 font-semibold text-olive-green">Cost</td>
-                    <td className="border border-olive-green p-4">
-                      {solution.ratesAndTerms.interestRate ||
-                       solution.ratesAndTerms.factorFeeRange ||
-                       solution.ratesAndTerms.monthlyFactorRate}
-                    </td>
-                  </tr>
-                  <tr className="bg-gold-light/20">
-                    <td className="border border-olive-green p-4 font-semibold text-olive-green">Funding Timeline</td>
-                    <td className="border border-olive-green p-4">
-                      {solution.ratesAndTerms.closingTimeframe ||
-                       solution.ratesAndTerms.fundingSpeed ||
-                       solution.ratesAndTerms.fundingTime}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-olive-green p-4 font-semibold text-olive-green">Best For</td>
-                    <td className="border border-olive-green p-4">
-                      {solution.bestFor.join(', ')}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              {solution.ratesAndTerms && (
+                <table className="w-full border-collapse border border-olive-green">
+                  <tbody>
+                    <tr className="bg-gold-light/20">
+                      <td className="border border-olive-green p-4 font-semibold text-olive-green">Typical Amount</td>
+                      <td className="border border-olive-green p-4">
+                        {solution.ratesAndTerms.minAmount} - {solution.ratesAndTerms.maxAmount}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="border border-olive-green p-4 font-semibold text-olive-green">Cost</td>
+                      <td className="border border-olive-green p-4">
+                        {solution.ratesAndTerms.interestRate ||
+                         solution.ratesAndTerms.factorFeeRange ||
+                         solution.ratesAndTerms.monthlyFactorRate}
+                      </td>
+                    </tr>
+                    <tr className="bg-gold-light/20">
+                      <td className="border border-olive-green p-4 font-semibold text-olive-green">Funding Timeline</td>
+                      <td className="border border-olive-green p-4">
+                        {solution.ratesAndTerms.closingTimeframe ||
+                         solution.ratesAndTerms.fundingSpeed ||
+                         solution.ratesAndTerms.fundingTime}
+                      </td>
+                    </tr>
+                    {solution.bestFor && (
+                      <tr>
+                        <td className="border border-olive-green p-4 font-semibold text-olive-green">Best For</td>
+                        <td className="border border-olive-green p-4">
+                          {solution.bestFor.join(', ')}
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              )}
             </div>
           </Container>
         </Section>
@@ -189,49 +185,39 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
         </Section>
 
         {/* Rates & Terms Section */}
-        <Section background="gray">
-          <Container>
-            <div className="max-w-4xl mx-auto">
-              <Heading size="h2" className="mb-6">Rates & Terms</Heading>
-              <div className="p-8 rounded-lg bg-gold-light/20 border border-olive-green">
-                <table className="w-full">
-                  <tbody>
-                    {Object.entries(solution.ratesAndTerms).map(([key, value]) => (
-                      <tr key={key} className="border-b border-olive-green last:border-b-0">
-                        <td className="py-3 font-semibold capitalize text-olive-green">
-                          {key.replace(/([A-Z])/g, ' $1').trim()}
-                        </td>
-                        <td className="py-3 text-right text-gray-700">{String(value)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </Container>
-        </Section>
-
-        {/* FAQ Section */}
-        {solution.commonQuestions && solution.commonQuestions.length > 0 && (
-          <Section>
+        {solution.ratesAndTerms && (
+          <Section background="gray">
             <Container>
               <div className="max-w-4xl mx-auto">
-                <Heading size="h2" className="mb-6">Common Questions</Heading>
-                <div className="space-y-6">
-                  {solution.commonQuestions.map((qa, idx) => (
-                    <div key={idx} className="pl-6 border-l-4 border-olive-green">
-                      <Heading size="h3" className="mb-2">
-                        {qa.q}
-                      </Heading>
-                      <Text>
-                        {qa.a}
-                      </Text>
-                    </div>
-                  ))}
+                <Heading size="h2" className="mb-6">Rates & Terms</Heading>
+                <div className="p-8 rounded-lg bg-gold-light/20 border border-olive-green">
+                  <table className="w-full">
+                    <tbody>
+                      {Object.entries(solution.ratesAndTerms).map(([key, value]) => (
+                        <tr key={key} className="border-b border-olive-green last:border-b-0">
+                          <td className="py-3 font-semibold capitalize text-olive-green">
+                            {key.replace(/([A-Z])/g, ' $1').trim()}
+                          </td>
+                          <td className="py-3 text-right text-gray-700">{String(value)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </Container>
           </Section>
+        )}
+
+        {/* FAQ Section - AIEO Optimized */}
+        {solution.commonQuestions && solution.commonQuestions.length > 0 && (
+          <FAQSectionWithSchema
+            title={`${solution.title} - Common Questions`}
+            description={`Get answers to the most common questions about ${solution.title.toLowerCase()}`}
+            faqs={solution.commonQuestions}
+            background="white"
+            schemaName={solution.title}
+          />
         )}
 
         {/* CTA Button Section */}

@@ -24,7 +24,7 @@ export function LogoGrid({ logos, maxHeight = 24, title, subtitle }: LogoGridPro
       {(title || subtitle) && (
         <div className="max-w-2xl mx-auto mb-12 text-center">
           {title && (
-            <Heading size="h3">
+            <Heading size="h2">
               {title}
             </Heading>
           )}

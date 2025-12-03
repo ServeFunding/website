@@ -222,6 +222,12 @@ export function Chatbot() {
                   <Send size={20} />
                 </button>
               </div>
+              {/* AI Disclaimer */}
+              <div className="mt-2">
+                <p className="text-xs text-gray-500 text-center">
+                  <span className="font-semibold">AI can make mistakes.</span> For important funding decisions, please speak with our team directly.
+                </p>
+              </div>
             </div>
           </motion.div>
         )}

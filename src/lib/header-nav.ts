@@ -1,4 +1,4 @@
-import { fundingSolutions } from "@/data/company-info"
+import { fundingSolutions } from "@/data/solutions"
 
 export interface DropdownItem {
   name: string

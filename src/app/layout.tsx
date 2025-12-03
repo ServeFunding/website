@@ -3,6 +3,7 @@ import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
 import { NewsletterForm } from "@/components/Forms"
 import { ChatbotWrapper } from "@/components/ChatbotWrapper"
+import { ScrollToTop } from "@/components/ScrollToTop"
 import "@/app/globals.css"
 
 export const metadata: Metadata = {
@@ -96,6 +97,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-white">
+        <ScrollToTop />
         <Header />
         <main className="flex-grow pt-20">
           {children}

@@ -18,7 +18,7 @@ import {
 import { LAYOUT } from '@/lib/layout'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CTA } from '@/components/cta'
-import { fundingSolutions } from '@/data/company-info'
+import { fundingSolutions } from '@/data/solutions'
 import Link from 'next/link'
 import { trackSolutionClick } from '@/lib/tracking'
 

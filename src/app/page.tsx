@@ -29,6 +29,8 @@ import {
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { IndustriesGrid } from '@/components/IndustriesGrid'
 import { HeroAnimation } from '@/components/HeroAnimation'
+import { FAQSectionWithSchema } from '@/components/FAQSection'
+import { topLevelFAQs } from '@/data/company-info'
 
 // Lazy load IntroCallForm since it's below the fold
 const IntroCallForm = dynamic(() => import('@/components/Forms').then(mod => ({ default: mod.IntroCallForm })), {
@@ -41,17 +43,17 @@ export default function Home() {
     {
       heading: "The Right Funding Solutions for Healthy Business Growth",
       desc: "An advisory service committed to serve the best interests of your company's current needs and future goals.",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      image: "/home/right funding solutions.png"
     },
     {
       heading: "You Value Relationships Over Bots & Quick Fixes",
       desc: "We partner with like-minded business leaders who want trusted advisors in their corner to ensure they make the best decisions.",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      image: "/home/value relationships over bots.png"
     },
     {
       heading: "Creative Working Capital Empowering Entrepreneurs",
       desc: "Because your company is unique, you want partners who truly understand your story and align with your objectives.",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      image: "/home/creative working capital.png"
     }
   ]
 
@@ -88,8 +90,8 @@ export default function Home() {
       <Section className="!pt-0 !pb-0 md:!py-0 overflow-hidden -mt-[96px] h-screen">
         <HeroAnimation>
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center justify-center h-full pt-[96px] px-4 sm:px-6 lg:px-8 lg:justify-start">
-            {/* Text Column */}
-            <div className="z-10 flex-1">
+            {/* Text Column - 60% on desktop */}
+            <div className="z-10 flex-[1.5] lg:flex-[0.6]">
               <Heading key={heroIndex} size="h2" className="mb-4">
                 {slide.heading}
               </Heading>
@@ -114,28 +116,26 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Image Column */}
-            <div className="relative w-full lg:flex-1 h-80 rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 lg:hover:shadow-[0_20px_60px_rgba(117,141,91,0.3)] lg:hover:-translate-y-2"
+            {/* Image Column - 40% on desktop, square */}
+            <div className="relative w-64 h-64 lg:w-96 lg:h-96 lg:flex-[0.4] rounded-2xl overflow-hidden shadow-lg lg:hover:shadow-xl transition-shadow duration-500"
               style={{
-                background: `linear-gradient(135deg, ${BRAND_COLORS.primary.darkGreen}10, ${BRAND_COLORS.primary.lightGreen}10)`,
-                boxShadow: `0 25px 50px rgba(117,141,91,0.25), 0 0 1px rgba(117,141,91,0.1)`
+                boxShadow: `0 10px 30px rgba(0, 0, 0, 0.1)`
               }}>
               <Image
                 key={heroIndex}
                 src={slide.image}
                 alt={slide.heading}
                 fill
-                className="object-cover transition-all duration-700 lg:hover:scale-105"
+                className="object-cover"
                 style={{
-                  animation: 'fadeInSlide 0.3s ease-out forwards'
+                  animation: 'slideIn 0.5s ease-out forwards'
                 }}
                 priority={heroIndex === 0}
                 loading="eager"
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 500px, 600px"
-                quality={80}
+                sizes="(max-width: 768px) 256px, 384px"
+                quality={75}
                 fetchPriority="high"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
             </div>
           </div>
         </HeroAnimation>
@@ -145,8 +145,7 @@ export default function Home() {
       <Section>
         <Container>
           <FadeIn className="text-center mb-20">
-            <Heading size="h2" className="mb-3">Need Business Growth Capital?</Heading>
-            <Heading size="h2">We Are Here to Serve You.</Heading>
+            <Heading size="h2" className="mb-3">Need Business Growth Capital?<br />We Are Here to Serve You.</Heading>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
@@ -364,6 +363,15 @@ export default function Home() {
           </StaggerContainer>
         </Container>
       </Section>
+
+      {/* FAQ Section - AIEO Optimized */}
+      <FAQSectionWithSchema
+        title="Frequently Asked Questions"
+        description="Get answers to the most common questions about Serve Funding and working capital financing"
+        faqs={topLevelFAQs}
+        background="white"
+        schemaName="Business Financing Advisory"
+      />
 
       <IntroCallForm />
     </div>
