@@ -115,6 +115,11 @@ export default function RootLayout({
           src="https://js.hsforms.net/forms/embed/23433903.js"
           strategy="lazyOnload"
         />
+        <Script
+          id="hs-script-loader"
+          src="//js.hs-scripts.com/23433903.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   )

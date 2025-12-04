@@ -57,17 +57,23 @@ export default function Home() {
     {
       heading: "The Right Funding Solutions for Healthy Business Growth",
       desc: "An advisory service committed to serve the best interests of your company's current needs and future goals.",
-      image: "/home/right funding solutions.png"
+      image: "/home/right funding solutions.png",
+      width: 1024,
+      height: 832
     },
     {
       heading: "You Value Relationships Over Bots & Quick Fixes",
       desc: "We partner with like-minded business leaders who want trusted advisors in their corner to ensure they make the best decisions.",
-      image: "/home/value relationships over bots.png"
+      image: "/home/value relationships over bots.png",
+      width: 1024,
+      height: 819
     },
     {
       heading: "Creative Working Capital Empowering Entrepreneurs",
       desc: "Because your company is unique, you want partners who truly understand your story and align with your objectives.",
-      image: "/home/creative working capital.png"
+      image: "/home/creative working capital.png",
+      width: 1024,
+      height: 945
     }
   ]
 
@@ -130,23 +136,29 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Image Column - 40% on desktop, square */}
-            <div className="relative w-64 h-64 lg:w-96 lg:h-96 lg:flex-[0.4] rounded-2xl overflow-hidden shadow-lg lg:hover:shadow-xl transition-shadow duration-500"
+            {/* Image Column - Responsive with image-specific aspect ratios */}
+            <div 
+              className="relative lg:flex-[0.4] rounded-2xl overflow-hidden shadow-lg lg:hover:shadow-xl transition-shadow duration-500 flex items-center justify-center"
               style={{
-                boxShadow: `0 10px 30px rgba(0, 0, 0, 0.1)`
+                boxShadow: `0 10px 30px rgba(0, 0, 0, 0.1)`,
+                width: '100%',
+                maxWidth: '400px',
+                height: 'auto',
+                aspectRatio: `${slide.width} / ${slide.height}`
               }}>
               <Image
                 key={heroIndex}
                 src={slide.image}
                 alt={slide.heading}
-                fill
-                className="object-cover"
+                width={slide.width}
+                height={slide.height}
+                className="w-full h-auto object-contain"
                 style={{
                   animation: 'slideIn 0.5s ease-out forwards'
                 }}
                 priority={heroIndex === 0}
                 loading={heroIndex === 0 ? "eager" : "lazy"}
-                sizes="(max-width: 768px) 256px, 384px"
+                sizes="(max-width: 768px) 100vw, 400px"
                 quality={85}
                 placeholder="blur"
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAABAAEDAREAAhEBAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAAA//EABQQAQAAAAAAAAAAAAAAAAAAAAD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AVUAH/9k="
