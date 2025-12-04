@@ -45,10 +45,10 @@ export const companyInfo = {
 
   // VERIFY: Total capital facilitated to date
   metrics: {
-    totalCapitalFacilitated: "[VERIFY: Total $ funded to date]",
-    averageDealSize: "[VERIFY: Average deal size]",
-    totalClientsServed: "[VERIFY: Number of clients]",
-    repeatClientRate: "[VERIFY: % of repeat clients]"
+    totalCapitalFacilitated: "",
+    averageDealSize: "",
+    totalClientsServed: "",
+    repeatClientRate: ""
   }
 }
 
@@ -57,23 +57,19 @@ export const companyInfo = {
 // ============================================================================
 
 export const founder = {
-  name: "[VERIFY: Founder name]",
+  name: "",
   title: "Founder & CEO",
-  background: "[VERIFY: Background story - immigration, family business, NeXT, etc.]",
-  motivation: "[VERIFY: Why did you start Serve Funding?]",
-  personalStory: `
-    [VERIFY: Tell the compelling story about your family's journey]
-    [VERIFY: Connection to entrepreneurship]
-    [VERIFY: Personal experience with funding challenges]
-  `,
+  background: "",
+  motivation: "",
+  personalStory: ``,
 
   education: {
-    university: "[VERIFY: Where did you study?]",
-    degree: "[VERIFY: What degree?]"
+    university: "",
+    degree: ""
   },
 
   credentials: {
-    certifications: ["[VERIFY: Any professional certifications?]"],
+    certifications: [],
     memberships: ["Association for Corporate Growth", "Secured Finance Network", "IFA"]
   },
 
@@ -170,37 +166,37 @@ export const competitivePositioning = {
   differentiators: [
     {
       label: "Transparent",
-      description: "[VERIFY: Why is Serve Funding more transparent than competitors?]"
+      description: ""
     },
     {
       label: "Timely",
-      description: "[VERIFY: Why is Serve Funding faster than competitors?]"
+      description: ""
     },
     {
       label: "Trusted",
-      description: "[VERIFY: Why do lenders and clients trust Serve Funding?]"
+      description: ""
     }
   ],
 
   vsTraditionalBanks: {
-    speed: "[VERIFY: How much faster than banks?]",
-    flexibility: "[VERIFY: How much more flexible?]",
-    creditRequirements: "[VERIFY: Lower credit requirements?]",
-    documentation: "[VERIFY: Less documentation required?]"
+    speed: "",
+    flexibility: "",
+    creditRequirements: "",
+    documentation: ""
   },
 
   vsOnlineLenders: {
-    personalService: "[VERIFY: How is personal service different?]",
-    rates: "[VERIFY: How do your rates compare?]",
-    customerRelationships: "[VERIFY: How do you protect customer relationships?]",
-    flexibility: "[VERIFY: More flexible terms?]"
+    personalService: "",
+    rates: "",
+    customerRelationships: "",
+    flexibility: ""
   },
 
   vsPeerAdvisors: {
-    experience: "[VERIFY: Years of experience advantage?]",
-    lenderNetwork: "[VERIFY: Size and quality of lender network?]",
-    successRate: "[VERIFY: % of deals that successfully fund?]",
-    clientSatisfaction: "[VERIFY: Client satisfaction rate/NPS?]"
+    experience: "",
+    lenderNetwork: "",
+    successRate: "",
+    clientSatisfaction: ""
   }
 }
 
@@ -210,19 +206,19 @@ export const competitivePositioning = {
 
 export const qualificationCriteria = {
   general: {
-    minimumTimeInBusiness: "[VERIFY: months/years]",
-    minimumMonthlyRevenue: "[VERIFY: amount]",
-    minimumAnnualRevenue: "[VERIFY: amount]",
+    minimumTimeInBusiness: "",
+    minimumMonthlyRevenue: "",
+    minimumAnnualRevenue: "",
     creditScoreRange: {
-      ideal: "[VERIFY: 700+?]",
-      acceptable: "[VERIFY: 600+?]",
-      minimum: "[VERIFY: 500+?]"
+      ideal: "",
+      acceptable: "",
+      minimum: ""
     }
   },
 
   byProductType: {
     assetBasedLending: {
-      minimumAssets: "[VERIFY]",
+      minimumAssets: "",
       assetTypes: "AR, Inventory, Equipment, Real Estate"
     },
     invoiceFactoring: {
@@ -230,18 +226,12 @@ export const qualificationCriteria = {
       customerRequirement: "Established commercial customers"
     },
     workingCapitalLoan: {
-      minimumRevenue: "[VERIFY]",
-      minimumTimeInBusiness: "[VERIFY]"
+      minimumRevenue: "",
+      minimumTimeInBusiness: ""
     }
   },
 
-  disqualifiers: [
-    "[VERIFY: What automatically disqualifies someone?]",
-    "[VERIFY: Do you work with tax liens?]",
-    "[VERIFY: Do you work with judgments?]",
-    "[VERIFY: Do you work with bankruptcies?]",
-    "[VERIFY: Industry restrictions?]"
-  ]
+  disqualifiers: []
 }
 
 // ============================================================================
@@ -251,17 +241,17 @@ export const qualificationCriteria = {
 export const messagingTemplates = {
   rejectionNarrative: {
     headline: "Turned Down by Your Bank? We Can Help.",
-    message: "[VERIFY: Custom message about bank rejection handling]"
+    message: ""
   },
 
   speedNarrative: {
     headline: "The Fastest Working Capital Solutions",
-    message: "[VERIFY: Why is speed important to your clients?]"
+    message: ""
   },
 
   relationshipNarrative: {
     headline: "Relationships Over Transactions",
-    message: "[VERIFY: How do you build relationships differently?]"
+    message: ""
   },
 
   trustNarrative: {

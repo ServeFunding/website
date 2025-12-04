@@ -68,9 +68,9 @@ export const fundingSolutions: FundingSolution[] = [
     ],
 
     qualificationCriteria: {
-      minimumRevenue: "[VERIFY]",
-      minimumTimeInBusiness: "[VERIFY]",
-      minimumCreditScore: "[VERIFY: Do you have a minimum?]",
+      minimumRevenue: "",
+      minimumTimeInBusiness: "",
+      minimumCreditScore: "",
       requiredAssets: "AR, Inventory, Equipment, or Real Estate"
     }
   },
@@ -202,7 +202,7 @@ export const fundingSolutions: FundingSolution[] = [
     ],
 
     qualificationCriteria: {
-      minimumMonthlyRevenue: "[VERIFY]",
+      minimumMonthlyRevenue: "",
       minimumTimeInBusiness: "1-2 years",
       creditScoreRange: "500+ (better credit = better rates)",
       businessType: "Any B2B or B2C business"
