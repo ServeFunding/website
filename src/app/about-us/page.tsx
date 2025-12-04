@@ -13,6 +13,17 @@ import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CTA } from '@/components/cta'
 import { LogoGrid } from '@/components/LogoGrid'
 import { COLORS } from '@/lib/colors'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: "About Serve Funding | Our Story, Values & Mission",
+  description: "Learn about Serve Funding's mission, core values rooted in TRUST, and commitment to supporting growing businesses and communities.",
+  openGraph: {
+    title: "About Serve Funding | Our Story, Values & Mission",
+    description: "Learn about Serve Funding's mission, core values rooted in TRUST, and commitment to supporting growing businesses and communities.",
+    url: "https://servefunding.com/about-us",
+  },
+}
 
 const coreValues = [
   {
@@ -83,98 +94,6 @@ export default function AboutUs() {
                   alt="Entrepreneurship runs in our blood"
                   className="rounded-xl w-full max-w-md object-cover"
                 />
-              </div>
-            </div>
-          </FadeIn>
-        </Container>
-      </Section>
-
-      {/* Founder Expertise & Authority Section */}
-      <Section background="white">
-        <Container>
-          <FadeIn>
-            <div className="max-w-4xl mx-auto mb-16">
-              <Heading size="h2" className="mb-8 text-center">
-                Michael Kodinsky: The Founder Behind Serve Funding
-              </Heading>
-
-              {/* Stats Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <Card className="text-center p-8 bg-gray-50">
-                  <Heading size="h3" className="text-gold-600 mb-2">15+</Heading>
-                  <Text className="text-gray-700 font-semibold">Years of Banking & Lending Experience</Text>
-                </Card>
-                <Card className="text-center p-8 bg-gray-50">
-                  <Heading size="h3" className="text-gold-600 mb-2">$150MM+</Heading>
-                  <Text className="text-gray-700 font-semibold">Capital Facilitated for 200+ Businesses</Text>
-                </Card>
-                <Card className="text-center p-8 bg-gray-50">
-                  <Heading size="h3" className="text-gold-600 mb-2">2021</Heading>
-                  <Text className="text-gray-700 font-semibold">Founded Serve Funding on 40th Immigration Anniversary</Text>
-                </Card>
-              </div>
-
-              <div className="space-y-4 text-gray-700">
-                <Text className="leading-relaxed">
-                  <span className="font-semibold">Background:</span> Michael brings over 15 years of hands-on experience in commercial banking and alternative finance. His deep expertise spans asset-based lending, international trade finance, cash flow analysis, and complex restructuring. Before founding Serve Funding, Michael spent years advising 200+ growing businesses on financing strategies.
-                </Text>
-                <Text className="leading-relaxed">
-                  <span className="font-semibold">Why He Founded Serve Funding:</span> In 2021, Michael witnessed a systemic problem: profitable, growing businesses were being rejected by banks for arbitrary reasons—a single bad quarter, concentrated customer base, or low credit scores despite positive cash flow. These companies needed capital immediately, not in 60 days. Serve Funding exists to bridge that gap with speed, transparency, and genuine partnership.
-                </Text>
-              </div>
-            </div>
-          </FadeIn>
-
-          {/* Comparison Table: Serve Funding vs Others */}
-          <FadeIn delay={0.1}>
-            <div className="mb-16">
-              <Heading size="h2" className="mb-8 text-center">
-                Why Choose <span className="text-gold-500">Serve Funding?</span>
-              </Heading>
-
-              <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="bg-gray-50 border-b border-gray-200">
-                      <th className="px-6 py-4 text-left font-semibold text-gray-900">Factor</th>
-                      <th className="px-6 py-4 text-left font-semibold text-gray-900">Serve Funding</th>
-                      <th className="px-6 py-4 text-left font-semibold text-gray-900">Traditional Banks</th>
-                      <th className="px-6 py-4 text-left font-semibold text-gray-900">Online Lenders</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-b border-gray-200 hover:bg-gray-50">
-                      <td className="px-6 py-4 font-semibold text-gray-900">Speed</td>
-                      <td className="px-6 py-4 text-gold-600 font-semibold">10-20 days</td>
-                      <td className="px-6 py-4 text-gray-700">30-60 days</td>
-                      <td className="px-6 py-4 text-gray-700">7-14 days (automated)</td>
-                    </tr>
-                    <tr className="border-b border-gray-200 hover:bg-gray-50">
-                      <td className="px-6 py-4 font-semibold text-gray-900">Flexibility</td>
-                      <td className="px-6 py-4 text-gold-600 font-semibold">Fully Custom</td>
-                      <td className="px-6 py-4 text-gray-700">One-size-fits-all</td>
-                      <td className="px-6 py-4 text-gray-700">Limited pre-set products</td>
-                    </tr>
-                    <tr className="border-b border-gray-200 hover:bg-gray-50">
-                      <td className="px-6 py-4 font-semibold text-gray-900">Transparency</td>
-                      <td className="px-6 py-4 text-gold-600 font-semibold">All costs upfront</td>
-                      <td className="px-6 py-4 text-gray-700">Hidden fees</td>
-                      <td className="px-6 py-4 text-gray-700">Variable, contract-dependent</td>
-                    </tr>
-                    <tr className="border-b border-gray-200 hover:bg-gray-50">
-                      <td className="px-6 py-4 font-semibold text-gray-900">Personal Attention</td>
-                      <td className="px-6 py-4 text-gold-600 font-semibold">Direct founder involvement</td>
-                      <td className="px-6 py-4 text-gray-700">Committee review</td>
-                      <td className="px-6 py-4 text-gray-700">Algorithm-based decisions</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="px-6 py-4 font-semibold text-gray-900">Founder Expertise</td>
-                      <td className="px-6 py-4 text-gold-600 font-semibold">15+ years, $150MM+ facilitated</td>
-                      <td className="px-6 py-4 text-gray-700">Varies by institution</td>
-                      <td className="px-6 py-4 text-gray-700">Tech-driven, less traditional banking</td>
-                    </tr>
-                  </tbody>
-                </table>
               </div>
             </div>
           </FadeIn>

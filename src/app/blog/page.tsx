@@ -36,50 +36,6 @@ const blogPosts = [
     featured: true,
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
   },
-  {
-    id: "government-vs-private",
-    title: "Government Financing vs. Private Lenders",
-    subtitle: "A 2025 Guide to SBA Loans vs. Private Lending Options",
-    excerpt: "Compare SBA loans, government contract financing, and private lender options. See which government or private funding solution fits your business.",
-    author: "Michael Kodinsky",
-    date: "2024",
-    category: "Comparisons",
-    featured: false,
-    image: null
-  },
-  {
-    id: "abl-vs-factoring",
-    title: "Asset-Based Lending vs. Factoring",
-    subtitle: "How ABL and Invoice Factoring Compare",
-    excerpt: "Understand the key differences between asset-based lending and invoice factoring to choose the right solution for your business.",
-    author: "Michael Kodinsky",
-    date: "2024",
-    category: "Comparisons",
-    featured: false,
-    image: null
-  },
-  {
-    id: "the-true-cost-of-bank-rejection",
-    title: "The True Cost of Bank Rejection",
-    subtitle: "What Banks Really Mean When They Say 'No'",
-    excerpt: "What does bank rejection actually mean for your business? Explore why profitable companies get rejected and what alternative financing options exist.",
-    author: "Michael Kodinsky",
-    date: "Coming Soon",
-    category: "Lending Insights",
-    featured: false,
-    image: null
-  },
-  {
-    id: "asset-based-lending-decoded",
-    title: "Asset-Based Lending Decoded",
-    subtitle: "Everything You Need to Know About ABL",
-    excerpt: "A comprehensive guide to asset-based lending: how it works, when it makes sense, and how it compares to traditional bank loans.",
-    author: "Michael Kodinsky",
-    date: "Coming Soon",
-    category: "Funding Solutions",
-    featured: false,
-    image: null
-  },
 ]
 
 export default function BlogPage() {

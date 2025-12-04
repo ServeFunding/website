@@ -58,6 +58,18 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // www redirect - SEO best practice to prevent duplicate content
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "www.servefunding.com",
+          },
+        ],
+        destination: "https://servefunding.com/:path*",
+        permanent: true,
+      },
       // WordPress legacy redirects
       {
         source: "/frequently-asked-questions-faq",
@@ -95,6 +107,17 @@ const nextConfig: NextConfig = {
       {
         source: "/core-values",
         destination: "/about-us",
+        permanent: true, // 301 redirect for SEO
+      },
+      // Consolidated FAQ redirects
+      {
+        source: "/faq/working-capital",
+        destination: "/faq",
+        permanent: true, // 301 redirect for SEO
+      },
+      {
+        source: "/faq/about-serve-funding",
+        destination: "/faq",
         permanent: true, // 301 redirect for SEO
       },
     ];

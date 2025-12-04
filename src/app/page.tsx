@@ -27,7 +27,7 @@ import {
   StaggerItem
 } from '@/components/ui'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
-import { topLevelFAQs } from '@/data/company-info'
+import { topLevelFAQs } from '@/data/faq-data'
 import { fundingSolutions } from '@/data/solutions'
 import { HeroSkeleton, LoadingSkeleton } from '@/components/LoadingSkeleton'
 

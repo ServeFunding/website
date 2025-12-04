@@ -41,17 +41,25 @@ export default function RootLayout({
         <link rel="prefetch" href="https://forms.hsforms.com" />
         <link rel="prefetch" href="https://forms-na1.hsforms.com" />
         <link rel="prefetch" href="https://umami-production-25e0.up.railway.app" />
-        {/* Organization Schema - Global */}
+        {/* Organization & LocalBusiness Schema - Global */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "FinancialService",
+              "@type": ["Organization", "LocalBusiness", "FinancialService"],
               "@id": "https://servefunding.com",
               "name": "Serve Funding LLC",
               "description": "Boutique working capital advisory providing creative financing solutions from $250K to $100MM for growing businesses",
               "url": "https://servefunding.com",
+              "email": "michael@servefunding.com",
+              "telephone": "+1-770-820-7409",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Atlanta",
+                "addressRegion": "GA",
+                "addressCountry": "US"
+              },
               "areaServed": {
                 "@type": "Country",
                 "name": "United States"

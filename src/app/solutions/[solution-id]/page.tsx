@@ -16,10 +16,33 @@ import { CTA } from '@/components/cta'
 import { FAQSectionWithSchema } from '@/components/FAQSection'
 import { SolutionDetailClient } from './client'
 import { SolutionBreadcrumb } from './breadcrumb'
+import type { Metadata } from 'next'
 
 interface SolutionDetailPageProps {
   params: {
     'solution-id': string
+  }
+}
+
+export async function generateMetadata({ params }: SolutionDetailPageProps): Promise<Metadata> {
+  const resolvedParams = await params
+  const solution = fundingSolutions.find(s => s.id === resolvedParams['solution-id'])
+
+  if (!solution) {
+    return {
+      title: 'Solution Not Found | Serve Funding',
+    }
+  }
+
+  return {
+    title: `${solution.title} | Serve Funding`,
+    description: solution.shortDesc,
+    openGraph: {
+      title: `${solution.title} | Serve Funding`,
+      description: solution.shortDesc,
+      url: `https://servefunding.com/solutions/${solution.id}`,
+      type: 'website',
+    },
   }
 }
 

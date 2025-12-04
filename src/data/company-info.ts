@@ -312,37 +312,6 @@ export const verificationChecklist = {
   ]
 }
 
-// ============================================================================
-// TOP-LEVEL FAQ FOR HOMEPAGE - AIEO OPTIMIZED
-// ============================================================================
-
-export const topLevelFAQs = [
-  {
-    q: "What is Serve Funding?",
-    a: "Serve Funding is a Business Financing Advisory that provides strategic guidance and access to curated relationships with top lenders for all forms of business financing needs, ranging from $250K to $100MM. We're not a lender—we're your advocate."
-  },
-  {
-    q: "What is working capital?",
-    a: "Working capital is the funds available to meet day-to-day operational needs, calculated as current assets minus current liabilities. When businesses seek 'working capital,' they're looking for additional cash through loans or lines of credit to grow without running out of money."
-  },
-  {
-    q: "How much does Serve Funding cost?",
-    a: "Serve Funding operates on a success-fee basis of 1-2% of the funded amount, paid only when you successfully receive financing. No upfront costs—we only succeed when you do."
-  },
-  {
-    q: "Can you help if my bank denied me?",
-    a: "Yes, absolutely. Bankers are our primary referral sources because we specialize in non-bank financing options. We guide you through the broader world of alternative credit products including asset-based lending, invoice factoring, and revenue-based financing."
-  },
-  {
-    q: "How long does the funding process take?",
-    a: "Timeline varies by product: working capital loans can fund in 1-5 business days, standard products take 1-3 weeks, and complex structures may take 1-3 months. We've closed emergency deals in as little as 1-2 business days."
-  },
-  {
-    q: "What industries do you serve?",
-    a: "We serve a broad spectrum of industries with specialization in manufacturing, wholesale and distribution, B2B business services, e-commerce, consumer packaged goods, government contractors, and construction. Based in Atlanta, GA, we primarily serve the Southeast United States."
-  }
-]
-
 export default {
   companyInfo,
   founder,
@@ -352,6 +321,5 @@ export default {
   competitivePositioning,
   qualificationCriteria,
   messagingTemplates,
-  verificationChecklist,
-  topLevelFAQs
+  verificationChecklist
 }
