@@ -3,6 +3,7 @@ import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
 import { NewsletterForm } from "@/components/Forms"
 import { ChatbotWrapper } from "@/components/ChatbotWrapper"
+import { HubSpotNewsletterModalWrapper } from "@/components/HubSpotNewsletterModalWrapper"
 import { ScrollToTop } from "@/components/ScrollToTop"
 import Script from "next/script"
 import "@/app/globals.css"
@@ -118,6 +119,7 @@ export default function RootLayout({
         <NewsletterForm />
         <Footer />
         <ChatbotWrapper />
+        <HubSpotNewsletterModalWrapper />
 
         {/* Load third-party scripts after main content */}
         <Script

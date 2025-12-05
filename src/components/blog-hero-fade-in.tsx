@@ -17,7 +17,7 @@ interface BlogHeroFadeInProps {
 }
 
 export const BlogHeroFadeIn = ({ title, subtitle, date, author, authorTitle, authorPhoto, category = "Business/Professional Trends" }: BlogHeroFadeInProps) => (
-  <Section className="py-12 md:py-16 overflow-hidden" style={{ backgroundColor: COLORS.primary.darkGreen, scrollMarginTop: LAYOUT.scrollMarginTop }}>
+  <Section className="py-12 md:py-16 overflow-hidden" style={{ backgroundColor: COLORS.primary, scrollMarginTop: LAYOUT.scrollMarginTop }}>
     <Container>
       <motion.div
         initial={{ opacity: 0, y: 20 }}

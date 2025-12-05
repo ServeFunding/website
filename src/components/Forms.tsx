@@ -92,7 +92,7 @@ export function ReferralForm() {
       <form action={FORM_URLS.referral} method="POST" className="space-y-6" onSubmit={handleSubmit}>
         {/* Banker Information Section */}
         <div>
-          <Heading size="h3" className="mb-4" style={{ color: COLORS.primary.darkGreen }}>
+          <Heading size="h3" className="mb-4" style={{ color: COLORS.primary }}>
             Your Information
           </Heading>
 
@@ -111,7 +111,7 @@ export function ReferralForm() {
 
         {/* Client Information Section */}
         <div>
-          <Heading size="h3" className="mb-4" style={{ color: COLORS.primary.darkGreen }}>
+          <Heading size="h3" className="mb-4" style={{ color: COLORS.primary }}>
             Client Information
           </Heading>
 
@@ -156,10 +156,6 @@ export function PartnerInquiryForm() {
 // Factory function to create HubSpot form components
 function createHubSpotForm(formId: string, formType: string) {
   return function HubSpotForm() {
-    const [shouldLoad, setShouldLoad] = useState(false)
-    const containerRef = useState<HTMLDivElement | null>(null)[1] // We need a ref, but we can't use useRef in the callback easily without a wrapper. 
-    // Actually, let's use a real ref in the component.
-    
     return <HubSpotFormLazy formId={formId} formType={formType} />
   }
 }
@@ -212,10 +208,14 @@ export const HubSpotContactForm = createHubSpotForm('8a572bcd-b7ce-45c4-bdab-bf2
 export const HubSpotNewsletterForm = createHubSpotForm('6c04f5d5-c53e-41d0-9923-d57a6b1b92ec', 'hubspot_newsletter')
 export const HubSpotPartnershipForm = createHubSpotForm('4fe9c04e-0d8b-4567-ad88-720bce746884', 'hubspot_partnership')
 
+// Modal Newsletter Form
+export const HubSpotNewsletterModalForm = createHubSpotForm('f21673be-6ba2-48ca-8be2-870999c35ead', 'hubspot_newsletter_modal')
+
+
 // Newsletter Signup Form
 export function NewsletterForm() {
   return (
-    <section className="py-20 relative overflow-hidden" style={{ backgroundColor: COLORS.primary.bgGreen }}>
+    <section className="py-20 relative overflow-hidden" style={{ backgroundColor: COLORS.background }}>
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}

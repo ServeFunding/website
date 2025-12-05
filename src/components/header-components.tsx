@@ -106,7 +106,7 @@ export function DropdownMenuItems({ items, basePath, label, type = 'pages', onAn
             label={label}
             type={type}
             className={dropdownItemClasses}
-            hoverColor={COLORS.primary.lightGreen}
+            hoverColor={COLORS.secondary}
             onAnchorClick={onAnchorClick}
           />
         )

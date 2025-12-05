@@ -145,7 +145,7 @@ export default function AboutUs() {
             {coreValues.map((value, index) => (
               <StaggerItem key={index}>
                 <Card className="text-center h-full flex flex-col items-center justify-start pt-8 group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
-                  <span className="font-serif font-bold text-5xl mb-6 block" style={{ color: COLORS.primary.darkGreen }}>
+                  <span className="font-serif font-bold text-5xl mb-6 block" style={{ color: COLORS.primary }}>
                     {value.title.charAt(0)}
                   </span>
                   <Heading size="h4" className="mb-3 text-olive-900 group-hover:text-olive-900 transition-colors">
@@ -162,7 +162,7 @@ export default function AboutUs() {
       </Section>
 
       {/* Philosophy Section */}
-      <Section background="white" style={{ backgroundColor: COLORS.primary.darkGreen }}>
+      <Section background="white" style={{ backgroundColor: COLORS.primary }}>
         <Container>
           <FadeIn>
             <div className="max-w-5xl mx-auto rounded-3xl p-12 bg-white">

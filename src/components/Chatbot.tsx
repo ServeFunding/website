@@ -160,7 +160,7 @@ export function Chatbot() {
         >
           <div className="flex justify-between items-start gap-2">
             <div className="flex-1">
-              <p className="font-semibold mb-1" style={{ color: BRAND_COLORS.primary.darkGreen }}>Have any questions?</p>
+              <p className="font-semibold mb-1" style={{ color: BRAND_COLORS.primary }}>Have any questions?</p>
               <p className="text-sm text-gray-600 leading-relaxed">We're here to serve</p>
             </div>
             <button
@@ -185,7 +185,7 @@ export function Chatbot() {
           if (!isOpen) setShowNotification(false)
         }}
         style={{
-          backgroundColor: BRAND_COLORS.primary.lightGreen,
+          backgroundColor: BRAND_COLORS.secondary,
         }}
         className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 w-14 h-14 text-white rounded-full shadow-lg flex items-center justify-center transition-colors z-50 hover:opacity-90"
         whileHover={{ scale: 1.1 }}
@@ -216,7 +216,7 @@ export function Chatbot() {
           >
             {/* Header */}
             <div
-              style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}
+              style={{ backgroundColor: BRAND_COLORS.primary }}
               className="text-white px-6 py-4 rounded-none sm:rounded-t-2xl flex items-center justify-between flex-shrink-0"
             >
               <div>
@@ -243,7 +243,7 @@ export function Chatbot() {
                 >
                   <div
                     style={{
-                      backgroundColor: message.sender === 'user' ? BRAND_COLORS.primary.lightGreen : '#f3f4f6',
+                      backgroundColor: message.sender === 'user' ? BRAND_COLORS.secondary : '#f3f4f6',
                       color: message.sender === 'user' ? '#333333' : '#1f2937',
                     }}
                     className={`max-w-[85%] sm:max-w-[70%] px-4 py-2 rounded-lg break-words ${
@@ -290,8 +290,8 @@ export function Chatbot() {
                   }}
                   placeholder="Ask a question..."
                   style={{
-                    borderColor: BRAND_COLORS.primary.darkGreen,
-                    '--tw-ring-color': BRAND_COLORS.primary.darkGreen,
+                    borderColor: BRAND_COLORS.primary,
+                    '--tw-ring-color': BRAND_COLORS.primary,
                   } as React.CSSProperties}
                   className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 transition-all text-base"
                   disabled={isLoading}
@@ -301,7 +301,7 @@ export function Chatbot() {
                   onClick={handleSendMessage}
                   disabled={isLoading || !inputValue.trim()}
                   style={{
-                    backgroundColor: BRAND_COLORS.primary.lightGreen,
+                    backgroundColor: BRAND_COLORS.secondary,
                   }}
                   className="text-gray-800 p-2 rounded-lg transition-opacity hover:opacity-90 disabled:opacity-50"
                   aria-label="Send message"

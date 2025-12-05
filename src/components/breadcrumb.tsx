@@ -26,14 +26,14 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
             <Link
               href={item.href}
               className="hover:opacity-80 transition-opacity duration-200"
-              style={{color: COLORS.primary.darkGreen}}
+              style={{color: COLORS.primary}}
             >
               {item.label}
             </Link>
           ) : (
             <span className="text-gray-900 font-semibold">{item.label}</span>
           )}
-          {index < allItems.length - 1 && <span className="mx-2" style={{color: COLORS.primary.darkGreen}}>{'>'}</span>}
+          {index < allItems.length - 1 && <span className="mx-2" style={{color: COLORS.primary}}>{'>'}</span>}
         </span>
       ))}
     </nav>

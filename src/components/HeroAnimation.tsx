@@ -22,7 +22,7 @@ const LeafShape = ({
   size = 100,
   angle = 0,
   opacity = 0.6,
-  color = BRAND_COLORS.primary.lightGreen
+  color = BRAND_COLORS.primary
 }: {
   size?: number
   angle?: number
@@ -125,7 +125,7 @@ const FloatingLeaf = memo(({
         size={leaf.size}
         angle={leaf.angle}
         opacity={1}
-        color={BRAND_COLORS.primary.lightGreen}
+        color={BRAND_COLORS.primary}
       />
     </motion.div>
   )

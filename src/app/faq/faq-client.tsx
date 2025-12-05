@@ -51,7 +51,7 @@ export default function FAQClient({ faqs }: FAQClientProps) {
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
+      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary }}>
         <Container>
           <div className="flex flex-col items-center justify-center min-h-[400px] py-20 text-center">
             <FadeIn className="text-white max-w-3xl">

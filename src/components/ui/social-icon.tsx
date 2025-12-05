@@ -28,7 +28,7 @@ export function SocialIcon({
         }
       }}
       className="text-white p-3 rounded-lg transition-opacity hover:opacity-80"
-      style={{ backgroundColor: COLORS.primary.darkGreen }}
+      style={{ backgroundColor: COLORS.primary }}
       title={label}
       aria-label={label}
     >

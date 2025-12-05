@@ -44,7 +44,7 @@ export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
     if (finalColor === 'gradient') {
       headingStyle = {
         ...headingStyle,
-        background: `linear-gradient(to right, ${COLORS.primary.darkGreen}, ${COLORS.primary.lightGreen})`,
+        background: `linear-gradient(to right, ${COLORS.primary}, ${COLORS.secondary})`,
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
         backgroundClip: 'text',

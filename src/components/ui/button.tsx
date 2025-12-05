@@ -46,42 +46,42 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       case "default":
         buttonStyle = {
           ...baseStyle,
-          backgroundColor: COLORS.primary.darkGreen,
-          boxShadow: `0 10px 15px -3px ${COLORS.primary.darkGreen}33`
+          backgroundColor: COLORS.primary,
+          boxShadow: `0 10px 15px -3px ${COLORS.primary}33`
         }
         break
       case "gold":
         buttonStyle = {
           ...baseStyle,
-          backgroundColor: COLORS.primary.lightGreen,
-          color: "#2d3c1a",
-          boxShadow: `0 10px 15px -3px ${COLORS.primary.lightGreen}33`
+          backgroundColor: COLORS.secondary,
+          color: COLORS.dark,
+          boxShadow: `0 10px 15px -3px ${COLORS.secondary}33`
         }
         break
       case "outline":
         buttonStyle = {
           ...baseStyle,
-          borderColor: COLORS.primary.darkGreen,
-          color: COLORS.primary.darkGreen
+          borderColor: COLORS.primary,
+          color: COLORS.primary
         }
         break
       case "ghost":
         buttonStyle = {
           ...baseStyle,
-          color: COLORS.primary.darkGreen
+          color: COLORS.primary
         }
         break
       case "link":
         buttonStyle = {
           ...baseStyle,
-          color: COLORS.primary.darkGreen
+          color: COLORS.primary
         }
         break
       case "white":
         buttonStyle = {
           ...baseStyle,
           backgroundColor: "white",
-          color: COLORS.primary.darkGreen
+          color: COLORS.primary
         }
         break
     }

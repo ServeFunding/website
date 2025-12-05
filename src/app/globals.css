@@ -43,11 +43,11 @@
 }
 
 .value-card:hover {
-  background-color: #D3CE75 !important;
+  background-color: rgb(211 206 117) !important; /* brand-secondary */
 }
 
 .value-card:hover .icon-flip-inner {
-  background-color: #D3CE75;
+  background-color: rgb(211 206 117); /* brand-secondary */
   transform: rotateY(180deg);
 }
 

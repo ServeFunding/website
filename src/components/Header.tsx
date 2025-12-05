@@ -14,7 +14,7 @@ import { DropdownMenuItems, MobileMenuSection, HamburgerIcon } from "./header-co
 
 const navItemClasses = "text-gray-700 font-medium text-base h-full relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 after:w-0 hover:after:w-full flex items-center"
 const underlineStyle = {
-  '--underline-color': COLORS.primary.darkGreen,
+  '--underline-color': COLORS.primary,
 } as React.CSSProperties & { '--underline-color': string }
 
 // Type guards for discriminated union
@@ -74,7 +74,7 @@ function NavDropdown({ label, items, basePath, onAnchorClick, type = 'pages', is
       </Link>
 
       {/* Dropdown Menu */}
-      <div className="absolute top-full left-1/2 -translate-x-1/2 w-96 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-4 group-hover:translate-y-2 z-50 overflow-hidden mt-2" style={{ backgroundColor: COLORS.primary.darkGreen }}>
+      <div className="absolute top-full left-1/2 -translate-x-1/2 w-96 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-4 group-hover:translate-y-2 z-50 overflow-hidden mt-2" style={{ backgroundColor: COLORS.primary }}>
         <div className="py-2 flex flex-col">
           <DropdownMenuItems items={items} basePath={basePath} label={label} type={type} onAnchorClick={onAnchorClick} />
         </div>

@@ -18,7 +18,7 @@ export function FeatureList({ features, className = '' }: FeatureListProps) {
             <CheckCircle
               size={16}
               className="flex-shrink-0"
-              style={{ color: COLORS.primary.darkGreen }}
+              style={{ color: COLORS.primary }}
             />
           </div>
           <Text>{feature}</Text>

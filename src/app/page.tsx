@@ -111,17 +111,17 @@ export default function Home() {
                     <div
                       className="icon-flip-inner w-24 h-24 rounded-full flex items-center justify-center"
                       style={{
-                        backgroundColor: BRAND_COLORS.primary.darkGreen
+                        backgroundColor: BRAND_COLORS.primary
                       }}
                     >
                       <item.icon
                         size={40}
-                        style={{ color: BRAND_COLORS.primary.lightGreen }}
+                        style={{ color: BRAND_COLORS.secondary }}
                         strokeWidth={1.5}
                       />
                     </div>
                   </div>
-                  <Heading size="h3" className="mb-4 text-olive-900" style={{ color: BRAND_COLORS.primary.darkGreen }}>{item.title}</Heading>
+                  <Heading size="h3" className="mb-4 text-olive-900" style={{ color: BRAND_COLORS.primary }}>{item.title}</Heading>
                   <Text className="text-gray-600 font-medium">
                     {item.desc}
                   </Text>
@@ -166,7 +166,7 @@ export default function Home() {
       </Section>
 
       {/* Solutions Showcase Section */}
-      <Section className="py-20" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
+      <Section className="py-20" style={{ backgroundColor: BRAND_COLORS.primary }}>
         <Container>
           <FadeIn className="text-center mb-16">
             <Heading size="h2" color="white" className="mb-4" style={{ color: '#ffffff'}}>
@@ -249,7 +249,7 @@ export default function Home() {
       </Section>
 
       {/* Successful Client Fundings Section */}
-      <Section className="py-20" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
+      <Section className="py-20" style={{ backgroundColor: BRAND_COLORS.primary }}>
         <Container>
           <FadeIn className="text-center mb-16">
             <Heading size="h2" color="white" className="mb-4">Successful Client Fundings</Heading>
@@ -288,8 +288,8 @@ export default function Home() {
               <StaggerItem key={index}>
                 <Link href={item.href} className="group cursor-pointer block h-full">
                   <Card className="p-8 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white flex flex-col">
-                    <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen, border: `2px solid ${BRAND_COLORS.primary.lightGreen}` }}>
-                      <item.icon size={32} color={BRAND_COLORS.primary.lightGreen} />
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: BRAND_COLORS.primary, border: `2px solid ${BRAND_COLORS.secondary}` }}>
+                      <item.icon size={32} color={BRAND_COLORS.secondary} />
                     </div>
                     <Heading size="h3" className="mb-4 text-olive-900 group-hover:text-gold-500 transition-colors">
                       {item.title}

@@ -5,7 +5,7 @@ export default function TermsOfService() {
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
+      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary }}>
         <Container>
           <div className="flex flex-col items-center justify-center min-h-[300px] py-16 text-center">
             <Heading size="h1" color="white" className="mb-4">

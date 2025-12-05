@@ -52,7 +52,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
   return (
     <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center justify-center lg:justify-start h-full px-3 lg:px-8 pb-6">
       {/* Text Column */}
-      <div>
+      <div className="relative z-20">
         <Heading key={`heading-${heroIndex}`} size="h2">
           {slide.heading}
         </Heading>
