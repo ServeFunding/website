@@ -1,15 +1,11 @@
-'use client'
-
 import React from 'react'
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
 import Link from 'next/link'
 import {
   Search,
   Clock,
   Shield,
   Leaf,
-  ChevronLeft,
   ChevronRight,
   TrendingUp,
   DollarSign,
@@ -29,145 +25,56 @@ import {
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { topLevelFAQs } from '@/data/faq-data'
 import { fundingSolutions } from '@/data/solutions'
-import { HeroSkeleton, LoadingSkeleton } from '@/components/LoadingSkeleton'
+import { LoadingSkeleton } from '@/components/LoadingSkeleton'
+import { HeroAnimation } from '@/components/HeroAnimation'
+import { HeroCarousel } from '@/components/HeroCarousel'
+import { FAQSectionWithSchema } from '@/components/FAQSection'
+import { ProcessCard } from '@/components/ProcessCard'
 
-// Lazy load components below the fold with proper loading states
+// Lazy load below-the-fold components
 const IndustriesGrid = dynamic(() => import('@/components/IndustriesGrid').then(mod => ({ default: mod.IndustriesGrid })), {
-  loading: () => <LoadingSkeleton />,
-  ssr: true
-})
-
-const HeroAnimation = dynamic(() => import('@/components/HeroAnimation').then(mod => ({ default: mod.HeroAnimation })), {
-  loading: () => <HeroSkeleton />,
-  ssr: true
-})
-
-const FAQSectionWithSchema = dynamic(() => import('@/components/FAQSection').then(mod => ({ default: mod.FAQSectionWithSchema })), {
-  loading: () => <LoadingSkeleton />,
-  ssr: true
+  loading: () => <LoadingSkeleton />
 })
 
 const IntroCallForm = dynamic(() => import('@/components/Forms').then(mod => ({ default: mod.IntroCallForm })), {
-  loading: () => <LoadingSkeleton />,
-  ssr: false
+  loading: () => <LoadingSkeleton />
 })
 
+const heroSlides = [
+  {
+    heading: "The Right Funding Solutions for Healthy Business Growth",
+    desc: "An advisory service committed to serve the best interests of your company's current needs and future goals.",
+    image: "/home/right funding solutions.webp",
+    width: 1024,
+    height: 832
+  },
+  {
+    heading: "You Value Relationships Over Bots & Quick Fixes",
+    desc: "We partner with like-minded business leaders who want trusted advisors in their corner to ensure they make the best decisions.",
+    image: "/home/value relationships over bots.webp",
+    width: 1024,
+    height: 819
+  },
+  {
+    heading: "Creative Working Capital Empowering Entrepreneurs",
+    desc: "Because your company is unique, you want partners who truly understand your story and align with your objectives.",
+    image: "/home/creative working capital.webp",
+    width: 1024,
+    height: 945
+  }
+]
+
 export default function Home() {
-  const heroSlides = [
-    {
-      heading: "The Right Funding Solutions for Healthy Business Growth",
-      desc: "An advisory service committed to serve the best interests of your company's current needs and future goals.",
-      image: "/home/right funding solutions.png",
-      width: 1024,
-      height: 832
-    },
-    {
-      heading: "You Value Relationships Over Bots & Quick Fixes",
-      desc: "We partner with like-minded business leaders who want trusted advisors in their corner to ensure they make the best decisions.",
-      image: "/home/value relationships over bots.png",
-      width: 1024,
-      height: 819
-    },
-    {
-      heading: "Creative Working Capital Empowering Entrepreneurs",
-      desc: "Because your company is unique, you want partners who truly understand your story and align with your objectives.",
-      image: "/home/creative working capital.png",
-      width: 1024,
-      height: 945
-    }
-  ]
-
-  const [heroIndex, setHeroIndex] = React.useState(0)
-  const [isUserInteracting, setIsUserInteracting] = React.useState(false)
-
-  React.useEffect(() => {
-    if (isUserInteracting) return
-
-    const interval = setInterval(() => {
-      setHeroIndex((prev) => (prev + 1) % heroSlides.length)
-    }, 8000) // Change slide every 8 seconds
-
-    return () => clearInterval(interval)
-  }, [isUserInteracting])
-
-  const handlePrev = () => {
-    setHeroIndex((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
-    setIsUserInteracting(true)
-    setTimeout(() => setIsUserInteracting(false), 8000)
-  }
-
-  const handleNext = () => {
-    setHeroIndex((prev) => (prev + 1) % heroSlides.length)
-    setIsUserInteracting(true)
-    setTimeout(() => setIsUserInteracting(false), 8000)
-  }
-
-  const slide = heroSlides[heroIndex]
 
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <Section className="!pt-0 !pb-0 md:!py-0 overflow-hidden -mt-[96px] h-screen">
+      <div className="overflow-hidden h-screen">
         <HeroAnimation>
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center justify-center h-full pt-[96px] px-4 sm:px-6 lg:px-8 lg:justify-start">
-            {/* Text Column - 60% on desktop */}
-            <div className="z-10 flex-[1.5] lg:flex-[0.6]">
-              <Heading key={heroIndex} size="h2" className="mb-4">
-                {slide.heading}
-              </Heading>
-              <Text size="lg" className="mb-8">
-                {slide.desc}
-              </Text>
-              <div className="flex gap-4">
-                <button
-                  onClick={handlePrev}
-                  className="w-12 h-12 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center hover:bg-olive-900 hover:text-white transition-all duration-300"
-                  aria-label="Previous slide"
-                >
-                  <ChevronLeft size={24} />
-                </button>
-                <button
-                  onClick={handleNext}
-                  className="w-12 h-12 rounded-full bg-gray-800 text-white flex items-center justify-center hover:bg-olive-900 transition-all duration-300"
-                  aria-label="Next slide"
-                >
-                  <ChevronRight size={24} />
-                </button>
-              </div>
-            </div>
-
-            {/* Image Column - Responsive with image-specific aspect ratios */}
-            <div 
-              className="relative lg:flex-[0.4] rounded-2xl overflow-hidden shadow-lg lg:hover:shadow-xl transition-shadow duration-500 flex items-center justify-center"
-              style={{
-                boxShadow: `0 10px 30px rgba(0, 0, 0, 0.1)`,
-                width: '100%',
-                maxWidth: '400px',
-                height: 'auto',
-                aspectRatio: `${slide.width} / ${slide.height}`
-              }}>
-              <Image
-                key={heroIndex}
-                src={slide.image}
-                alt={slide.heading}
-                width={slide.width}
-                height={slide.height}
-                className="w-full h-auto object-contain"
-                style={{
-                  animation: 'slideIn 0.5s ease-out forwards'
-                }}
-                priority={heroIndex === 0}
-                loading={heroIndex === 0 ? "eager" : "lazy"}
-                sizes="(max-width: 768px) 100vw, 400px"
-                quality={85}
-                placeholder="blur"
-                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAABAAEDAREAAhEBAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAAA//EABQQAQAAAAAAAAAAAAAAAAAAAAD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AVUAH/9k="
-              />
-            </div>
-          </div>
+          <HeroCarousel slides={heroSlides} />
         </HeroAnimation>
-      </Section>
-
+      </div>
+      
       {/* Value Props Section */}
       <Section>
         <Container>
@@ -334,21 +241,7 @@ export default function Home() {
               }
             ].map((item) => (
               <StaggerItem key={item.step}>
-                <Card className="h-full flex flex-col items-center text-center group transition-all duration-300 md:hover:-translate-y-2 bg-white" onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = BRAND_COLORS.primary.lightGreen;
-                }} onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'white';
-                }}>
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 transition-all duration-300 bg-white/50 border-2 border-gold-light" style={{ color: BRAND_COLORS.primary.darkGreen }}>
-                    <span className="text-2xl font-bold">{item.step}</span>
-                  </div>
-                  <Heading size="h4" className="mb-4 transition-colors" style={{ color: BRAND_COLORS.primary.darkGreen }}>
-                    {item.title}
-                  </Heading>
-                  <Text className="text-gray-600 font-medium transition-colors group-hover:text-gray-600">
-                    {item.desc}
-                  </Text>
-                </Card>
+                <ProcessCard step={item.step} title={item.title} desc={item.desc} />
               </StaggerItem>
             ))}
           </StaggerContainer>

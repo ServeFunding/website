@@ -48,9 +48,13 @@ export function SolutionsClient() {
             </div>
 
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-              {fundingSolutions.map((solution) => (
+              {fundingSolutions.map((solution, index) => (
                 <StaggerItem key={solution.id}>
-                  <Link href={`/solutions/${solution.id}`} onClick={() => handleSolutionClick(solution.title)} className="group cursor-pointer block h-full">
+                  <Link 
+                    href={`/solutions/${solution.id}`} 
+                    onClick={() => handleSolutionClick(solution.title)} 
+                    className="group cursor-pointer block h-full"
+                  >
                     <Card className="p-8 h-full hover:shadow-lg transition-all duration-300">
                       <Heading size="h3" className="mb-3 text-olive-900 group-hover:text-gold-500 transition-colors">
                         {solution.title}
@@ -83,7 +87,7 @@ export function SolutionsClient() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <StaggerItem>
               <Card className="p-8 h-full">
-                <Heading size="h3" className="mb-4 text-olive-900">
+                <Heading size="h4" className="mb-4 text-olive-900">
                   Tailored Solutions
                 </Heading>
                 <Text className="text-gray-700">
@@ -94,7 +98,7 @@ export function SolutionsClient() {
 
             <StaggerItem>
               <Card className="p-8 h-full">
-                <Heading size="h3" className="mb-4 text-olive-900">
+                <Heading size="h4" className="mb-4 text-olive-900">
                   Expert Guidance
                 </Heading>
                 <Text className="text-gray-700">
@@ -105,7 +109,7 @@ export function SolutionsClient() {
 
             <StaggerItem>
               <Card className="p-8 h-full">
-                <Heading size="h3" className="mb-4 text-olive-900">
+                <Heading size="h4" className="mb-4 text-olive-900">
                   Flexible Terms
                 </Heading>
                 <Text className="text-gray-700">

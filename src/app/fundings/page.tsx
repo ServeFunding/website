@@ -72,7 +72,7 @@ export default function Fundings() {
                       </Text>
                     </div>
 
-                    <Heading size="h3" className="mb-2 text-olive-900 group-hover:text-gold-500 transition-colors">
+                    <Heading size="h4" className="mb-2 text-olive-900 group-hover:text-gold-500 transition-colors">
                       {study.title}
                     </Heading>
 

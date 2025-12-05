@@ -13,7 +13,7 @@ export function LoadingSkeleton() {
 
 export function HeroSkeleton() {
   return (
-    <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center justify-center h-full pt-[96px] px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center justify-center h-full px-4 sm:px-6 lg:px-8">
       <div className="z-10 flex-[1.5] lg:flex-[0.6] animate-pulse">
         <div className="h-12 bg-gray-200 rounded w-3/4 mb-4"></div>
         <div className="h-6 bg-gray-200 rounded w-full mb-2"></div>

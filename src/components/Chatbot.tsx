@@ -16,6 +16,8 @@ interface Message {
 
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
+  const [showNotification, setShowNotification] = useState(false)
+  const [hasShownNotification, setHasShownNotification] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -27,6 +29,7 @@ export function Chatbot() {
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
 
   // Enable VirtualKeyboard API for Chrome to handle keyboard overlays
   useEffect(() => {
@@ -48,6 +51,31 @@ export function Chatbot() {
       messagesEndRef.current.scrollIntoView()
     }
   }, [messages, isOpen, isLoading])
+
+  // Show notification after delay
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowNotification(true)
+      setHasShownNotification(true)
+    }, 10000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  // Show notification on scroll
+  useEffect(() => {
+    if (hasShownNotification || isOpen) return
+
+    const handleScroll = () => {
+      if (window.scrollY > 1000 && !hasShownNotification) {
+        setShowNotification(true)
+        setHasShownNotification(true)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [hasShownNotification, isOpen])
 
   const handleSendMessage = useCallback(async () => {
     if (!inputValue.trim()) return
@@ -94,18 +122,77 @@ export function Chatbot() {
 
   return (
     <>
+      {/* Notification - appears above chatbot */}
+      <AnimatePresence>
+        {showNotification && !isOpen && (
+        <motion.div
+          onClick={() => {
+            setIsOpen(true)
+            setShowNotification(false)
+          }}
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 100 }}
+          transition={{
+            duration: 0.4,
+            ease: 'easeOut'
+          }}
+          style={{
+            position: 'fixed',
+            bottom: '100px',
+            right: '20px',
+            width: '280px',
+            zIndex: 40,
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            padding: '14px 16px',
+            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+            cursor: 'pointer',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.boxShadow = '0 12px 32px rgba(0, 0, 0, 0.16)'
+            e.currentTarget.style.transform = 'translateY(-2px)'
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.12)'
+            e.currentTarget.style.transform = 'translateY(0)'
+          }}
+        >
+          <div className="flex justify-between items-start gap-2">
+            <div className="flex-1">
+              <p className="font-semibold mb-1" style={{ color: BRAND_COLORS.primary.darkGreen }}>Have any questions?</p>
+              <p className="text-sm text-gray-600 leading-relaxed">Fast answers here</p>
+            </div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setShowNotification(false)
+              }}
+              className="text-gray-400 text-lg flex-shrink-0 leading-none"
+              style={{ marginTop: '-2px' }}
+            >
+              ✕
+            </button>
+          </div>
+        </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Floating Button */}
       <motion.button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          setIsOpen(!isOpen)
+          if (!isOpen) setShowNotification(false)
+        }}
         style={{
           backgroundColor: BRAND_COLORS.primary.lightGreen,
         }}
         className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 w-14 h-14 text-white rounded-full shadow-lg flex items-center justify-center transition-colors z-50 hover:opacity-90"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        aria-label="Open chat"
+        aria-label={isOpen ? "Close chat" : "Open chat"}
       >
-        <MessageCircle size={24} />
+        {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
       </motion.button>
 
       {/* Chat Window */}

@@ -11,7 +11,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "asset-based-lending",
     title: "Asset-Based Lending",
-    image: "/solutions/Asset Based Lending.png",
+    image: "/solutions/Asset Based Lending.webp",
     category: "Flexible Working Capital",
 
     whatIs: "Asset-Based Lending (ABL) is a flexible credit line that lets you borrow against your company's assets like accounts receivable, inventory, equipment, and real estate. Instead of focusing heavily on credit history, ABL lenders evaluate the value of your collateral.",
@@ -78,7 +78,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "invoice-factoring",
     title: "Invoice (AR) Financing",
-    image: "/solutions/Invoice AI Financing.png",
+    image: "/solutions/Invoice AI Financing.webp",
     category: "Fast Cash Flow",
 
     whatIs: "Invoice factoring (also called AR financing) is when you sell your unpaid B2B invoices to a factor for immediate cash. Instead of waiting 30-90 days for customers to pay, you get 75-95% of the invoice value within 24-48 hours.",
@@ -145,7 +145,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "working-capital-loans",
     title: "Working Capital Loans",
-    image: "/solutions/Working Capital Loans.png",
+    image: "/solutions/Working Capital Loans.webp",
     category: "Quick Operations Funding",
 
     whatIs: "A working capital loan is short-term financing that helps businesses cover day-to-day operational expenses: payroll, inventory, accounts payable, rent, etc.",
@@ -212,7 +212,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "inventory-financing",
     title: "Inventory Financing",
-    image: "/solutions/Inventory Financing.png",
+    image: "/solutions/Inventory Financing.webp",
     category: "Asset-Based",
     whatIs: "Inventory financing is a short-term loan option that leverages existing inventory as collateral, offering businesses the liquidity to manage inventory levels.",
     shortDesc: "Access the value tied up in your existing inventory or use specialized financing solutions to purchase new inventory.",
@@ -241,7 +241,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "equipment-leasing",
     title: "Equipment Leasing & Loans",
-    image: "/solutions/Equipment Leasing.png",
+    image: "/solutions/Equipment Leasing.webp",
     category: "Asset Acquisition",
     whatIs: "Equipment leasing lets you acquire essential machinery, vehicles, technology without large upfront capital. Monthly payments spread the cost over 3-7 years.",
     shortDesc: "Take advantage of flexible equipment financing & lease options to purchase new equipment or cash-out of existing equipment.",
@@ -271,7 +271,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "purchase-order-funding",
     title: "Purchase Order (PO) Funding",
-    image: "/solutions/Purchase Order Funding.png",
+    image: "/solutions/Purchase Order Funding.webp",
     category: "Growth Capital",
     whatIs: "PO funding provides financing to fulfill customer purchase orders when you lack working capital for production or purchasing costs.",
     shortDesc: "Maximize growth through funding solutions designed to fulfill new PO's and mobilize contracts without straining cash-flow.",
@@ -301,7 +301,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "government-contracts",
     title: "Government Contract Financing",
-    image: "/solutions/Government Contract Financing.png",
+    image: "/solutions/Government Contract Financing.webp",
     category: "Contract-Based",
     whatIs: "Government Contract Financing offers tailored funding to businesses awarded contracts with federal, state, or local agencies.",
     shortDesc: "Access flexible lines of credit designed exclusively to provide financing for federal, state & local government contracts.",
@@ -330,7 +330,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "real-estate-lending",
     title: "Real Estate Financing Commercial & Investor",
-    image: "/solutions/Raeal Estate Lending.png",
+    image: "/solutions/Raeal Estate Lending.webp",
     category: "Long-Term Financing",
     whatIs: "Real estate lending provides financing solutions for commercial properties including purchases, refinancing and cash-out options.",
     shortDesc: "Receive bridge & long-term financing on commercial properties, including purchases, refinancing and cash-out options.",
@@ -359,7 +359,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "unsecured-debt",
     title: "Unsecured & Sub-Debt Loans",
-    image: "/solutions/Unsecured & Sub-Debt Loans.png",
+    image: "/solutions/Unsecured & Sub-Debt Loans.webp",
     category: "Alternative Debt",
     whatIs: "Mezzanine Financing or subordinated debt sits behind senior debt in repayment priority. Higher risk means higher interest rates.",
     shortDesc: "Obtain timely working capital without leveraging any collateral or accepting lien filings through unsecured and subordinated debt.",
@@ -388,7 +388,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "sba-loans",
     title: "Small Business Administration Loans",
-    image: "/solutions/Small Business Administration Loans.png",
+    image: "/solutions/Small Business Administration Loans.webp",
     category: "Government-Backed",
     whatIs: "SBA Loans are government-backed loans from banks offering lower interest rates and longer terms than traditional loans.",
     shortDesc: "Tap into lower-interest and longer-term loans and lines of credit in Federal SBA programs for working capital & real estate financing.",

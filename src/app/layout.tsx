@@ -34,13 +34,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Font optimization - preload key fonts */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
         {/* Preconnect to HubSpot - forms used on most pages */}
         <link rel="preconnect" href="https://js.hsforms.net" />
-        {/* Prefetch other third-party resources */}
-        <link rel="prefetch" href="https://images.unsplash.com" />
-        <link rel="prefetch" href="https://forms.hsforms.com" />
-        <link rel="prefetch" href="https://forms-na1.hsforms.com" />
-        <link rel="prefetch" href="https://umami-production-25e0.up.railway.app" />
+        <link rel="dns-prefetch" href="https://forms.hsforms.com" />
+        <link rel="dns-prefetch" href="https://forms-na1.hsforms.com" />
+        <link rel="dns-prefetch" href="https://umami-production-25e0.up.railway.app" />
         {/* Organization & LocalBusiness Schema - Global */}
         <script
           type="application/ld+json"
@@ -117,7 +119,7 @@ export default function RootLayout({
         />
         <Script
           id="hs-script-loader"
-          src="//js.hs-scripts.com/23433903.js"
+          src="https://js.hs-scripts.com/23433903.js"
           strategy="afterInteractive"
         />
       </body>

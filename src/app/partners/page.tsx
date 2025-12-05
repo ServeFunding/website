@@ -30,7 +30,7 @@ interface PartnerType {
 const partnerTypes: PartnerType[] = [
   {
     title: 'Commercial Bankers',
-    image: '/partners/Professioanls talking.png',
+    image: '/partners/Professioanls talking.webp',
     imageWidth: 1024,
     imageHeight: 829,
     benefits: [
@@ -44,7 +44,7 @@ const partnerTypes: PartnerType[] = [
   },
   {
     title: 'Fractional CFOs',
-    image: '/partners/Professional giving presentation.png',
+    image: '/partners/Professional giving presentation.webp',
     imageWidth: 1024,
     imageHeight: 936,
     benefits: [
@@ -58,7 +58,7 @@ const partnerTypes: PartnerType[] = [
   },
   {
     title: 'Investment Bankers',
-    image: '/partners/Business Professionals looking at camera.png',
+    image: '/partners/Business Professionals looking at camera.webp',
     imageWidth: 1024,
     imageHeight: 905,
     benefits: [
@@ -72,7 +72,7 @@ const partnerTypes: PartnerType[] = [
   },
   {
     title: 'CPAs / Accountants',
-    image: '/partners/Handshake.png',
+    image: '/partners/Handshake.webp',
     imageWidth: 1024,
     imageHeight: 882,
     benefits: [
@@ -86,7 +86,7 @@ const partnerTypes: PartnerType[] = [
   },
   {
     title: 'Private Equity Firms',
-    image: '/partners/Equity close up.png',
+    image: '/partners/Equity close up.webp',
     imageWidth: 1024,
     imageHeight: 889,
     benefits: [
@@ -100,7 +100,7 @@ const partnerTypes: PartnerType[] = [
   },
   {
     title: 'Business Advisors',
-    image: '/partners/Professional giving presentation.png',
+    image: '/partners/Professional giving presentation.webp',
     imageWidth: 1024,
     imageHeight: 936,
     benefits: [
@@ -241,7 +241,7 @@ export default function Partners() {
                 {/* Right: Trust Image */}
                 <div className="relative h-96 rounded-2xl overflow-hidden">
                   <Image
-                    src="/partners/Trust.png"
+                    src="/partners/Trust.webp"
                     alt="Trust"
                     width={1024}
                     height={889}
@@ -268,7 +268,7 @@ export default function Partners() {
             {commitments.map((commitment, idx) => (
               <StaggerItem key={idx}>
                 <Card className="h-full group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
-                  <Heading size="h3" className="mb-3 text-olive-900 group-hover:text-olive-900 transition-colors">
+                  <Heading size="h4" className="mb-3 text-olive-900 group-hover:text-olive-900 transition-colors">
                     {commitment.title}
                   </Heading>
                   <Text className="text-gray-600 group-hover:text-gray-700 transition-colors">

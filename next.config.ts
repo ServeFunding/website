@@ -25,9 +25,55 @@ const nextConfig: NextConfig = {
   // Production optimizations
   productionBrowserSourceMaps: false,
   
-  // Configure headers for caching
+  // Configure headers for caching and security
   async headers() {
     return [
+      // Security headers for all routes
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin'
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()'
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.hsforms.net https://js.hs-scripts.com https://js.hscollectedforms.net https://js.hs-banner.com https://js.hs-analytics.net https://js.hsadspixel.net https://umami-production-25e0.up.railway.app",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "img-src 'self' data: https: blob:",
+              "font-src 'self' data: https://fonts.gstatic.com",
+              "connect-src 'self' https://api.hsforms.com https://forms.hsforms.com https://forms.hscollectedforms.net https://forms-na1.hsforms.com https://umami-production-25e0.up.railway.app",
+              "frame-src 'self' https://forms.hsforms.com https://js.hsforms.net http://js.hsforms.net",
+              "frame-ancestors 'self'",
+              "base-uri 'self'",
+              "form-action 'self' https://forms.hsforms.com"
+            ].join('; ')
+          }
+        ],
+      },
+      // Static asset caching
       {
         source: '/:all*(svg|jpg|jpeg|png|webp|avif|gif|ico)',
         headers: [
