@@ -25,6 +25,11 @@ export const BlogHeroFadeIn = ({ title, subtitle, date, author, authorTitle, aut
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="max-w-3xl mx-auto"
       >
+        {category && (
+          <Text size="sm" className="text-white/70 mb-4">
+            {category}
+          </Text>
+        )}
         <Heading size="h1" color="white" className="mb-6">
           {title}
         </Heading>

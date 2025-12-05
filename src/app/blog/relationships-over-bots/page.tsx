@@ -5,21 +5,29 @@ import {
   Heading,
   Text,
   Card,
-  FadeIn,
-  Button
+  FadeIn
 } from '@/components/ui'
 import { BlogHeroFadeIn } from '@/components/blog-hero-fade-in'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { CTA } from '@/components/cta'
-import Link from 'next/link'
+
+export const blogMetadata = {
+  id: "relationships-over-bots",
+  title: "Relationships Over Bots",
+  subtitle: "Why Known Partners Are Key to Sustainable Business Growth",
+  excerpt: "In an age of automation and algorithms, discover why trust-based partnerships outperform automated systems in working capital financing.",
+  author: "Michael Kodinsky",
+  date: "November 26, 2024",
+  category: "Business Growth",
+}
 
 export const metadata = {
-  title: "Relationships Over Bots: Why Known Partners Drive Business Growth | Serve Funding",
-  description: "Discover how trust-based partnerships and personalized advisory outperform automated systems. Learn Serve Funding's philosophy on sustainable business growth.",
+  title: `${blogMetadata.title} | Serve Funding`,
+  description: blogMetadata.excerpt,
   openGraph: {
-    title: "Relationships Over Bots: Why Known Partners Drive Business Growth",
-    description: "Discover how trust-based partnerships and personalized advisory outperform automated systems. Learn Serve Funding's philosophy on sustainable business growth.",
-    url: "https://servefunding.com/blog/relationships-over-bots",
+    title: blogMetadata.title,
+    description: blogMetadata.excerpt,
+    url: `https://servefunding.com/blog/${blogMetadata.id}`,
     type: "article",
   },
 }
@@ -35,13 +43,13 @@ export default function BlogPost() {
 
       {/* Hero Section */}
       <BlogHeroFadeIn
-        title="Relationships Over Bots"
-        subtitle="Why Known Partners Are Key to Sustainable Business Growth"
-        date="November 26, 2024"
-        author="Michael Kodinsky"
+        title={blogMetadata.title}
+        subtitle={blogMetadata.subtitle}
+        date={blogMetadata.date}
+        author={blogMetadata.author}
         authorTitle="Founder & CEO"
         authorPhoto="/Michael Headshot.webp"
-        category="Business/Professional Trends"
+        category={blogMetadata.category}
       />
 
       {/* Main Article Content */}
