@@ -281,11 +281,8 @@ export const HeroAnimation = ({
       }}
     >
       {/* Background animated leaves */}
-      <motion.div
+      <div
         className="absolute inset-0 pointer-events-none"
-        initial={{ opacity: 1 }}
-        animate={{ opacity: 1 }}
-        style={{ willChange: 'opacity' }}
       >
         {leaves.map((leaf) => (
           <FloatingLeaf
@@ -296,7 +293,7 @@ export const HeroAnimation = ({
             containerRect={containerRect}
           />
         ))}
-      </motion.div>
+      </div>
 
       {/* Main content */}
       <div className="relative h-full z-10">

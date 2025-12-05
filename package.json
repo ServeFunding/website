@@ -7,14 +7,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "ANALYZE=true next build --webpack"
   },
   "browserslist": [
-    "chrome >= 80",
-    "safari >= 14",
-    "ios >= 14",
-    "firefox >= 80",
-    "edge >= 80"
+    "chrome >= 90",
+    "safari >= 15",
+    "ios >= 15",
+    "firefox >= 88",
+    "edge >= 90"
   ],
   "dependencies": {
     "@anthropic-ai/sdk": "^0.70.1",

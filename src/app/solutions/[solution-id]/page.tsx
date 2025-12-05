@@ -20,9 +20,9 @@ import { SolutionDetailClient } from './client'
 import type { Metadata } from 'next'
 
 interface SolutionDetailPageProps {
-  params: {
+  params: Promise<{
     'solution-id': string
-  }
+  }>
 }
 
 export async function generateMetadata({ params }: SolutionDetailPageProps): Promise<Metadata> {

@@ -1,35 +1,18 @@
-import { ArrowRight, Calendar, User } from 'lucide-react'
+import { ArrowRight, Calendar } from 'lucide-react'
 import {
   Section,
   Container,
   Heading,
   Text,
   Card,
-  FadeIn,
   StaggerContainer,
   StaggerItem,
   Button
 } from '@/components/ui'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CTA } from '@/components/cta'
-import { blogMetadata as relationshipsOverBots } from './relationships-over-bots/page'
-import { blogMetadata as bankerSavedWedding } from './banker-saved-wedding-season/page'
+import { blogPosts } from '@/data/blog-posts'
 import Link from 'next/link'
-
-export const metadata = {
-  title: "Blog - Working Capital Insights | Serve Funding",
-  description: "Read our latest insights on working capital financing, business growth, and alternative lending strategies for growing companies.",
-  openGraph: {
-    title: "Blog - Working Capital Insights",
-    description: "Read our latest insights on working capital financing, business growth, and alternative lending strategies for growing companies.",
-    url: "https://servefunding.com/blog",
-  },
-}
-
-const blogPosts = [
-  bankerSavedWedding,
-  relationshipsOverBots,
-]
 
 export default function BlogPage() {
   return (

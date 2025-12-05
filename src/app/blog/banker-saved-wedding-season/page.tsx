@@ -10,7 +10,7 @@ import { BlogHeroFadeIn } from '@/components/blog-hero-fade-in'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { CTA } from '@/components/cta'
 
-export const blogMetadata = {
+const blogMetadata = {
   id: "banker-saved-wedding-season",
   title: "The Banker Who Saved a Wedding Season",
   subtitle: "How One Referral Became an Act of Leadership",

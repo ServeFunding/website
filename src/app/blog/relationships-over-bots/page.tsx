@@ -10,7 +10,7 @@ import { BlogHeroFadeIn } from '@/components/blog-hero-fade-in'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { CTA } from '@/components/cta'
 
-export const blogMetadata = {
+const blogMetadata = {
   id: "relationships-over-bots",
   title: "Relationships Over Bots",
   subtitle: "Why Known Partners Are Key to Sustainable Business Growth",

@@ -1,8 +1,17 @@
 import type { NextConfig } from "next";
+import withBundleAnalyzer from '@next/bundle-analyzer'
+
+const bundleAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+})
 
 const nextConfig: NextConfig = {
   // Modern output for better performance
   output: 'standalone',
+  
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
+  },
   
   // Optimize images
   images: {
@@ -64,7 +73,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "img-src 'self' data: https: blob:",
               "font-src 'self' data: https://fonts.gstatic.com",
-              "connect-src 'self' https://api.hsforms.com https://forms.hsforms.com https://forms.hscollectedforms.net https://forms-na1.hsforms.com https://api.hubapi.com https://snap.licdn.com https://umami-production-25e0.up.railway.app",
+              "connect-src 'self' https://api.hsforms.com https://forms.hsforms.com https://forms.hscollectedforms.net https://forms-na1.hsforms.com https://api.hubapi.com https://snap.licdn.com https://px.ads.linkedin.com https://umami-production-25e0.up.railway.app",
               "frame-src 'self' https://forms.hsforms.com https://js.hsforms.net http://js.hsforms.net",
               "frame-ancestors 'self'",
               "base-uri 'self'",
@@ -171,4 +180,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default bundleAnalyzer(nextConfig);
