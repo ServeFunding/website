@@ -112,7 +112,7 @@ export function Footer() {
         {/* Copyright - Full Width */}
         <div className="py-4" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
           <Container>
-            <Text size="sm" className="text-center text-white">
+            <Text size="sm" className="text-center" style={{ color: '#ffffff' }}>
               © 2025 All Rights Reserved — Serve Funding, LLC.
             </Text>
           </Container>

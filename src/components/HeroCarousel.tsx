@@ -93,6 +93,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
           loading={heroIndex === 0 ? "eager" : "lazy"}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 50vw"
           quality={85}
+          fetchPriority={heroIndex === 0 ? "high" : "auto"}
         />
       </div>
     </div>
