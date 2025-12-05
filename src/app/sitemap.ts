@@ -33,7 +33,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Blog posts
   const blogRoutes = [
-    'relationships-over-bots'
+    'relationships-over-bots',
+    'banker-saved-wedding-season'
   ].map((slug) => ({
     url: `${baseUrl}/blog/${slug}`,
     lastModified: new Date(),
