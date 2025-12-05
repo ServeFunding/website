@@ -14,22 +14,33 @@ export function HubSpotNewsletterModalWrapper() {
     setIsMounted(true)
   }, [])
 
-  // Show modal after page fully loads
+  // Show modal after page fully loads + 2 second delay for resource stability
   useEffect(() => {
     if (!isMounted || hasShown) return
 
-    const handlePageLoad = () => {
+    let timer: NodeJS.Timeout | undefined
+
+    const showModal = () => {
       setIsOpen(true)
       setHasShown(true)
     }
 
-    // If page is already loaded, show immediately
+    const scheduleModal = () => {
+      // Wait 2 seconds after page load to ensure resources are stable
+      timer = setTimeout(showModal, 2000)
+    }
+
+    // If page is already loaded, schedule the modal
     if (document.readyState === 'complete') {
-      handlePageLoad()
+      scheduleModal()
     } else {
-      // Wait for page to fully load
-      window.addEventListener('load', handlePageLoad)
-      return () => window.removeEventListener('load', handlePageLoad)
+      // Wait for page to fully load, then schedule the modal
+      window.addEventListener('load', scheduleModal)
+    }
+
+    return () => {
+      window.removeEventListener('load', scheduleModal)
+      if (timer) clearTimeout(timer)
     }
   }, [isMounted, hasShown])
 
