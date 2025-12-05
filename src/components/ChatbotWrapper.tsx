@@ -1,16 +1,23 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Chatbot } from '@/components/Chatbot'
+import dynamic from 'next/dynamic'
+
+// Dynamically import Chatbot to move 'framer-motion' (30kb+) out of the main bundle
+const Chatbot = dynamic(() => import('@/components/Chatbot').then(mod => mod.Chatbot), {
+  ssr: false,
+  loading: () => null // No loading state needed, it will just appear when ready
+})
 
 export function ChatbotWrapper() {
-  const [isMounted, setIsMounted] = useState(false)
+  const [shouldLoad, setShouldLoad] = useState(false)
 
   useEffect(() => {
-    setIsMounted(true)
+    // Load immediately on the client, but after the main HTML is parsed
+    setShouldLoad(true)
   }, [])
 
-  if (!isMounted) return null
+  if (!shouldLoad) return null
 
   return <Chatbot />
 }
