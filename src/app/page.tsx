@@ -74,7 +74,7 @@ export default function Home() {
           <HeroCarousel slides={heroSlides} />
         </HeroAnimation>
       </div>
-      
+
       {/* Value Props Section */}
       <Section>
         <Container>
@@ -121,7 +121,7 @@ export default function Home() {
                       />
                     </div>
                   </div>
-                  <Heading size="h4" className="mb-4 text-olive-900" style={{ color: BRAND_COLORS.primary.darkGreen }}>{item.title}</Heading>
+                  <Heading size="h3" className="mb-4 text-olive-900" style={{ color: BRAND_COLORS.primary.darkGreen }}>{item.title}</Heading>
                   <Text className="text-gray-600 font-medium">
                     {item.desc}
                   </Text>
@@ -169,7 +169,7 @@ export default function Home() {
       <Section className="py-20" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
         <Container>
           <FadeIn className="text-center mb-16">
-            <Heading size="h3" className="mb-4" style={{ color: '#ffffff'}}>
+            <Heading size="h2" color="white" className="mb-4" style={{ color: '#ffffff'}}>
               Our Funding Solutions
             </Heading>
             <Text size="lg" className="text-white/90 max-w-2xl mx-auto">
@@ -210,7 +210,7 @@ export default function Home() {
       <Section>
         <Container>
           <FadeIn>
-            <Heading size="h3" color="gradient" className="mb-16 text-center">Industries Served</Heading>
+            <Heading size="h2" className="mb-16 text-center">Industries Served</Heading>
           </FadeIn>
           <IndustriesGrid />
         </Container>
@@ -220,7 +220,7 @@ export default function Home() {
       <Section background="gray">
         <Container>
           <FadeIn>
-            <Heading size="h3" color="gradient" className="mb-16 text-center">Outlining Our Process</Heading>
+            <Heading size="h2" className="mb-16 text-center">Outlining Our Process</Heading>
           </FadeIn>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
             {[
@@ -252,7 +252,7 @@ export default function Home() {
       <Section className="py-20" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
         <Container>
           <FadeIn className="text-center mb-16">
-            <Heading size="h3" style={{ color: '#ffffff' }} className="mb-4">Successful Client Fundings</Heading>
+            <Heading size="h2" color="white" className="mb-4">Successful Client Fundings</Heading>
             <Text size="lg" className="text-white/90 max-w-2xl mx-auto">
               See how we've helped businesses across industries secure the capital they needed to grow
             </Text>

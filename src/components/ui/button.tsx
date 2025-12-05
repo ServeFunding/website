@@ -9,8 +9,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-[#758d5b] text-white hover:bg-[#6a7d4a] shadow-lg",
-        light: "bg-[#c4d45a] text-[#758d5b] hover:bg-[#d4e46a] shadow-lg shadow-[#c4d45a]/20",
-        gold: "bg-[#D3CE75] text-[#333333] hover:bg-[#c4bf63] shadow-lg shadow-[#D3CE75]/20",
+        light: "bg-[#c4d45a] text-[#2d3c1a] hover:bg-[#d4e46a] shadow-lg shadow-[#c4d45a]/20",
+        gold: "bg-[#D3CE75] text-[#2d3c1a] hover:bg-[#c4bf63] shadow-lg shadow-[#D3CE75]/20",
         outline: "border-2 border-[#758d5b] text-[#758d5b] hover:bg-[#758d5b] hover:text-white",
         ghost: "hover:bg-gray-100 text-gray-700 hover:text-[#758d5b]",
         link: "text-[#758d5b] underline-offset-4 hover:underline",

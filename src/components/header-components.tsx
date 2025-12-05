@@ -192,7 +192,7 @@ interface HamburgerIconProps {
 
 export function HamburgerIcon({ isOpen }: HamburgerIconProps) {
   return (
-    <button className="text-gray-700 w-6 h-6 flex flex-col justify-center gap-1.5 relative">
+    <button className="text-gray-700 w-6 h-6 flex flex-col justify-center gap-1.5 relative" aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}>
       <motion.span
         animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
         transition={{ duration: 0.4 }}

@@ -36,7 +36,7 @@ export function Footer() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
               {/* Menu */}
               <div>
-                <Heading size="h4" className="text-olive-900 mb-6">Menu</Heading>
+                <Heading size="h3" className="text-olive-900 mb-6">Menu</Heading>
                 <div className="space-y-3 flex flex-col">
                   <Link href="/" className="text-olive-900 hover:text-gold-500 transition-colors">Home</Link>
                   <Link href="/solutions" className="text-olive-900 hover:text-gold-500 transition-colors">Solutions</Link>
@@ -48,7 +48,7 @@ export function Footer() {
 
               {/* Quick Links */}
               <div>
-                <Heading size="h4" className="text-olive-900 mb-6">Quick Links</Heading>
+                <Heading size="h3" className="text-olive-900 mb-6">Quick Links</Heading>
                 <div className="space-y-3 flex flex-col">
                   <Link href="/privacy-policy" className="text-olive-900 hover:text-gold-500 transition-colors">Privacy Policy</Link>
                   <Link href="/terms-of-service" className="text-olive-900 hover:text-gold-500 transition-colors">Terms of Service</Link>
@@ -59,7 +59,7 @@ export function Footer() {
 
               {/* Get In Touch */}
               <div>
-                <Heading size="h4" className="text-olive-900 mb-6">Get In Touch</Heading>
+                <Heading size="h3" className="text-olive-900 mb-6">Get In Touch</Heading>
                 <div className="space-y-3 mb-6">
                   <div className="flex items-center gap-3">
                     <svg className="w-5 h-5 text-olive-900" fill="currentColor" viewBox="0 0 20 20">
@@ -112,7 +112,7 @@ export function Footer() {
         {/* Copyright - Full Width */}
         <div className="py-4" style={{ backgroundColor: BRAND_COLORS.primary.darkGreen }}>
           <Container>
-            <Text size="sm" className="text-center" style={{ color: '#ffffff' }}>
+            <Text size="sm" className="text-center text-white">
               © 2025 All Rights Reserved — Serve Funding, LLC.
             </Text>
           </Container>

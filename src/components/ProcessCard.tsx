@@ -23,7 +23,7 @@ export function ProcessCard({ step, title, desc }: ProcessCardProps) {
       <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 transition-all duration-300 bg-white/50 border-2 border-gold-light" style={{ color: BRAND_COLORS.primary.darkGreen }}>
         <span className="text-2xl font-bold">{step}</span>
       </div>
-      <Heading size="h4" className="mb-4 transition-colors" style={{ color: BRAND_COLORS.primary.darkGreen }}>
+      <Heading size="h3" className="mb-4 transition-colors" style={{ color: BRAND_COLORS.primary.darkGreen }}>
         {title}
       </Heading>
       <Text className="text-gray-600 font-medium transition-colors group-hover:text-gray-600">

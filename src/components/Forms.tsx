@@ -41,7 +41,7 @@ function FormContainer({
         <div className="max-w-4xl mx-auto">
           {title && (
             <FadeIn className="text-center mb-12">
-              <Heading size="h3" color={background === "olive" ? "white" : "default"}>
+              <Heading size="h2" color={background === "olive" ? "white" : "default"}>
                 {title}
               </Heading>
               {subtitle && (

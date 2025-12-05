@@ -64,7 +64,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "img-src 'self' data: https: blob:",
               "font-src 'self' data: https://fonts.gstatic.com",
-              "connect-src 'self' https://api.hsforms.com https://forms.hsforms.com https://forms.hscollectedforms.net https://forms-na1.hsforms.com https://umami-production-25e0.up.railway.app",
+              "connect-src 'self' https://api.hsforms.com https://forms.hsforms.com https://forms.hscollectedforms.net https://forms-na1.hsforms.com https://api.hubapi.com https://umami-production-25e0.up.railway.app",
               "frame-src 'self' https://forms.hsforms.com https://js.hsforms.net http://js.hsforms.net",
               "frame-ancestors 'self'",
               "base-uri 'self'",
