@@ -20,12 +20,14 @@ interface HeroCarouselProps {
 export function HeroCarousel({ slides }: HeroCarouselProps) {
   const [heroIndex, setHeroIndex] = React.useState(0)
   const [isUserInteracting, setIsUserInteracting] = React.useState(false)
+  const [hasTransitioned, setHasTransitioned] = React.useState(false)
 
   React.useEffect(() => {
     if (isUserInteracting) return
 
     const interval = setInterval(() => {
       setHeroIndex((prev) => (prev + 1) % slides.length)
+      setHasTransitioned(true)
     }, 8000)
 
     return () => clearInterval(interval)
@@ -34,12 +36,14 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
   const handlePrev = () => {
     setHeroIndex((prev) => (prev - 1 + slides.length) % slides.length)
     setIsUserInteracting(true)
+    setHasTransitioned(true)
     setTimeout(() => setIsUserInteracting(false), 8000)
   }
 
   const handleNext = () => {
     setHeroIndex((prev) => (prev + 1) % slides.length)
     setIsUserInteracting(true)
+    setHasTransitioned(true)
     setTimeout(() => setIsUserInteracting(false), 8000)
   }
 
@@ -87,7 +91,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
           height={slide.height}
           className="w-full h-full object-cover lg:object-contain"
           style={{
-            animation: 'slideIn 0.5s ease-out forwards'
+            animation: (!hasTransitioned && heroIndex === 0) ? 'none' : 'slideIn 0.5s ease-out forwards'
           }}
           priority={heroIndex === 0}
           loading={heroIndex === 0 ? "eager" : "lazy"}

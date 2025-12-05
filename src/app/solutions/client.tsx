@@ -3,6 +3,7 @@
 import {
   ChevronRight
 } from 'lucide-react'
+import Image from 'next/image'
 import {
   Section,
   Container,
@@ -124,7 +125,7 @@ export function SolutionsClient() {
               Ready to find the right solution for your business? Our team is ready to guide you through every step.
             </Text>
             <Link href="/contact-us">
-              <Button>Get Started Today</Button>
+              <Button variant="gold" size="lg">Get Started Today</Button>
             </Link>
           </FadeIn>
         </Container>
@@ -159,10 +160,12 @@ export function SolutionsClient() {
 
                   {/* Image Content */}
                   <div className={`relative h-96 bg-gradient-to-br from-olive-800 to-olive-700 rounded-3xl overflow-hidden group ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    <img
+                    <Image
                       src={solution.image}
                       alt={solution.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-olive-900/40 to-transparent"></div>
                   </div>
