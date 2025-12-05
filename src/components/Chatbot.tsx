@@ -62,20 +62,20 @@ export function Chatbot() {
     return () => clearTimeout(timer)
   }, [])
 
-  // Show notification on scroll
-  useEffect(() => {
-    if (hasShownNotification || isOpen) return
+  // // Show notification on scroll
+  // useEffect(() => {
+  //   if (hasShownNotification || isOpen) return
 
-    const handleScroll = () => {
-      if (window.scrollY > 1000 && !hasShownNotification) {
-        setShowNotification(true)
-        setHasShownNotification(true)
-      }
-    }
+  //   const handleScroll = () => {
+  //     if (window.scrollY > 1000 && !hasShownNotification) {
+  //       setShowNotification(true)
+  //       setHasShownNotification(true)
+  //     }
+  //   }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [hasShownNotification, isOpen])
+  //   window.addEventListener('scroll', handleScroll)
+  //   return () => window.removeEventListener('scroll', handleScroll)
+  // }, [hasShownNotification, isOpen])
 
   const handleSendMessage = useCallback(async () => {
     if (!inputValue.trim()) return
