@@ -9,6 +9,7 @@ import {
   Button
 } from '@/components/ui'
 import { BlogHeroFadeIn } from '@/components/blog-hero-fade-in'
+import { Breadcrumb } from '@/components/breadcrumb'
 import { CTA } from '@/components/cta'
 import Link from 'next/link'
 
@@ -26,12 +27,21 @@ export const metadata = {
 export default function BlogPost() {
   return (
     <div className="bg-white font-sans text-gray-800">
+      {/* Breadcrumb */}
+      <Breadcrumb items={[
+        { label: 'Blog', href: '/blog' },
+        { label: 'Relationships Over Bots' }
+      ]} />
+
       {/* Hero Section */}
       <BlogHeroFadeIn
         title="Relationships Over Bots"
         subtitle="Why Known Partners Are Key to Sustainable Business Growth"
         date="November 26, 2024"
         author="Michael Kodinsky"
+        authorTitle="Founder & CEO"
+        authorPhoto="/Michael Headshot.webp"
+        category="Business/Professional Trends"
       />
 
       {/* Main Article Content */}
@@ -168,62 +178,12 @@ export default function BlogPost() {
         </Container>
       </Section>
 
-      {/* CTA Section */}
-      <CTA
-        title="Ready to Build a Partnership?"
-        text="Schedule a free 15-minute consultation with our team. We'll discuss your growth strategy and explore whether Serve Funding is the right partner for your journey."
-        buttonText="Schedule Your Consultation"
-        source="blog-relationships-over-bots"
-      />
-
-      {/* Related Articles Section */}
-      <Section background="gray">
-        <Container>
-          <FadeIn className="text-center mb-12">
-            <Heading size="h2" className="mb-4">
-              More From <span className="text-gold-500">Serve Funding</span>
-            </Heading>
-            <Text className="text-gray-600">
-              Explore our other resources on working capital and business growth
-            </Text>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              {
-                title: "Asset-Based Lending vs. Invoice Factoring vs. Bank Lines",
-                excerpt: "Compare ABL, invoice factoring, and traditional bank lines of credit to understand which funding solution fits your business needs.",
-                slug: "/blog/abl-vs-factoring"
-              },
-              {
-                title: "Government Financing vs. Private Lenders",
-                excerpt: "Explore the differences between SBA loans, government contract financing, and private lending options for your business.",
-                slug: "/blog/government-vs-private"
-              }
-            ].map((article, index) => (
-              <Card key={index} className="p-8 hover:shadow-lg transition-all duration-300">
-                <Heading size="h3" className="mb-3 text-olive-900">
-                  {article.title}
-                </Heading>
-                <Text className="text-gray-600 mb-6">
-                  {article.excerpt}
-                </Text>
-                <Link href={article.slug}>
-                  <Button variant="link" className="text-gold-500 hover:text-gold-600 p-0 flex items-center gap-2">
-                    Read More <ArrowRight size={16} />
-                  </Button>
-                </Link>
-              </Card>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
       <CTA
         title="Ready to explore your financing options?"
         text="Let's discuss how we can help your business grow with the right working capital solution."
-        buttonText="Start Your Consultation"
+        buttonText="Get in Touch"
         source="blog-relationships"
+        useBG={true}
       />
     </div>
   )

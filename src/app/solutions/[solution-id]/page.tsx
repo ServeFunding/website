@@ -15,8 +15,8 @@ import {
 import { FeatureList } from '@/components/FeatureList'
 import { CTA } from '@/components/cta'
 import { FAQSectionWithSchema } from '@/components/FAQSection'
+import { Breadcrumb } from '@/components/breadcrumb'
 import { SolutionDetailClient } from './client'
-import { SolutionBreadcrumb } from './breadcrumb'
 import type { Metadata } from 'next'
 
 interface SolutionDetailPageProps {
@@ -101,7 +101,10 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
       />
 
       <SolutionDetailClient solution={solution}>
-        <SolutionBreadcrumb solutionTitle={solution.title} />
+        <Breadcrumb items={[
+          { label: 'Solutions', href: '/solutions' },
+          { label: solution.title }
+        ]} />
 
         {/* Header Section with Image */}
         <Section>
