@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import React from 'react'
 import {
   Section,
   Container,
@@ -155,19 +156,55 @@ export function PartnerInquiryForm() {
 // Factory function to create HubSpot form components
 function createHubSpotForm(formId: string, formType: string) {
   return function HubSpotForm() {
-    const [mounted, setMounted] = useState(false)
-    useHubSpotFormTracking(formType)
-
-    useEffect(() => {
-      setMounted(true)
-    }, [])
-
-    if (!mounted) return null
-
-    return (
-      <div className="hs-form-frame" data-region="na1" data-form-id={formId} data-portal-id="23433903"></div>
-    )
+    const [shouldLoad, setShouldLoad] = useState(false)
+    const containerRef = useState<HTMLDivElement | null>(null)[1] // We need a ref, but we can't use useRef in the callback easily without a wrapper. 
+    // Actually, let's use a real ref in the component.
+    
+    return <HubSpotFormLazy formId={formId} formType={formType} />
   }
+}
+
+function HubSpotFormLazy({ formId, formType }: { formId: string, formType: string }) {
+  const [isVisible, setIsVisible] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '200px' }
+    )
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={containerRef} className="min-h-[100px]">
+      {isVisible ? (
+        <HubSpotFormContent formId={formId} formType={formType} />
+      ) : (
+        <div className="h-full w-full flex items-center justify-center text-gray-400">
+          Loading form...
+        </div>
+      )}
+    </div>
+  )
+}
+
+function HubSpotFormContent({ formId, formType }: { formId: string, formType: string }) {
+  useHubSpotFormTracking(formType)
+  
+  return (
+    <div className="hs-form-frame" data-region="na1" data-form-id={formId} data-portal-id="23433903"></div>
+  )
 }
 
 // HubSpot Form Components
