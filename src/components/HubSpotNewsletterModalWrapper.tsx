@@ -46,7 +46,7 @@ export function HubSpotNewsletterModalWrapper() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={() => setIsOpen(false)}
-            className="fixed inset-0 bg-black/50 z-40"
+            className="fixed inset-0 bg-black/50 z-[1000]"
             aria-hidden="true"
           />
 
@@ -56,7 +56,7 @@ export function HubSpotNewsletterModalWrapper() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl mx-4 z-50 max-h-[90vh] overflow-y-auto"
+            className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl mx-4 z-[1001] max-h-[90vh] overflow-y-auto"
             role="dialog"
             aria-modal="true"
             aria-labelledby="newsletter-modal-title"

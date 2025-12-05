@@ -8,7 +8,7 @@ const bundleAnalyzer = withBundleAnalyzer({
 const nextConfig: NextConfig = {
   // Modern output for better performance
   output: 'standalone',
-  
+
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
