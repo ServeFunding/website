@@ -14,16 +14,23 @@ export function HubSpotNewsletterModalWrapper() {
     setIsMounted(true)
   }, [])
 
-  // Show modal after initial paint (3 seconds delay)
+  // Show modal after page fully loads
   useEffect(() => {
     if (!isMounted || hasShown) return
 
-    const timer = setTimeout(() => {
+    const handlePageLoad = () => {
       setIsOpen(true)
       setHasShown(true)
-    }, 3000)
+    }
 
-    return () => clearTimeout(timer)
+    // If page is already loaded, show immediately
+    if (document.readyState === 'complete') {
+      handlePageLoad()
+    } else {
+      // Wait for page to fully load
+      window.addEventListener('load', handlePageLoad)
+      return () => window.removeEventListener('load', handlePageLoad)
+    }
   }, [isMounted, hasShown])
 
   if (!isMounted) return null
