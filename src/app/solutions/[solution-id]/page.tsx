@@ -12,6 +12,7 @@ import {
   StaggerContainer,
   StaggerItem
 } from '@/components/ui'
+import { FeatureList } from '@/components/FeatureList'
 import { CTA } from '@/components/cta'
 import { FAQSectionWithSchema } from '@/components/FAQSection'
 import { SolutionDetailClient } from './client'
@@ -193,16 +194,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
           <Container>
             <div className="max-w-4xl mx-auto">
               <Heading size="h2" className="mb-6">Key Features & Benefits</Heading>
-              <ul className="space-y-3">
-                {solution.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <span className="inline-flex items-center justify-center w-6 h-6 rounded-full flex-shrink-0 mt-1 text-white bg-olive-green">
-                      <span className="font-semibold">✓</span>
-                    </span>
-                    <Text>{feature}</Text>
-                  </li>
-                ))}
-              </ul>
+              <FeatureList features={solution.features} />
             </div>
           </Container>
         </Section>

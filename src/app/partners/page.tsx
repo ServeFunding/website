@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import {
-  Check,
   CheckCircle,
   Quote
 } from 'lucide-react'
@@ -14,9 +13,9 @@ import {
   StaggerContainer,
   StaggerItem
 } from '@/components/ui'
+import { FeatureList } from '@/components/FeatureList'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { PartnerInquiryForm } from '@/components/Forms'
-import { COLORS } from '@/lib/colors'
 
 interface PartnerType {
   title: string
@@ -329,14 +328,7 @@ export default function Partners() {
                         {partner.description}
                       </Text>
 
-                      <div className="space-y-3">
-                        {partner.benefits.map((benefit, bidx) => (
-                          <div key={bidx} className="flex items-start gap-3">
-                            <Check size={20} className="flex-shrink-0 mt-0.5" style={{ color: COLORS.primary.darkGreen }} />
-                            <Text className="text-gray-700">{benefit}</Text>
-                          </div>
-                        ))}
-                      </div>
+                      <FeatureList features={partner.benefits} />
                     </div>
 
                     {/* Image Content */}

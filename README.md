@@ -16,37 +16,69 @@ A modern Next.js 16 application for Serve Funding, a working capital advisory co
 ```
 serve-funding/
 ├── src/
-│   ├── app/
-│   │   ├── api/
-│   │   │   └── chat/
-│   │   │       └── route.ts          # AI chat API endpoint
-│   │   ├── layout.tsx                 # Root layout with header/footer
-│   │   ├── page.tsx                   # Home page
-│   │   ├── fundings/page.tsx          # Funding scenarios & success stories
-│   │   ├── solutions/page.tsx         # Funding solutions overview
-│   │   ├── partners/page.tsx          # Partner information
-│   │   ├── about-us/page.tsx          # About page
-│   │   ├── contact-us/page.tsx        # Contact page
-│   │   ├── faq/page.tsx               # FAQ page
-│   │   ├── privacy-policy/page.tsx    # Privacy policy
-│   │   ├── terms-of-service/page.tsx  # Terms of service
-│   │   └── globals.css                # Global styles
+│   ├── app/                          # Next.js App Router (13+)
+│   │   ├── api/chat/route.ts        # Claude chatbot API endpoint
+│   │   ├── layout.tsx                # Root layout with Header/Footer
+│   │   ├── page.tsx                  # Home page
+│   │   ├── solutions/
+│   │   │   ├── page.tsx              # Funding solutions overview
+│   │   │   └── [solution-id]/        # Dynamic solution detail pages
+│   │   ├── fundings/page.tsx         # Case studies & success stories
+│   │   ├── faq/page.tsx              # FAQ page with SearchableUI
+│   │   ├── about-us/page.tsx         # Company story & team
+│   │   ├── partners/page.tsx         # Partner information
+│   │   ├── contact-us/page.tsx       # Contact form
+│   │   ├── blog/page.tsx             # Blog listing
+│   │   ├── privacy-policy/page.tsx   # Privacy policy
+│   │   ├── terms-of-service/page.tsx # Terms of service
+│   │   ├── sitemap.ts                # Dynamic sitemap for SEO
+│   │   ├── globals.css               # Global styles
+│   │   └── not-found.tsx             # 404 page
 │   ├── components/
-│   │   ├── Header.tsx                 # Navigation header with dropdowns
-│   │   ├── Footer.tsx                 # Footer with links and contact info
-│   │   ├── Chatbot.tsx                # AI chatbot component
-│   │   ├── Newsletter.tsx             # Newsletter signup form
-│   │   └── design-system.tsx          # Reusable design system components
-│   └── lib/
-│       ├── ai.ts                      # AI integration and context
-│       ├── seo.ts                     # SEO metadata configuration
-│       └── utils.ts                   # Utility functions
-├── public/                             # Static assets
+│   │   ├── Header.tsx                # Navigation with dropdown menus
+│   │   ├── Footer.tsx                # Footer with link sections
+│   │   ├── Chatbot.tsx               # Floating AI chatbot widget
+│   │   ├── ChatbotWrapper.tsx        # Wrapper for chatbot integration
+│   │   ├── HeroCarousel.tsx          # Hero section animations
+│   │   ├── ProcessCard.tsx           # Process step cards
+│   │   ├── FAQSection.tsx            # FAQ display component
+│   │   ├── LoadingSkeleton.tsx       # Loading states
+│   │   ├── PerformanceMonitor.tsx    # Performance tracking
+│   │   └── ui/                       # Design system (CVA components)
+│   │       ├── button.tsx
+│   │       ├── card.tsx
+│   │       ├── heading.tsx
+│   │       ├── text.tsx
+│   │       ├── section.tsx
+│   │       ├── container.tsx
+│   │       ├── form-input.tsx
+│   │       ├── form-select.tsx
+│   │       ├── fade-in.tsx
+│   │       └── stagger-container.tsx
+│   ├── data/
+│   │   ├── company-info.ts           # Master data hub (single source of truth)
+│   │   ├── solutions.ts              # Funding solutions metadata
+│   │   ├── faq-data.ts               # FAQ content
+│   │   └── fundingData.ts            # Case studies
+│   ├── lib/
+│   │   ├── ai.ts                     # AI context builder & chatbot logic
+│   │   ├── schema-generators.ts      # JSON-LD schema markup generators
+│   │   ├── seo.ts                    # Metadata & SEO utilities
+│   │   ├── header-nav.ts             # Navigation structure
+│   │   ├── colors.ts                 # Color system
+│   │   ├── layout.ts                 # Layout utilities
+│   │   ├── tracking.ts               # Analytics
+│   │   └── utils.ts                  # General utilities
+│   └── types/
+│       ├── faq.ts                    # FAQ type definitions
+│       └── solutions.ts              # Solution type definitions
+├── public/                           # Static assets (images, icons, fonts)
 ├── package.json
-├── next.config.ts
-├── tailwind.config.ts
+├── next.config.ts                    # Next.js config (headers, redirects, images)
+├── tailwind.config.ts                # Tailwind theme (olive/gold colors)
 ├── tsconfig.json
-└── postcss.config.mjs
+├── postcss.config.mjs
+└── CLAUDE.md                         # Developer guidance for AI assistants
 ```
 
 ## Key Features
@@ -66,10 +98,12 @@ serve-funding/
 - Framer Motion integration throughout
 
 ### AI Chatbot
-- Floating chatbot widget with message history
-- Real-time responses powered by Claude 3.5 Sonnet
-- System prompt trained on Serve Funding business context
-- Streaming UI with loading states
+- Floating chatbot widget with conversation history
+- Powered by Claude Haiku 4.5 (fast, cost-effective)
+- Dynamic system prompt built from company data (`src/data/company-info.ts`)
+- Brief responses (1-2 sentences max, no markdown)
+- Conversation context maintained across messages
+- Handles multi-turn discussions with company knowledge
 
 ### Navigation
 - Fixed header with scroll detection
@@ -157,29 +191,71 @@ Handles chatbot messages using Claude API.
 **Request:**
 ```json
 {
-  "message": "What funding options do you offer?"
+  "message": "What funding options do you offer?",
+  "conversationHistory": [
+    { "text": "Hello", "sender": "user" },
+    { "text": "Hi! How can I help?", "sender": "bot" }
+  ]
 }
 ```
 
 **Response:**
 ```json
 {
-  "reply": "We offer multiple funding solutions including..."
+  "reply": "We offer multiple funding solutions including asset-based lending and invoice financing."
 }
 ```
 
+**Details:**
+- System prompt dynamically built from `src/data/company-info.ts`
+- Maintains conversation context for multi-turn conversations
+- Max response: 1024 tokens
+- Model: `claude-haiku-4-5-20251001`
+- Responses kept brief (1-2 sentences, no markdown)
+
 ## Customization
 
+### Adding a New Funding Solution
+1. Add entry to `src/data/solutions.ts` with title, description, features, rates, terms
+2. Dynamic route `src/app/solutions/[solution-id]/page.tsx` automatically generates detail pages
+3. Update `src/data/company-info.ts` if adding new process steps or philosophy
+4. Solution automatically available in chatbot context via `buildAIContext()`
+
+### Updating Company Information
+1. Edit `src/data/company-info.ts` (single source of truth)
+2. Changes propagate to:
+   - Chatbot AI system prompt (via `src/lib/ai.ts`)
+   - Schema markup (via `src/lib/schema-generators.ts`)
+   - All pages importing this data
+   - No cache invalidation needed—built at request time
+
 ### Adding New Pages
-1. Create a new folder in `src/app/[page-name]/`
-2. Create `page.tsx` with your page content
-3. Add navigation links in `Header.tsx` if needed
+1. Create folder in `src/app/[page-name]/`
+2. Create `page.tsx` with content
+3. Use design system components from `src/components/ui/`
+4. Add navigation links in `src/components/Header.tsx` if needed
+
+### Modifying the Chatbot
+- **System prompt**: Edit `src/lib/ai.ts` `buildAIContext()` function
+- **UI/styling**: Edit `src/components/Chatbot.tsx`
+- **API logic**: Edit `src/app/api/chat/route.ts`
+- **Behavior**: Modify conversation flow in `src/components/Chatbot.tsx`
+
+### Adding SEO Schema Markup
+1. Import schema generator from `src/lib/schema-generators.ts`
+2. Create schema object with page data
+3. Embed in page: `<script type="application/ld+json">{JSON.stringify(schema)}</script>`
+4. Validate with [Google Rich Results Test](https://search.google.com/test/rich-results)
 
 ### Updating Colors
-Edit `tailwind.config.ts` to modify the color palette.
+Edit `tailwind.config.ts` to modify the olive/gold theme colors.
 
 ### Modifying Components
-All design system components are in `src/components/design-system.tsx` for easy customization.
+Design system components are in `src/components/ui/`. Use CVA (class-variance-authority) patterns for variants:
+```tsx
+import { button } from "@/components/ui/button"
+<button className={button({ variant: "gold" })}>Click me</button>
+```
 
 ## Performance
 

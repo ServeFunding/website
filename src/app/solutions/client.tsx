@@ -1,7 +1,6 @@
 'use client'
 
 import {
-  CheckCircle,
   ChevronRight
 } from 'lucide-react'
 import {
@@ -15,6 +14,7 @@ import {
   StaggerContainer,
   StaggerItem
 } from '@/components/ui'
+import { FeatureList } from '@/components/FeatureList'
 import { LAYOUT } from '@/lib/layout'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CTA } from '@/components/cta'
@@ -145,15 +145,8 @@ export function SolutionsClient() {
                       {solution.fullDesc}
                     </Text>
 
-                    <div className="space-y-3 mb-8">
-                      {solution.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-start gap-3">
-                          <div className="p-1 bg-gold-500/20 rounded-full mt-1">
-                            <CheckCircle size={16} className="text-olive-900 flex-shrink-0" />
-                          </div>
-                          <Text className="text-gray-700">{feature}</Text>
-                        </div>
-                      ))}
+                    <div className="mb-8">
+                      <FeatureList features={solution.features} />
                     </div>
 
                     {/* Learn More Link to Detail Page */}
