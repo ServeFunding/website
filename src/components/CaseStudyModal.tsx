@@ -68,6 +68,7 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ isOpen, onClose,
             exit={{ opacity: 0 }}
             onClick={onClose}
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+            style={{ zIndex: 1000 }}
           />
 
           {/* Modal */}
@@ -76,7 +77,8 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ isOpen, onClose,
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+            className="fixed inset-0 flex items-center justify-center p-4 pointer-events-none"
+            style={{ zIndex: 1001 }}
           >
             <div className="pointer-events-auto bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto flex flex-col">
               {/* Content */}

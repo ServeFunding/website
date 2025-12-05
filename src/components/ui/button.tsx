@@ -4,17 +4,16 @@ import { cn } from "@/lib/utils"
 import { COLORS } from "@/lib/colors"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-full text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-95",
+  "inline-flex items-center justify-center rounded-full text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-95 hover:-translate-y-0.5 hover:opacity-90",
   {
     variants: {
       variant: {
-        default: "bg-[#2a231a] text-white hover:bg-[#1a150d] shadow-lg",
-        light: "bg-[#c4d45a] text-[#2d3c1a] hover:bg-[#d4e46a] shadow-lg shadow-[#c4d45a]/20",
-        gold: "bg-[#D3CE75] text-[#2d3c1a] hover:bg-[#c4bf63] shadow-lg shadow-[#D3CE75]/20",
-        outline: "border-2 border-[#758d5b] text-[#758d5b] hover:bg-[#758d5b] hover:text-white",
-        ghost: "hover:bg-gray-100 text-gray-700 hover:text-[#758d5b]",
-        link: "text-[#758d5b] underline-offset-4 hover:underline",
-        white: "bg-white text-[#758d5b] hover:bg-gray-100 shadow-lg",
+        default: "text-white shadow-lg",
+        gold: "text-white shadow-lg",
+        outline: "border-2 hover:text-white",
+        ghost: "hover:bg-gray-100 text-gray-700",
+        link: "underline-offset-4 hover:underline",
+        white: "hover:bg-gray-100 shadow-lg",
       },
       size: {
         default: "h-12 px-8 py-3",
@@ -38,14 +37,53 @@ export interface ButtonProps
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, style, ...props }, ref) => {
-    let buttonStyle = style || {}
+    const baseStyle: React.CSSProperties = style || {}
 
-    // Add shadow color based on variant for better color consistency
-    if (variant === "default") {
-      buttonStyle = {
-        ...buttonStyle,
-        boxShadow: `0 10px 15px -3px ${COLORS.primary.darkGreen}33`
-      }
+    // Apply variant-specific styles using COLORS
+    let buttonStyle: React.CSSProperties = baseStyle
+
+    switch (variant) {
+      case "default":
+        buttonStyle = {
+          ...baseStyle,
+          backgroundColor: COLORS.primary.darkGreen,
+          boxShadow: `0 10px 15px -3px ${COLORS.primary.darkGreen}33`
+        }
+        break
+      case "gold":
+        buttonStyle = {
+          ...baseStyle,
+          backgroundColor: COLORS.primary.lightGreen,
+          color: "#2d3c1a",
+          boxShadow: `0 10px 15px -3px ${COLORS.primary.lightGreen}33`
+        }
+        break
+      case "outline":
+        buttonStyle = {
+          ...baseStyle,
+          borderColor: COLORS.primary.darkGreen,
+          color: COLORS.primary.darkGreen
+        }
+        break
+      case "ghost":
+        buttonStyle = {
+          ...baseStyle,
+          color: COLORS.primary.darkGreen
+        }
+        break
+      case "link":
+        buttonStyle = {
+          ...baseStyle,
+          color: COLORS.primary.darkGreen
+        }
+        break
+      case "white":
+        buttonStyle = {
+          ...baseStyle,
+          backgroundColor: "white",
+          color: COLORS.primary.darkGreen
+        }
+        break
     }
 
     return (
