@@ -27,7 +27,7 @@ export function HubSpotNewsletterModalWrapper() {
 
     const scheduleModal = () => {
       // Wait 2 seconds after page load to ensure resources are stable
-      timer = setTimeout(showModal, 2000)
+      timer = setTimeout(showModal, 500)
     }
 
     // If page is already loaded, schedule the modal
