@@ -21,9 +21,20 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
   const [heroIndex, setHeroIndex] = React.useState(0)
   const [isUserInteracting, setIsUserInteracting] = React.useState(false)
   const [hasTransitioned, setHasTransitioned] = React.useState(false)
+  const [pageLoaded, setPageLoaded] = React.useState(false)
+
+  // Wait for page to load before enabling carousel auto-rotation
+  React.useEffect(() => {
+    if (document.readyState === 'complete') {
+      setPageLoaded(true)
+    } else {
+      window.addEventListener('load', () => setPageLoaded(true))
+      return () => window.removeEventListener('load', () => setPageLoaded(true))
+    }
+  }, [])
 
   React.useEffect(() => {
-    if (isUserInteracting) return
+    if (isUserInteracting || !pageLoaded) return
 
     const interval = setInterval(() => {
       setHeroIndex((prev) => (prev + 1) % slides.length)
@@ -31,7 +42,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
     }, 8000)
 
     return () => clearInterval(interval)
-  }, [isUserInteracting, slides.length])
+  }, [isUserInteracting, pageLoaded, slides.length])
 
   const handlePrev = () => {
     setHeroIndex((prev) => (prev - 1 + slides.length) % slides.length)
@@ -94,10 +105,10 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
             animation: (!hasTransitioned && heroIndex === 0) ? 'none' : 'slideIn 0.5s ease-out forwards'
           }}
           priority={heroIndex === 0}
-          loading={heroIndex === 0 ? "eager" : "lazy"}
+          loading="eager"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 50vw"
           quality={85}
-          fetchPriority={heroIndex === 0 ? "high" : "auto"}
+          fetchPriority="high"
         />
       </div>
     </div>
