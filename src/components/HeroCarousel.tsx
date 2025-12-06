@@ -60,10 +60,10 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
     <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center justify-center lg:justify-start h-full px-3 lg:px-8 pb-6">
       {/* Text Column */}
       <div className="relative z-20">
-        <Heading key={`heading-${heroIndex}`} size="h2">
+        <Heading key={`heading-${heroIndex}`} size="h2" className="text-gray-800">
           {slide.heading}
         </Heading>
-        <Text size="lg" className="mb-6 lg:mb-8 text-base sm:text-lg">
+        <Text size="lg" className="mb-6 lg:mb-8 text-base sm:text-lg text-gray-700">
           {slide.desc}
         </Text>
         <div className="flex gap-3 sm:gap-4">
@@ -86,31 +86,28 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
 
       {/* Image Column - 2:1 on mobile, original aspect ratio on desktop */}
       <div
-        className="relative w-full mx-4 sm:mx-6 lg:mx-0 rounded-2xl overflow-hidden shadow-lg lg:hover:shadow-xl transition-shadow duration-500 flex items-center justify-center aspect-[2/1] lg:aspect-auto"
+        className="relative w-full mx-4 sm:mx-6 lg:mx-0 rounded-2xl overflow-hidden shadow-lg lg:hover:shadow-xl transition-shadow duration-500"
         style={{
-          boxShadow: `0 10px 30px rgba(0, 0, 0, 0.1)`
+          boxShadow: `0 10px 30px rgba(0, 0, 0, 0.1)`,
+          aspectRatio: 'auto',
         }}>
         {/* Render all images in HTML - browser discovers them all early */}
         {slides.map((s, index) => (
-          <div
+          <Image
             key={s.image}
-            className={`absolute inset-0 transition-opacity duration-500 ease-out ${
-              index === heroIndex ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+            src={s.image}
+            alt={s.heading}
+            width={1024}
+            height={819}
+            className={`w-full h-full object-cover lg:object-contain transition-opacity duration-500 ease-out ${
+              index === heroIndex ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none absolute inset-0'
             }`}
-          >
-            <Image
-              src={s.image}
-              alt={s.heading}
-              width={s.width}
-              height={s.height}
-              className="w-full h-full object-cover lg:object-contain"
-              priority={index === 0}
-              loading={index === 0 ? "eager" : "lazy"}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 50vw"
-              quality={85}
-              fetchPriority={index === 0 ? "high" : "auto"}
-            />
-          </div>
+            priority={index === 0}
+            loading={index === 0 ? "eager" : "lazy"}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 50vw"
+            quality={85}
+            fetchPriority={index === 0 ? "high" : "auto"}
+          />
         ))}
       </div>
     </div>
