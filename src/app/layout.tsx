@@ -1,13 +1,19 @@
 import type { Metadata } from "next"
+import dynamic from "next/dynamic"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
-import { NewsletterForm } from "@/components/Forms"
 import { ChatbotWrapper } from "@/components/ChatbotWrapper"
 import { HubSpotNewsletterModalWrapper } from "@/components/HubSpotNewsletterModalWrapper"
 import { ScrollToTop } from "@/components/ScrollToTop"
 import Script from "next/script"
 import "@/app/globals.css"
 import { Inter, Merriweather } from 'next/font/google'
+
+// Lazy load NewsletterForm to improve LCP
+const NewsletterForm = dynamic(() => import("@/components/Forms").then(mod => ({ default: mod.NewsletterForm })), {
+  ssr: true,
+  loading: () => <div className="py-20" />
+})
 
 const inter = Inter({
   subsets: ['latin'],
