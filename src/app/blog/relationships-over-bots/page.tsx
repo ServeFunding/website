@@ -12,8 +12,8 @@ import { CTA } from '@/components/cta'
 
 const blogMetadata = {
   id: "relationships-over-bots",
-  title: "Relationships Over Bots",
-  subtitle: "Why Known Partners Are Key to Sustainable Business Growth",
+  title: "Partnerships: Relationships Over Bots",
+  subtitle: "Why Known Partners Are Key to Sustainable Growth",
   excerpt: "In an age of automation and algorithms, discover why trust-based partnerships outperform automated systems in working capital financing.",
   author: "Michael Kodinsky",
   date: "November 26, 2024",

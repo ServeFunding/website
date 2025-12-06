@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Container, Heading, Text, SocialIcons } from "./ui"
 import { COLORS as BRAND_COLORS } from "@/lib/colors"
+import { blogPosts } from "@/data/blog-posts"
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -22,6 +23,10 @@ const organizationSchema = {
 }
 
 export function Footer() {
+  const sortedBlogPosts = [...blogPosts].sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime()
+  })
+
   return (
     <>
       <script
@@ -33,7 +38,7 @@ export function Footer() {
       <footer className="bg-white text-gray-800 border-t border-gray-200 font-sans">
         <div className="py-16">
           <Container>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
               {/* Menu */}
               <div>
                 <Heading size="h3" className="text-olive-900 mb-6">Menu</Heading>
@@ -54,6 +59,21 @@ export function Footer() {
                   <Link href="/terms-of-service" className="text-olive-900 hover:text-gold-500 transition-colors">Terms of Service</Link>
                   <Link href="/contact-us" className="text-olive-900 hover:text-gold-500 transition-colors">Contact Us</Link>
                   <Link href="/faq" className="text-olive-900 hover:text-gold-500 transition-colors">FAQ</Link>
+                </div>
+              </div>
+
+              {/* Blog */}
+              <div>
+                <Heading size="h3" className="text-olive-900 mb-6">Blog</Heading>
+                <div className="space-y-3 flex flex-col">
+                  {sortedBlogPosts.slice(0, 4).map((post) => (
+                    <Link key={post.id} href={`/blog/${post.id}`} className="text-olive-900 hover:text-gold-500 transition-colors text-sm">
+                      {post.title}
+                    </Link>
+                  ))}
+                  <Link href="/blog" className="text-gold-500 hover:text-gold-600 transition-colors text-sm font-semibold mt-2">
+                    View All Posts →
+                  </Link>
                 </div>
               </div>
 

@@ -14,7 +14,16 @@ import { CTA } from '@/components/cta'
 import { blogPosts } from '@/data/blog-posts'
 import Link from 'next/link'
 
+const formatDate = (isoDate: string): string => {
+  const date = new Date(isoDate + 'T00:00:00Z')
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+}
+
 export default function BlogPage() {
+  const sortedPosts = [...blogPosts].sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime()
+  })
+
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
@@ -27,13 +36,13 @@ export default function BlogPage() {
       <Section background="white">
         <Container>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {blogPosts.map((post) => (
+            {sortedPosts.map((post) => (
               <StaggerItem key={post.id}>
                 <Link href={`/blog/${post.id}`}>
                   <Card className="p-8 h-full flex flex-col hover:shadow-lg transition-all duration-300 cursor-pointer group">
                     <div className="flex items-center gap-4 mb-4 text-sm text-gray-600">
                       <Calendar size={16} className="text-gold-500" />
-                      <span>{post.date}</span>
+                      <span>{formatDate(post.date)}</span>
                     </div>
 
                     <span className="inline-block mb-4 px-3 py-1 bg-gold-100 text-gold-700 text-xs font-semibold rounded-full w-fit">

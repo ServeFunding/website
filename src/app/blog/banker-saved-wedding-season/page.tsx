@@ -12,7 +12,7 @@ import { CTA } from '@/components/cta'
 
 const blogMetadata = {
   id: "banker-saved-wedding-season",
-  title: "The Banker Who Saved a Wedding Season",
+  title: "Proactive Banker Saved a Venue's Wedding Season",
   subtitle: "How One Referral Became an Act of Leadership",
   excerpt: "When a Florida wedding venue faced a critical cash shortfall, one banker refused to walk away. Instead, they made a referral that became an act of servant leadership—and $150K funded in 3 days.",
   author: "Michael Kodinsky",
