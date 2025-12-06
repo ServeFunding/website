@@ -92,21 +92,25 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
         }}>
         {/* Render all images in HTML - browser discovers them all early */}
         {slides.map((s, index) => (
-          <Image
+          <div
             key={s.image}
-            src={s.image}
-            alt={s.heading}
-            width={s.width}
-            height={s.height}
-            className={`absolute inset-0 w-full h-full object-cover lg:object-contain transition-opacity duration-500 ease-out ${
+            className={`absolute inset-0 transition-opacity duration-500 ease-out ${
               index === heroIndex ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
             }`}
-            priority={index === 0}
-            loading={index === 0 ? "eager" : "lazy"}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 50vw"
-            quality={85}
-            fetchPriority={index === 0 ? "high" : "auto"}
-          />
+          >
+            <Image
+              src={s.image}
+              alt={s.heading}
+              width={s.width}
+              height={s.height}
+              className="w-full h-full object-cover lg:object-contain"
+              priority={index === 0}
+              loading={index === 0 ? "eager" : "lazy"}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 50vw"
+              quality={85}
+              fetchPriority={index === 0 ? "high" : "auto"}
+            />
+          </div>
         ))}
       </div>
     </div>
