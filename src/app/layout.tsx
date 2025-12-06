@@ -55,12 +55,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${merriweather.variable}`}>
       <head>
-        {/* Preconnect to HubSpot - forms used on most pages */}
+        {/* Preconnect to critical third-party origins for LCP improvement */}
+        <link rel="preconnect" href="https://umami-production-25e0.up.railway.app" />
         <link rel="preconnect" href="https://js.hsforms.net" />
+        <link rel="preconnect" href="https://js.hs-scripts.com" />
+        <link rel="preconnect" href="https://23433903.fs1.hubspotusercontent-na1.net" />
         <link rel="preconnect" href="https://js.hscollectedforms.net" />
         <link rel="dns-prefetch" href="https://forms.hsforms.com" />
         <link rel="dns-prefetch" href="https://forms-na1.hsforms.com" />
-        <link rel="dns-prefetch" href="https://umami-production-25e0.up.railway.app" />
         <link rel="dns-prefetch" href="https://api.hubapi.com" />
         {/* Organization & LocalBusiness Schema - Global */}
         <script
