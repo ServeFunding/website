@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import {
   ChevronRight
 } from 'lucide-react'
@@ -11,8 +10,6 @@ import {
   Heading,
   Text,
   Card,
-  Button,
-  FadeIn,
   StaggerContainer,
   StaggerItem
 } from '@/components/ui'
@@ -21,10 +18,6 @@ import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CaseStudyModal } from '@/components/CaseStudyModal'
 import { CTA } from '@/components/cta'
 import { Breadcrumb } from '@/components/breadcrumb'
-import { SchemaRenderer } from '@/components/SchemaRenderer'
-import { getOrganizationSchema } from '@/lib/schema-generators'
-import { companyInfo } from '@/data/company-info'
-import { fundingSolutions } from '@/data/solutions'
 
 function generateSlug(text: string): string {
   return text.toLowerCase().replace(/\s+/g, '-')
@@ -42,18 +35,6 @@ export default function Fundings() {
   const [selectedStudy, setSelectedStudy] = useState<typeof caseStudies[0] | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const organizationSchema = getOrganizationSchema({
-    name: companyInfo.name,
-    description: companyInfo.description,
-    url: 'https://servefunding.com',
-    phone: companyInfo.contact.phone,
-    email: companyInfo.contact.email,
-    address: companyInfo.contact.address,
-    foundingDate: '2021',
-    founderName: 'Michael Kodinsky',
-    knowsAbout: fundingSolutions.map(s => s.title),
-  })
-
   const openModal = (study: typeof caseStudies[0]) => {
     setSelectedStudy(study)
     setIsModalOpen(true)
@@ -61,25 +42,19 @@ export default function Fundings() {
 
   return (
     <div className="bg-white font-sans text-gray-800">
-      {/* Schema Markup */}
-      <SchemaRenderer schema={organizationSchema} />
-
       {/* Breadcrumb - includes schema */}
       <Breadcrumb items={[{ label: 'Fundings' }]} />
 
       {/* Hero Section */}
       <HeroFadeIn
-        title="Creative Working Capital Solutions"
-        subtitle="At Serve Funding, we provide flexible, customized working capital solutions to help businesses overcome financial challenges and seize new growth opportunities. From acquisition funding to payroll financing and beyond, we deliver fast, reliable financial solutions that drive success."
+        title="Client Success Stories"
+        subtitle={<>At Serve Funding, we provide flexible, customized working capital solutions<br />to help businesses overcome financial challenges and seize new growth opportunities. From acquisition funding to payroll financing and beyond, we deliver fast,<br />reliable financial solutions that drive success.</>}
+        compact
       />
 
       {/* Recent Fundings Grid */}
-      <Section>
+      <Section background='primary' className='overflow-visible'>
         <Container>
-          <FadeIn className="text-center mb-16">
-            <Heading size="h2" className="mb-3">Recent Fundings</Heading>
-          </FadeIn>
-
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {caseStudies.map((study, index) => (
               <StaggerItem key={index}>
@@ -88,7 +63,7 @@ export default function Fundings() {
                   onClick={() => openModal(study)}
                   className="w-full h-full text-left focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2 rounded-[2rem] scroll-mt-32"
                 >
-                  <Card className="flex flex-col h-full group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer">
+                  <Card className="flex flex-col h-full group transition-all duration-300 hover:-translate-y-2 cursor-pointer">
                     <div className="flex items-baseline gap-2 mb-4">
                       <Text className="text-2xl font-bold text-gold-500">
                         {study.amount}
@@ -139,26 +114,11 @@ export default function Fundings() {
         })}
       </script>
 
-      {/* Why We're Different Section */}
-      <Section background="gray">
-        <Container>
-          <FadeIn className="text-center mb-16">
-            <Heading size="h2">Why Serve Funding?</Heading>
-            <Text className="mt-4 text-gray-600 max-w-2xl mx-auto mb-8">
-              Whether you need capital for acquisitions, bridging cash flow gaps, or payroll funding, we deliver the right funding at the right time. Our expertise has empowered companies across industries to achieve their goals, even in difficult market conditions.
-            </Text>
-            <Link href="/about-us">
-              <Button>Learn Our Story</Button>
-            </Link>
-          </FadeIn>
-        </Container>
-      </Section>
-
       {/* Contact Section */}
       <CTA
         title="Ready to explore your financing options?"
         text="Let's discuss how we can help your business grow with the right working capital solution."
-        buttonText="Let's Talk"
+        buttonText="Let's Talk!"
         source="fundings"
       />
 

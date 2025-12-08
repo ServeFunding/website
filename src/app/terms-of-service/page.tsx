@@ -1,29 +1,11 @@
 import { Container, Heading, Text, Section } from '@/components/ui'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
-import { getOrganizationSchema } from '@/lib/schema-generators'
-import { companyInfo } from '@/data/company-info'
-import { fundingSolutions } from '@/data/solutions'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 export default function TermsOfService() {
-  const organizationSchema = getOrganizationSchema({
-    name: companyInfo.name,
-    description: companyInfo.description,
-    url: 'https://servefunding.com',
-    phone: companyInfo.contact.phone,
-    email: companyInfo.contact.email,
-    address: companyInfo.contact.address,
-    foundingDate: '2021',
-    founderName: 'Michael Kodinsky',
-    knowsAbout: fundingSolutions.map(s => s.title),
-  })
-
   return (
     <div className="bg-white font-sans text-gray-800">
-      {/* Schema Markup */}
-      <SchemaRenderer schema={organizationSchema} />
-
       {/* Breadcrumb - includes schema */}
       <Breadcrumb items={[{ label: 'Terms of Service' }]} />
 

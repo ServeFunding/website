@@ -2,7 +2,8 @@
 
 import { useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { Factory, Truck, Shield, Users, UtensilsCrossed, Megaphone, ShoppingCart, Package, Briefcase, Sparkles, Lock, Wifi, HardHat, Navigation, Heart } from 'lucide-react'
+import { Factory, Truck, Shield, Users, UtensilsCrossed, Megaphone, ShoppingCart, Package, Briefcase, Sparkles, Lock, Wifi, HardHat, Navigation, Heart, Building2 } from 'lucide-react'
+import { COLORS } from '@/lib/colors'
 
 const industries = [
   { name: "Manufacturing", desc: "See how we've helped growing businesses secure working capital to thrive.", icon: Factory },
@@ -19,7 +20,8 @@ const industries = [
   { name: "Cleaning & Janitorial", desc: "Cover payroll and supplies upfront. Keep services running smoothly.", icon: Sparkles },
   { name: "Security Guard Services", desc: "Pay guards before clients pay. Ensure continuous protection services.", icon: Lock },
   { name: "Telecommunications & IoT", desc: "Invest in equipment and infrastructure upfront. Keep up with fast-paced tech demands.", icon: Wifi },
-  { name: "Transportation & Logistics", desc: "Cover fuel and maintenance costs. Bridge cash flow gaps between deliveries and payments.", icon: Navigation }
+  { name: "Transportation & Logistics", desc: "Cover fuel and maintenance costs. Bridge cash flow gaps between deliveries and payments.", icon: Navigation },
+  { name: "Professional Services", desc: "Cover operational costs and payroll before client invoicing cycles complete. Manage cash flow across projects.", icon: Building2 }
 ]
 
 export function IndustriesGrid() {
@@ -87,12 +89,12 @@ export function IndustriesGrid() {
             >
               <div
                 style={{
-                  backgroundColor: 'white',
-                  borderColor: '#d1d5db',
+                  backgroundColor: COLORS.background,
+                  borderColor: COLORS.primary,
                 }}
                 className="relative border-2 rounded-xl p-4 flex flex-col items-center justify-center text-center shadow-sm"
               >
-                <Icon size={32} className="text-olive-900 mb-2" strokeWidth={1.5} />
+                <Icon size={32} className="mb-2" style={{ color: COLORS.primary }} strokeWidth={1.5} />
                 <p className="font-medium text-gray-700 line-clamp-2 text-center text-sm">
                   {industry.name}
                 </p>

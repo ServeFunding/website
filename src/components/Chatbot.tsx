@@ -195,7 +195,7 @@ export function Chatbot() {
           <div className="flex justify-between items-start gap-2">
             <div className="flex-1">
               <p className="font-semibold mb-1" style={{ color: BRAND_COLORS.primary }}>Have any questions?</p>
-              <p className="text-sm text-gray-600 leading-relaxed">We're here to serve</p>
+              <p className="text-sm text-gray-600 leading-relaxed">We're here to serve you.</p>
             </div>
             <button
               onClick={(e) => {

@@ -18,29 +18,11 @@ import { HeroFadeIn } from '@/components/hero-fade-in'
 import { IntroCallForm } from '@/components/Forms'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
-import { getOrganizationSchema } from '@/lib/schema-generators'
-import { companyInfo } from '@/data/company-info'
-import { fundingSolutions } from '@/data/solutions'
 import Link from 'next/link'
 
 export default function ContactUs() {
-  const organizationSchema = getOrganizationSchema({
-    name: companyInfo.name,
-    description: companyInfo.description,
-    url: 'https://servefunding.com',
-    phone: companyInfo.contact.phone,
-    email: companyInfo.contact.email,
-    address: companyInfo.contact.address,
-    foundingDate: '2021',
-    founderName: 'Michael Kodinsky',
-    knowsAbout: fundingSolutions.map(s => s.title),
-  })
-
   return (
     <div className="bg-white font-sans text-gray-800">
-      {/* Schema Markup */}
-      <SchemaRenderer schema={organizationSchema} />
-
       {/* Breadcrumb - includes schema */}
       <Breadcrumb items={[{ label: 'Contact Us' }]} />
 

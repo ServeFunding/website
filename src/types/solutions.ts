@@ -2,6 +2,7 @@
  * Shared Solution Types
  */
 
+import { ReactNode } from 'react'
 import { FAQ } from './faq'
 
 export interface RatesAndTerms {
@@ -48,7 +49,7 @@ export interface QualificationCriteria {
 
 export interface FundingSolution {
   id: string
-  title: string
+  title: string | ReactNode
   image: string
   category: string
 

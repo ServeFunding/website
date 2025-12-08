@@ -9,136 +9,6 @@ import type { FundingSolution } from '@/types/solutions'
 
 export const fundingSolutions: FundingSolution[] = [
   {
-    id: "debt-refinance",
-    title: "Consolidation & Recapitalization",
-    image: "/solutions/Asset Based Lending.webp",
-    category: "Strategic Restructuring",
-
-    whatIs: "Debt refinancing lets you replace high-cost debt (like merchant cash advances, expensive term loans, or multiple loan payments) with a single, more affordable financing solution. It's designed to free up cash flow, reduce monthly payments, and give your business breathing room to grow.",
-
-    shortDesc: "Refinance high-cost debt and consolidate multiple loans into one strategic solution. Escape MCA debt traps and reduce monthly payments.",
-
-    fullDesc: "When your business is burdened by high-cost debt—whether it's merchant cash advances (MCAs), expensive equipment loans, or overlapping credit lines—debt refinancing provides a path forward. We help you consolidate and restructure debt into more manageable terms, often reducing your total cost of capital while freeing up working capital for growth. This solution is ideal for businesses trapped in daily or weekly MCA payments, facing renewal at high rates, or simply wanting to clean up their balance sheet.",
-
-    features: [
-      "Consolidate multiple loans into one payment",
-      "Refinance MCA debt with better terms",
-      "Reduce monthly payments by 30-50%",
-      "Cash out additional working capital",
-      "Options from $250K to $10MM+",
-      "Close in 10-20 business days",
-      "Asset-based and cash-flow options available"
-    ],
-
-    ratesAndTerms: {
-      minAmount: "$250,000",
-      maxAmount: "$10,000,000",
-      interestRate: "Prime + 3% to Prime + 8%",
-      annualCostRange: "10-16%",
-      closingTimeframe: "10-20 business days",
-      typicalSavings: "30-50% reduction in monthly payments"
-    },
-
-    commonQuestions: [
-      {
-        id: "what-is-debt-refinance",
-        q: "What is debt refinancing for businesses?",
-        a: "Debt refinancing replaces your existing high-cost debt with new financing at better terms. It's commonly used to escape MCA debt traps, consolidate multiple loans, or simply reduce your total cost of borrowing."
-      },
-      {
-        id: "can-refinance-mca",
-        q: "Can I refinance merchant cash advance debt?",
-        a: "Yes. MCA refinancing is one of our most common solutions. We help businesses trapped in daily or weekly MCA payments consolidate into monthly term loans or lines of credit with significantly lower costs."
-      },
-      {
-        id: "how-much-save-refinancing",
-        q: "How much can I save by refinancing?",
-        a: "Most clients reduce monthly payments by 30-50% and lower their total cost of capital by 5-10 percentage points annually. The exact savings depend on your current debt structure and available collateral."
-      }
-    ],
-
-    bestFor: [
-      "Businesses trapped in MCA debt cycles",
-      "Companies with multiple overlapping loans",
-      "Refinancing expensive equipment loans",
-      "Cleaning up the balance sheet before growth",
-      "Reducing monthly debt service to improve cash flow"
-    ],
-
-    qualificationCriteria: {
-      minimumRevenue: "$1MM+ annually",
-      minimumTimeInBusiness: "2+ years preferred",
-      minimumCreditScore: "550+ (some exceptions)",
-      requiredAssets: "AR, Inventory, Equipment, or Real Estate helpful"
-    }
-  },
-
-  {
-    id: "payroll-financing",
-    title: "Emergency Payroll Financing",
-    image: "/solutions/Invoice AI Financing.webp",
-    category: "Fast Cash Flow",
-
-    whatIs: "Emergency payroll financing provides fast capital when you need to cover payroll but are waiting on receivables, contracts, or other payments to come through. Funding in 24-72 hours ensures your team gets paid on time, preserving trust and operations.",
-
-    shortDesc: "Cover unexpected payroll gaps in 24-72 hours. Keep your team paid on time when receivables are delayed or cash flow hits a wall.",
-
-    fullDesc: "When payroll is due but cash flow hasn't caught up, time isn't just money—it's team trust and operational stability. Emergency payroll financing provides immediate working capital to cover payroll shortfalls caused by delayed invoices, contract delays, seasonal slowdowns, or unexpected expenses. We've closed payroll solutions in as fast as 3-4 business days, ensuring employees are paid on time with zero disruption. This financing works through short-term loans, invoice factoring, or bridge capital tailored to your situation.",
-
-    features: [
-      "Funding in 24-72 hours (some cases 3-4 business days)",
-      "Loan amounts from $50K to $1MM+",
-      "Short-term bridge loans or invoice factoring",
-      "No long-term commitment required",
-      "Covers payroll, taxes, and benefits",
-      "Works with PEO and payroll providers",
-      "Available nationwide"
-    ],
-
-    ratesAndTerms: {
-      minAmount: "$50,000",
-      maxAmount: "$1,000,000",
-      interestRate: "Prime + 4% to Prime + 12% (short-term)",
-      costRange: "1-3% of payroll amount for bridge solutions",
-      closingTimeframe: "24-72 hours (up to 5 business days)",
-      termLength: "30-90 days (or until receivables clear)"
-    },
-
-    commonQuestions: [
-      {
-        id: "how-fast-payroll-funding",
-        q: "How fast can I get payroll funding?",
-        a: "In many cases, we can fund in 24-72 hours. Our fastest payroll solution closed in 4 business days, ensuring every employee was paid on time. Speed depends on documentation readiness and deal structure."
-      },
-      {
-        id: "what-if-no-collateral",
-        q: "What if I don't have collateral for payroll financing?",
-        a: "We can often structure payroll financing against upcoming receivables or future contracts. Some lenders offer short-term unsecured options for established businesses with strong revenue history."
-      },
-      {
-        id: "payroll-financing-cost",
-        q: "How much does emergency payroll financing cost?",
-        a: "Costs typically range from 1-3% of the payroll amount for short-term bridge solutions, or Prime + 4-12% annualized for term loans. While higher than traditional financing, it's far less than the cost of missing payroll."
-      }
-    ],
-
-    bestFor: [
-      "Unexpected payroll shortfalls",
-      "Waiting on delayed invoices or contracts",
-      "Seasonal businesses between peak seasons",
-      "Companies with PEO or payroll provider relationships",
-      "Bridge until receivables or funding arrives"
-    ],
-
-    qualificationCriteria: {
-      minimumRevenue: "$500K+ annually",
-      minimumTimeInBusiness: "1+ years",
-      minimumCreditScore: "550+ (flexible)",
-      requiredAssets: "Invoices, contracts, or revenue stream"
-    }
-  },
-
-  {
     id: "asset-based-lending",
     title: "Asset-Based Lending",
     image: "/solutions/Asset Based Lending.webp",
@@ -384,7 +254,7 @@ export const fundingSolutions: FundingSolution[] = [
 
   {
     id: "equipment-leasing",
-    title: "Equipment Leasing & Financing",
+    title: <>Equipment Leasing <br />& Financing</>,
     image: "/solutions/Equipment Leasing.webp",
     category: "Asset Acquisition",
     whatIs: "Equipment leasing lets you acquire essential machinery, vehicles, technology without large upfront capital. Monthly payments spread the cost over 3-7 years.",
@@ -667,5 +537,70 @@ export const fundingSolutions: FundingSolution[] = [
     commonQuestions: [],
     bestFor: ["Established small businesses", "Long-term financing", "Real estate purchases", "Equipment purchases"],
     qualificationCriteria: {}
+  },
+
+    {
+    id: "debt-refinance",
+    title: "Consolidation & Recapitalization",
+    image: "/solutions/Asset Based Lending.webp",
+    category: "Strategic Restructuring",
+
+    whatIs: "Debt refinancing lets you replace high-cost debt (like merchant cash advances, expensive term loans, or multiple loan payments) with a single, more affordable financing solution. It's designed to free up cash flow, reduce monthly payments, and give your business breathing room to grow.",
+
+    shortDesc: "Refinance high-cost debt and consolidate multiple loans into one strategic solution. Escape MCA debt traps and reduce monthly payments.",
+
+    fullDesc: "When your business is burdened by high-cost debt—whether it's merchant cash advances (MCAs), expensive equipment loans, or overlapping credit lines—debt refinancing provides a path forward. We help you consolidate and restructure debt into more manageable terms, often reducing your total cost of capital while freeing up working capital for growth. This solution is ideal for businesses trapped in daily or weekly MCA payments, facing renewal at high rates, or simply wanting to clean up their balance sheet.",
+
+    features: [
+      "Consolidate multiple loans into one payment",
+      "Refinance MCA debt with better terms",
+      "Reduce monthly payments by 30-50%",
+      "Cash out additional working capital",
+      "Options from $250K to $10MM+",
+      "Close in 10-20 business days",
+      "Asset-based and cash-flow options available"
+    ],
+
+    ratesAndTerms: {
+      minAmount: "$250,000",
+      maxAmount: "$10,000,000",
+      interestRate: "Prime + 3% to Prime + 8%",
+      annualCostRange: "10-16%",
+      closingTimeframe: "10-20 business days",
+      typicalSavings: "30-50% reduction in monthly payments"
+    },
+
+    commonQuestions: [
+      {
+        id: "what-is-debt-refinance",
+        q: "What is debt refinancing for businesses?",
+        a: "Debt refinancing replaces your existing high-cost debt with new financing at better terms. It's commonly used to escape MCA debt traps, consolidate multiple loans, or simply reduce your total cost of borrowing."
+      },
+      {
+        id: "can-refinance-mca",
+        q: "Can I refinance merchant cash advance debt?",
+        a: "Yes. MCA refinancing is one of our most common solutions. We help businesses trapped in daily or weekly MCA payments consolidate into monthly term loans or lines of credit with significantly lower costs."
+      },
+      {
+        id: "how-much-save-refinancing",
+        q: "How much can I save by refinancing?",
+        a: "Most clients reduce monthly payments by 30-50% and lower their total cost of capital by 5-10 percentage points annually. The exact savings depend on your current debt structure and available collateral."
+      }
+    ],
+
+    bestFor: [
+      "Businesses trapped in MCA debt cycles",
+      "Companies with multiple overlapping loans",
+      "Refinancing expensive equipment loans",
+      "Cleaning up the balance sheet before growth",
+      "Reducing monthly debt service to improve cash flow"
+    ],
+
+    qualificationCriteria: {
+      minimumRevenue: "$1MM+ annually",
+      minimumTimeInBusiness: "2+ years preferred",
+      minimumCreditScore: "550+ (some exceptions)",
+      requiredAssets: "AR, Inventory, Equipment, or Real Estate helpful"
+    }
   }
 ]

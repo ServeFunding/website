@@ -3,7 +3,7 @@
 import { forwardRef, type HTMLAttributes, useRef } from "react"
 import { COLORS, type CardColorOption } from "@/lib/colors"
 
-const baseCardClass = "rounded-[2rem] p-8 transition-all duration-300 border border-gray-100 shadow-xl shadow-gray-200/50 hover:-translate-y-2"
+const baseCardClass = "rounded-[2rem] p-8 transition-all duration-300 border border-gray-100 shadow-xl shadow-gray-400/50 hover:-translate-y-2"
 
 // Card color styles
 export const cardColorStyles = {

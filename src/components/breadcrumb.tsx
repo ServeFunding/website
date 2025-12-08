@@ -37,7 +37,7 @@ export function Breadcrumb({ items, renderSchema = true }: BreadcrumbProps) {
       {/* Visual breadcrumb navigation */}
       <nav className="text-sm text-gray-600 px-6 py-4">
         {allItems.map((item, index) => (
-          <span key={index}>
+          <span key={item.label}>
             {item.href ? (
               <Link
                 href={item.href}

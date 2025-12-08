@@ -9,14 +9,9 @@ import {
   StaggerItem,
   SocialIcons,
 } from '@/components/ui'
-import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CTA } from '@/components/cta'
 import { LogoGrid } from '@/components/LogoGrid'
 import { Breadcrumb } from '@/components/breadcrumb'
-import { SchemaRenderer } from '@/components/SchemaRenderer'
-import { getOrganizationSchema } from '@/lib/schema-generators'
-import { companyInfo } from '@/data/company-info'
-import { fundingSolutions } from '@/data/solutions'
 import { COLORS } from '@/lib/colors'
 import type { Metadata } from 'next'
 
@@ -54,23 +49,8 @@ const coreValues = [
 ]
 
 export default function AboutUs() {
-  const organizationSchema = getOrganizationSchema({
-    name: companyInfo.name,
-    description: companyInfo.description,
-    url: 'https://servefunding.com',
-    phone: companyInfo.contact.phone,
-    email: companyInfo.contact.email,
-    address: companyInfo.contact.address,
-    foundingDate: '2021',
-    founderName: 'Michael Kodinsky',
-    knowsAbout: fundingSolutions.map(s => s.title),
-  })
-
   return (
     <div className="bg-white font-sans text-gray-800">
-      {/* Schema Markup */}
-      <SchemaRenderer schema={organizationSchema} />
-
       {/* Breadcrumb - includes schema */}
       <Breadcrumb items={[{ label: 'About Us' }]} />
 

@@ -1,5 +1,6 @@
 'use client'
 
+import { ReactNode } from 'react'
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { Section, Container, Heading, Text, StaggerContainer, StaggerItem } from '@/components/ui'
@@ -11,7 +12,7 @@ interface FAQItem {
 
 interface FAQSectionProps {
   title?: string
-  description?: string
+  description?: string | ReactNode
   faqs: FAQItem[]
   background?: 'white' | 'gray'
   maxDisplay?: number // Limit how many FAQs to show
@@ -78,7 +79,7 @@ export function FAQSection({
           }`}
         >
           {displayFaqs.map((faq, index) => (
-            <StaggerItem key={index}>
+            <StaggerItem key={`faq-${index}`}>
               <FAQAccordionItem question={faq.q} answer={faq.a} />
             </StaggerItem>
           ))}
@@ -95,7 +96,7 @@ export function InlineFAQ({ faqs, maxDisplay }: { faqs: FAQItem[]; maxDisplay?: 
   return (
     <div className="space-y-4">
       {displayFaqs.map((faq, index) => (
-        <FAQAccordionItem key={index} question={faq.q} answer={faq.a} />
+        <FAQAccordionItem key={`inline-faq-${index}`} question={faq.q} answer={faq.a} />
       ))}
     </div>
   )

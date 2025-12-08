@@ -69,7 +69,7 @@ export default function Home() {
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <div className="overflow-hidden h-screen">
+      <div className="overflow-hidden h-[65vh]">
         <HeroAnimation defer={true}>
           <HeroCarousel slides={heroSlides} />
         </HeroAnimation>
@@ -79,7 +79,7 @@ export default function Home() {
       <Section>
         <Container>
           <FadeIn className="text-center mb-20">
-            <Heading size="h2" className="mb-3">Your Trusted Advisor, Not a Transaction.<br />We Are Here to Serve You.</Heading>
+            <Heading size="h2" className="mb-3">Need Business Growth Capital?<br />We Are Here to Serve You.</Heading>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
@@ -87,20 +87,20 @@ export default function Home() {
               {
                 title: "Transparent",
                 icon: Search,
-                desc: "We communicate honestly to build long-term, trust-based relationships. Transparency is where great partnerships begin."
+                desc: "We value honest, open communication. We believe that transparency is where trust-based relationships begin."
               },
               {
                 title: "Timely",
                 icon: Clock,
-                desc: "Your time is precious. We invest our expertise to deliver fast funding—often in 3-10 business days—without sacrificing quality."
+                desc: <>Time is your most valuable resource. <br />We invest our time and expertise to ensure an efficient process.</>
               },
               {
                 title: "Trusted",
                 icon: Shield,
-                desc: "As your channel-neutral advisor, we fight to negotiate the best terms and protect your best interests with every lender."
+                desc: <>We represent your firm to our trusted lender partners to protect <br />your best interests.</>
               }
             ].map((item, index) => (
-              <StaggerItem key={index} className={index === 1 ? "md:-translate-y-6 relative z-10" : ""}>
+              <StaggerItem key={`value-prop-${index}`}>
                 <Card className="flex flex-col items-center text-center h-full group transition-all duration-300 md:hover:-translate-y-2 bg-white value-card" style={{}}>
                   <div
                     className="icon-flip-outer w-24 h-24 rounded-full mb-8"
@@ -132,64 +132,31 @@ export default function Home() {
         </Container>
       </Section>
 
-      {/* Metrics Section */}
-      <Section background="white">
-        <Container>
-          <FadeIn className="text-center mb-16">
-            <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              {[
-                { metric: "$50MM+", label: "Capital Deployed" },
-                { metric: "100+", label: "Companies Funded" },
-                { metric: "65%", label: "Repeat Client Rate" },
-                { metric: "3-10 Days", label: "Average Funding Time" }
-              ].map((item, index) => (
-                <StaggerItem key={index} className="text-center">
-                  <Heading size="h3" className="text-gold-500 mb-2">{item.metric}</Heading>
-                  <Text className="text-sm text-gray-600">{item.label}</Text>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </FadeIn>
-
-          <FadeIn>
-            <Card className="p-12 bg-gold-50 border border-gold-200 max-w-3xl mx-auto text-center">
-              <Text size="lg" className="text-gray-800 italic mb-6">
-                "We could have worked with multiple lenders over these 5 years. But Serve Funding started with understanding, not with products. They designed solutions around our mission, not theirs. That's why we keep choosing them."
-              </Text>
-              <Heading size="h4" className="text-olive-900">Label Manufacturer, Texas</Heading>
-              <Text className="text-sm text-gray-600">$1.65MM deployed over 5 years • 67% revenue growth</Text>
-            </Card>
-          </FadeIn>
-        </Container>
-      </Section>
-
       {/* Funding Solutions Section */}
       <Section background="gray">
-        <Container>
+        <Container className='mb-14'>
           <FadeIn className="text-center mb-20">
             <Heading size="h2" className="mb-4">
-              Funding Solutions From $250K to $100MM
+              Business Financing from $250K to $100MM
             </Heading>
           </FadeIn>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 max-w-5xl mx-auto">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 max-w-4xl mx-auto">
             {[
-              "When Banks Say \"No,\" Or Call Your Line",
-              "Refinance High-Cost Debt & MCA Consolidation",
-              "Emergency Payroll Financing (24-72 Hours)",
-              "Fund New Contracts & Purchase Orders",
               "Financing Periods Of Rapid Growth",
+              "The Bank Says \"No,\" Or Calls Your Line",
+              "Fund New Contracts & Purchase Orders",
               "Unsecured Loans & Lines Of Credit",
               "Bridge Funding For Short-Term Gaps",
               "M&A: Capital For Strategic Acquisitions",
+              "Longer Payment Terms: Net-60, Net-90+",
               "Working Capital For Seasonal Shortfalls",
-              "Cash Out Equity From Real Estate"
+              "MCA (Cash Advance) Consolidations",
+              "Cover Unexpected Payroll Shortfalls"
             ].map((item, index) => (
-              <StaggerItem key={index} className="flex items-start gap-4 group">
-                <div className="mt-1 p-1 bg-gold-500/20 rounded-full">
-                  <Leaf className="text-olive-900 flex-shrink-0" size={28} fill="currentColor" />
-                </div>
-                <span className="text-xl font-semibold text-gray-800 group-hover:text-olive-900 transition-colors">{item}</span>
+              <StaggerItem key={`benefit-${index}`} className="flex items-center gap-4 group ml-8">
+                <Leaf size={28} style={{ color: BRAND_COLORS.primary }} />
+                <Text>{item}</Text>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -200,26 +167,28 @@ export default function Home() {
       <Section className="py-20" style={{ backgroundColor: BRAND_COLORS.primary }}>
         <Container>
           <FadeIn className="text-center mb-16">
-            <Heading size="h2" color="white" className="mb-4" style={{ color: '#ffffff'}}>
-              Our Funding Solutions
+            <Heading size="h2" color="highlight" className="mb-4" style={{ color: '#ffffff'}}>
+              Creative Working Capital
             </Heading>
             <Text size="lg" className="text-white/90 max-w-2xl mx-auto">
-              From $250K to $100MM, we offer creative working capital solutions tailored to your business needs
+              From $250K to $100MM, we offer <br /><b style={{ background: `linear-gradient(to bottom, ${BRAND_COLORS.secondary}, ${BRAND_COLORS.highlight})`, backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>creative working capital solutions</b> <br />tailored to your business needs
             </Text>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {fundingSolutions.slice(0, 6).map((solution) => (
+            {fundingSolutions.map((solution) => (
               <StaggerItem key={solution.id}>
                 <Link href={`/solutions#${solution.id}`} className="group cursor-pointer block h-full">
-                  <Card className="p-8 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white">
-                    <Heading size="h3" className="mb-3 text-olive-900 group-hover:text-gold-500 transition-colors">
-                      {solution.title}
-                    </Heading>
-                    <Text className="text-gray-700 text-sm leading-relaxed">
-                      {solution.shortDesc}
-                    </Text>
-                    <div className="mt-4 flex items-center gap-2 text-gold-500 group-hover:gap-3 transition-all">
+                  <Card className="p-8 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col" style={{ background: `linear-gradient(to bottom, white, ${BRAND_COLORS.background})` }}>
+                    <div className="flex-1">
+                      <Heading size="h3" color='primary'>
+                        {solution.title}
+                      </Heading>
+                      <Text>
+                        {solution.shortDesc}
+                      </Text>
+                    </div>
+                    <div className="mt-4 flex items-center gap-2 group-hover:gap-3 transition-all">
                       <span className="text-sm font-semibold">Learn More</span>
                       <ChevronRight size={16} />
                     </div>
@@ -228,12 +197,6 @@ export default function Home() {
               </StaggerItem>
             ))}
           </StaggerContainer>
-
-          <FadeIn className="text-center">
-            <Link href="/solutions">
-              <Button variant="white" size="lg">Explore All Solutions</Button>
-            </Link>
-          </FadeIn>
         </Container>
       </Section>
 
@@ -316,7 +279,7 @@ export default function Home() {
                 href: '/fundings#partner-buyout'
               }
             ].map((item, index) => (
-              <StaggerItem key={index}>
+              <StaggerItem key={`case-study-${index}`}>
                 <Link href={item.href} className="group cursor-pointer block h-full">
                   <Card className="p-8 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white flex flex-col">
                     <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: BRAND_COLORS.primary, border: `2px solid ${BRAND_COLORS.secondary}` }}>
@@ -346,58 +309,10 @@ export default function Home() {
         </Container>
       </Section>
 
-      {/* For Advisors Section */}
-      <Section background="white">
-        <Container>
-          <div className="max-w-3xl mx-auto">
-            <FadeIn className="text-center mb-12">
-              <Heading size="h2" className="mb-4">For Bankers & Advisors</Heading>
-              <Text size="lg" className="text-gray-700">
-                When your client needs capital you can't provide, a Serve Funding referral strengthens your relationship—it doesn't weaken it.
-              </Text>
-            </FadeIn>
-
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-              {[
-                {
-                  title: "You Stay the Hero",
-                  desc: "We handle the capital sourcing and negotiation. You remain the trusted advisor who had the right answer when it mattered."
-                },
-                {
-                  title: "Deepen Client Relationships",
-                  desc: "Clients remember advisors who solve problems. Referrals often lead to expanded banking relationships and increased client loyalty."
-                },
-                {
-                  title: "No Competition",
-                  desc: "We're not lenders competing with you. We're a channel-neutral partner strengthening the relationships you've built."
-                },
-                {
-                  title: "Fast Outcomes",
-                  desc: "Deals close in 3-10 business days. Your clients get funded quickly. You get credited for the solution."
-                }
-              ].map((item, index) => (
-                <StaggerItem key={index}>
-                  <Card className="p-6 bg-gray-50 hover:shadow-lg transition-all duration-300 h-full">
-                    <Heading size="h3" className="text-olive-900 mb-3">{item.title}</Heading>
-                    <Text className="text-gray-700">{item.desc}</Text>
-                  </Card>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-
-            <FadeIn className="text-center">
-              <Link href="/refer">
-                <Button variant="gold" size="lg">Explore Our Advisor Program</Button>
-              </Link>
-            </FadeIn>
-          </div>
-        </Container>
-      </Section>
-
       {/* FAQ Section - AIEO Optimized */}
       <FAQSectionWithSchema
         title="Frequently Asked Questions"
-        description="Get answers to the most common questions about Serve Funding and working capital financing"
+        description={<>Get answers to the most common questions about <br />Serve Funding and working capital financing</>}
         faqs={topLevelFAQs}
         background="white"
         schemaName="Business Financing Advisory"

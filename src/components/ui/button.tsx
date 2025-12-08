@@ -52,9 +52,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       case "gold":
         buttonStyle = {
           ...baseStyle,
-          backgroundColor: COLORS.secondary,
+          backgroundColor: COLORS.highlight,
           color: COLORS.dark,
-          boxShadow: `0 10px 15px -3px ${COLORS.secondary}33`
+          boxShadow: `0 10px 15px -3px ${COLORS.highlight}33`
         }
         break
       case "outline":

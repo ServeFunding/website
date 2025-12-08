@@ -1,11 +1,11 @@
 import { fundingSolutions } from '@/data/solutions'
-import { companyInfo } from '@/data/company-info'
 import { blogPosts } from '@/data/blog-posts'
 import { getOrganizationSchema, getFinancialServiceSchema } from '@/lib/schema-generators'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ChevronRight } from 'lucide-react'
+import { getTitleAsString } from '@/lib/solution-helpers'
 import {
   Section,
   Container,
@@ -38,11 +38,12 @@ export async function generateMetadata({ params }: SolutionDetailPageProps): Pro
     }
   }
 
+  const titleStr = getTitleAsString(solution.title)
   return {
-    title: `${solution.title} | Serve Funding`,
+    title: `${titleStr} | Serve Funding`,
     description: solution.shortDesc,
     openGraph: {
-      title: `${solution.title} | Serve Funding`,
+      title: `${titleStr} | Serve Funding`,
       description: solution.shortDesc,
       url: `https://servefunding.com/solutions/${solution.id}`,
       type: 'website',
@@ -69,20 +70,9 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
       {/* Schemas */}
       <SchemaRenderer
         schemas={[
-          getOrganizationSchema({
-            name: companyInfo.name,
-            description: companyInfo.description,
-            url: 'https://servefunding.com',
-            phone: companyInfo.contact.phone,
-            email: companyInfo.contact.email,
-            address: companyInfo.contact.address,
-            foundingDate: '2021',
-            founderName: 'Michael Kodinsky',
-            knowsAbout: fundingSolutions.map(s => s.title),
-          }),
           getFinancialServiceSchema({
             id: solution.id,
-            title: solution.title,
+            title: getTitleAsString(solution.title),
             shortDesc: solution.shortDesc,
             fullDesc: solution.fullDesc,
             features: solution.features,
@@ -94,7 +84,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
       <SolutionDetailClient solution={solution}>
         <Breadcrumb items={[
           { label: 'Solutions', href: '/solutions' },
-          { label: solution.title }
+          { label: getTitleAsString(solution.title) }
         ]} />
 
         {/* Header Section with Image */}
@@ -102,7 +92,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
           <Container>
             <div className="max-w-4xl mx-auto">
               <Heading size="h1" className="mb-4">
-                {`What ${solution.title.endsWith('s') ? 'are' : 'is'} ${solution.title}?`}
+                {`What ${getTitleAsString(solution.title).endsWith('s') ? 'are' : 'is'} ${getTitleAsString(solution.title)}?`}
               </Heading>
 
               {/* Category Badge */}
@@ -117,7 +107,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                 <div className="mb-8 rounded-lg overflow-hidden shadow-lg h-80">
                   <img
                     src={solution.image}
-                    alt={solution.title}
+                    alt={getTitleAsString(solution.title)}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -221,18 +211,18 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
         {/* FAQ Section - AIEO Optimized */}
         {solution.commonQuestions && solution.commonQuestions.length > 0 && (
           <FAQSectionWithSchema
-            title={`${solution.title} - Common Questions`}
-            description={`Get answers to the most common questions about ${solution.title.toLowerCase()}`}
+            title={`${getTitleAsString(solution.title)} - Common Questions`}
+            description={`Get answers to the most common questions about ${getTitleAsString(solution.title).toLowerCase()}`}
             faqs={solution.commonQuestions}
             background="white"
-            schemaName={solution.title}
+            schemaName={getTitleAsString(solution.title)}
           />
         )}
 
         {/* CTA Button Section */}
         <CTA
           title="Ready to Get Started?"
-          text={`Learn more about ${solution.title} and how it can help your business grow. Schedule a consultation with one of our funding experts today.`}
+          text={`Learn more about ${getTitleAsString(solution.title)} and how it can help your business grow. Schedule a consultation with one of our funding experts today.`}
           buttonText="Let's Talk!"
           source={`solution-${solution.id}`}
           useBG

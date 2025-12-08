@@ -2,9 +2,7 @@ import type { Metadata } from 'next'
 import { SolutionsClient } from './client'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
 import { Breadcrumb } from '@/components/breadcrumb'
-import { getOrganizationSchema, getFinancialServiceSchema } from '@/lib/schema-generators'
-import { companyInfo } from '@/data/company-info'
-import { fundingSolutions } from '@/data/solutions'
+import { getFinancialServiceSchema } from '@/lib/schema-generators'
 
 export const metadata: Metadata = {
   title: "Creative Working Capital Solutions $250K-$100MM | When Banks Say No",
@@ -18,24 +16,8 @@ export const metadata: Metadata = {
 }
 
 export default function Solutions() {
-  // Generate schema for the solutions overview page
-  const organizationSchema = getOrganizationSchema({
-    name: companyInfo.name,
-    description: companyInfo.description,
-    url: 'https://servefunding.com',
-    phone: companyInfo.contact.phone,
-    email: companyInfo.contact.email,
-    address: companyInfo.contact.address,
-    foundingDate: '2021',
-    founderName: 'Michael Kodinsky',
-    knowsAbout: fundingSolutions.map(s => s.title),
-  })
-
   return (
     <>
-      {/* Schema Markup */}
-      <SchemaRenderer schema={organizationSchema} />
-
       {/* Breadcrumb - includes schema */}
       <Breadcrumb items={[{ label: 'Solutions' }]} />
 

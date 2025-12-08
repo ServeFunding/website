@@ -54,41 +54,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Organization schema
-  const organizationSchema = getOrganizationSchema({
-    name: "Serve Funding LLC",
-    description: "Boutique working capital advisory providing creative financing solutions from $250K to $100MM for growing businesses",
-    url: "https://servefunding.com",
-    phone: "+1-770-820-7409",
-    email: "michael@servefunding.com",
-    address: {
-      street: "Atlanta",
-      city: "Atlanta",
-      state: "GA",
-      zip: "30303",
-      country: "US"
-    },
-    foundingDate: "2021",
-    founderName: "Michael Kodinsky",
-    knowsAbout: [
-      "Asset-Based Lending",
-      "Invoice Factoring",
-      "Equipment Leasing",
-      "Working Capital Loans",
-      "Purchase Order Financing",
-      "Government Contract Financing",
-      "Real Estate Financing",
-      "SBA Loans",
-      "Inventory Financing",
-      "Unsecured Debt"
-    ]
-  })
-
   return (
     <html lang="en" className={`${inter.variable} ${merriweather.variable}`}>
       <head>
         {/* Schema Markup */}
-        <SchemaRenderer schema={organizationSchema} />
+        <SchemaRenderer schema={getOrganizationSchema()} />
 
         {/* Preconnect to critical third-party origins for LCP improvement */}
         <link rel="preconnect" href="https://umami-production-25e0.up.railway.app" />

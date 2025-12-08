@@ -19,9 +19,6 @@ import { HeroFadeIn } from '@/components/hero-fade-in'
 import { PartnerInquiryForm } from '@/components/Forms'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
-import { getOrganizationSchema } from '@/lib/schema-generators'
-import { companyInfo } from '@/data/company-info'
-import { fundingSolutions } from '@/data/solutions'
 
 interface PartnerType {
   title: string
@@ -150,23 +147,8 @@ const testimonials = [
 ]
 
 export default function Partners() {
-  const organizationSchema = getOrganizationSchema({
-    name: companyInfo.name,
-    description: companyInfo.description,
-    url: 'https://servefunding.com',
-    phone: companyInfo.contact.phone,
-    email: companyInfo.contact.email,
-    address: companyInfo.contact.address,
-    foundingDate: '2021',
-    founderName: 'Michael Kodinsky',
-    knowsAbout: fundingSolutions.map(s => s.title),
-  })
-
   return (
     <div className="bg-white font-sans text-gray-800">
-      {/* Schema Markup */}
-      <SchemaRenderer schema={organizationSchema} />
-
       {/* Breadcrumb - includes schema */}
       <Breadcrumb items={[{ label: 'Partners' }]} />
 
@@ -181,7 +163,7 @@ export default function Partners() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <FadeIn className="text-center mb-16">
-              <Heading size="h2" className="mb-6 text-olive-900">
+              <Heading size="h2">
                 The Referral Challenge
               </Heading>
             </FadeIn>
@@ -326,10 +308,10 @@ export default function Partners() {
               return (
                 <Section key={idx} id={partnerId}>
                   <Container>
-                    <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${idx % 2 === 1 ? 'lg:grid-cols-2 lg:direction-rtl' : ''}`}>
+                    <div className={`flex flex-col lg:flex-row gap-12 w-full lg:items-stretch ${idx % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
                     {/* Text Content */}
-                    <div className={idx % 2 === 1 ? 'lg:order-2' : ''}>
-                      <Heading size="h3" className="mb-6">
+                    <div className={`lg:w-2/3 ${idx % 2 === 1 ? 'lg:[direction:ltr]' : ''}`}>
+                      <Heading size="h2">
                         <span className="text-olive-900">{partner.title.split(' ').slice(0, -1).join(' ')}</span>
                         {partner.title.split(' ').length > 1 && <span className="text-gold-500"> {partner.title.split(' ').slice(-1)[0]}</span>}
                       </Heading>
@@ -342,7 +324,7 @@ export default function Partners() {
                     </div>
 
                     {/* Image Content */}
-                    <div className={`relative h-96 bg-gradient-to-br from-olive-800 to-olive-700 rounded-3xl overflow-hidden group ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+                    <div className={`relative h-auto rounded-3xl overflow-hidden group m-4 lg:m-0 lg:mt-20 lg:flex-shrink-0 lg:w-1/3`}>
                       <Image
                         src={partner.image}
                         alt={partner.title}
