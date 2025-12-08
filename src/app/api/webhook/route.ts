@@ -3,7 +3,7 @@ export async function POST(request: Request) {
     const data = await request.json()
     console.log('Webhook route received data:', data)
 
-    const webhookUrl = 'https://primary-production-ac5d.up.railway.app/webhook-test/5d382095-a1bb-4f67-84a6-e154aa511b76'
+    const webhookUrl = 'https://primary-production-ac5d.up.railway.app/webhook/5d382095-a1bb-4f67-84a6-e154aa511b76'
 
     // Build query string from data
     const params = new URLSearchParams()
