@@ -15,6 +15,7 @@ declare global {
     hbspt?: {
       forms: {
         addEventListener: (event: string, callback: () => void) => void
+        create: (config: { portalId: string; formId: string; target: string }) => void
       }
     }
   }

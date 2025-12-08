@@ -36,7 +36,7 @@ export interface ButtonProps
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, style, ...props }, ref) => {
+  ({ className, variant = "default", size, style, ...props }, ref) => {
     const baseStyle: React.CSSProperties = style || {}
 
     // Apply variant-specific styles using COLORS
@@ -82,6 +82,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           ...baseStyle,
           backgroundColor: "white",
           color: COLORS.primary
+        }
+        break
+      default:
+        buttonStyle = {
+          ...baseStyle,
+          backgroundColor: COLORS.primary,
+          boxShadow: `0 10px 15px -3px ${COLORS.primary}33`
         }
         break
     }

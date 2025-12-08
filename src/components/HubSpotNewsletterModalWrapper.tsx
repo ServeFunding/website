@@ -8,86 +8,78 @@ import { HubSpotNewsletterModalForm } from '@/components/Forms'
 export function HubSpotNewsletterModalWrapper() {
   const [isMounted, setIsMounted] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const [hasShown, setHasShown] = useState(false)
 
   useEffect(() => {
     setIsMounted(true)
-  }, [])
-
-  // Show modal after page fully loads + 2 second delay for resource stability
-  useEffect(() => {
-    if (!isMounted || hasShown) return
-
-    let timer: NodeJS.Timeout | undefined
 
     const showModal = () => {
       setIsOpen(true)
-      setHasShown(true)
     }
 
-    const scheduleModal = () => {
-      // Wait 4.5 seconds after page load to avoid interfering with LCP
-      timer = setTimeout(showModal, 4500)
-    }
-
-    // If page is already loaded, schedule the modal
+    // Show modal after 2.5 seconds (form already rendering in background)
     if (document.readyState === 'complete') {
-      scheduleModal()
+      setTimeout(showModal, 2500)
     } else {
-      // Wait for page to fully load, then schedule the modal
-      window.addEventListener('load', scheduleModal)
+      window.addEventListener('load', () => {
+        setTimeout(showModal, 2500)
+      })
     }
-
-    return () => {
-      window.removeEventListener('load', scheduleModal)
-      if (timer) clearTimeout(timer)
-    }
-  }, [isMounted, hasShown])
+  }, [])
 
   if (!isMounted) return null
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            onClick={() => setIsOpen(false)}
-            className="fixed inset-0 bg-black/50 z-[1000]"
-            aria-hidden="true"
-          />
+    <>
+      {/* Hidden form - renders off-screen so HubSpot script can execute */}
+      <div className="fixed -left-[10000px]">
+        <HubSpotNewsletterModalForm />
+      </div>
 
-          {/* Modal */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl mx-4 z-[1001] max-h-[90vh] overflow-y-auto"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="newsletter-modal-title"
-          >
-            <div className="bg-white rounded-xl shadow-2xl overflow-hidden relative">
-              {/* Close button */}
-              <button
-                onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors p-1 z-10"
-                aria-label="Close newsletter modal"
-              >
-                <X size={20} />
-              </button>
+      {/* Modal */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 bg-black/50 z-[1000]"
+              aria-hidden="true"
+            />
 
-              {/* Form Container */}
-              <HubSpotNewsletterModalForm />
-            </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3 }}
+              className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[calc(100%-2rem)] sm:w-full max-w-2xl z-[1001] max-h-[90vh] overflow-y-auto"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="newsletter-modal-title"
+            >
+              <div className="bg-white rounded-lg sm:rounded-xl shadow-2xl overflow-hidden relative">
+                {/* Form Container */}
+                <div className="pointer-events-auto">
+                  <HubSpotNewsletterModalForm />
+                </div>
+
+                {/* Close button - positioned on top */}
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors p-1 z-[9999] cursor-pointer"
+                  aria-label="Close newsletter modal"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   )
 }

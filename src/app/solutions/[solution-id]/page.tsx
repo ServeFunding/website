@@ -1,8 +1,11 @@
 import { fundingSolutions } from '@/data/solutions'
 import { companyInfo } from '@/data/company-info'
+import { blogPosts } from '@/data/blog-posts'
 import { getOrganizationSchema, getFinancialServiceSchema } from '@/lib/schema-generators'
+import { SchemaRenderer } from '@/components/SchemaRenderer'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { ChevronRight } from 'lucide-react'
 import {
   Section,
   Container,
@@ -63,41 +66,29 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Global Organization Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            getOrganizationSchema({
-              name: companyInfo.name,
-              description: companyInfo.description,
-              url: 'https://servefunding.com',
-              phone: companyInfo.contact.phone,
-              email: companyInfo.contact.email,
-              address: companyInfo.contact.address,
-              foundingDate: '2021',
-              founderName: 'Michael Kodinsky',
-              knowsAbout: fundingSolutions.map(s => s.title),
-            })
-          ),
-        }}
-      />
-
-      {/* Solution-Specific Service Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            getFinancialServiceSchema({
-              id: solution.id,
-              title: solution.title,
-              shortDesc: solution.shortDesc,
-              fullDesc: solution.fullDesc,
-              features: solution.features,
-              ratesAndTerms: solution.ratesAndTerms,
-            })
-          ),
-        }}
+      {/* Schemas */}
+      <SchemaRenderer
+        schemas={[
+          getOrganizationSchema({
+            name: companyInfo.name,
+            description: companyInfo.description,
+            url: 'https://servefunding.com',
+            phone: companyInfo.contact.phone,
+            email: companyInfo.contact.email,
+            address: companyInfo.contact.address,
+            foundingDate: '2021',
+            founderName: 'Michael Kodinsky',
+            knowsAbout: fundingSolutions.map(s => s.title),
+          }),
+          getFinancialServiceSchema({
+            id: solution.id,
+            title: solution.title,
+            shortDesc: solution.shortDesc,
+            fullDesc: solution.fullDesc,
+            features: solution.features,
+            ratesAndTerms: solution.ratesAndTerms,
+          }),
+        ]}
       />
 
       <SolutionDetailClient solution={solution}>
@@ -266,6 +257,49 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
             </Container>
           </Section>
         )}
+
+        {/* Related Blog Posts / Case Studies */}
+        {(() => {
+          const relatedPosts = blogPosts.filter(post =>
+            post.relatedSolutions?.includes(solution.id)
+          ).slice(0, 3)
+
+          return relatedPosts.length > 0 ? (
+            <Section background="gray">
+              <Container>
+                <div className="max-w-4xl mx-auto">
+                  <Heading size="h2" className="mb-4">See It In Action</Heading>
+                  <Text size="lg" className="text-gray-700 mb-8">
+                    Real companies using {solution.title} to solve their capital challenges
+                  </Text>
+                  <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {relatedPosts.map(post => (
+                      <StaggerItem key={post.id}>
+                        <Link href={`/blog/${post.id}`} className="group h-full">
+                          <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-2 bg-white flex flex-col">
+                            <Heading size="h3" className="mb-3 text-olive-900 group-hover:text-gold-500 transition-colors line-clamp-2">
+                              {post.title}
+                            </Heading>
+                            <Text className="text-gray-700 text-sm mb-4 flex-grow">
+                              {post.excerpt}
+                            </Text>
+                            <Text className="text-xs text-gray-600 mb-4">
+                              {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                            </Text>
+                            <div className="flex items-center gap-2 text-gold-500 group-hover:gap-3 transition-all">
+                              <span className="text-sm font-semibold">Read Story</span>
+                              <ChevronRight size={16} />
+                            </div>
+                          </Card>
+                        </Link>
+                      </StaggerItem>
+                    ))}
+                  </StaggerContainer>
+                </div>
+              </Container>
+            </Section>
+          ) : null
+        })()}
 
         {/* Related Solutions */}
         <Section>

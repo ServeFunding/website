@@ -20,6 +20,11 @@ import { fundingCases } from '@/data/fundingData'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CaseStudyModal } from '@/components/CaseStudyModal'
 import { CTA } from '@/components/cta'
+import { Breadcrumb } from '@/components/breadcrumb'
+import { SchemaRenderer } from '@/components/SchemaRenderer'
+import { getOrganizationSchema } from '@/lib/schema-generators'
+import { companyInfo } from '@/data/company-info'
+import { fundingSolutions } from '@/data/solutions'
 
 function generateSlug(text: string): string {
   return text.toLowerCase().replace(/\s+/g, '-')
@@ -37,6 +42,18 @@ export default function Fundings() {
   const [selectedStudy, setSelectedStudy] = useState<typeof caseStudies[0] | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  const organizationSchema = getOrganizationSchema({
+    name: companyInfo.name,
+    description: companyInfo.description,
+    url: 'https://servefunding.com',
+    phone: companyInfo.contact.phone,
+    email: companyInfo.contact.email,
+    address: companyInfo.contact.address,
+    foundingDate: '2021',
+    founderName: 'Michael Kodinsky',
+    knowsAbout: fundingSolutions.map(s => s.title),
+  })
+
   const openModal = (study: typeof caseStudies[0]) => {
     setSelectedStudy(study)
     setIsModalOpen(true)
@@ -44,6 +61,12 @@ export default function Fundings() {
 
   return (
     <div className="bg-white font-sans text-gray-800">
+      {/* Schema Markup */}
+      <SchemaRenderer schema={organizationSchema} />
+
+      {/* Breadcrumb - includes schema */}
+      <Breadcrumb items={[{ label: 'Fundings' }]} />
+
       {/* Hero Section */}
       <HeroFadeIn
         title="Creative Working Capital Solutions"

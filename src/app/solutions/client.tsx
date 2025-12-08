@@ -32,8 +32,8 @@ export function SolutionsClient() {
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
       <HeroFadeIn
-        title="The Right Funding for Your Business"
-        subtitle="Serve Funding offers 10+ working capital solutions including asset-based lending, invoice factoring, equipment leasing, PO financing, government contracts, inventory financing, and unsecured loans. Funding range: $250K-$100MM. Fast decisions within 24 hours. Trusted by manufacturers, distributors, and professional services firms."
+        title="When Banks Say No, We Say How"
+        subtitle="Explore 10+ alternative funding solutions from $250K-$100MM. From emergency payroll financing to debt refinance and MCA consolidation, we help growing businesses access creative working capital when traditional banks decline. Fast decisions, flexible terms, and a channel-neutral advisor fighting for your best interests."
       />
 
       {/* Solutions Overview with CTA */}
@@ -89,10 +89,10 @@ export function SolutionsClient() {
             <StaggerItem>
               <Card className="p-8 h-full">
                 <Heading size="h4" className="mb-4 text-olive-900">
-                  Tailored Solutions
+                  Channel-Neutral Advisor
                 </Heading>
                 <Text className="text-gray-700">
-                  Every business is unique. Our funding options are customized to your specific needs.
+                  We are not a lender. We are your advocate with access to 30+ lenders across multiple underwriting styles. We fight to negotiate the best terms for you.
                 </Text>
               </Card>
             </StaggerItem>
@@ -100,10 +100,10 @@ export function SolutionsClient() {
             <StaggerItem>
               <Card className="p-8 h-full">
                 <Heading size="h4" className="mb-4 text-olive-900">
-                  Expert Guidance
+                  Fast Decisions
                 </Heading>
                 <Text className="text-gray-700">
-                  Our team has years of experience in structuring financing that drives growth.
+                  Most solutions close in 3-10 business days. Emergency payroll funding in 24-72 hours. When time matters, we deliver.
                 </Text>
               </Card>
             </StaggerItem>
@@ -111,10 +111,10 @@ export function SolutionsClient() {
             <StaggerItem>
               <Card className="p-8 h-full">
                 <Heading size="h4" className="mb-4 text-olive-900">
-                  Flexible Terms
+                  Relationships Over Bots
                 </Heading>
                 <Text className="text-gray-700">
-                  We offer flexible terms that adapt as your business evolves.
+                  No automated platforms. No algorithms. Just trusted advisors who understand your story and protect your best interests.
                 </Text>
               </Card>
             </StaggerItem>
@@ -130,6 +130,69 @@ export function SolutionsClient() {
           </FadeIn>
         </Container>
       </Section>
+
+      {/* Client Testimonials Section */}
+      <Section background="white" className="py-20">
+        <Container>
+          <FadeIn className="text-center mb-16">
+            <Heading size="h2" className="mb-4">What Our Clients Say</Heading>
+            <Text size="lg" className="text-gray-700 max-w-2xl mx-auto">
+              Hear from business owners and advisors who've experienced the Serve Funding difference
+            </Text>
+          </FadeIn>
+
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
+            <StaggerItem>
+              <Card className="p-8 bg-gold-50 border border-gold-200 h-full flex flex-col">
+                <Text className="text-gray-800 italic mb-6 flex-grow">
+                  "We could have worked with multiple lenders over these 5 years. But Serve Funding started with understanding, not with products. They designed solutions around our mission, not theirs. That's why we keep choosing them."
+                </Text>
+                <div>
+                  <Heading size="h4" className="text-olive-900 mb-1">Label Manufacturer, Texas</Heading>
+                  <Text className="text-sm text-gray-600">$1.65MM deployed over 5 years • 67% revenue growth</Text>
+                </div>
+              </Card>
+            </StaggerItem>
+
+            <StaggerItem>
+              <Card className="p-8 bg-gold-50 border border-gold-200 h-full flex flex-col">
+                <Text className="text-gray-800 italic mb-6 flex-grow">
+                  "When our bank wouldn't increase our line, we were stuck. Serve Funding not only found us $1MM in PO financing, they did it through relationships they'd built. Speed, flexibility, and advisors who actually cared about our growth."
+                </Text>
+                <div>
+                  <Heading size="h4" className="text-olive-900 mb-1">Coffee Trader, International</Heading>
+                  <Text className="text-sm text-gray-600">$1MM facility • Scaled with demand surge</Text>
+                </div>
+              </Card>
+            </StaggerItem>
+
+            <StaggerItem>
+              <Card className="p-8 bg-gold-50 border border-gold-200 h-full flex flex-col">
+                <Text className="text-gray-800 italic mb-6 flex-grow">
+                  "Our surgeon client was about to lose a major exit because of a cash gap. Serve Funding closed in less than 2 weeks. The quality of their relationships and speed of execution made us the hero in our client's story."
+                </Text>
+                <div>
+                  <Heading size="h4" className="text-olive-900 mb-1">Private Banker, Southeast</Heading>
+                  <Text className="text-sm text-gray-600">$1.475MM bridge • 2-week close</Text>
+                </div>
+              </Card>
+            </StaggerItem>
+
+            <StaggerItem>
+              <Card className="p-8 bg-gold-50 border border-gold-200 h-full flex flex-col">
+                <Text className="text-gray-800 italic mb-6 flex-grow">
+                  "We hit our bank line ceiling but were still growing 30% YoY. Serve Funding provided 3 different options with different lenders. They educated us, explained the trade-offs, and let us decide. That's the opposite of how fintech platforms work."
+                </Text>
+                <div>
+                  <Heading size="h4" className="text-olive-900 mb-1">Medical Device Manufacturer, Florida</Heading>
+                  <Text className="text-sm text-gray-600">$3.35MM over 10 months • 30%+ growth</Text>
+                </div>
+              </Card>
+            </StaggerItem>
+          </StaggerContainer>
+        </Container>
+      </Section>
+
       {/* Detailed Solutions Section */}
       <Section background="white" className="py-20">
         <Container>

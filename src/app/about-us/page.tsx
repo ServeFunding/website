@@ -12,6 +12,11 @@ import {
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CTA } from '@/components/cta'
 import { LogoGrid } from '@/components/LogoGrid'
+import { Breadcrumb } from '@/components/breadcrumb'
+import { SchemaRenderer } from '@/components/SchemaRenderer'
+import { getOrganizationSchema } from '@/lib/schema-generators'
+import { companyInfo } from '@/data/company-info'
+import { fundingSolutions } from '@/data/solutions'
 import { COLORS } from '@/lib/colors'
 import type { Metadata } from 'next'
 
@@ -49,12 +54,30 @@ const coreValues = [
 ]
 
 export default function AboutUs() {
+  const organizationSchema = getOrganizationSchema({
+    name: companyInfo.name,
+    description: companyInfo.description,
+    url: 'https://servefunding.com',
+    phone: companyInfo.contact.phone,
+    email: companyInfo.contact.email,
+    address: companyInfo.contact.address,
+    foundingDate: '2021',
+    founderName: 'Michael Kodinsky',
+    knowsAbout: fundingSolutions.map(s => s.title),
+  })
+
   return (
     <div className="bg-white font-sans text-gray-800">
+      {/* Schema Markup */}
+      <SchemaRenderer schema={organizationSchema} />
+
+      {/* Breadcrumb - includes schema */}
+      <Breadcrumb items={[{ label: 'About Us' }]} />
+
       {/* Hero Section */}
       <HeroFadeIn
-        title="Working Capital Advisory"
-        subtitle="Serve Funding is a boutique working capital advisory firm providing creative financing solutions from $250K to $100MM for mid-market businesses. Founded in 2021, we specialize in asset-based lending, invoice factoring, equipment leasing, and specialized funding for growing companies seeking fast, flexible capital."
+        title="Your Trusted Strategic Partner"
+        subtitle="Serve Funding is a boutique working capital advisory firm that fights for your best interests. We provide creative financing solutions from $250K to $100MM—not as a lender, but as your channel-neutral advisor. Founded in 2021, we specialize in asset-based lending, debt refinance, payroll financing, and alternative capital for growing companies when banks say no."
       />
 
       {/* Founder's Story Section */}
@@ -165,9 +188,9 @@ export default function AboutUs() {
       <Section background="white" style={{ backgroundColor: COLORS.primary }}>
         <Container>
           <FadeIn>
-            <div className="max-w-5xl mx-auto rounded-3xl p-12 bg-white">
+            <div className="max-w-5xl mx-auto rounded-3xl p-12 mt-28 bg-white">
               {/* Full Width Heading */}
-              <Heading size="h2">
+              <Heading size="h2" className='!mt-0'>
                 We Believe Relationships {'>'} Bots
               </Heading>
 

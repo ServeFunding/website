@@ -16,7 +16,7 @@ export const CTA = ({ title, text, buttonText, href = "/contact-us", source, use
   return (
     <Section background={useBG ? "gray" : "white"}>
       <Container>
-        <FadeIn className="text-center mb-16">
+        <FadeIn className="text-center">
           <Heading size="h2">{title}</Heading>
           <Text className="mt-4 text-gray-600 max-w-2xl mx-auto mb-8">
             {text}

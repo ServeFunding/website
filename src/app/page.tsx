@@ -42,22 +42,22 @@ const IntroCallForm = dynamic(() => import('@/components/Forms').then(mod => ({ 
 
 const heroSlides = [
   {
-    heading: "The Right Funding Solutions for Healthy Business Growth",
-    desc: "An advisory service committed to serve the best interests of your company's current needs and future goals.",
+    heading: "When Banks Say No, We Say How",
+    desc: "Your trusted advisor for creative working capital from $250K to $100MM. We fight for your best interests, not a lender's bottom line.",
     image: "/home/right funding solutions.webp",
     width: 1024,
     height: 832
   },
   {
-    heading: "You Value Relationships Over Bots & Quick Fixes",
-    desc: "We partner with like-minded business leaders who want trusted advisors in their corner to ensure they make the best decisions.",
+    heading: "Relationships Over Bots. Strategy Over Algorithms.",
+    desc: "Tired of automated platforms and generic funding advice? Partner with a boutique advisory that truly understands your story.",
     image: "/home/value relationships over bots.webp",
     width: 1024,
     height: 819
   },
   {
-    heading: "Creative Working Capital Empowering Entrepreneurs",
-    desc: "Because your company is unique, you want partners who truly understand your story and align with your objectives.",
+    heading: "Creative Working Capital Built for Your Growth",
+    desc: "From payroll emergencies to strategic acquisitions, we deliver fast, flexible funding tailored to your business—not a one-size-fits-all algorithm.",
     image: "/home/creative working capital.webp",
     width: 1024,
     height: 945
@@ -70,7 +70,7 @@ export default function Home() {
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
       <div className="overflow-hidden h-screen">
-        <HeroAnimation>
+        <HeroAnimation defer={true}>
           <HeroCarousel slides={heroSlides} />
         </HeroAnimation>
       </div>
@@ -79,7 +79,7 @@ export default function Home() {
       <Section>
         <Container>
           <FadeIn className="text-center mb-20">
-            <Heading size="h2" className="mb-3">Need Business Growth Capital?<br />We Are Here to Serve You.</Heading>
+            <Heading size="h2" className="mb-3">Your Trusted Advisor, Not a Transaction.<br />We Are Here to Serve You.</Heading>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
@@ -87,17 +87,17 @@ export default function Home() {
               {
                 title: "Transparent",
                 icon: Search,
-                desc: "We value honest, open communication. We believe that transparency is where trust-based relationships begin."
+                desc: "We communicate honestly to build long-term, trust-based relationships. Transparency is where great partnerships begin."
               },
               {
                 title: "Timely",
                 icon: Clock,
-                desc: "Time is your most valuable resource. We invest our time and expertise to ensure an efficient process."
+                desc: "Your time is precious. We invest our expertise to deliver fast funding—often in 3-10 business days—without sacrificing quality."
               },
               {
                 title: "Trusted",
                 icon: Shield,
-                desc: "We represent your firm to our trusted lender partners to protect your best interests."
+                desc: "As your channel-neutral advisor, we fight to negotiate the best terms and protect your best interests with every lender."
               }
             ].map((item, index) => (
               <StaggerItem key={index} className={index === 1 ? "md:-translate-y-6 relative z-10" : ""}>
@@ -132,6 +132,37 @@ export default function Home() {
         </Container>
       </Section>
 
+      {/* Metrics Section */}
+      <Section background="white">
+        <Container>
+          <FadeIn className="text-center mb-16">
+            <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+              {[
+                { metric: "$50MM+", label: "Capital Deployed" },
+                { metric: "100+", label: "Companies Funded" },
+                { metric: "65%", label: "Repeat Client Rate" },
+                { metric: "3-10 Days", label: "Average Funding Time" }
+              ].map((item, index) => (
+                <StaggerItem key={index} className="text-center">
+                  <Heading size="h3" className="text-gold-500 mb-2">{item.metric}</Heading>
+                  <Text className="text-sm text-gray-600">{item.label}</Text>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </FadeIn>
+
+          <FadeIn>
+            <Card className="p-12 bg-gold-50 border border-gold-200 max-w-3xl mx-auto text-center">
+              <Text size="lg" className="text-gray-800 italic mb-6">
+                "We could have worked with multiple lenders over these 5 years. But Serve Funding started with understanding, not with products. They designed solutions around our mission, not theirs. That's why we keep choosing them."
+              </Text>
+              <Heading size="h4" className="text-olive-900">Label Manufacturer, Texas</Heading>
+              <Text className="text-sm text-gray-600">$1.65MM deployed over 5 years • 67% revenue growth</Text>
+            </Card>
+          </FadeIn>
+        </Container>
+      </Section>
+
       {/* Funding Solutions Section */}
       <Section background="gray">
         <Container>
@@ -143,16 +174,16 @@ export default function Home() {
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 max-w-5xl mx-auto">
             {[
-              "Financing Periods Of Rapid Growth",
-              "The Bank Says \"No,\" Or Calls Your Line",
+              "When Banks Say \"No,\" Or Call Your Line",
+              "Refinance High-Cost Debt & MCA Consolidation",
+              "Emergency Payroll Financing (24-72 Hours)",
               "Fund New Contracts & Purchase Orders",
+              "Financing Periods Of Rapid Growth",
               "Unsecured Loans & Lines Of Credit",
               "Bridge Funding For Short-Term Gaps",
               "M & A: Capital For Strategic Acquisitions",
-              "Longer Payment Terms: Net-60, Net-90 +",
               "Working Capital For Seasonal Shortfalls",
-              "MCA (Cash Advance) Consolidations",
-              "Cover Unexpected Payroll Shortfalls"
+              "Cash Out Equity From Real Estate"
             ].map((item, index) => (
               <StaggerItem key={index} className="flex items-start gap-4 group">
                 <div className="mt-1 p-1 bg-gold-500/20 rounded-full">
@@ -312,6 +343,54 @@ export default function Home() {
               <Button variant="white" size="lg">Explore All Fundings</Button>
             </Link>
           </FadeIn>
+        </Container>
+      </Section>
+
+      {/* For Advisors Section */}
+      <Section background="white">
+        <Container>
+          <div className="max-w-3xl mx-auto">
+            <FadeIn className="text-center mb-12">
+              <Heading size="h2" className="mb-4">For Bankers & Advisors</Heading>
+              <Text size="lg" className="text-gray-700">
+                When your client needs capital you can't provide, a Serve Funding referral strengthens your relationship—it doesn't weaken it.
+              </Text>
+            </FadeIn>
+
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              {[
+                {
+                  title: "You Stay the Hero",
+                  desc: "We handle the capital sourcing and negotiation. You remain the trusted advisor who had the right answer when it mattered."
+                },
+                {
+                  title: "Deepen Client Relationships",
+                  desc: "Clients remember advisors who solve problems. Referrals often lead to expanded banking relationships and increased client loyalty."
+                },
+                {
+                  title: "No Competition",
+                  desc: "We're not lenders competing with you. We're a channel-neutral partner strengthening the relationships you've built."
+                },
+                {
+                  title: "Fast Outcomes",
+                  desc: "Deals close in 3-10 business days. Your clients get funded quickly. You get credited for the solution."
+                }
+              ].map((item, index) => (
+                <StaggerItem key={index}>
+                  <Card className="p-6 bg-gray-50 hover:shadow-lg transition-all duration-300 h-full">
+                    <Heading size="h3" className="text-olive-900 mb-3">{item.title}</Heading>
+                    <Text className="text-gray-700">{item.desc}</Text>
+                  </Card>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+
+            <FadeIn className="text-center">
+              <Link href="/refer">
+                <Button variant="gold" size="lg">Explore Our Advisor Program</Button>
+              </Link>
+            </FadeIn>
+          </div>
         </Container>
       </Section>
 

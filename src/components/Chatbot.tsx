@@ -6,18 +6,22 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { getAIResponse } from '@/lib/ai'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { trackChatbotSessionStart, trackChatbotMessage } from '@/lib/tracking'
+import { AIIntroForm } from './Forms'
 
 interface Message {
   id: string
   text: string
   sender: 'user' | 'bot'
   timestamp: Date
+  actionButtons?: Array<{ label: string; action: string }>
 }
 
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
   const [hasShownNotification, setHasShownNotification] = useState(false)
+  const [showIntroModal, setShowIntroModal] = useState(false)
+  const [aiContext, setAiContext] = useState('')
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -99,11 +103,24 @@ export function Chatbot() {
       // Get AI response with conversation history
       const reply = await getAIResponse(inputValue, messages)
 
+      // Parse JSON response (guaranteed to be JSON via API response_format)
+      const parsed = JSON.parse(reply)
+      const displayText = parsed.message
+      const showForm = parsed.showForm === true
+      const context = parsed.context || ''
+
+      if (showForm) {
+        setAiContext(context)
+      }
+
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: reply,
+        text: displayText,
         sender: 'bot',
         timestamp: new Date(),
+        actionButtons: showForm ? [
+          { label: 'Connect with team', action: 'open_intro_modal' }
+        ] : undefined
       }
       setMessages((prev) => [...prev, botMessage])
     } catch (error) {
@@ -119,6 +136,23 @@ export function Chatbot() {
       setIsLoading(false)
     }
   }, [inputValue, messages])
+
+  const handleActionButtonClick = useCallback((action: string) => {
+    if (action === 'open_intro_modal') {
+      setShowIntroModal(true)
+    }
+  }, [])
+
+  const handleIntroFormSubmit = useCallback(() => {
+    // Add thank you message
+    const thankYouMessage: Message = {
+      id: Date.now().toString(),
+      text: "Thanks for filling out the form! We've got your information and will reach out soon to connect you with the right person. Is there anything else I can help you with in the meantime?",
+      sender: 'bot',
+      timestamp: new Date(),
+    }
+    setMessages((prev) => [...prev, thankYouMessage])
+  }, [])
 
   return (
     <>
@@ -239,7 +273,7 @@ export function Chatbot() {
                   key={message.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                  className={`flex flex-col ${message.sender === 'user' ? 'items-end' : 'items-start'}`}
                 >
                   <div
                     style={{
@@ -254,6 +288,24 @@ export function Chatbot() {
                   >
                     <p className="text-sm">{message.text}</p>
                   </div>
+                  {/* Action Buttons */}
+                  {message.actionButtons && message.actionButtons.length > 0 && (
+                    <div className="flex gap-2 mt-3">
+                      {message.actionButtons.map((btn, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => handleActionButtonClick(btn.action)}
+                          style={{
+                            backgroundColor: BRAND_COLORS.secondary,
+                            color: '#333333',
+                          }}
+                          className="text-sm px-3 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity"
+                        >
+                          {btn.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               ))}
 
@@ -317,6 +369,43 @@ export function Chatbot() {
               </div>
             </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* AI Intro Form Modal */}
+      <AnimatePresence>
+        {showIntroModal && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowIntroModal(false)}
+              className="fixed inset-0 bg-black/50 z-[60]"
+            />
+
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-0"
+            >
+              <AIIntroForm
+                aiMessage={aiContext || 'I would like to learn more about your services.'}
+                conversationContext={messages
+                  .filter(m => m.sender === 'user')
+                  .map(m => m.text)
+                  .join('\n')}
+                onClose={() => {
+                  setShowIntroModal(false)
+                  handleIntroFormSubmit()
+                }}
+              />
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

@@ -16,6 +16,11 @@ import {
 import { FeatureList } from '@/components/FeatureList'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { PartnerInquiryForm } from '@/components/Forms'
+import { Breadcrumb } from '@/components/breadcrumb'
+import { SchemaRenderer } from '@/components/SchemaRenderer'
+import { getOrganizationSchema } from '@/lib/schema-generators'
+import { companyInfo } from '@/data/company-info'
+import { fundingSolutions } from '@/data/solutions'
 
 interface PartnerType {
   title: string
@@ -148,8 +153,26 @@ const testimonials = [
 ]
 
 export default function Partners() {
+  const organizationSchema = getOrganizationSchema({
+    name: companyInfo.name,
+    description: companyInfo.description,
+    url: 'https://servefunding.com',
+    phone: companyInfo.contact.phone,
+    email: companyInfo.contact.email,
+    address: companyInfo.contact.address,
+    foundingDate: '2021',
+    founderName: 'Michael Kodinsky',
+    knowsAbout: fundingSolutions.map(s => s.title),
+  })
+
   return (
     <div className="bg-white font-sans text-gray-800">
+      {/* Schema Markup */}
+      <SchemaRenderer schema={organizationSchema} />
+
+      {/* Breadcrumb - includes schema */}
+      <Breadcrumb items={[{ label: 'Partners' }]} />
+
       {/* Hero Section */}
       <HeroFadeIn
         title="Our Trusted Advisor Partners"
@@ -165,7 +188,7 @@ export default function Partners() {
                 The Referral Challenge
               </Heading>
               <Text size="lg" className="text-gray-700 mb-8">
-                We know the reality: when you refer a client to an alternative lender, you often don't see a second win. Time gets wasted. Relationships get strained.
+                We know the reality: when you refer a client to a partner, a little part of your reputation goes with it. We protect that trust.
               </Text>
             </FadeIn>
 
@@ -190,9 +213,9 @@ export default function Partners() {
 
               <StaggerItem>
                 <Card className="bg-white border-l-4 border-gold-500 p-8">
-                  <Heading size="h3" className="text-olive-900 mb-3">You Look Like the Hero</Heading>
+                  <Heading size="h3" className="text-olive-900 mb-3">When We Solve for You, You Look Like the Hero</Heading>
                   <Text className="text-gray-700 leading-relaxed">
-                    When we come through for your prospect, they remember that you went out of your way. They see you as the banker who didn't give up, who found a solution. They often come back to you as a stronger, more loyal client. When we solve for your existing clients, you protect that relationship by being the one who delivered. Either way—you've deepened trust, enhanced your reputation, and positioned yourself as the banker your clients can count on.
+                    When we come through for your prospect, they remember that you went out of your way. They see you as the banker who didn't give up, who found a solution. They often come back to you as a stronger, more loyal client. When we solve for your existing clients, you strengthen that relationship by being the one who delivered. Either way—you've deepened trust, enhanced your reputation, and positioned yourself as the trusted advisor your clients can count on.
                   </Text>
                 </Card>
               </StaggerItem>

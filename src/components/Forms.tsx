@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { CheckCircle, X } from 'lucide-react'
 import {
   Section,
   Container,
@@ -16,12 +17,68 @@ import {
 import { trackFormSubmission, useHubSpotFormTracking } from '@/lib/tracking'
 import { COLORS } from '@/lib/colors'
 
-// Formspree URLs for different form types
-export const FORM_URLS = {
-  intro_call: 'https://formspree.io/f/xrbjwwlp',
-  referral: 'https://formspree.io/f/xrbjwwyp',
-  partner_inquiry: 'https://formspree.io/f/xzzwpyqv',
-  newsletter: 'https://formspree.io/f/xrbjwwlp',
+// Success message component with animated checkmark
+function FormSuccessMessage({ message }: { message: string }) {
+  return (
+    <div className="text-center py-12">
+      <motion.div
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="mb-4 flex justify-center"
+      >
+        <CheckCircle className="w-12 h-12" style={{ color: COLORS.primary }} />
+      </motion.div>
+      <FadeIn>
+        <p className="text-lg text-gray-700">{message}</p>
+      </FadeIn>
+    </div>
+  )
+}
+
+// Hook for form submission logic
+function useFormSubmit(formType: string, webhookUrl?: string) {
+  const [success, setSuccess] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const form = e.currentTarget
+
+    // Call webhook if provided
+    if (webhookUrl) {
+      try {
+        const formData = new FormData(form)
+        const data: Record<string, string> = {}
+
+        // Convert FormData to plain object
+        formData.forEach((value, key) => {
+          data[key] = value as string
+        })
+
+        console.log('Submitting form data to webhook:', data)
+
+        // Send to webhook
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        })
+
+        console.log('Webhook response:', response.status, response.statusText)
+      } catch (error) {
+        console.error('Webhook submission error:', error)
+        // Continue with success even if webhook fails
+      }
+    }
+
+    setSuccess(true)
+    form.reset()
+    trackFormSubmission(formType)
+  }
+
+  return { success, handleSubmit }
 }
 
 // Form Container with consistent styling across all forms
@@ -29,191 +86,147 @@ function FormContainer({
   children,
   title,
   subtitle,
-  background = "olive"
+  background = "primary"
 }: {
   children: React.ReactNode
   title: string
   subtitle?: string
-  background?: "olive" | "gray"
+  background?: "primary" | "light"
 }) {
+  const isDarkBackground = background === "primary"
+
   return (
-    <Section background={background} className={`${title ? '' : '!pt-0'} overflow-visible`}>
-      <Container>
-        <div className="max-w-4xl mx-auto">
+    <Section background={background} className='overflow-visible'>
+      <Container className='flex flex-col items-center !max-w-5xl'>
           {title && (
             <FadeIn className="text-center mb-12">
-              <Heading size="h2" color={background === "olive" ? "white" : "default"}>
+              <Heading size="h2" color={isDarkBackground ? "white" : "default"}>
                 {title}
               </Heading>
               {subtitle && (
-                <Text size="lg" color={background === "olive" ? "white" : "default"} className="mt-2">
+                <Text size="lg" color={isDarkBackground ? "white" : "default"} className="mt-2">
                   {subtitle}
                 </Text>
               )}
             </FadeIn>
           )}
-          <FadeIn delay={0.2}>
-            <Card variant="default" className="!p-0 md:p-12 bg-white min-h-[500px]">
+          <FadeIn delay={0.2} className='w-full'>
+            <Card variant="default" className="md:p-12 bg-white">
               {children}
             </Card>
           </FadeIn>
-        </div>
       </Container>
     </Section>
   )
 }
 
-// Standard Lead Form (for homepage, solutions, fundings, contact, etc.) - using HubSpot
+// Standard Lead Form (for homepage, solutions, fundings, contact, etc.)
 interface IntroCallFormProps {
   title?: string
   subtitle?: string
 }
 
 export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallFormProps = {}) {
+  const { success, handleSubmit } = useFormSubmit('intro_call')
+
   return (
     <FormContainer title={title} subtitle={subtitle}>
-      <HubSpotContactForm />
-    </FormContainer>
-  )
-}
-
-// Referral Form (for refer page)
-export function ReferralForm() {
-  const handleSubmit = () => {
-    trackFormSubmission('referral')
-  }
-
-  return (
-    <FormContainer
-      title="Submit a Referral"
-      subtitle="Tell us about your client and how we can help. Our team will review the information and follow up promptly."
-      background="gray"
-    >
-      <form action={FORM_URLS.referral} method="POST" className="space-y-6" onSubmit={handleSubmit}>
-        {/* Banker Information Section */}
-        <div>
-          <Heading size="h3" className="mb-4" style={{ color: COLORS.primary }}>
-            Your Information
-          </Heading>
-
-          <FormGroup columns={2} className="mb-4">
-            <FormInput type="text" name="banker_first_name" label="First Name" required />
-            <FormInput type="text" name="banker_last_name" label="Last Name" required />
+      {success ? (
+        <FormSuccessMessage message="Thank you. We'll be in touch within 24 hours." />
+      ) : (
+        <form className="form-intro_call flex flex-col gap-6" onSubmit={handleSubmit}>
+          <FormGroup columns={2}>
+            <FormInput type="text" name="firstname" label="First Name" required />
+            <FormInput type="text" name="lastname" label="Last Name" required />
           </FormGroup>
 
-          <FormGroup columns={2} className="mb-4">
-            <FormInput type="email" name="banker_email" label="Email Address" required />
-            <FormInput type="tel" name="banker_phone" label="Phone Number" required />
+          <FormInput type="email" name="email" label="Email Address" required />
+
+          <FormGroup columns={2}>
+            <FormInput type="text" name="company" label="Company Name" required />
+            <FormInput type="tel" name="phone" label="Phone Number" required />
           </FormGroup>
 
-          <FormInput type="text" name="banker_institution" label="Bank/Institution Name" required />
-        </div>
-
-        {/* Client Information Section */}
-        <div>
-          <Heading size="h3" className="mb-4" style={{ color: COLORS.primary }}>
-            Client Information
-          </Heading>
-
-          <FormGroup columns={2} className="mb-4">
-            <FormInput type="text" name="client_first_name" label="First Name" required />
-            <FormInput type="text" name="client_last_name" label="Last Name" required />
-          </FormGroup>
-
-          <FormInput type="text" name="client_company" label="Company Name" required />
-
-          <FormGroup columns={2} className="mb-4">
-            <FormInput type="email" name="client_email" label="Email Address" required />
-            <FormInput type="tel" name="client_phone" label="Phone Number" required />
-          </FormGroup>
-
-          <FormInput type="text" name="client_industry" label="Industry (e.g., Manufacturing, Retail)" required />
-          <FormInput type="text" name="client_capital_needed" label="Capital Needed (e.g., $250K - $1MM)" required />
+          <FormInput type="text" name="capital_for" label="Capital Needed (e.g., $250K - $1MM)" />
 
           <FormInput
             as="textarea"
-            name="client_needs"
+            name="contact_us_details"
             rows={4}
-            label="How can Serve Funding help? (Briefly describe your client's funding needs...)"
+            label="Tell us about your funding needs..."
           />
-        </div>
 
-        <Button variant="default" size="lg" className="w-full" type="submit">Submit Referral</Button>
-      </form>
+          <Button variant="default" size="lg" className="w-full" type="submit">Schedule Your Intro Call</Button>
+        </form>
+      )}
     </FormContainer>
   )
 }
 
 // Partner Inquiry Form (for partners page)
 export function PartnerInquiryForm() {
+  const { success, handleSubmit } = useFormSubmit('partner_inquiry')
+
   return (
     <FormContainer title="Let's Connect" subtitle="Please fill out this form and we'll schedule a call">
-      <HubSpotPartnershipForm />
+      {success ? (
+        <FormSuccessMessage message="Thank you. We'll be in touch soon to discuss partnership opportunities." />
+      ) : (
+        <form className="form-partner_inquiry flex flex-col gap-6" onSubmit={handleSubmit}>
+          <FormGroup columns={2}>
+            <FormInput type="text" name="firstname" label="First Name" required />
+            <FormInput type="text" name="lastname" label="Last Name" required />
+          </FormGroup>
+
+          <FormInput type="text" name="company" label="Company Name" required />
+
+          <FormGroup columns={2}>
+            <FormInput type="email" name="email" label="Email Address" required />
+            <FormInput type="tel" name="phone" label="Phone Number" required />
+          </FormGroup>
+
+          <FormInput type="text" name="partnership_for__commercial_banking__advisory_" label="Partnership For (Commercial Banking, Advisory, etc.)" />
+
+          <FormInput
+            as="textarea"
+            name="contact_us_details"
+            rows={4}
+            label="Tell us about your partnership interest..."
+          />
+
+          <Button variant="default" size="lg" className="w-full" type="submit">Send Inquiry</Button>
+        </form>
+      )}
     </FormContainer>
   )
 }
 
-// Factory function to create HubSpot form components
-function createHubSpotForm(formId: string, formType: string) {
+// HubSpot Newsletter Modal Form (kept as is for modal popup)
+function createHubSpotModalForm(formId: string, formType: string) {
   return function HubSpotForm() {
-    return <HubSpotFormLazy formId={formId} formType={formType} />
+    const [isMounted, setIsMounted] = useState(false)
+    useHubSpotFormTracking(formType)
+
+    useEffect(() => {
+      setIsMounted(true)
+    }, [])
+
+    // Only render form div on client to avoid hydration mismatch
+    if (!isMounted) return null
+
+    return (
+      <div className="hs-form-frame" data-region="na1" data-form-id={formId} data-portal-id="23433903"></div>
+    )
   }
 }
 
-function HubSpotFormLazy({ formId, formType }: { formId: string, formType: string }) {
-  const [isVisible, setIsVisible] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { rootMargin: '200px' }
-    )
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  return (
-    <div ref={containerRef} className="min-h-[100px]">
-      {isVisible ? (
-        <HubSpotFormContent formId={formId} formType={formType} />
-      ) : (
-        <div className="h-full w-full flex items-center justify-center text-gray-400">
-          Loading form...
-        </div>
-      )}
-    </div>
-  )
-}
-
-function HubSpotFormContent({ formId, formType }: { formId: string, formType: string }) {
-  useHubSpotFormTracking(formType)
-  
-  return (
-    <div className="hs-form-frame" data-region="na1" data-form-id={formId} data-portal-id="23433903"></div>
-  )
-}
-
-// HubSpot Form Components
-export const HubSpotContactForm = createHubSpotForm('8a572bcd-b7ce-45c4-bdab-bf2c78b69dac', 'hubspot_contact')
-export const HubSpotNewsletterForm = createHubSpotForm('6c04f5d5-c53e-41d0-9923-d57a6b1b92ec', 'hubspot_newsletter')
-export const HubSpotPartnershipForm = createHubSpotForm('4fe9c04e-0d8b-4567-ad88-720bce746884', 'hubspot_partnership')
-
-// Modal Newsletter Form
-export const HubSpotNewsletterModalForm = createHubSpotForm('f21673be-6ba2-48ca-8be2-870999c35ead', 'hubspot_newsletter_modal')
+export const HubSpotNewsletterModalForm = createHubSpotModalForm('f21673be-6ba2-48ca-8be2-870999c35ead', 'hubspot_newsletter_modal')
 
 
 // Newsletter Signup Form
 export function NewsletterForm() {
+  const { success, handleSubmit } = useFormSubmit('newsletter')
+
   return (
     <section className="py-20 relative overflow-hidden" style={{ backgroundColor: COLORS.background }}>
       <Container>
@@ -247,11 +260,112 @@ export function NewsletterForm() {
 
             {/* Form Card */}
             <Card variant="default" className="!p-0">
-              <HubSpotNewsletterForm />
+              {success ? (
+                <div className="px-6 sm:px-8">
+                  <FormSuccessMessage message="Check your email to confirm your subscription." />
+                </div>
+              ) : (
+                <form className="form-newsletter flex flex-col gap-4 p-6 sm:p-8" onSubmit={handleSubmit}>
+                  <FormInput
+                    type="text"
+                    name="firstname"
+                    label="First Name"
+                    placeholder="Your first name"
+                    required
+                  />
+
+                  <FormInput
+                    type="email"
+                    name="email"
+                    label="Email Address"
+                    placeholder="your@email.com"
+                    required
+                  />
+
+                  <Button variant="default" size="lg" className="w-full" type="submit">
+                    Subscribe
+                  </Button>
+
+                  <Text className="text-xs text-gray-500 text-center">
+                    We respect your privacy. Unsubscribe at any time.
+                  </Text>
+                </form>
+              )}
             </Card>
           </div>
         </div>
       </Container>
     </section>
+  )
+}
+
+// AI Intro Form Modal (called from chatbot)
+interface AIIntroFormProps {
+  aiMessage: string
+  conversationContext: string
+  onClose: () => void
+}
+
+export function AIIntroForm({ aiMessage, conversationContext, onClose }: AIIntroFormProps) {
+  const { success, handleSubmit } = useFormSubmit('ai_intro', '/api/webhook')
+
+  // Close modal on successful submission
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(onClose, 2000)
+      return () => clearTimeout(timer)
+    }
+  }, [success, onClose])
+
+  return (
+    <div className="bg-white rounded-lg shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+      {/* Header */}
+      <div className="bg-white px-6 py-4 sticky top-0 z-10 flex items-center justify-between">
+        <Heading size="h4">Connect with Our Team</Heading>
+        <button
+          onClick={onClose}
+          className="text-gray-400 hover:text-gray-600 p-1 rounded transition-colors"
+          aria-label="Close modal"
+        >
+          <X size={20} />
+        </button>
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        {success ? (
+          <FormSuccessMessage message="Thanks for connecting! We'll reach out shortly to discuss your needs." />
+        ) : (
+          <>
+            <form className="form-ai_intro flex flex-col gap-6" onSubmit={handleSubmit}>
+              <FormInput type="text" name="firstname" label="Name" placeholder="Your name" required />
+              <FormInput type="email" name="email" label="Email" placeholder="your@email.com" required />
+              <FormInput type="tel" name="phone" label="Phone Number" placeholder="(555) 123-4567" required />
+
+              <FormInput
+                as="textarea"
+                name="contact_us_details"
+                rows={3}
+                label="What we talked about"
+                value={aiMessage}
+                readOnly
+                className="bg-gray-50 cursor-not-allowed"
+              />
+
+              {/* Hidden field with full context */}
+              <input
+                type="hidden"
+                name="conversation_full_context"
+                value={conversationContext}
+              />
+
+              <Button variant="default" size="lg" className="w-full" type="submit">
+                Let's Connect
+              </Button>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
   )
 }

@@ -176,6 +176,12 @@ const nextConfig: NextConfig = {
         destination: "/faq",
         permanent: true, // 301 redirect for SEO
       },
+      // Refer page redirect to partners
+      {
+        source: "/refer",
+        destination: "/partners",
+        permanent: false, // 302 temporary redirect
+      },
     ];
   },
 };

@@ -139,8 +139,10 @@ const FloatingLeaf = memo(({
 
 export const HeroAnimation = ({
   children,
+  defer = false,
 }: {
   children?: React.ReactNode
+  defer?: boolean
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [leaves, setLeaves] = useState<Leaf[]>([])
@@ -152,8 +154,20 @@ export const HeroAnimation = ({
 
   // Generate initial background leaves (fewer on mobile) - defer until after hydration
   useEffect(() => {
-    setIsHydrated(true)
-  }, [])
+    if (defer) {
+      // If defer is true, wait for idle callback to initialize leaves
+      if ('requestIdleCallback' in window) {
+        const id = requestIdleCallback(() => setIsHydrated(true))
+        return () => cancelIdleCallback(id)
+      } else {
+        // Fallback for browsers without requestIdleCallback
+        const timer = setTimeout(() => setIsHydrated(true), 1000)
+        return () => clearTimeout(timer)
+      }
+    } else {
+      setIsHydrated(true)
+    }
+  }, [defer])
 
   useEffect(() => {
     if (!isHydrated) return

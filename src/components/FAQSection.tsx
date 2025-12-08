@@ -28,7 +28,7 @@ function FAQAccordionItem({ question, answer }: { question: string; answer: stri
         className="w-full p-6 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors text-left"
         aria-expanded={isOpen}
       >
-        <Heading size="h3" className="text-olive-900 pr-4">
+        <Heading size="h4" className="text-olive-900 pr-4">
           {question}
         </Heading>
         <ChevronDown
@@ -61,7 +61,7 @@ export function FAQSection({
       <Container>
         {/* Header */}
         <div className="max-w-3xl mx-auto mb-12 text-center">
-          <Heading size="h2" className="mb-4 text-olive-900">
+          <Heading size="h2">
             {title}
           </Heading>
           {description && (
