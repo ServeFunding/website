@@ -7,7 +7,7 @@ import { Heading, Text } from '@/components/ui'
 
 interface HeroSlide {
   heading: string
-  desc: string
+  desc: string | React.ReactNode
   image: string
   width: number
   height: number

@@ -42,22 +42,22 @@ const IntroCallForm = dynamic(() => import('@/components/Forms').then(mod => ({ 
 
 const heroSlides = [
   {
-    heading: "When Banks Say No, We Say How",
-    desc: "Your trusted advisor for creative working capital from $250K to $100MM. We fight for your best interests, not a lender's bottom line.",
+    heading: "The Right Funding Solutions for Healthy Business Growth",
+    desc: <>An advisory service committed to serve the best interests <br />of your company's current needs and future goals.</>,
     image: "/home/right funding solutions.webp",
     width: 1024,
     height: 832
   },
   {
-    heading: "Relationships Over Bots. Strategy Over Algorithms.",
-    desc: "Tired of automated platforms and generic funding advice? Partner with a boutique advisory that truly understands your story.",
+    heading: "You Value Relationships Over Bots & Quick Fixes",
+    desc: <>We partner with like-minded business leaders who want trusted advisors in their corner to ensure they make the best decisions.</>,
     image: "/home/value relationships over bots.webp",
     width: 1024,
     height: 819
   },
   {
-    heading: "Creative Working Capital Built for Your Growth",
-    desc: "From payroll emergencies to strategic acquisitions, we deliver fast, flexible funding tailored to your business—not a one-size-fits-all algorithm.",
+    heading: "Creative Working Capital Empowering Entrepreneurs",
+    desc: <>Because your company is unique, you want partners who <br />truly understand your story and align with your objectives.</>,
     image: "/home/creative working capital.webp",
     width: 1024,
     height: 945
