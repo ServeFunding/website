@@ -91,7 +91,7 @@ function FormContainer({
   children: React.ReactNode
   title: string
   subtitle?: string
-  background?: "primary" | "light"
+  background?: "primary" | "background"
 }) {
   const isDarkBackground = background === "primary"
 
@@ -100,18 +100,18 @@ function FormContainer({
       <Container className='flex flex-col items-center !max-w-5xl'>
           {title && (
             <FadeIn className="text-center mb-12">
-              <Heading size="h2" color={isDarkBackground ? "white" : "default"}>
+              <Heading size="h2" color={isDarkBackground ? "white" : "primary"}>
                 {title}
               </Heading>
               {subtitle && (
-                <Text size="lg" color={isDarkBackground ? "white" : "default"} className="mt-2">
+                <Text size="lg" color={isDarkBackground ? "white" : "primary"} className="mt-2">
                   {subtitle}
                 </Text>
               )}
             </FadeIn>
           )}
           <FadeIn delay={0.2} className='w-full'>
-            <Card variant="default" className="md:p-12 bg-white">
+            <Card className="md:p-12 bg-gray-100">
               {children}
             </Card>
           </FadeIn>
@@ -156,7 +156,9 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
             label="Tell us about your funding needs..."
           />
 
-          <Button variant="default" size="lg" className="w-full" type="submit">Schedule Your Intro Call</Button>
+          <div className="flex justify-center">
+            <Button variant="default" size="lg" type="submit">Schedule Your Intro Call</Button>
+          </div>
         </form>
       )}
     </FormContainer>
@@ -194,7 +196,9 @@ export function PartnerInquiryForm() {
             label="Tell us about your partnership interest..."
           />
 
-          <Button variant="default" size="lg" className="w-full" type="submit">Send Inquiry</Button>
+          <div className="flex justify-center">
+            <Button variant="default" size="lg" type="submit">Send Inquiry</Button>
+          </div>
         </form>
       )}
     </FormContainer>
@@ -259,7 +263,7 @@ export function NewsletterForm() {
             </div>
 
             {/* Form Card */}
-            <Card variant="default" className="!p-0">
+            <Card className="!p-0">
               {success ? (
                 <div className="px-6 sm:px-8">
                   <FormSuccessMessage message="Check your email to confirm your subscription." />
@@ -282,9 +286,11 @@ export function NewsletterForm() {
                     required
                   />
 
-                  <Button variant="default" size="lg" className="w-full" type="submit">
-                    Subscribe
-                  </Button>
+                  <div className="flex justify-center">
+                    <Button variant="default" size="lg" type="submit">
+                      Subscribe
+                    </Button>
+                  </div>
 
                   <Text className="text-xs text-gray-500 text-center">
                     We respect your privacy. Unsubscribe at any time.
@@ -359,9 +365,11 @@ export function AIIntroForm({ aiMessage, conversationContext, onClose }: AIIntro
                 value={conversationContext}
               />
 
-              <Button variant="default" size="lg" className="w-full" type="submit">
-                Let's Connect
-              </Button>
+              <div className="flex justify-center">
+                <Button variant="default" size="lg" type="submit">
+                  Let's Connect
+                </Button>
+              </div>
             </form>
           </>
         )}

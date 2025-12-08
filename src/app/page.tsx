@@ -181,13 +181,13 @@ export default function Home() {
               "Financing Periods Of Rapid Growth",
               "Unsecured Loans & Lines Of Credit",
               "Bridge Funding For Short-Term Gaps",
-              "M & A: Capital For Strategic Acquisitions",
+              "M&A: Capital For Strategic Acquisitions",
               "Working Capital For Seasonal Shortfalls",
               "Cash Out Equity From Real Estate"
             ].map((item, index) => (
               <StaggerItem key={index} className="flex items-start gap-4 group">
                 <div className="mt-1 p-1 bg-gold-500/20 rounded-full">
-                  <Leaf className="text-olive-900 flex-shrink-0" size={16} fill="currentColor" />
+                  <Leaf className="text-olive-900 flex-shrink-0" size={28} fill="currentColor" />
                 </div>
                 <span className="text-xl font-semibold text-gray-800 group-hover:text-olive-900 transition-colors">{item}</span>
               </StaggerItem>

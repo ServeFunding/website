@@ -32,8 +32,8 @@ export function SolutionsClient() {
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
       <HeroFadeIn
-        title="When Banks Say No, We Say How"
-        subtitle="Explore 10+ alternative funding solutions from $250K-$100MM. From emergency payroll financing to debt refinance and MCA consolidation, we help growing businesses access creative working capital when traditional banks decline. Fast decisions, flexible terms, and a channel-neutral advisor fighting for your best interests."
+        title={<>The Right Funding<br />for Your Business</>}
+        subtitle="Explore alternative funding solutions from $250K-$100MM. From emergency payroll financing to debt refinance and MCA consolidation, we help growing businesses access creative working capital when traditional banks decline. Fast decisions, flexible terms, and a channel-neutral advisor fighting for your best interests."
       />
 
       {/* Solutions Overview with CTA */}
@@ -125,7 +125,7 @@ export function SolutionsClient() {
               Ready to find the right solution for your business? Our team is ready to guide you through every step.
             </Text>
             <Link href="/contact-us">
-              <Button variant="gold" size="lg">Get Started Today</Button>
+              <Button variant="gold" size="lg">Let's Talk!</Button>
             </Link>
           </FadeIn>
         </Container>
@@ -243,7 +243,7 @@ export function SolutionsClient() {
       <CTA
         title="Ready to Take the Next Step?"
         text="Connect with our team of funding experts to discuss which solution is right for your business and get started on your path to growth."
-        buttonText="Schedule Your Consultation"
+        buttonText="Let's Talk!"
         href="/contact-us"
         source="solutions-bottom"
       />

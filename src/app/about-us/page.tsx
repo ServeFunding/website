@@ -74,12 +74,6 @@ export default function AboutUs() {
       {/* Breadcrumb - includes schema */}
       <Breadcrumb items={[{ label: 'About Us' }]} />
 
-      {/* Hero Section */}
-      <HeroFadeIn
-        title="Your Trusted Strategic Partner"
-        subtitle="Serve Funding is a boutique working capital advisory firm that fights for your best interests. We provide creative financing solutions from $250K to $100MM—not as a lender, but as your channel-neutral advisor. Founded in 2021, we specialize in asset-based lending, debt refinance, payroll financing, and alternative capital for growing companies when banks say no."
-      />
-
       {/* Founder's Story Section */}
       <Section id="our-story">
         <Container>
@@ -160,8 +154,7 @@ export default function AboutUs() {
       <Section id="core-values">
         <Container>
           <FadeIn className="text-center mb-16">
-            <Heading size="h2" className="mb-3">Our Core Values</Heading>
-            <Text className="text-gold-500 font-semibold text-lg">Rooted in TRUST</Text>
+            <Heading size="h2" className="mb-3">Our Core Values are Rooted in Trust</Heading>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
@@ -256,7 +249,7 @@ export default function AboutUs() {
       <CTA
         title="Ready to Get Started?"
         text="Learn more about our funding solutions and how we can help your business grow. Schedule a consultation with one of our funding experts today."
-        buttonText="Schedule Your Consultation"
+        buttonText="Let's Talk!"
         source="about-us"
         useBG
       />

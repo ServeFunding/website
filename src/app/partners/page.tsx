@@ -13,6 +13,7 @@ import {
   StaggerContainer,
   StaggerItem
 } from '@/components/ui'
+import { COLORS } from '@/lib/colors'
 import { FeatureList } from '@/components/FeatureList'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { PartnerInquiryForm } from '@/components/Forms'
@@ -120,7 +121,7 @@ const partnerTypes: PartnerType[] = [
 
 const commitments = [
   {
-    title: 'Clear And Efficient Processes',
+    title: 'Clear & Efficient Processes',
     desc: 'We guide your clients through a streamlined process of obtaining alternative working capital, eliminating wasted time and frustration.'
   },
   {
@@ -130,10 +131,6 @@ const commitments = [
   {
     title: 'Personalized Support',
     desc: 'We believe in trust-based, collaborative partnerships over impersonal interactions.'
-  },
-  {
-    title: 'Proven Results',
-    desc: 'We take a servant leadership approach with all our clients, lenders and partners to ensure win-win outcomes.'
   }
 ]
 
@@ -175,8 +172,8 @@ export default function Partners() {
 
       {/* Hero Section */}
       <HeroFadeIn
-        title="Our Trusted Advisor Partners"
-        subtitle="Partner with Serve Funding as a commercial banker, fractional CFO, investment banker, CPA, or business advisor. Access 10+ funding solutions from $250K-$100MM. Earn referral fees, expand client services, strengthen relationships, and tap into a network of specialized lenders for mid-market businesses."
+        title="Our Trusted Partners"
+        subtitle={<>Serve Funding Partners with commercial bankers, CPA's,<br />Fractional CFO's, investment bankers, and business advisors.<br />Help your clients access funding solutions from $250K to $100MM.</>}
       />
 
       {/* The Problem We Solve */}
@@ -187,14 +184,11 @@ export default function Partners() {
               <Heading size="h2" className="mb-6 text-olive-900">
                 The Referral Challenge
               </Heading>
-              <Text size="lg" className="text-gray-700 mb-8">
-                We know the reality: when you refer a client to a partner, a little part of your reputation goes with it. We protect that trust.
-              </Text>
             </FadeIn>
 
             <StaggerContainer className="space-y-6">
               <StaggerItem>
-                <Card className="bg-white border-l-4 border-gold-500 p-8">
+                <Card color='background' className="bg-white border-l-4 p-8">
                   <Heading size="h3" className="text-olive-900 mb-3">Time Wasted, Credibility Lost</Heading>
                   <Text className="text-gray-700 leading-relaxed">
                     You refer a prospect or client to an alternative lender. They go down the road. Two to four weeks of underwriting pass. Then the lender hits a wall—maybe it's a customer contract clause that makes the deal impossible, maybe it's collateral issues, maybe the leverage doesn't work. The business owner gets turned down. Again. Meanwhile, weeks have passed, their opportunity window is closing, and your credibility takes a hit for the referral that didn't work out.
@@ -203,7 +197,7 @@ export default function Partners() {
               </StaggerItem>
 
               <StaggerItem>
-                <Card className="bg-white border-l-4 border-gold-500 p-8">
+                <Card color='background' className="bg-white border-l-4 p-8">
                   <Heading size="h3" className="text-olive-900 mb-3">If There's a Way, We'll Find It</Heading>
                   <Text className="text-gray-700 leading-relaxed">
                     Here's our commitment: if there's a way to get it done, we will find a way. We're not locked into one product or one box. We can layer solutions. We can look at multiple lenders at once. We can use real estate, equipment, personal assets, cash flow—whatever combination works. The only time we can't help is if expectations are just unrealistic. But as long as there's something viable to build on, we'll sweep the corners of the known credit universe to find it. That's how we protect your reputation.
@@ -212,10 +206,10 @@ export default function Partners() {
               </StaggerItem>
 
               <StaggerItem>
-                <Card className="bg-white border-l-4 border-gold-500 p-8">
-                  <Heading size="h3" className="text-olive-900 mb-3">When We Solve for You, You Look Like the Hero</Heading>
+                <Card color='background' className="bg-white border-l-4 p-8">
+                  <Heading size="h3" className="text-olive-900 mb-3">You are the Hero in Their Story</Heading>
                   <Text className="text-gray-700 leading-relaxed">
-                    When we come through for your prospect, they remember that you went out of your way. They see you as the banker who didn't give up, who found a solution. They often come back to you as a stronger, more loyal client. When we solve for your existing clients, you strengthen that relationship by being the one who delivered. Either way—you've deepened trust, enhanced your reputation, and positioned yourself as the trusted advisor your clients can count on.
+                    When we come through for your prospect, they remember that you went out of your way. They see you as the banker or advisor who didn't give up, who found a solution. They often come back to you as a stronger, more loyal client. When we solve for your existing clients, you strengthen that relationship by being the one who delivered. Either way—you've deepened trust, enhanced your reputation, and positioned yourself as the trusted advisor your clients can count on.
                   </Text>
                 </Card>
               </StaggerItem>
@@ -234,17 +228,6 @@ export default function Partners() {
             <Text size="lg" className="text-gray-700 mb-4">
               We value our trusted network. Partnering with Serve Funding means you're working with a committed team that understands the importance of your reputation with every referral.
             </Text>
-            <Heading size="h3" className="mb-6 mt-12 text-center text-olive-900">
-              Our Trusted Network
-            </Heading>
-            <div className="flex flex-wrap gap-3 justify-center">
-              {['Commercial Bankers', 'Fractional CFOs', 'Investment Bankers', 'Accountants', 'Private Equity', 'Business Advisors'].map((type, idx) => (
-                <div key={idx} className="inline-flex items-center gap-2 bg-gold-50 border border-gold-200 rounded-full px-4 py-2">
-                  <CheckCircle size={16} className="text-gold-500 flex-shrink-0" />
-                  <span className="text-sm font-semibold text-gray-700">{type}</span>
-                </div>
-              ))}
-            </div>
           </FadeIn>
 
           <FadeIn className='max-w-5xl mx-auto'>
@@ -286,14 +269,18 @@ export default function Partners() {
             </Heading>
           </FadeIn>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {commitments.map((commitment, idx) => (
               <StaggerItem key={idx}>
-                <Card className="h-full group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
-                  <Heading size="h4" className="mb-3 text-olive-900 group-hover:text-olive-900 transition-colors">
+                <Card
+                  color='background'
+                  className="h-full"
+                  hoverColor={COLORS.secondary}
+                >
+                  <Heading size="h4" className="mb-3 transition-colors" style={{ color: COLORS.primary }}>
                     {commitment.title}
                   </Heading>
-                  <Text className="text-gray-600 group-hover:text-gray-700 transition-colors">
+                  <Text className="transition-colors" color="dark">
                     {commitment.desc}
                   </Text>
                 </Card>
@@ -305,7 +292,7 @@ export default function Partners() {
 
 
       {/* Testimonials */}
-      <Section background="gray">
+      <Section background="background">
         <Container>
           <FadeIn className="text-center mb-16">
             <Heading size="h2" className="text-olive-900">
@@ -317,7 +304,7 @@ export default function Partners() {
             {testimonials.map((testimonial, idx) => (
               <StaggerItem key={idx}>
                 <Card className="relative p-8 h-full group hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-                  <Quote className="text-gold-500 mb-4" size={32} />
+                  <Quote className="mb-4" size={32} style={{ color: COLORS.secondary }} />
                   <Text className="text-gray-700 mb-6 italic leading-relaxed flex-1">
                     "{testimonial.text}"
                   </Text>
@@ -332,7 +319,7 @@ export default function Partners() {
       </Section>
 
       {/* Partner Types */}
-      <>
+      <div className='mt-28 mb-12'>
         {partnerTypes.map((partner, idx) => {
               // Create ID from partner title
               const partnerId = partner.title.toLowerCase().replace(/[\s/&]/g, '-')
@@ -371,7 +358,7 @@ export default function Partners() {
                 </Section>
               )
             })}
-      </>
+      </div>
 
       <PartnerInquiryForm />
     </div>

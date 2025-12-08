@@ -1,13 +1,14 @@
 'use client'
 
 import { motion } from "framer-motion"
+import { ReactNode } from "react"
 import { COLORS } from "@/lib/colors"
 import { LAYOUT } from "@/lib/layout"
 import { Section, Container, Heading, Text } from "./ui"
 
 interface HeroFadeInProps {
-  title: string
-  subtitle?: string
+  title: ReactNode
+  subtitle?: ReactNode
   compact?: boolean
 }
 
@@ -21,7 +22,7 @@ export const HeroFadeIn = ({ title, subtitle, compact }: HeroFadeInProps) => (
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="max-w-3xl"
         >
-          <Heading size="h1" color="white" className="mb-6">
+          <Heading size="h1" color="highlight" className="mb-6">
             {title}
           </Heading>
           {subtitle && (

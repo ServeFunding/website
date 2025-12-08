@@ -5,8 +5,10 @@ import { motion } from 'framer-motion'
 import { Factory, Truck, Shield, Users, UtensilsCrossed, Megaphone, ShoppingCart, Package, Briefcase, Sparkles, Lock, Wifi, HardHat, Navigation, Heart } from 'lucide-react'
 
 const industries = [
-  { name: "Manufacturing", desc: "Purchase raw materials upfront. Bridge cash gaps during long production cycles.", icon: Factory },
-  { name: "Wholesale & Distribution", desc: "Buy inventory in bulk to meet demand. Smooth cash flow between buying and selling cycles.", icon: Truck },
+  { name: "Manufacturing", desc: "See how we've helped growing businesses secure working capital to thrive.", icon: Factory },
+  { name: "Wholesale & Distribution", desc: "See how we've helped growing businesses secure working capital to thrive.", icon: Truck },
+  { name: "Construction", desc: "See how we've helped growing businesses secure working capital to thrive.", icon: HardHat },
+  { name: "Healthcare", desc: "See how we've helped growing businesses secure working capital to thrive.", icon: Heart },
   { name: "Government Contractors", desc: "Cover expenses while awaiting government payments. Maintain operations during long billing cycles.", icon: Shield },
   { name: "Staffing Firms", desc: "Pay staff before clients pay invoices. Keep talent onboard without cash flow issues.", icon: Users },
   { name: "Food & Beverage", desc: "Purchase perishables upfront. Navigate tight margins and fluctuating demand.", icon: UtensilsCrossed },
@@ -17,9 +19,7 @@ const industries = [
   { name: "Cleaning & Janitorial", desc: "Cover payroll and supplies upfront. Keep services running smoothly.", icon: Sparkles },
   { name: "Security Guard Services", desc: "Pay guards before clients pay. Ensure continuous protection services.", icon: Lock },
   { name: "Telecommunications & IoT", desc: "Invest in equipment and infrastructure upfront. Keep up with fast-paced tech demands.", icon: Wifi },
-  { name: "Construction", desc: "Purchase materials and equipment upfront. Manage cash flow during long project timelines.", icon: HardHat },
-  { name: "Transportation & Logistics", desc: "Cover fuel and maintenance costs. Bridge cash flow gaps between deliveries and payments.", icon: Navigation },
-  { name: "Healthcare Services", desc: "Fund operations and payroll ahead of reimbursements. Invest in equipment and supplies.", icon: Heart }
+  { name: "Transportation & Logistics", desc: "Cover fuel and maintenance costs. Bridge cash flow gaps between deliveries and payments.", icon: Navigation }
 ]
 
 export function IndustriesGrid() {
@@ -92,7 +92,7 @@ export function IndustriesGrid() {
                 }}
                 className="relative border-2 rounded-xl p-4 flex flex-col items-center justify-center text-center shadow-sm"
               >
-                <Icon size={32} className="text-gray-600 mb-2" strokeWidth={1.5} />
+                <Icon size={32} className="text-olive-900 mb-2" strokeWidth={1.5} />
                 <p className="font-medium text-gray-700 line-clamp-2 text-center text-sm">
                   {industry.name}
                 </p>

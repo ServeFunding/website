@@ -10,7 +10,7 @@ import type { FundingSolution } from '@/types/solutions'
 export const fundingSolutions: FundingSolution[] = [
   {
     id: "debt-refinance",
-    title: "Debt Refinance & Consolidation",
+    title: "Consolidation & Recapitalization",
     image: "/solutions/Asset Based Lending.webp",
     category: "Strategic Restructuring",
 
@@ -207,7 +207,7 @@ export const fundingSolutions: FundingSolution[] = [
 
   {
     id: "invoice-factoring",
-    title: "Invoice (AR) Financing",
+    title: "Invoice Financing",
     image: "/solutions/Invoice AI Financing.webp",
     category: "Fast Cash Flow",
 
@@ -288,7 +288,7 @@ export const fundingSolutions: FundingSolution[] = [
 
   {
     id: "working-capital-loans",
-    title: "Working Capital Loans",
+    title: "Working Capital Loans & Lines of Credit",
     image: "/solutions/Working Capital Loans.webp",
     category: "Quick Operations Funding",
 
@@ -384,7 +384,7 @@ export const fundingSolutions: FundingSolution[] = [
 
   {
     id: "equipment-leasing",
-    title: "Equipment Leasing & Loans",
+    title: "Equipment Leasing & Financing",
     image: "/solutions/Equipment Leasing.webp",
     category: "Asset Acquisition",
     whatIs: "Equipment leasing lets you acquire essential machinery, vehicles, technology without large upfront capital. Monthly payments spread the cost over 3-7 years.",
@@ -414,7 +414,7 @@ export const fundingSolutions: FundingSolution[] = [
 
   {
     id: "purchase-order-funding",
-    title: "Purchase Order (PO) Financing",
+    title: "PO Funding",
     image: "/solutions/Purchase Order Funding.webp",
     category: "Growth Capital",
     whatIs: "PO financing provides funding to fulfill customer purchase orders when you lack working capital for production or materials. Especially valuable for international sourcing, tariff management, and supply chain financing.",
@@ -466,7 +466,7 @@ export const fundingSolutions: FundingSolution[] = [
 
   {
     id: "government-contracts",
-    title: "Government Contract Financing",
+    title: "Government Contracts",
     image: "/solutions/Government Contract Financing.webp",
     category: "Contract-Based",
     whatIs: "Government contract financing funds federal, state, and local contracts, covering payroll, materials, and upfront costs until government payment arrives (often 30-90+ days). Works for prime and subcontractors.",
@@ -513,7 +513,7 @@ export const fundingSolutions: FundingSolution[] = [
 
   {
     id: "real-estate-lending",
-    title: "Real Estate & Commercial Property Financing",
+    title: "Real Estate Lending",
     image: "/solutions/Raeal Estate Lending.webp",
     category: "Long-Term Financing",
     whatIs: "Real estate financing covers commercial property purchases, refinancing, cash-out refinancing, and business owner financing needs. Includes bridge loans (12-36 months) and permanent financing (25-30 year terms).",
@@ -558,7 +558,7 @@ export const fundingSolutions: FundingSolution[] = [
 
   {
     id: "unsecured-debt",
-    title: "Bridge Capital & Unsecured Loans",
+    title: "Subordinated & Unsecured Credit",
     image: "/solutions/Unsecured & Sub-Debt Loans.webp",
     category: "Strategic Financing",
     whatIs: "Bridge capital provides quick, flexible financing without requiring collateral or personal guarantees. Perfect for acquisition timing gaps, M&A bridge needs, or 'stretch capital' when you've maxed traditional lenders. Includes unsecured term loans and subordinated/mezzanine financing.",
@@ -610,8 +610,42 @@ export const fundingSolutions: FundingSolution[] = [
   },
 
   {
+    id: "bridge-funding",
+    title: "Bridge Funding",
+    image: "/solutions/Unsecured & Sub-Debt Loans.webp",
+    category: "Short-Term Capital",
+    whatIs: "Bridge funding provides short-term capital to cover timing gaps, whether waiting for contracts to close, receivables to arrive, or larger financing to fund. Typically 6-12 months, interest-only structures available.",
+    shortDesc: "Quick capital for timing gaps. Bridge acquisitions, cover operating expenses, or connect to permanent financing.",
+    fullDesc: "Bridge funding serves as flexible, short-term capital when you need immediate cash for time-sensitive situations. Whether you're awaiting contract closure, managing seasonal needs, or covering expenses before larger deals close, bridge financing provides the runway you need. Terms typically range from 6-12 months with interest-only payment options available.",
+    features: [
+      "Loan amounts from $50K to $5MM+",
+      "Short-term: 6-12 month typical terms",
+      "Interest-only payment options",
+      "Fast approval and funding",
+      "No long-term commitment required",
+      "Flexible structure for timing gaps"
+    ],
+    ratesAndTerms: {
+      minAmount: "$50,000",
+      maxAmount: "$5,000,000",
+      termLength: "6-12 months",
+      interestRate: "Prime + 3% to 8%",
+      closingTime: "5-15 business days"
+    },
+    commonQuestions: [
+      {
+        id: "bridge-when-use",
+        q: "When should I use bridge funding?",
+        a: "Bridge funding is ideal for timing gaps: awaiting contract closure, waiting for receivables, managing seasonal needs, or covering expenses before larger financing arrives."
+      }
+    ],
+    bestFor: ["Timing gaps", "Seasonal cash needs", "Awaiting contracts or receivables", "Coverage before larger deals close"],
+    qualificationCriteria: {}
+  },
+
+  {
     id: "sba-loans",
-    title: "Small Business Administration Loans",
+    title: "SBA Loans",
     image: "/solutions/Small Business Administration Loans.webp",
     category: "Government-Backed",
     whatIs: "SBA Loans are government-backed loans from banks offering lower interest rates and longer terms than traditional loans.",

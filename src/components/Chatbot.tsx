@@ -119,7 +119,7 @@ export function Chatbot() {
         sender: 'bot',
         timestamp: new Date(),
         actionButtons: showForm ? [
-          { label: 'Connect with team', action: 'open_intro_modal' }
+          { label: "Let's talk!", action: 'open_intro_modal' }
         ] : undefined
       }
       setMessages((prev) => [...prev, botMessage])

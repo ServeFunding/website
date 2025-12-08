@@ -233,7 +233,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
         <CTA
           title="Ready to Get Started?"
           text={`Learn more about ${solution.title} and how it can help your business grow. Schedule a consultation with one of our funding experts today.`}
-          buttonText="Schedule Your Consultation"
+          buttonText="Let's Talk!"
           source={`solution-${solution.id}`}
           useBG
         />
