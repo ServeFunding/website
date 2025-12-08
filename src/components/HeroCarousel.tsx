@@ -57,7 +57,8 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
   const slide = slides[heroIndex]
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center justify-center lg:justify-start h-full px-3 lg:px-8 pb-6">
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-6 lg:gap-12 items-center justify-center lg:justify-start h-full pb-6">
       {/* Text Column */}
       <div className="relative z-20">
         <Heading key={`heading-${heroIndex}`} size="h2" className="text-gray-800">
@@ -109,6 +110,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
             fetchPriority={index === 0 ? "high" : "auto"}
           />
         ))}
+      </div>
       </div>
     </div>
   )

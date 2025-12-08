@@ -45,15 +45,8 @@ const heroSlides = [
     heading: "The Right Funding Solutions for Healthy Business Growth",
     desc: <>An advisory service committed to serve the best interests <br />of your company's current needs and future goals.</>,
     image: "/home/right funding solutions.webp",
-    width: 1024,
-    height: 832
-  },
-  {
-    heading: "You Value Relationships Over Bots & Quick Fixes",
-    desc: <>We partner with like-minded business leaders who want trusted advisors in their corner to ensure they make the best decisions.</>,
-    image: "/home/value relationships over bots.webp",
-    width: 1024,
-    height: 819
+    width: 1200,
+    height: 628
   },
   {
     heading: "Creative Working Capital Empowering Entrepreneurs",
@@ -61,6 +54,13 @@ const heroSlides = [
     image: "/home/creative working capital.webp",
     width: 1024,
     height: 945
+  },
+    {
+    heading: "You Value Relationships Over Bots & Quick Fixes",
+    desc: <>We partner with like-minded business leaders who want trusted advisors in their corner to ensure they make the best decisions.</>,
+    image: "/home/value relationships over bots.webp",
+    width: 1024,
+    height: 819
   }
 ]
 
