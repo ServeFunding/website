@@ -45,7 +45,7 @@ const heroSlides = [
     heading: "The Right Funding Solutions for Healthy Business Growth",
     desc: <>An advisory service committed to serve the best interests <br />of your company's current needs and future goals.</>,
     image: "/home/right funding solutions.webp",
-    width: 1200,
+    width: 960,
     height: 628
   },
   {
