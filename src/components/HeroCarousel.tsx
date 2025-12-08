@@ -3,7 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { Heading, Text } from '@/components/ui'
+import { Heading, Text, Container } from '@/components/ui'
 
 interface HeroSlide {
   heading: string
@@ -57,8 +57,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
   const slide = slides[heroIndex]
 
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-6 lg:gap-12 items-center justify-center lg:justify-start h-full pb-6">
+    <Container className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center justify-center lg:justify-start h-full pb-6">
       {/* Text Column */}
       <div className="relative z-20">
         <Heading key={`heading-${heroIndex}`} size="h2" className="text-gray-800">
@@ -111,7 +110,6 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
           />
         ))}
       </div>
-      </div>
-    </div>
+    </Container>
   )
 }
