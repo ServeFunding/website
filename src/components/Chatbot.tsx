@@ -216,7 +216,7 @@ export function Chatbot() {
                   e.stopPropagation()
                   setShowNotification(false)
                 }}
-                className="text-gray-400 text-lg flex-shrink-0 leading-none"
+                className="text-gray-400 hover:text-gray-600 text-lg flex-shrink-0 leading-none transition-colors cursor-pointer"
                 style={{ marginTop: '-2px' }}
               >
                 ✕

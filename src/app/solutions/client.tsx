@@ -181,6 +181,7 @@ export function SolutionsClient() {
         buttonText="Let's Talk!"
         href="/contact-us"
         source="solutions-bottom"
+        useBG
       />
     </div>
   )
