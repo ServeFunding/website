@@ -1,4 +1,7 @@
 export async function POST(request: Request) {
+  // TODO: Remove this early return when ready to enable webhook for prod
+  return Response.json({ success: true })
+
   try {
     const data = await request.json()
     console.log('Webhook route received data:', data)
