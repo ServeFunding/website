@@ -103,7 +103,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
               index === heroIndex ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none absolute inset-0'
             }`}
             priority={index === 0}
-            loading={index === 0 ? "eager" : "lazy"}
+            loading="eager"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 50vw"
             quality={85}
             fetchPriority={index === 0 ? "high" : "auto"}
