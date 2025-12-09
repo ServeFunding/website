@@ -1,12 +1,13 @@
 'use client'
 
+import { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { CheckCircle, Calendar, Clock, Users, Mail } from 'lucide-react'
+import { CheckCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { Container, Section, Heading, Text, Button } from '@/components/ui'
+import { Container, Section, Heading, Text } from '@/components/ui'
 import { COLORS } from '@/lib/colors'
 
-export default function MeetingConfirmedPage() {
+function MeetingConfirmedContent() {
   const searchParams = useSearchParams()
 
   // Extract and decode parameters
@@ -102,5 +103,13 @@ export default function MeetingConfirmedPage() {
         </motion.div>
       </Container>
     </Section>
+  )
+}
+
+export default function MeetingConfirmedPage() {
+  return (
+    <Suspense fallback={<div className="h-screen bg-white" />}>
+      <MeetingConfirmedContent />
+    </Suspense>
   )
 }
