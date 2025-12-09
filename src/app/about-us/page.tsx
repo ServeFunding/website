@@ -55,16 +55,15 @@ export default function AboutUs() {
       <Breadcrumb items={[{ label: 'About Us' }]} />
 
       {/* Founder's Story Section */}
-      <Section id="our-story">
+      <Section>
         <Container>
           <FadeIn>
+            <Heading size="h2" className="text-center">
+              Entrepreneurship Runs In Our Blood.
+            </Heading>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               {/* Left: Text */}
               <div className="max-w-2xl">
-                <Heading size="h2" className="mb-8">
-                  Entrepreneurship Runs In Our Blood.
-                </Heading>
-
                 <div className="space-y-6 text-gray-700 leading-relaxed">
                   <Text>
                     At <span className="font-bold">Serve Funding</span>, we believe entrepreneurs embody the courage to pursue greater visions. Our company was founded on these values, inspired by my family's own journey as immigrants and entrepreneurs.
@@ -140,7 +139,7 @@ export default function AboutUs() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {coreValues.map((value, index) => (
               <StaggerItem key={index}>
-                <Card className="text-center h-full flex flex-col items-center justify-start pt-8 group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
+                <Card color='background' className="text-center h-full flex flex-col items-center justify-start pt-8 group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
                   <span className="font-serif font-bold text-5xl mb-6 block" style={{ color: COLORS.primary }}>
                     {value.title.charAt(0)}
                   </span>

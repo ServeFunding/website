@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import { SolutionsClient } from './client'
-import { SchemaRenderer } from '@/components/SchemaRenderer'
 import { Breadcrumb } from '@/components/breadcrumb'
-import { getFinancialServiceSchema } from '@/lib/schema-generators'
 
 export const metadata: Metadata = {
   title: "Creative Working Capital Solutions $250K-$100MM | When Banks Say No",

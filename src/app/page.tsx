@@ -43,21 +43,21 @@ const IntroCallForm = dynamic(() => import('@/components/Forms').then(mod => ({ 
 const heroSlides = [
   {
     heading: "The Right Funding Solutions for Healthy Business Growth",
-    desc: <>An advisory service committed to serve the best interests <br />of your company's current needs and future goals.</>,
+    desc: <>An advisory service committed to serve<br />the best interests of your company's<br />current needs and future goals.</>,
     image: "/home/right funding solutions.webp",
     width: 960,
     height: 628
   },
   {
     heading: "Creative Working Capital Empowering Entrepreneurs",
-    desc: <>Because your company is unique, you want partners who <br />truly understand your story and align with your objectives.</>,
+    desc: <>Because your company is unique,<br />you want partners who truly understand<br />your story and align with your objectives.</>,
     image: "/home/creative working capital.webp",
     width: 1024,
     height: 945
   },
     {
-    heading: "You Value Relationships Over Bots & Quick Fixes",
-    desc: <>We partner with like-minded business leaders who want trusted advisors in their corner to ensure they make the best decisions.</>,
+    heading: <>You Value Relationships<br />Over Bots & Quick Fixes</>,
+    desc: <>We partner with like-minded business leaders<br />who want trusted advisors in their corner<br />to ensure they make the best decisions.</>,
     image: "/home/value relationships over bots.webp",
     width: 1024,
     height: 819
@@ -79,7 +79,8 @@ export default function Home() {
       <Section>
         <Container>
           <FadeIn className="text-center mb-20">
-            <Heading size="h2" className="mb-3">Need Business Growth Capital?<br />We Are Here to Serve You.</Heading>
+            <Heading size="h2" color='dark' className="!mb-3">Need Business Growth Capital?</Heading>
+            <Heading size="h2" color='primary' className="!my-3">We Are Here to Serve You.</Heading>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">

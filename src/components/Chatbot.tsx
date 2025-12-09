@@ -158,26 +158,30 @@ export function Chatbot() {
       <AnimatePresence>
         {showNotification && !isOpen && (
         <motion.div
-          onClick={() => {
-            setIsOpen(true)
-            setShowNotification(false)
-          }}
           initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
+          animate={{
+            opacity: 1,
+            x: 0,
+            background: [
+              `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
+              `linear-gradient(135deg, ${BRAND_COLORS.secondary}, ${BRAND_COLORS.dark})`,
+              `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
+            ]
+          }}
           exit={{ opacity: 0, x: 100 }}
           transition={{
-            duration: 0.4,
-            ease: 'easeOut'
+            opacity: { duration: 0.4, ease: 'easeOut' },
+            x: { duration: 0.4, ease: 'easeOut' },
+            background: { duration: 4, repeat: Infinity, ease: 'easeInOut' }
           }}
           style={{
             position: 'fixed',
             bottom: '100px',
             right: '20px',
-            width: '280px',
+            width: '288px',
             zIndex: 40,
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            padding: '14px 16px',
+            borderRadius: '15px',
+            padding: '3px',
             boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
             cursor: 'pointer',
           }}
@@ -190,42 +194,88 @@ export function Chatbot() {
             e.currentTarget.style.transform = 'translateY(0)'
           }}
         >
-          <div className="flex justify-between items-start gap-2">
-            <div className="flex-1">
-              <p className="font-semibold mb-1" style={{ color: BRAND_COLORS.primary }}>Have any questions?</p>
-              <p className="text-sm text-gray-600 leading-relaxed">We're here to serve you.</p>
+          <div
+            onClick={() => {
+              setIsOpen(true)
+              setShowNotification(false)
+            }}
+            style={{
+              backgroundColor: BRAND_COLORS.background,
+              borderRadius: '12px',
+              padding: '14px 16px',
+              width: '100%',
+            }}
+          >
+            <div className="flex justify-between items-start gap-2">
+              <div className="flex-1">
+                <p className="font-semibold mb-1 text-lg" style={{ color: BRAND_COLORS.primary }}>Have any questions?</p>
+                <p className="text-md text-gray-700 leading-relaxed">We're here to serve you.</p>
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setShowNotification(false)
+                }}
+                className="text-gray-400 text-lg flex-shrink-0 leading-none"
+                style={{ marginTop: '-2px' }}
+              >
+                ✕
+              </button>
             </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setShowNotification(false)
-              }}
-              className="text-gray-400 text-lg flex-shrink-0 leading-none"
-              style={{ marginTop: '-2px' }}
-            >
-              ✕
-            </button>
           </div>
         </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Floating Button */}
-      <motion.button
-        onClick={() => {
-          setIsOpen(!isOpen)
-          if (!isOpen) setShowNotification(false)
-        }}
+      {/* Floating Button with Gradient Border */}
+      <motion.div
         style={{
-          backgroundColor: BRAND_COLORS.secondary,
+          position: 'fixed',
+          bottom: '16px',
+          right: '16px',
+          width: '75px',
+          height: '75px',
+          borderRadius: '50%',
+          padding: '3px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 50,
+        } as React.CSSProperties}
+        animate={{
+          rotate: 360,
+          background: [
+            `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
+            `linear-gradient(135deg, ${BRAND_COLORS.primary}, ${BRAND_COLORS.background})`,
+            `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
+          ]
         }}
-        className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 w-14 h-14 text-white rounded-full shadow-lg flex items-center justify-center transition-colors z-50 hover:opacity-90"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        aria-label={isOpen ? "Close chat" : "Open chat"}
+        transition={{
+          rotate: { duration: 4, repeat: Infinity, ease: 'linear' },
+          background: { duration: 4, repeat: Infinity, ease: 'easeInOut' }
+        }}
       >
-        {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
-      </motion.button>
+        <motion.button
+          onClick={() => {
+            setIsOpen(!isOpen)
+            if (!isOpen) setShowNotification(false)
+          }}
+          style={{
+            backgroundColor: BRAND_COLORS.highlight,
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+          }}
+          className="shadow-lg flex items-center justify-center transition-colors hover:opacity-90"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label={isOpen ? "Close chat" : "Open chat"}
+        >
+          {isOpen ? <X size={28} style={{ color: BRAND_COLORS.primary }} /> : <MessageCircle size={28} style={{ color: BRAND_COLORS.primary }} />}
+        </motion.button>
+      </motion.div>
 
       {/* Chat Window */}
       <AnimatePresence>

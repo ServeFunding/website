@@ -64,7 +64,7 @@ function MeetingConfirmedContent() {
               <CheckCircle size={64} style={{ color: COLORS.primary }} />
             </motion.div>
             <Heading size="h2" className="!mb-0 !mt-0 text-center">
-              Booking Confirmed
+              Call Confirmed
             </Heading>
           </motion.div>
 

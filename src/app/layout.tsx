@@ -83,7 +83,7 @@ export default function RootLayout({
         <NewsletterForm />
         <Footer />
         <ChatbotWrapper />
-        <HubSpotNewsletterModalWrapper />
+        {/* <HubSpotNewsletterModalWrapper /> */}
 
         {/* Load third-party scripts after main content */}
         <Script
