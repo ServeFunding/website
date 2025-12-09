@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import {
   ChevronRight
 } from 'lucide-react'
@@ -9,7 +10,6 @@ import {
   Container,
   Heading,
   Text,
-  Card,
   StaggerContainer,
   StaggerItem
 } from '@/components/ui'
@@ -18,6 +18,7 @@ import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CaseStudyModal } from '@/components/CaseStudyModal'
 import { CTA } from '@/components/cta'
 import { Breadcrumb } from '@/components/breadcrumb'
+import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 function generateSlug(text: string): string {
   return text.toLowerCase().replace(/\s+/g, '-')
@@ -34,6 +35,20 @@ const caseStudies = fundingCases.map(c => ({
 export default function Fundings() {
   const [selectedStudy, setSelectedStudy] = useState<typeof caseStudies[0] | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [highlightedId, setHighlightedId] = useState<string>('')
+
+  useEffect(() => {
+    const hash = window.location.hash.slice(1)
+    if (hash) {
+      setHighlightedId(hash)
+      const element = document.getElementById(hash)
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }, 100)
+      }
+    }
+  }, [])
 
   const openModal = (study: typeof caseStudies[0]) => {
     setSelectedStudy(study)
@@ -56,40 +71,52 @@ export default function Fundings() {
       <Section background='primary' className='overflow-visible'>
         <Container>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {caseStudies.map((study, index) => (
-              <StaggerItem key={index}>
-                <button
-                  id={generateSlug(study.title)}
-                  onClick={() => openModal(study)}
-                  className="w-full h-full text-left focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2 rounded-[2rem] scroll-mt-32"
-                >
-                  <Card className="flex flex-col h-full group transition-all duration-300 hover:-translate-y-2 cursor-pointer">
-                    <div className="flex items-baseline gap-2 mb-4">
-                      <Text className="text-2xl font-bold text-gold-500">
-                        {study.amount}
+            {caseStudies.map((study, index) => {
+              const slug = generateSlug(study.title)
+              const isHighlighted = highlightedId === slug
+
+              return (
+                <StaggerItem key={index}>
+                  <button
+                    id={slug}
+                    onClick={() => openModal(study)}
+                    className="w-full h-full text-left focus:outline-none rounded-[2rem] scroll-mt-32"
+                  >
+                    <motion.div
+                      className="flex flex-col h-full group transition-all duration-300 hover:-translate-y-2 cursor-pointer rounded-2xl p-6"
+                      initial={isHighlighted ? { backgroundColor: BRAND_COLORS.secondary } : { backgroundColor: 'white' }}
+                      animate={{ backgroundColor: 'white' }}
+                      transition={isHighlighted ? { duration: 3.5, ease: 'easeInOut' } : { duration: 0 }}
+                    >
+                      <Heading size="h4" className="mb-4 text-olive-900 group-hover:text-gold-500 transition-colors">
+                        <span 
+                          className="bg-gradient-to-b bg-clip-text text-transparent"
+                          style={{ backgroundImage: `linear-gradient(to bottom, ${BRAND_COLORS.secondary}, ${BRAND_COLORS.dark})` }}
+                        >
+                          {study.amount}
+                        </span>{' '}
+                        {study.title}
+                      </Heading>
+
+                      <Text className="text-sm text-gray-500 mb-4">
+                        {study.company}
                       </Text>
-                    </div>
 
-                    <Heading size="h4" className="mb-2 text-olive-900 group-hover:text-gold-500 transition-colors">
-                      {study.title}
-                    </Heading>
+                      <div className='flex-1'>
+                        <Text className="line-clamp-5">
+                          {study.fullStory}
+                        </Text>
+                      </div>
 
-                    <Text className="text-sm font-semibold text-gray-500 mb-4">
-                      {study.company}
-                    </Text>
-
-                    <Text className="text-gray-600 group-hover:text-gray-700 transition-colors flex-1">
-                      {study.description}
-                    </Text>
-
-                    <div className="flex items-center gap-2 mt-6 text-gold-500 group-hover:text-olive-900 transition-colors font-semibold">
-                      Read More
-                      <ChevronRight size={18} />
-                    </div>
-                  </Card>
-                </button>
-              </StaggerItem>
-            ))}
+                      <div className="flex items-center gap-2 mt-6 text-gold-500 group-hover:text-olive-900 transition-colors font-semibold">
+                        Read More
+                        <ChevronRight size={18} />
+                      </div>
+                    </motion.div>
+                  </button>
+                </StaggerItem>
+              )
+            })}
           </StaggerContainer>
         </Container>
       </Section>

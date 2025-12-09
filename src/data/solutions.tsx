@@ -158,7 +158,7 @@ export const fundingSolutions: FundingSolution[] = [
 
   {
     id: "working-capital-loans",
-    title: "Working Capital Loans & Lines of Credit",
+    title: "Working Capital Loans & LoC's",
     image: "/solutions/Working Capital Loans.webp",
     category: "Quick Operations Funding",
 

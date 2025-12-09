@@ -25,6 +25,7 @@ import {
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { topLevelFAQs } from '@/data/faq-data'
 import { fundingSolutions } from '@/data/solutions'
+import { fundingCases } from '@/data/fundingData'
 import { LoadingSkeleton } from '@/components/LoadingSkeleton'
 import { HeroAnimation } from '@/components/HeroAnimation'
 import { HeroCarousel } from '@/components/HeroCarousel'
@@ -253,45 +254,28 @@ export default function Home() {
             </Text>
           </FadeIn>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            {[
-              {
-                title: 'Strategic Acquisition',
-                desc: 'An established, Ohio-based tech services firm was looking to acquire a staffing firm specializing in their field to empower growth in the labor shortage of 2022.',
-                icon: TrendingUp,
-                href: '/fundings#strategic-acquisition'
-              },
-              {
-                title: 'Fast Payroll Cover',
-                desc: 'A growing, Atlanta, GA-based, niche services firm was facing an unexpected cash flow shortfall due to a large receivable their customer delayed paying.',
-                icon: DollarSign,
-                href: '/fundings#fast-payroll-cover'
-              },
-              {
-                title: 'Short-Term Cashflow',
-                desc: 'Florida-based, $50MM transportation company sought help from their banker for an unexpected scenario',
-                icon: Clock,
-                href: '/fundings#short-term-cashflow'
-              },
-              {
-                title: 'Partner Buyout',
-                desc: 'Two specialty construction firms based in Georgia and South Carolina, respectively, came together years ago to join forces.',
-                icon: Handshake,
-                href: '/fundings#partner-buyout'
-              }
-            ].map((item, index) => (
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {fundingCases.slice(0, 6).map((caseStudy, index) => (
               <StaggerItem key={`case-study-${index}`}>
-                <Link href={item.href} className="group cursor-pointer block h-full">
-                  <Card className="p-8 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white flex flex-col">
-                    <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: BRAND_COLORS.primary, border: `2px solid ${BRAND_COLORS.secondary}` }}>
-                      <item.icon size={32} color={BRAND_COLORS.secondary} />
-                    </div>
-                    <Heading size="h3" className="mb-4 text-olive-900 group-hover:text-gold-500 transition-colors">
-                      {item.title}
+                <Link href={`/fundings#${caseStudy.title.toLowerCase().replace(/\s+/g, '-')}`} className="group cursor-pointer block h-full">
+                  <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white flex flex-col">
+                    <Heading size="h4" className="mb-2 text-olive-900 group-hover:text-gold-500 transition-colors line-clamp-2">
+                      <span 
+                        className="bg-gradient-to-b bg-clip-text text-transparent"
+                        style={{ backgroundImage: `linear-gradient(to bottom, ${BRAND_COLORS.secondary}, ${BRAND_COLORS.dark})` }}
+                      >
+                        {caseStudy.amount}
+                      </span>{' '}
+                      {caseStudy.title}
                     </Heading>
-                    <Text className="text-gray-700 flex-1 mb-6">
-                      {item.desc}
+                    <Text className="text-sm text-gray-500 mb-3">
+                      {caseStudy.company}
                     </Text>
+                    <div className="overflow-hidden flex-1 mb-4" style={{ maxHeight: '6em' }}>
+                      <Text className="text-gray-700">
+                        {caseStudy.fullStory}
+                      </Text>
+                    </div>
                     <div className="flex items-center gap-2 text-gold-500 group-hover:gap-3 transition-all">
                       <span className="text-sm font-semibold">Read More</span>
                       <ChevronRight size={16} />
