@@ -8,6 +8,7 @@ import { ScrollToTop } from "@/components/ScrollToTop"
 import Script from "next/script"
 import { SchemaRenderer } from "@/components/SchemaRenderer"
 import { getOrganizationSchema } from "@/lib/schema-generators"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "@/app/globals.css"
 import { Inter, Merriweather } from 'next/font/google'
 
@@ -60,18 +61,18 @@ export default function RootLayout({
         {/* Schema Markup */}
         <SchemaRenderer schema={getOrganizationSchema()} />
 
-        {/* DNS prefetch for deferred third-party scripts (no longer critical path) */}
-        <link rel="dns-prefetch" href="https://js.hsforms.net" />
-        <link rel="dns-prefetch" href="https://js.hs-scripts.com" />
-        <link rel="dns-prefetch" href="https://js.hscollectedforms.net" />
+        {/* Preconnect to critical third-party origins for LCP improvement */}
+        <link rel="preconnect" href="https://umami-production-25e0.up.railway.app" />
+        <link rel="preconnect" href="https://js.hsforms.net" />
+        <link rel="preconnect" href="https://js.hs-scripts.com" />
+        <link rel="preconnect" href="https://23433903.fs1.hubspotusercontent-na1.net" />
         <link rel="dns-prefetch" href="https://forms.hsforms.com" />
         <link rel="dns-prefetch" href="https://forms-na1.hsforms.com" />
         <link rel="dns-prefetch" href="https://api.hubapi.com" />
-        <link rel="dns-prefetch" href="https://umami-production-25e0.up.railway.app" />
 
-        {/* HubSpot Forms - defer to avoid blocking render */}
-        <script defer src="https://js.hsforms.net/forms/embed/23433903.js"></script>
-        <script defer src="https://js.hs-scripts.com/23433903.js"></script>
+        {/* HubSpot Forms - async loads in parallel without blocking render */}
+        <script async src="https://js.hsforms.net/forms/embed/23433903.js"></script>
+        <script async src="https://js.hs-scripts.com/23433903.js"></script>
       </head>
       <body className="bg-white">
         <ScrollToTop />
@@ -90,6 +91,9 @@ export default function RootLayout({
           data-website-id="4493b6db-f043-4505-a592-03c371ce8998"
           strategy="lazyOnload"
         />
+
+        {/* Vercel Speed Insights for real user monitoring */}
+        <SpeedInsights />
       </body>
     </html>
   )
