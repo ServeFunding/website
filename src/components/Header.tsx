@@ -143,7 +143,7 @@ export function Header() {
           {/* Logo - Left */}
           <Link href="/" className="flex items-center gap-2 transition-transform duration-300 flex-shrink-0">
             <Image
-              src="/Logo_Full-color_long_samecolor-1.png"
+              src="/Logo_Full-color_long_samecolor-1.webp"
               alt="Serve Funding"
               className={`w-auto transition-all duration-300 ${isScrolled ? "h-10" : "h-12"}`}
               width={305}

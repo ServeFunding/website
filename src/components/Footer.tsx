@@ -9,7 +9,7 @@ const organizationSchema = {
   "@type": "Organization",
   "name": "Serve Funding",
   "url": "https://servefunding.com",
-  "logo": "https://servefunding.com/Logo_Full-color_long_samecolor-1.png",
+  "logo": "https://servefunding.com/Logo_Full-color_long_samecolor-1.webp",
   "description": "Creative working capital solutions for growing businesses",
   "contactPoint": {
     "@type": "ContactPoint",
@@ -104,10 +104,10 @@ export function Footer() {
             <div className="border-t border-gray-200 pt-12">
               <div className="flex flex-wrap justify-center items-center gap-12 mb-12">
                 <a href="https://www.acg.org/" target="_blank" rel="noopener noreferrer" title="Visit ACG Global - Association for Corporate Growth" className="hover:opacity-80 transition-opacity">
-                  <Image src="/ACG Global Logo.png" alt="ACG Global - Association for Corporate Growth" width={140} height={60} className="h-16 w-auto" />
+                  <Image src="/ACG Global Logo.webp" alt="ACG Global - Association for Corporate Growth" width={140} height={60} className="h-16 w-auto" />
                 </a>
                 <a href="https://www.factoring.org/" target="_blank" rel="noopener noreferrer" title="Visit IFA - International Factoring Association" className="hover:opacity-80 transition-opacity">
-                  <Image src="/IFA.png" alt="IFA - International Factoring Association" width={100} height={50} className="h-16 w-auto" />
+                  <Image src="/IFA.webp" alt="IFA - International Factoring Association" width={100} height={50} className="h-16 w-auto" />
                 </a>
                 <a href="https://www.sfnet.com/" target="_blank" rel="noopener noreferrer" title="Visit Secured Finance Network" className="hover:opacity-80 transition-opacity">
                   <Image src="/Secured Finance Network.jpg" alt="Secured Finance Network" width={160} height={50} className="h-16 w-auto" />
@@ -118,7 +118,7 @@ export function Footer() {
               </div>
               <div className="flex justify-center mt-24">
                 <Image
-                  src="/Logo_Full-color_long_samecolor-1.png"
+                  src="/Logo_Full-color_long_samecolor-1.webp"
                   alt="Serve Funding"
                   className="h-28 w-auto"
                   width={428}

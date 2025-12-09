@@ -136,7 +136,7 @@ export function SolutionsClient() {
               <StaggerItem key={solution.id} className="scroll-mt-24">
                 <div id={solution.id} style={{ scrollMarginTop: LAYOUT.scrollMarginTop }} className={`flex flex-col lg:flex-row gap-12 w-full lg:items-stretch ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
                   {/* Text Content */}
-                  <div className={`lg:w-2/3 ${index % 2 === 1 ? 'lg:[direction:ltr]' : ''}`}>
+                  <div className={`lg:flex-[0.6] ${index % 2 === 1 ? 'lg:[direction:ltr]' : ''}`}>
                     <Heading size="h2" className="mb-6 text-olive-900">
                       <span className="text-olive-900">{solution.title}</span>
                     </Heading>
@@ -157,7 +157,7 @@ export function SolutionsClient() {
                   </div>
 
                   {/* Image Content */}
-                  <div className={`relative h-auto rounded-3xl overflow-hidden group m-4 lg:m-0 lg:mt-20 lg:flex-shrink-0 lg:w-1/3`}>
+                  <div className={`relative h-auto rounded-3xl overflow-hidden group m-4 lg:m-0 lg:mt-20 lg:flex-shrink-0 lg:flex-[0.4]`}>
                     <Image
                       src={solution.image}
                       alt={getTitleAsString(solution.title)}

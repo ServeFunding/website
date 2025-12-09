@@ -156,7 +156,7 @@ export const getArticleSchema = (article: {
     "name": "Serve Funding",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://servefunding.com/logo.png"
+      "url": "https://servefunding.com/Logo_Full-color_long_samecolor-1.webp"
     }
   },
   "articleBody": article.content

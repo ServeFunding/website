@@ -214,9 +214,9 @@ export default function AboutUs() {
               title="Doing Good: Supporting Our Community"
               subtitle="At Serve Funding, we give a percentage of our earnings to support exemplary non-profits. Doing good for those in need is a core part of our mission."
               logos={[
-                { src: "/About Us Serve Funding.png", alt: "Hope for the Homeless" },
-                { src: "/About Us Serve Funding (1).png", alt: "Frontline Response" },
-                { src: "/About Us Serve Funding (2).png", alt: "JAM Quest" }
+                { src: "/about/Hope Worldwide.webp", alt: "Hope for the Homeless" },
+                { src: "/about/Frontline.webp", alt: "Frontline Response" },
+                { src: "/about/Jamquest.webp", alt: "JAM Quest" }
               ]}
               maxHeight={32}
             />
