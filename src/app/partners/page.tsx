@@ -46,7 +46,7 @@ const partnerTypes: PartnerType[] = [
   },
   {
     title: 'Fractional CFOs',
-    image: '/partners/Professional giving presentation.webp',
+    image: '/partners/Fractional CFO.webp',
     imageWidth: 1024,
     imageHeight: 936,
     benefits: [

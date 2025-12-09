@@ -482,7 +482,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "bridge-funding",
     title: "Bridge Funding",
-    image: "/solutions/Unsecured & Sub-Debt Loans.webp",
+    image: "/solutions/Bridge Funding.webp",
     category: "Short-Term Capital",
     whatIs: "Bridge funding provides short-term capital to cover timing gaps, whether waiting for contracts to close, receivables to arrive, or larger financing to fund. Typically 6-12 months, interest-only structures available.",
     shortDesc: "Quick capital for timing gaps. Bridge acquisitions, cover operating expenses, or connect to permanent financing.",
@@ -542,7 +542,7 @@ export const fundingSolutions: FundingSolution[] = [
     {
     id: "debt-refinance",
     title: "Consolidation & Recapitalization",
-    image: "/solutions/Asset Based Lending.webp",
+    image: "/solutions/Consolidation and Recapitalization.webp",
     category: "Strategic Restructuring",
 
     whatIs: "Debt refinancing lets you replace high-cost debt (like merchant cash advances, expensive term loans, or multiple loan payments) with a single, more affordable financing solution. It's designed to free up cash flow, reduce monthly payments, and give your business breathing room to grow.",

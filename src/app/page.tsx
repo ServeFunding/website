@@ -246,9 +246,9 @@ export default function Home() {
       <Section className="py-20" style={{ backgroundColor: BRAND_COLORS.primary }}>
         <Container>
           <FadeIn className="text-center mb-16">
-            <Heading size="h2" color="white" className="mb-4">Successful Client Fundings</Heading>
+            <Heading size="h2" color="highlight" className="mb-4">Successful Client Fundings</Heading>
             <Text size="lg" className="text-white/90 max-w-2xl mx-auto">
-              See how we've helped businesses across industries secure the capital they needed to grow
+              See how we've helped businesses across industries<br />secure the capital they needed to grow
             </Text>
           </FadeIn>
 
