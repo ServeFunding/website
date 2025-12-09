@@ -66,15 +66,13 @@ export default function RootLayout({
         <link rel="preconnect" href="https://js.hs-scripts.com" />
         <link rel="preconnect" href="https://23433903.fs1.hubspotusercontent-na1.net" />
         <link rel="preconnect" href="https://js.hscollectedforms.net" />
-        <link rel="preconnect" href="https://www.gstatic.com" />
         <link rel="dns-prefetch" href="https://forms.hsforms.com" />
         <link rel="dns-prefetch" href="https://forms-na1.hsforms.com" />
         <link rel="dns-prefetch" href="https://api.hubapi.com" />
-        <link rel="dns-prefetch" href="https://google.com" />
 
-        {/* HubSpot Forms - load immediately */}
-        <script async src="https://js.hsforms.net/forms/embed/23433903.js"></script>
-        <script async src="https://js.hs-scripts.com/23433903.js"></script>
+        {/* HubSpot Forms - defer to avoid blocking render */}
+        <script defer src="https://js.hsforms.net/forms/embed/23433903.js"></script>
+        <script defer src="https://js.hs-scripts.com/23433903.js"></script>
       </head>
       <body className="bg-white">
         <ScrollToTop />
