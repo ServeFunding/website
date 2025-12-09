@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { CheckCircle, X } from 'lucide-react'
+import { CheckCircle } from 'lucide-react'
 import {
   Section,
   Container,
@@ -305,75 +305,3 @@ export function NewsletterForm() {
   )
 }
 
-// AI Intro Form Modal (called from chatbot)
-interface AIIntroFormProps {
-  aiMessage: string
-  conversationContext: string
-  onClose: () => void
-}
-
-export function AIIntroForm({ aiMessage, conversationContext, onClose }: AIIntroFormProps) {
-  const { success, handleSubmit } = useFormSubmit('ai_intro', '/api/webhook')
-
-  // Close modal on successful submission
-  useEffect(() => {
-    if (success) {
-      const timer = setTimeout(onClose, 2000)
-      return () => clearTimeout(timer)
-    }
-  }, [success, onClose])
-
-  return (
-    <div className="bg-white rounded-lg shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
-      {/* Header */}
-      <div className="bg-white px-6 py-4 sticky top-0 z-10 flex items-center justify-between">
-        <Heading size="h4">Connect with Our Team</Heading>
-        <button
-          onClick={onClose}
-          className="text-gray-400 hover:text-gray-600 p-1 rounded transition-colors"
-          aria-label="Close modal"
-        >
-          <X size={20} />
-        </button>
-      </div>
-
-      {/* Content */}
-      <div className="p-6">
-        {success ? (
-          <FormSuccessMessage message="Thanks for connecting! We'll reach out shortly to discuss your needs." />
-        ) : (
-          <>
-            <form className="form-ai_intro flex flex-col gap-6" onSubmit={handleSubmit}>
-              <FormInput type="text" name="firstname" label="Name" placeholder="Your name" required />
-              <FormInput type="email" name="email" label="Email" placeholder="your@email.com" required />
-              <FormInput type="tel" name="phone" label="Phone Number" placeholder="(555) 123-4567" required />
-
-              <FormInput
-                as="textarea"
-                name="contact_us_details"
-                rows={3}
-                label="What we talked about"
-                value={aiMessage}
-                readOnly
-                className="bg-gray-50 cursor-not-allowed"
-              />
-
-              {/* Hidden field with full context */}
-              <input
-                type="hidden"
-                name="conversation_full_context"
-                value={conversationContext}
-              />
-
-              <div className="flex justify-center">
-                <Button variant="default" size="lg" type="submit">
-                  Let's Connect
-                </Button>
-              </div>
-            </form>
-          </>
-        )}
-      </div>
-    </div>
-  )
-}

@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { getAIResponse } from '@/lib/ai'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { trackChatbotSessionStart, trackChatbotMessage } from '@/lib/tracking'
-import { AIIntroForm } from './Forms'
+import { Button } from '@/components/ui'
 
 interface Message {
   id: string
@@ -20,7 +20,6 @@ export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
   const [hasShownNotification, setHasShownNotification] = useState(false)
-  const [showIntroModal, setShowIntroModal] = useState(false)
   const [aiContext, setAiContext] = useState('')
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -119,7 +118,7 @@ export function Chatbot() {
         sender: 'bot',
         timestamp: new Date(),
         actionButtons: showForm ? [
-          { label: "Let's talk!", action: 'open_intro_modal' }
+          { label: "Let's talk!", action: 'open_calendly' }
         ] : undefined
       }
       setMessages((prev) => [...prev, botMessage])
@@ -138,21 +137,20 @@ export function Chatbot() {
   }, [inputValue, messages])
 
   const handleActionButtonClick = useCallback((action: string) => {
-    if (action === 'open_intro_modal') {
-      setShowIntroModal(true)
+    if (action === 'open_calendly') {
+      const baseUrl = 'https://calendly.com/michael_kodinsky/discovery'
+      const now = new Date()
+      const monthParam = now.toISOString().split('T')[0].substring(0, 7) // YYYY-MM format
+      const params = new URLSearchParams({
+        month: monthParam,
+        a1: aiContext || 'I want to learn more about your services',
+        date: now.toISOString().split('T')[0],
+      })
+      const calendlyUrl = `${baseUrl}?${params.toString()}`
+      window.open(calendlyUrl, '_blank')
     }
-  }, [])
+  }, [aiContext])
 
-  const handleIntroFormSubmit = useCallback(() => {
-    // Add thank you message
-    const thankYouMessage: Message = {
-      id: Date.now().toString(),
-      text: "Thanks for filling out the form! We've got your information and will reach out soon to connect you with the right person. Is there anything else I can help you with in the meantime?",
-      sender: 'bot',
-      timestamp: new Date(),
-    }
-    setMessages((prev) => [...prev, thankYouMessage])
-  }, [])
 
   return (
     <>
@@ -292,17 +290,14 @@ export function Chatbot() {
                   {message.actionButtons && message.actionButtons.length > 0 && (
                     <div className="flex gap-2 mt-3">
                       {message.actionButtons.map((btn, idx) => (
-                        <button
+                        <Button
                           key={idx}
                           onClick={() => handleActionButtonClick(btn.action)}
-                          style={{
-                            backgroundColor: BRAND_COLORS.secondary,
-                            color: '#333333',
-                          }}
-                          className="text-sm px-3 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity"
+                          variant="default"
+                          className="hover:-translate-y-0.5"
                         >
                           {btn.label}
-                        </button>
+                        </Button>
                       ))}
                     </div>
                   )}
@@ -372,42 +367,6 @@ export function Chatbot() {
         )}
       </AnimatePresence>
 
-      {/* AI Intro Form Modal */}
-      <AnimatePresence>
-        {showIntroModal && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setShowIntroModal(false)}
-              className="fixed inset-0 bg-black/50 z-[60]"
-            />
-
-            {/* Modal */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-0"
-            >
-              <AIIntroForm
-                aiMessage={aiContext || 'I would like to learn more about your services.'}
-                conversationContext={messages
-                  .filter(m => m.sender === 'user')
-                  .map(m => m.text)
-                  .join('\n')}
-                onClose={() => {
-                  setShowIntroModal(false)
-                  handleIntroFormSubmit()
-                }}
-              />
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </>
   )
 }
