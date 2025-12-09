@@ -118,7 +118,7 @@ export function Chatbot() {
         sender: 'bot',
         timestamp: new Date(),
         actionButtons: showForm ? [
-          { label: "Let's talk!", action: 'open_calendly' }
+          { label: "Schedule a Call", action: 'open_calendly' }
         ] : undefined
       }
       setMessages((prev) => [...prev, botMessage])
@@ -285,7 +285,7 @@ export function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 sm:inset-auto sm:bottom-20 sm:right-5 sm:w-96 sm:h-[600px] bg-white rounded-none sm:rounded-2xl shadow-2xl flex flex-col z-50"
+            className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-5 sm:w-96 sm:h-[600px] bg-white rounded-none sm:rounded-2xl shadow-2xl flex flex-col z-50"
             style={{
               // Mobile: full viewport height with keyboard handling
               height: typeof window !== 'undefined' && window.innerWidth < 640 ? '100vh' : undefined,
@@ -325,7 +325,7 @@ export function Chatbot() {
                 >
                   <div
                     style={{
-                      backgroundColor: message.sender === 'user' ? BRAND_COLORS.secondary : '#f3f4f6',
+                      backgroundColor: message.sender === 'user' ? BRAND_COLORS.background : '#f3f4f6',
                       color: message.sender === 'user' ? '#333333' : '#1f2937',
                     }}
                     className={`max-w-[85%] sm:max-w-[70%] px-4 py-2 rounded-lg break-words ${
@@ -374,7 +374,7 @@ export function Chatbot() {
 
             {/* Input Area */}
             <div className="border-t border-gray-200 p-4 rounded-none sm:rounded-b-2xl flex-shrink-0">
-              <div className="flex gap-2 items-center">
+              <div className="relative">
                 <input
                   type="text"
                   value={inputValue}
@@ -387,10 +387,9 @@ export function Chatbot() {
                   }}
                   placeholder="Ask a question..."
                   style={{
-                    borderColor: BRAND_COLORS.primary,
-                    '--tw-ring-color': BRAND_COLORS.primary,
+                    borderColor: BRAND_COLORS.secondary,
                   } as React.CSSProperties}
-                  className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 transition-all text-base"
+                  className="w-full px-4 py-4 pr-8 border rounded-lg focus:outline-none transition-all text-base bg-gray-50"
                   disabled={isLoading}
                   aria-label="Chat message input"
                 />
@@ -398,9 +397,9 @@ export function Chatbot() {
                   onClick={handleSendMessage}
                   disabled={isLoading || !inputValue.trim()}
                   style={{
-                    backgroundColor: BRAND_COLORS.secondary,
+                    color: BRAND_COLORS.primary,
                   }}
-                  className="text-gray-800 p-2 rounded-lg transition-opacity hover:opacity-90 disabled:opacity-50"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70 disabled:opacity-50"
                   aria-label="Send message"
                 >
                   <Send size={20} />
