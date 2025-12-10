@@ -11,7 +11,7 @@ export const Section = forwardRef<HTMLElement, HTMLAttributes<HTMLElement> & { b
     const sectionElement = (
       <section
         ref={ref}
-        className={["pt-12 md:pt-18 pb-12 md:pb-18 relative overflow-hidden w-full", className].filter(Boolean).join(' ')}
+        className={["pt-6 md:pt-18 pb-6 md:pb-18 relative overflow-hidden w-full", className].filter(Boolean).join(' ')}
         style={{ scrollMarginTop: LAYOUT.scrollMarginTop, backgroundColor: COLORS[background as keyof typeof COLORS], ...props.style }}
         {...props}
       >
