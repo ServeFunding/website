@@ -65,17 +65,15 @@ export default function Home() {
   return (
     <div className="bg-white font-sans text-gray-800">
       {/* Hero Section */}
-      <div className="overflow-hidden h-[65vh]">
-        <HeroAnimation defer={true}>
-          <HeroCarousel slides={heroSlides} />
-        </HeroAnimation>
-      </div>
+      <Section className="h-[65vh]">
+        <HeroCarousel slides={heroSlides} />
+      </Section>
 
       {/* Value Props Section */}
       <Section>
         <Container>
           <FadeIn className="text-center mb-20">
-            <Heading size="h2" color='dark' className="!mb-3">Need Business Growth Capital?</Heading>
+            <Heading size="h2" color='dark' className="!my-3">Need Business Growth Capital?</Heading>
             <Heading size="h2" color='primary' className="!my-3">We Are Here to Serve You.</Heading>
           </FadeIn>
 

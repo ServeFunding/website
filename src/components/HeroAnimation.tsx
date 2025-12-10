@@ -330,13 +330,13 @@ export const HeroAnimation = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full"
+      className="relative w-full h-full"
       style={{
         overflow: 'visible',
       }}
     >
       {/* Main content - lower z-index */}
-      <div className="relative">
+      <div className="relative h-full">
         {children}
       </div>
 
