@@ -85,7 +85,7 @@ export default function AboutUs() {
               {/* Right: Image */}
               <div className="flex justify-center">
                 <img
-                  src="/runs in our blood.webp"
+                  src="/about/runs in our blood.webp"
                   alt="Entrepreneurship runs in our blood"
                   className="rounded-xl w-full max-w-md object-cover"
                 />
@@ -103,7 +103,7 @@ export default function AboutUs() {
               {/* Left: Image */}
               <div className="flex justify-center order-2 md:order-1">
                 <img
-                  src="/commitment to entreprenuers.webp"
+                  src="/about/commitment to entreprenuers.webp"
                   alt="Our commitment to entrepreneurs"
                   className="rounded-xl shadow-lg w-full max-w-md object-cover"
                 />
