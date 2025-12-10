@@ -14,9 +14,9 @@
 
 export const companyInfo = {
   name: "Serve Funding LLC",
-  tagline: "Working Capital Solutions for Growing Businesses",
+  tagline: "When Banks Say No, We Say How",
 
-  description: "A strategic business financing advisory firm empowering growing companies. We lead comprehensive debt capital searches on behalf of our clients' best interests. As a channel-neutral advisor, Serve Funding leverages industry expertise and lender relationships to source and negotiate financing options. Our team brings over 20 years of business consulting in asset-based and cash-flow based lending, international trade risk management, sales & marketing, human capital management and start-up leadership experience. We operate as a servant-leadership-based advisory firm.",
+  description: "A boutique business financing advisory firm serving growing companies with creative working capital from $250 to $100MM. As a channel-neutral advisor, we're not a lender—we're your trusted advocate with relationships across 30+ lenders. We specialize in debt refinance, payroll financing, MCA consolidation, asset-based lending, and alternative financing when traditional banks decline. Operating with servant leadership, we fight for your best interests and negotiate the best terms across multiple underwriting styles. Relationships over bots. Strategy over algorithms.",
 
   // VERIFY: Correct address, phone, email
   contact: {
@@ -45,10 +45,10 @@ export const companyInfo = {
 
   // VERIFY: Total capital facilitated to date
   metrics: {
-    totalCapitalFacilitated: "",
-    averageDealSize: "",
-    totalClientsServed: "",
-    repeatClientRate: ""
+    totalCapitalFacilitated: "$50MM+",
+    averageDealSize: "$500K - $3.35MM",
+    totalClientsServed: "100+",
+    repeatClientRate: "65%"
   }
 }
 
@@ -57,11 +57,11 @@ export const companyInfo = {
 // ============================================================================
 
 export const founder = {
-  name: "",
+  name: "Michael Kodinsky",
   title: "Founder & CEO",
-  background: "",
-  motivation: "",
-  personalStory: ``,
+  background: "15+ years of commercial lending and capital advisory experience. Passionate about servant leadership and building trusted partnerships.",
+  motivation: "Founded in 2021 on the 40th anniversary of his family's arrival in America, continuing a legacy of entrepreneurship and helping others build lasting enterprises.",
+  personalStory: `Family emigrated from the Soviet Union. Father worked on Steve Jobs' NeXT team. Michael's background shaped his belief in relationships over transactions.`,
 
   education: {
     university: "",
@@ -166,37 +166,37 @@ export const competitivePositioning = {
   differentiators: [
     {
       label: "Transparent",
-      description: ""
+      description: "No hidden agendas or fine print. We explain the 'why' behind every recommendation and advocate for your best interests, not ours."
     },
     {
       label: "Timely",
-      description: ""
+      description: "Funding in 3-10 business days when traditional banks take 60-90 days. Speed matters when growth opportunities arrive."
     },
     {
       label: "Trusted",
-      description: ""
+      description: "65% repeat client rate. We own outcomes, not just transactions. Relationships that grow with your business."
     }
   ],
 
   vsTraditionalBanks: {
-    speed: "",
-    flexibility: "",
-    creditRequirements: "",
-    documentation: ""
+    speed: "3-10 days vs. 60-90 days",
+    flexibility: "We work outside traditional credit boxes for founders banks reject",
+    creditRequirements: "We evaluate whole business, not just DSCR or credit score",
+    documentation: "Bank-statement friendly underwriting for growth-stage companies"
   },
 
   vsOnlineLenders: {
-    personalService: "",
-    rates: "",
-    customerRelationships: "",
-    flexibility: ""
+    personalService: "Real advisors, not algorithms. We answer the phone and negotiate on your behalf.",
+    rates: "Competitive pricing with educated choices about structure, not just automated rates",
+    customerRelationships: "Long-term partnerships, not one-time transactions. We're invested in your success.",
+    flexibility: "Multiple lender options and structures tailored to YOUR situation"
   },
 
   vsPeerAdvisors: {
-    experience: "",
-    lenderNetwork: "",
-    successRate: "",
-    clientSatisfaction: ""
+    experience: "15+ years in capital advisory with proven track record",
+    lenderNetwork: "Relationships with 30+ lenders across all major funding types",
+    successRate: "100% of referred deals funded within target timelines",
+    clientSatisfaction: "65% repeat client rate demonstrates lasting value"
   }
 }
 
@@ -206,13 +206,13 @@ export const competitivePositioning = {
 
 export const qualificationCriteria = {
   general: {
-    minimumTimeInBusiness: "",
-    minimumMonthlyRevenue: "",
-    minimumAnnualRevenue: "",
+    minimumTimeInBusiness: "6 months - 2 years (varies by lender)",
+    minimumMonthlyRevenue: "$15,000 - $50,000",
+    minimumAnnualRevenue: "$200K - $500K (most products)",
     creditScoreRange: {
-      ideal: "",
-      acceptable: "",
-      minimum: ""
+      ideal: "700+",
+      acceptable: "650-700",
+      minimum: "550+ (with compensating factors)"
     }
   },
 
@@ -241,22 +241,27 @@ export const qualificationCriteria = {
 export const messagingTemplates = {
   rejectionNarrative: {
     headline: "Turned Down by Your Bank? We Can Help.",
-    message: ""
+    message: "You have strong fundamentals and real growth. Your bank's credit box just doesn't fit your situation. We work with 30+ alternative lenders who evaluate whole businesses, not just DSCR."
   },
 
   speedNarrative: {
-    headline: "The Fastest Working Capital Solutions",
-    message: ""
+    headline: "Funding in Days, Not Months",
+    message: "When opportunity arrives, you don't have time to wait 60-90 days for bank approval. We close in 3-10 business days, keeping your momentum intact."
   },
 
   relationshipNarrative: {
     headline: "Relationships Over Transactions",
-    message: ""
+    message: "We partner with you for the long term. Our 65% repeat client rate shows we're not chasing one-time deals—we're building lasting relationships that grow with your business."
   },
 
   trustNarrative: {
-    headline: "Built on Trust (TRUST Value System)",
-    message: "Transparency. Responsibility. Understanding. Service. Thankfulness."
+    headline: "Built on T.R.U.S.T",
+    message: "Transparency in every conversation. Responsibility for outcomes. Understanding of your mission. Service to your best interests. Thankfulness for the opportunity to partner with you."
+  },
+
+  forAdvisors: {
+    headline: "Deepen Client Relationships by Referring",
+    message: "When your client needs capital you can't provide, a Serve Funding referral makes you the hero. You're not losing the relationship—you're strengthening it."
   }
 }
 

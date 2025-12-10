@@ -1,6 +1,5 @@
 import { forwardRef, type SelectHTMLAttributes } from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
 
 const formSelectVariants = cva(
   "w-full px-4 py-3 rounded-xl border transition-all outline-none",
@@ -24,7 +23,7 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
   ({ className, variant, ...props }, ref) => (
     <select
       ref={ref}
-      className={cn(formSelectVariants({ variant }), className)}
+      className={[formSelectVariants({ variant }), className].filter(Boolean).join(' ')}
       {...props}
     />
   )

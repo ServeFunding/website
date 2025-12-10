@@ -69,7 +69,7 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.hsforms.net https://js.hs-scripts.com https://js.hscollectedforms.net https://js.hs-banner.com https://js.hs-analytics.net https://js.hsadspixel.net https://snap.licdn.com https://umami-production-25e0.up.railway.app",
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.hsforms.net https://js.hs-scripts.com https://js.hscollectedforms.net https://js.hs-banner.com https://js.hs-analytics.net https://js.hsadspixel.net https://snap.licdn.com https://umami-production-25e0.up.railway.app https://va.vercel-scripts.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "img-src 'self' data: https: blob:",
               "font-src 'self' data: https://fonts.gstatic.com",
@@ -175,6 +175,12 @@ const nextConfig: NextConfig = {
         source: "/faq/about-serve-funding",
         destination: "/faq",
         permanent: true, // 301 redirect for SEO
+      },
+      // Refer page redirect to partners
+      {
+        source: "/refer",
+        destination: "/partners",
+        permanent: false, // 302 temporary redirect
       },
     ];
   },

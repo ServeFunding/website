@@ -1,10 +1,9 @@
 import { forwardRef, type ButtonHTMLAttributes } from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
 import { COLORS } from "@/lib/colors"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-full text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-95 hover:-translate-y-0.5 hover:opacity-90",
+  "relative z-10 inline-flex items-center justify-center rounded-full text-base font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-95 hover:-translate-y-0.5 hover:opacity-90",
   {
     variants: {
       variant: {
@@ -36,7 +35,7 @@ export interface ButtonProps
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, style, ...props }, ref) => {
+  ({ className, variant = "default", size, style, ...props }, ref) => {
     const baseStyle: React.CSSProperties = style || {}
 
     // Apply variant-specific styles using COLORS
@@ -53,9 +52,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       case "gold":
         buttonStyle = {
           ...baseStyle,
-          backgroundColor: COLORS.secondary,
+          backgroundColor: COLORS.highlight,
           color: COLORS.dark,
-          boxShadow: `0 10px 15px -3px ${COLORS.secondary}33`
+          boxShadow: `0 10px 15px -3px ${COLORS.highlight}33`
         }
         break
       case "outline":
@@ -84,11 +83,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           color: COLORS.primary
         }
         break
+      default:
+        buttonStyle = {
+          ...baseStyle,
+          backgroundColor: COLORS.primary,
+          boxShadow: `0 10px 15px -3px ${COLORS.primary}33`
+        }
+        break
     }
 
     return (
       <button
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={[buttonVariants({ variant, size }), className].filter(Boolean).join(' ')}
         style={buttonStyle}
         ref={ref}
         {...props}

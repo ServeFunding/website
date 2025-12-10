@@ -2,10 +2,13 @@ import type { Metadata } from "next"
 import dynamic from "next/dynamic"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
-import { ChatbotWrapper } from "@/components/ChatbotWrapper"
-import { HubSpotNewsletterModalWrapper } from "@/components/HubSpotNewsletterModalWrapper"
+import { Chatbot } from "@/components/Chatbot"
+import { NewsletterModal } from "@/components/NewsletterModal"
 import { ScrollToTop } from "@/components/ScrollToTop"
 import Script from "next/script"
+import { SchemaRenderer } from "@/components/SchemaRenderer"
+import { getOrganizationSchema } from "@/lib/schema-generators"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "@/app/globals.css"
 import { Inter, Merriweather } from 'next/font/google'
 
@@ -29,12 +32,12 @@ const merriweather = Merriweather({
 })
 
 export const metadata: Metadata = {
-  title: "Serve Funding - Working Capital Solutions for Growing Businesses",
-  description: "Creative working capital solutions from $250K to $100MM. Asset-based lending, invoice factoring, equipment leasing, and more for entrepreneurs.",
-  keywords: "working capital, business loans, asset-based lending, invoice factoring, equipment leasing, business funding",
+  title: "Serve Funding - When Banks Say No, We Say How | $250K-$100MM",
+  description: "Boutique working capital advisory specializing in debt refinance, payroll financing, MCA consolidation, and alternative funding when traditional banks decline. Relationships over bots. Fast funding in 3-10 days.",
+  keywords: "debt refinance, payroll financing, mca consolidation, when banks say no, alternative business financing, asset-based lending, invoice factoring, channel neutral advisor, boutique lender",
   openGraph: {
-    title: "Serve Funding - Working Capital Solutions for Growing Businesses",
-    description: "Creative working capital solutions from $250K to $100MM. Asset-based lending, invoice factoring, equipment leasing, and more for entrepreneurs.",
+    title: "Serve Funding - When Banks Say No, We Say How | $250K-$100MM",
+    description: "Boutique working capital advisory specializing in debt refinance, payroll financing, MCA consolidation, and alternative funding when traditional banks decline. Relationships over bots. Fast funding in 3-10 days.",
     url: "https://servefunding.com/",
     siteName: "Serve Funding",
     type: "website",
@@ -45,6 +48,11 @@ export const metadata: Metadata = {
     description: "Creative working capital solutions from $250K to $100MM. Asset-based lending, invoice factoring, equipment leasing, and more for entrepreneurs.",
   },
   robots: "index, follow",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  },
 }
 
 export default function RootLayout({
@@ -55,68 +63,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${merriweather.variable}`}>
       <head>
+        {/* Schema Markup */}
+        <SchemaRenderer schema={getOrganizationSchema()} />
+
         {/* Preconnect to critical third-party origins for LCP improvement */}
-        <link rel="preconnect" href="https://umami-production-25e0.up.railway.app" />
-        <link rel="preconnect" href="https://js.hsforms.net" />
+        {process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL && (
+          <link rel="preconnect" href={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL} />
+        )}
         <link rel="preconnect" href="https://js.hs-scripts.com" />
-        <link rel="preconnect" href="https://23433903.fs1.hubspotusercontent-na1.net" />
-        <link rel="preconnect" href="https://js.hscollectedforms.net" />
-        <link rel="dns-prefetch" href="https://forms.hsforms.com" />
-        <link rel="dns-prefetch" href="https://forms-na1.hsforms.com" />
-        <link rel="dns-prefetch" href="https://api.hubapi.com" />
-        {/* Organization & LocalBusiness Schema - Global */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": ["Organization", "LocalBusiness", "FinancialService"],
-              "@id": "https://servefunding.com",
-              "name": "Serve Funding LLC",
-              "description": "Boutique working capital advisory providing creative financing solutions from $250K to $100MM for growing businesses",
-              "url": "https://servefunding.com",
-              "email": "michael@servefunding.com",
-              "telephone": "+1-770-820-7409",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Atlanta",
-                "addressRegion": "GA",
-                "addressCountry": "US"
-              },
-              "areaServed": {
-                "@type": "Country",
-                "name": "United States"
-              },
-              "serviceType": "Working Capital Advisory",
-              "knowsAbout": [
-                "Asset-Based Lending",
-                "Invoice Factoring",
-                "Equipment Leasing",
-                "Working Capital Loans",
-                "Purchase Order Financing",
-                "Government Contract Financing",
-                "Real Estate Financing",
-                "SBA Loans",
-                "Inventory Financing",
-                "Unsecured Debt"
-              ],
-              "foundingDate": "2021",
-              "founder": {
-                "@type": "Person",
-                "name": "Michael Kodinsky",
-                "jobTitle": "Founder & CEO",
-                "url": "https://www.linkedin.com/in/michael-kodinsky/",
-                "sameAs": "https://www.linkedin.com/in/michael-kodinsky/",
-                "description": "15+ years of commercial banking and alternative financing experience"
-              },
-              "sameAs": [
-                "https://www.linkedin.com/company/serve-funding",
-                "https://www.facebook.com/servefunding",
-                "https://twitter.com/servefunding"
-              ]
-            })
-          }}
-        />
       </head>
       <body className="bg-white">
         <ScrollToTop />
@@ -126,24 +80,25 @@ export default function RootLayout({
         </main>
         <NewsletterForm />
         <Footer />
-        <ChatbotWrapper />
-        <HubSpotNewsletterModalWrapper />
+        <Chatbot />
+        <NewsletterModal />
 
         {/* Load third-party scripts after main content */}
         <Script
-          src="https://umami-production-25e0.up.railway.app/script.js"
-          data-website-id="4493b6db-f043-4505-a592-03c371ce8998"
+          src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL!}
+          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
           strategy="lazyOnload"
         />
-        <Script
-          src="https://js.hsforms.net/forms/embed/23433903.js"
-          strategy="lazyOnload"
-        />
+
+        {/* HubSpot Tracking */}
         <Script
           id="hs-script-loader"
           src="https://js.hs-scripts.com/23433903.js"
           strategy="lazyOnload"
         />
+
+        {/* Vercel Speed Insights for real user monitoring */}
+        <SpeedInsights />
       </body>
     </html>
   )

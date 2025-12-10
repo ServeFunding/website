@@ -1,8 +1,9 @@
 'use client'
 
+import { ReactNode } from 'react'
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
-import { Section, Container, Heading, Text, StaggerContainer, StaggerItem } from '@/components/ui'
+import { Section, Container, Heading, Text, StaggerContainer } from '@/components/ui'
 
 interface FAQItem {
   q: string
@@ -11,7 +12,7 @@ interface FAQItem {
 
 interface FAQSectionProps {
   title?: string
-  description?: string
+  description?: string | ReactNode
   faqs: FAQItem[]
   background?: 'white' | 'gray'
   maxDisplay?: number // Limit how many FAQs to show
@@ -22,13 +23,13 @@ function FAQAccordionItem({ question, answer }: { question: string; answer: stri
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden hover:border-gold-500 transition-colors">
+    <div className="relative z-10 border border-gray-200 rounded-xl overflow-hidden hover:border-gold-500 transition-colors">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full p-6 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors text-left"
         aria-expanded={isOpen}
       >
-        <Heading size="h3" className="text-olive-900 pr-4">
+        <Heading size="h4" className="text-olive-900 pr-4">
           {question}
         </Heading>
         <ChevronDown
@@ -61,7 +62,7 @@ export function FAQSection({
       <Container>
         {/* Header */}
         <div className="max-w-3xl mx-auto mb-12 text-center">
-          <Heading size="h2" className="mb-4 text-olive-900">
+          <Heading size="h2">
             {title}
           </Heading>
           {description && (
@@ -78,9 +79,7 @@ export function FAQSection({
           }`}
         >
           {displayFaqs.map((faq, index) => (
-            <StaggerItem key={index}>
-              <FAQAccordionItem question={faq.q} answer={faq.a} />
-            </StaggerItem>
+            <FAQAccordionItem key={`faq-${index}`} question={faq.q} answer={faq.a} />
           ))}
         </StaggerContainer>
       </Container>
@@ -95,7 +94,7 @@ export function InlineFAQ({ faqs, maxDisplay }: { faqs: FAQItem[]; maxDisplay?: 
   return (
     <div className="space-y-4">
       {displayFaqs.map((faq, index) => (
-        <FAQAccordionItem key={index} question={faq.q} answer={faq.a} />
+        <FAQAccordionItem key={`inline-faq-${index}`} question={faq.q} answer={faq.a} />
       ))}
     </div>
   )

@@ -7,27 +7,16 @@
  * Used for: SEO, Featured Snippets, Google Rich Results, LLM training data
  */
 
+import { ReactNode } from 'react'
+import { getTitleAsString } from '@/lib/solution-helpers'
+import { companyInfo } from '@/data/company-info'
+import { fundingSolutions } from '@/data/solutions'
+
 // ============================================================================
 // ORGANIZATION SCHEMA (Global - Add to Layout)
 // ============================================================================
 
-export const getOrganizationSchema = (config: {
-  name: string
-  description: string
-  url: string
-  logo?: string
-  phone: string
-  email: string
-  address: {
-    street: string
-    city: string
-    state: string
-    zip: string
-    country: string
-  }
-  foundingDate: string
-  founderName?: string
-  knowsAbout: string[]
+export const getOrganizationSchema = (config?: {
   aggregateRating?: {
     ratingValue: number
     reviewCount: number
@@ -35,37 +24,34 @@ export const getOrganizationSchema = (config: {
 }) => ({
   "@context": "https://schema.org",
   "@type": "FinancialService",
-  "@id": config.url,
-  "name": config.name,
-  "description": config.description,
-  "url": config.url,
-  ...(config.logo && { "logo": config.logo, "image": config.logo }),
-  "telephone": config.phone,
-  "email": config.email,
+  "@id": "https://servefunding.com",
+  "name": companyInfo.name,
+  "description": companyInfo.description,
+  "url": "https://servefunding.com",
+  "telephone": companyInfo.contact.phone,
+  "email": companyInfo.contact.email,
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": config.address.street,
-    "addressLocality": config.address.city,
-    "addressRegion": config.address.state,
-    "postalCode": config.address.zip,
-    "addressCountry": config.address.country
+    "streetAddress": companyInfo.contact.address.street,
+    "addressLocality": companyInfo.contact.address.city,
+    "addressRegion": companyInfo.contact.address.state,
+    "postalCode": companyInfo.contact.address.zip,
+    "addressCountry": companyInfo.contact.address.country
   },
   "areaServed": {
     "@type": "Country",
     "name": "United States"
   },
-  "foundingDate": config.foundingDate,
-  ...(config.founderName && {
-    "founder": {
-      "@type": "Person",
-      "name": config.founderName
-    }
-  }),
-  "knowsAbout": config.knowsAbout,
+  "foundingDate": `${companyInfo.founded.year}`,
+  "founder": {
+    "@type": "Person",
+    "name": "Michael Kodinsky"
+  },
+  "knowsAbout": fundingSolutions.map(solution => getTitleAsString(solution.title)),
   "sameAs": [
     // Add social media URLs
   ],
-  ...(config.aggregateRating && {
+  ...(config?.aggregateRating && {
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": config.aggregateRating.ratingValue,
@@ -170,7 +156,7 @@ export const getArticleSchema = (article: {
     "name": "Serve Funding",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://servefunding.com/logo.png"
+      "url": "https://servefunding.com/Logo_Full-color_long_samecolor-1.webp"
     }
   },
   "articleBody": article.content

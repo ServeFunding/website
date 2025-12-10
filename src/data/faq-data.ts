@@ -34,32 +34,32 @@ export const topLevelFAQs: FAQ[] = [
   {
     id: 'top-what-is-serve-funding',
     q: "What is Serve Funding?",
-    a: "Serve Funding is a Business Financing Advisory that provides strategic guidance and access to curated relationships with top lenders for all forms of business financing needs, ranging from $250K to $100MM. We're not a lender—we're your advocate."
+    a: "Serve Funding is a boutique business financing advisory that provides strategic guidance and access to 30+ lenders for alternative financing needs from $250K to $100MM. As a channel-neutral advisor, we're not a lender—we're your advocate who fights for your best interests."
   },
   {
-    id: 'top-what-is-working-capital',
-    q: "What is working capital?",
-    a: "Working capital is the funds available to meet day-to-day operational needs, calculated as current assets minus current liabilities. When businesses seek 'working capital,' they're looking for additional cash through loans or lines of credit to grow without running out of money."
+    id: 'top-when-banks-say-no',
+    q: "What if my bank denied my loan application?",
+    a: "When banks say no, we say how. We specialize in non-bank financing options including asset-based lending, invoice factoring, debt refinance, and MCA consolidation. Bankers are our primary referral sources because we help businesses that don't fit traditional credit boxes."
+  },
+  {
+    id: 'top-how-fast-funding',
+    q: "How fast can I get funding?",
+    a: "Speed varies by solution: emergency payroll financing in 24-72 hours, invoice factoring in 3-5 days, asset-based lending in 10-20 days. We've closed deals in as little as 3 business days when time was critical."
+  },
+  {
+    id: 'top-debt-refinance',
+    q: "Can you help refinance expensive debt?",
+    a: "Yes. Debt refinancing is one of our most popular solutions. We help businesses escape MCA debt traps, consolidate multiple loans, and reduce monthly payments by 30-50%. Most clients save 5-10 percentage points on their total cost of capital."
   },
   {
     id: 'top-how-much-cost',
     q: "How much does Serve Funding cost?",
-    a: "Serve Funding operates on a success-fee basis of 1-2% of the funded amount, paid only when you successfully receive financing. No upfront costs—we only succeed when you do."
-  },
-  {
-    id: 'top-help-bank-denied',
-    q: "Can you help if my bank denied me?",
-    a: "Yes, absolutely. Bankers are our primary referral sources because we specialize in non-bank financing options. We guide you through the broader world of alternative credit products including asset-based lending, invoice factoring, and revenue-based financing."
-  },
-  {
-    id: 'top-funding-timeline',
-    q: "How long does the funding process take?",
-    a: "Timeline varies by product: working capital loans can fund in 1-5 business days, standard products take 1-3 weeks, and complex structures may take 1-3 months. We've closed emergency deals in as little as 1-2 business days."
+    a: "We operate on a success-fee basis of 1-2% of the funded amount, paid only when you receive financing. No upfront costs, no retainers. We only succeed when you do, which aligns our incentives with yours."
   },
   {
     id: 'top-industries-served',
     q: "What industries do you serve?",
-    a: "We serve a broad spectrum of industries with specialization in manufacturing, wholesale and distribution, B2B business services, e-commerce, consumer packaged goods, government contractors, and construction. Based in Atlanta, GA, we primarily serve the Southeast United States."
+    a: "We serve manufacturing, construction, staffing, healthcare, CPG, e-commerce, government contractors, and professional services. Based in Atlanta, we primarily serve the Southeast but work with clients nationwide."
   }
 ]
 
@@ -71,22 +71,32 @@ export const aboutServeFundingFAQs: FAQ[] = [
   {
     id: 'what-is-serve-funding',
     q: 'What is Serve Funding?',
-    a: 'Serve Funding is a business financing advisory firm that provides strategic guidance and access to top lenders for all forms of business financing ($250K to $100MM). As a channel-neutral advisor, we\'re not limited by a single lender\'s "credit box"—instead, we tap into multiple underwriting styles across AR financing, inventory financing, equipment leasing, PO funding, and more. We operate as a servant-leadership advisory firm with 15+ years of experience in asset-based and cash-flow lending.'
+    a: 'Serve Funding is a boutique business financing advisory that provides strategic guidance and access to 30+ lenders for alternative financing from $250K to $100MM. As a channel-neutral advisor, we\'re not limited by a single lender\'s "credit box"—we tap into multiple underwriting styles. We operate with servant leadership and 15+ years of experience in asset-based and cash-flow lending.'
+  },
+  {
+    id: 'relationships-over-bots',
+    q: 'What does "Relationships Over Bots" mean?',
+    a: 'We believe tired of automated platforms and generic funding advice? We provide high-touch, relationship-based advisory—not algorithms or quick-fix bots. You work directly with our founder or senior team members who understand your story, fight for your best interests, and negotiate the best terms across our lender network. When you partner with us, a little part of your reputation goes with it—and we protect that trust.'
   },
   {
     id: 'how-does-serve-funding-work',
     q: 'How does Serve Funding work?',
-    a: 'We follow a three-step process: Discovery (understanding your needs and goals), Diligence (sketching financing options using your assets, cash flows, or opportunities), and Delivery (guiding you through the entire process and negotiating on your behalf). Engagements typically start with a referral from bankers, CFOs, or CPAs, or through direct outreach. You\'ll work directly with our founder Michael Kodinsky or another team member throughout the process.'
+    a: 'We follow a three-step process: Discovery (understanding your needs and goals), Diligence (evaluating financing options across our lender network), and Delivery (guiding you through closing and negotiating on your behalf). Most engagements start with referrals from bankers, CFOs, or CPAs. You\'ll work directly with experienced advisors throughout—no handoffs to junior staff.'
   },
   {
     id: 'what-makes-serve-different',
-    q: 'What makes Serve Funding different from other lenders?',
-    a: 'We\'re not a lender—we\'re a dedicated advisory resource with relationships to multiple lenders and underwriting styles. This means we can provide various financing solutions throughout your company\'s growth trajectory, rather than being locked into one product. We operate on a success-fee basis (1-2% when you fund), so our incentives are aligned with yours, and we fight hard to negotiate the best rates possible.'
+    q: 'What makes Serve Funding different from other lenders or brokers?',
+    a: 'We\'re not a lender—we\'re your trusted advisor with relationships across 30+ lenders and multiple underwriting styles. Unlike captive brokers tied to one lender, we provide unbiased guidance throughout your company\'s growth trajectory. We operate on a success-fee basis (1-2% when you fund), so our incentives align with yours. We fight hard to negotiate 10-20 percentage point rate reductions compared to going direct.'
   },
   {
     id: 'can-you-help-if-bank-denied',
     q: 'Can you help if my bank denied me?',
-    a: 'Absolutely. Bankers are our primary referral sources because we specialize in non-bank financing options. We help businesses that don\'t fit traditional banking criteria by leveraging asset-based lending, invoice factoring, revenue-based financing, equipment financing, and PO funding. We have established relationships with dozens of alternative lenders who evaluate your business differently and often say "yes" when banks say "no."'
+    a: 'Absolutely. When banks say no, we say how. Bankers are our primary referral sources because we specialize in alternative financing that traditional banks don\'t offer. We leverage asset-based lending, invoice factoring, debt refinance, revenue-based financing, and PO funding. We have relationships with dozens of alternative lenders who evaluate businesses differently and often approve when banks decline.'
+  },
+  {
+    id: 'channel-neutral-advisor',
+    q: 'What is a channel-neutral advisor?',
+    a: 'A channel-neutral advisor is not tied to any single lender or product. Unlike captive brokers who earn commissions from one lender, we maintain relationships across 30+ lenders with different underwriting styles, rate structures, and specialties. This means we can match you with the best lender for your situation—and negotiate aggressively because we\'re not beholden to any single relationship.'
   }
 ]
 
@@ -99,6 +109,21 @@ export const workingCapitalFAQs: FAQ[] = [
     id: 'what-is-working-capital',
     q: 'What is working capital?',
     a: 'Working capital is the funds available to meet day-to-day operational needs, calculated as current assets minus current liabilities (cash, AR, inventory minus AP and short-term debt). When businesses need "working capital," they\'re seeking additional liquidity to grow without running out of money, meet obligations, and scale operations. Positive working capital means you have enough liquid assets to cover short-term obligations.'
+  },
+  {
+    id: 'how-to-refinance-business-debt',
+    q: 'How do I refinance high-cost business debt?',
+    a: 'Debt refinancing replaces expensive debt (MCAs, high-interest loans, multiple payments) with a single, more affordable solution. We help you consolidate debt, reduce monthly payments by 30-50%, and often cash out additional working capital. Most refinances close in 10-20 business days using asset-based lending or term loans. The key is having sufficient revenue ($1MM+ annually) and ideally some collateral (AR, inventory, equipment, or real estate).'
+  },
+  {
+    id: 'how-to-escape-mca-debt',
+    q: 'How do I escape merchant cash advance (MCA) debt?',
+    a: 'MCA consolidation refinances daily or weekly MCA payments into a single monthly term loan or line of credit with significantly lower costs. We\'ve helped dozens of businesses escape MCA debt traps by securing asset-based lending, term loans, or revenue-based financing that costs 10-20 percentage points less annually. The key is acting before cash flow becomes too constrained—contact us as soon as you realize MCA payments are unsustainable.'
+  },
+  {
+    id: 'emergency-payroll-financing',
+    q: 'How fast can I get emergency payroll financing?',
+    a: 'Emergency payroll financing can fund in 24-72 hours in many cases. Our fastest payroll solution closed in 4 business days, ensuring every employee was paid on time with zero disruption. We structure payroll financing through short-term bridge loans, invoice factoring, or lines of credit against upcoming receivables. Costs range from 1-3% of payroll amount for bridge solutions or Prime + 4-12% annualized for term loans.'
   },
   {
     id: 'how-much-working-capital-needed',
@@ -123,12 +148,17 @@ export const workingCapitalFAQs: FAQ[] = [
   {
     id: 'what-if-cash-flow-irregular',
     q: 'What if my cash flow is irregular or seasonal?',
-    a: 'Seasonal and irregular cash flow don\'t disqualify you—they\'re actually perfect reasons to seek working capital. Businesses need financing to maintain payroll and inventory during slow periods while preparing for busy ones. Revolving lines of credit, working capital loans, and invoice factoring all work well for seasonal businesses. Landscaping, retail, and tourism companies commonly use working capital to bridge seasonal gaps.'
+    a: 'Seasonal and irregular cash flow don\'t disqualify you—they\'re actually perfect reasons to seek working capital. Businesses need financing to maintain payroll and inventory during slow periods while preparing for busy ones. Revolving lines of credit, working capital loans, and invoice factoring all work well for seasonal businesses. Landscaping, retail, hospitality, and tourism companies commonly use working capital to bridge seasonal gaps.'
   },
   {
     id: 'can-get-wc-for-payroll',
     q: 'Can I get working capital for payroll emergencies?',
-    a: 'Absolutely. Payroll emergencies from delayed customer payments, depleted cash reserves, or unexpected expenses are common drivers for working capital. We can fund payroll emergencies in 1-2 business days without exploiting your urgency—we maintain transparent pricing and negotiate hard for the best rates. Better approach: establish a line of credit before you need it and maintain cash reserves equal to 1-2 payrolls.'
+    a: 'Absolutely. Payroll emergencies from delayed customer payments, depleted cash reserves, or unexpected expenses are common drivers for working capital. When payroll is due but cash flow hasn\'t caught up, time isn\'t just money—it\'s team trust and operational stability. We can fund payroll emergencies in 1-2 business days through short-term bridge loans or invoice factoring without exploiting your urgency.'
+  },
+  {
+    id: 'what-credit-score-needed',
+    q: 'What credit score do I need for business financing?',
+    a: 'Credit score requirements vary by solution. Asset-based lending and invoice factoring focus on collateral value (550+ credit often acceptable). Term loans and lines of credit typically require 600-650+ for approval. Debt refinancing and MCA consolidation can work with 550+ if you have strong revenue and assets. The key advantage of alternative financing is that credit score is just one factor—revenue, assets, and business trajectory matter more.'
   }
 ]
 

@@ -4,6 +4,8 @@ import React, { useRef, useEffect, useState, memo } from 'react'
 import { motion } from 'framer-motion'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
+type LeafColorOption = 'primary' | 'secondary' | 'highlight' | 'dark' | 'background' | 'white'
+
 interface Leaf {
   id: number
   x: number
@@ -15,6 +17,7 @@ interface Leaf {
   duration: number
   spawnTime?: number
   fadeOut?: boolean
+  color: LeafColorOption
 }
 
 // Leaf shape SVG component - Rounded organic leaf
@@ -22,31 +25,34 @@ const LeafShape = ({
   size = 100,
   angle = 0,
   opacity = 0.6,
-  color = BRAND_COLORS.primary
+  color = 'primary'
 }: {
   size?: number
   angle?: number
   opacity?: number
-  color?: string
-}) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 100 100"
-    style={{
-      transform: `rotate(${angle}deg)`,
-      opacity,
-      filter: `drop-shadow(0 0 8px ${color}60) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15))`,
-    }}
-  >
-    {/* Pointed teardrop leaf shape */}
-    <path
-      d="M 50 5 Q 70 20 72 45 Q 70 70 50 90 Q 30 70 28 45 Q 30 20 50 5 Z"
-      fill={color}
-      opacity="1"
-    />
-  </svg>
-)
+  color?: LeafColorOption
+}) => {
+  const colorValue = BRAND_COLORS[color]
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 100 100"
+      style={{
+        transform: `rotate(${angle}deg)`,
+        opacity,
+        filter: `drop-shadow(0 0 8px ${colorValue}60) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15))`,
+      }}
+    >
+      {/* Pointed teardrop leaf shape */}
+      <path
+        d="M 50 5 Q 70 20 72 45 Q 70 70 50 90 Q 30 70 28 45 Q 30 20 50 5 Z"
+        fill={colorValue}
+        opacity="1"
+      />
+    </svg>
+  )
+}
 
 // Animated floating leaf that follows mouse
 const FloatingLeaf = memo(({
@@ -125,7 +131,7 @@ const FloatingLeaf = memo(({
         size={leaf.size}
         angle={leaf.angle}
         opacity={1}
-        color={BRAND_COLORS.primary}
+        color={leaf.color}
       />
     </motion.div>
   )
@@ -139,9 +145,19 @@ const FloatingLeaf = memo(({
 
 export const HeroAnimation = ({
   children,
+  defer = false,
+  backgroundColor,
+  leafColorOptions = ['primary', 'secondary', 'highlight', 'dark', 'background'],
 }: {
   children?: React.ReactNode
+  defer?: boolean
+  backgroundColor?: LeafColorOption
+  leafColorOptions?: LeafColorOption[]
 }) => {
+  // Filter out the background color to avoid leaves matching the background
+  const allowedColors = backgroundColor
+    ? leafColorOptions.filter(color => color !== backgroundColor)
+    : leafColorOptions
   const containerRef = useRef<HTMLDivElement>(null)
   const [leaves, setLeaves] = useState<Leaf[]>([])
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
@@ -152,42 +168,66 @@ export const HeroAnimation = ({
 
   // Generate initial background leaves (fewer on mobile) - defer until after hydration
   useEffect(() => {
-    setIsHydrated(true)
-  }, [])
+    if (defer) {
+      // If defer is true, wait for idle callback to initialize leaves
+      if ('requestIdleCallback' in window) {
+        const id = requestIdleCallback(() => setIsHydrated(true))
+        return () => cancelIdleCallback(id)
+      } else {
+        // Fallback for browsers without requestIdleCallback
+        const timer = setTimeout(() => setIsHydrated(true), 1000)
+        return () => clearTimeout(timer)
+      }
+    } else {
+      setIsHydrated(true)
+    }
+  }, [defer])
 
   useEffect(() => {
     if (!isHydrated) return
 
     const generateInitialLeaves = () => {
-      // Reduce leaf count on mobile: 4-6 leaves, desktop: 8-12 leaves
+      if (!containerRef.current) return
+
+      // Get current dimensions - wait for container to have actual size
+      const rect = containerRef.current.getBoundingClientRect()
+      const width = rect.width || containerRef.current.clientWidth || 600
+      const height = rect.height || containerRef.current.clientHeight || 400
+
+      // Only generate leaves if we have meaningful dimensions
+      if (height < 10) {
+        // Container hasn't rendered yet, try again
+        setTimeout(generateInitialLeaves, 100)
+        return
+      }
+
+      // Scale leaf count based on container height with constant multiplier
       const isMobile = window.innerWidth < 768
-      const leafCount = isMobile
-        ? Math.floor(Math.random() * 3) + 4  // 4-6 leaves on mobile
-        : Math.floor(Math.random() * 5) + 8  // 8-12 leaves on desktop
+      const leafMultiplier = isMobile ? 0.005 : 0.008  // More leaves per pixel on desktop
+      const scaledLeafCount = Math.max(4, Math.floor(height * leafMultiplier + Math.random() * 3))
+      const leafCount = scaledLeafCount
       const newLeaves: Leaf[] = Array.from({ length: leafCount }, (_, i) => ({
         id: i,
-        x: Math.random() * (containerRef.current?.clientWidth || 600),
-        y: Math.random() * (containerRef.current?.clientHeight || 400),
+        x: Math.random() * width,
+        y: Math.random() * height,
         angle: Math.random() * 360,
         size: Math.random() * 50 + 25, // 25-75px
         opacity: Math.random() * 0.4 + 0.25, // 0.25-0.65
         delay: i * 0.01,
         duration: Math.random() * 2 + 3, // 3-5 seconds
         fadeOut: false,
+        color: allowedColors[Math.floor(Math.random() * allowedColors.length)],
       }))
       setLeaves(newLeaves)
       nextLeafIdRef.current = leafCount
-
-      if (containerRef.current) {
-        setContainerRect(containerRef.current.getBoundingClientRect())
-      }
+      setContainerRect(rect)
     }
 
-    // Defer leaf generation to after paint
-    const timer = requestAnimationFrame(() => {
+    // Wait a bit for layout to settle before generating leaves
+    const timer = setTimeout(() => {
       generateInitialLeaves()
-    })
-    return () => cancelAnimationFrame(timer)
+    }, 300)
+    return () => clearTimeout(timer)
   }, [isHydrated])
 
   // Track mouse movement and spawn leaves (desktop only)
@@ -198,9 +238,9 @@ export const HeroAnimation = ({
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY })
 
-      // Spawn leaves at cursor position every 0.1-0.5 seconds
+      // Spawn leaves at cursor position every 0.03-0.15 seconds
       const now = Date.now()
-      const spawnInterval = Math.random() * 400 + 100 // 100-500ms
+      const spawnInterval = Math.random() * 200 + 100 // 100-300ms
 
       if (now - lastSpawnTimeRef.current > spawnInterval) {
         lastSpawnTimeRef.current = now
@@ -229,6 +269,7 @@ export const HeroAnimation = ({
             duration: 2,
             spawnTime: now,
             fadeOut: true,
+            color: allowedColors[Math.floor(Math.random() * allowedColors.length)],
           }
 
           return [...prev, newLeaf]
@@ -240,7 +281,7 @@ export const HeroAnimation = ({
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  // Update container rect on resize
+  // Update container rect on resize and scroll
   useEffect(() => {
     const handleResize = () => {
       if (containerRef.current) {
@@ -248,8 +289,22 @@ export const HeroAnimation = ({
       }
     }
 
+    // Use ResizeObserver to detect when container size changes (better than just window resize)
+    const resizeObserver = new ResizeObserver(() => {
+      if (containerRef.current) {
+        setContainerRect(containerRef.current.getBoundingClientRect())
+      }
+    })
+
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current)
+    }
+
     window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      resizeObserver.disconnect()
+    }
   }, [])
 
   // Clean up old faded-out leaves periodically
@@ -277,28 +332,30 @@ export const HeroAnimation = ({
       ref={containerRef}
       className="relative w-full h-full"
       style={{
-        overflow: 'hidden',
+        overflow: 'visible',
       }}
     >
-      {/* Background animated leaves */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-      >
-        {leaves.map((leaf) => (
-          <FloatingLeaf
-            key={leaf.id}
-            leaf={leaf}
-            mouseX={mousePos.x}
-            mouseY={mousePos.y}
-            containerRect={containerRect}
-          />
-        ))}
-      </div>
-
-      {/* Main content */}
-      <div className="relative h-full z-10">
+      {/* Main content - lower z-index */}
+      <div className="relative h-full">
         {children}
       </div>
+
+      {/* Background animated leaves - on top but non-interactive */}
+      {isHydrated && (
+        <div
+          className="absolute inset-0 pointer-events-none z-5"
+        >
+          {leaves.map((leaf) => (
+            <FloatingLeaf
+              key={leaf.id}
+              leaf={leaf}
+              mouseX={mousePos.x}
+              mouseY={mousePos.y}
+              containerRect={containerRect}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

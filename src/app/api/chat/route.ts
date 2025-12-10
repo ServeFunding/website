@@ -39,11 +39,34 @@ export async function POST(request: Request) {
       content: message,
     })
 
-    const response = await anthropic.messages.create({
+    const response = await anthropic.beta.messages.create({
       model: "claude-haiku-4-5-20251001",
       max_tokens: 1024,
+      betas: ["structured-outputs-2025-11-13"],
       system: websiteContext,
       messages,
+      output_format: {
+        type: "json_schema",
+        schema: {
+          type: "object",
+          properties: {
+            message: {
+              type: "string",
+              description: "The message to display to the user"
+            },
+            showForm: {
+              type: "boolean",
+              description: "Whether to show the contact form"
+            },
+            context: {
+              type: "string",
+              description: "Context summary for the form (only if showForm is true)"
+            }
+          },
+          required: ["message", "showForm"],
+          additionalProperties: false
+        }
+      }
     })
 
     const textContent = response.content.find(block => block.type === "text")
@@ -53,6 +76,7 @@ export async function POST(request: Request) {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
     console.error("Chat API error:", errorMessage)
+    console.error("Full error:", error)
     return Response.json(
       { error: `Failed to process chat request: ${errorMessage}` },
       { status: 500 }

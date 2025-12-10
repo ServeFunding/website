@@ -1,26 +1,8 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Container, Heading, Text, SocialIcons } from "./ui"
+import { Container, Heading, Text, SocialIcons, Section } from "./ui"
 import { COLORS as BRAND_COLORS } from "@/lib/colors"
 import { blogPosts } from "@/data/blog-posts"
-
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Serve Funding",
-  "url": "https://servefunding.com",
-  "logo": "https://servefunding.com/Logo_Full-color_long_samecolor-1.png",
-  "description": "Creative working capital solutions for growing businesses",
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+770-820-7409",
-    "email": "michael@servefunding.com",
-    "contactType": "customer service"
-  },
-  "sameAs": [
-    "https://www.linkedin.com/company/serve-funding"
-  ]
-}
 
 export function Footer() {
   const sortedBlogPosts = [...blogPosts].sort((a, b) => {
@@ -29,19 +11,13 @@ export function Footer() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(organizationSchema),
-        }}
-      />
-      <footer className="bg-white text-gray-800 border-t border-gray-200 font-sans">
-        <div className="py-16">
+      <footer className="text-gray-800 font-sans">
+        <Section background="white">
           <Container>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
               {/* Menu */}
               <div>
-                <Heading size="h3" className="text-olive-900 mb-6">Menu</Heading>
+                <Heading size="h3" className="text-olive-900 font-bold mb-6">Menu</Heading>
                 <div className="space-y-3 flex flex-col">
                   <Link href="/" className="text-olive-900 hover:text-gold-500 transition-colors">Home</Link>
                   <Link href="/solutions" className="text-olive-900 hover:text-gold-500 transition-colors">Solutions</Link>
@@ -53,7 +29,7 @@ export function Footer() {
 
               {/* Quick Links */}
               <div>
-                <Heading size="h3" className="text-olive-900 mb-6">Quick Links</Heading>
+                <Heading size="h3" className="text-olive-900 font-bold mb-6">Quick Links</Heading>
                 <div className="space-y-3 flex flex-col">
                   <Link href="/privacy-policy" className="text-olive-900 hover:text-gold-500 transition-colors">Privacy Policy</Link>
                   <Link href="/terms-of-service" className="text-olive-900 hover:text-gold-500 transition-colors">Terms of Service</Link>
@@ -64,7 +40,7 @@ export function Footer() {
 
               {/* Blog */}
               <div>
-                <Heading size="h3" className="text-olive-900 mb-6">Blog</Heading>
+                <Heading size="h3" className="text-olive-900 font-bold mb-6">Blog</Heading>
                 <div className="space-y-3 flex flex-col">
                   {sortedBlogPosts.slice(0, 4).map((post) => (
                     <Link key={post.id} href={`/blog/${post.id}`} className="text-olive-900 hover:text-gold-500 transition-colors text-sm">
@@ -79,7 +55,7 @@ export function Footer() {
 
               {/* Get In Touch */}
               <div>
-                <Heading size="h3" className="text-olive-900 mb-6">Get In Touch</Heading>
+                <Heading size="h3" className="text-olive-900 font-bold mb-6">Get In Touch</Heading>
                 <div className="space-y-3 mb-6">
                   <div className="flex items-center gap-3">
                     <svg className="w-5 h-5 text-olive-900" fill="currentColor" viewBox="0 0 20 20">
@@ -104,10 +80,10 @@ export function Footer() {
             <div className="border-t border-gray-200 pt-12">
               <div className="flex flex-wrap justify-center items-center gap-12 mb-12">
                 <a href="https://www.acg.org/" target="_blank" rel="noopener noreferrer" title="Visit ACG Global - Association for Corporate Growth" className="hover:opacity-80 transition-opacity">
-                  <Image src="/ACG Global Logo.png" alt="ACG Global - Association for Corporate Growth" width={140} height={60} className="h-16 w-auto" />
+                  <Image src="/ACG Global Logo.webp" alt="ACG Global - Association for Corporate Growth" width={140} height={60} className="h-16 w-auto" />
                 </a>
                 <a href="https://www.factoring.org/" target="_blank" rel="noopener noreferrer" title="Visit IFA - International Factoring Association" className="hover:opacity-80 transition-opacity">
-                  <Image src="/IFA.png" alt="IFA - International Factoring Association" width={100} height={50} className="h-16 w-auto" />
+                  <Image src="/IFA.webp" alt="IFA - International Factoring Association" width={100} height={50} className="h-16 w-auto" />
                 </a>
                 <a href="https://www.sfnet.com/" target="_blank" rel="noopener noreferrer" title="Visit Secured Finance Network" className="hover:opacity-80 transition-opacity">
                   <Image src="/Secured Finance Network.jpg" alt="Secured Finance Network" width={160} height={50} className="h-16 w-auto" />
@@ -118,16 +94,16 @@ export function Footer() {
               </div>
               <div className="flex justify-center mt-24">
                 <Image
-                  src="/Logo_Full-color_long_samecolor-1.png"
+                  src="/Logo_Full-color_long_samecolor-1.webp"
                   alt="Serve Funding"
-                  className="h-20 w-auto"
-                  width={305}
-                  height={84}
+                  className="h-28 w-auto"
+                  width={428}
+                  height={118}
                 />
               </div>
             </div>
           </Container>
-        </div>
+        </Section>
 
         {/* Copyright - Full Width */}
         <div className="py-4" style={{ backgroundColor: BRAND_COLORS.primary }}>

@@ -10,12 +10,8 @@ import {
   Container,
   Heading,
   Text,
-  Button,
-  FadeIn,
-  StaggerContainer,
-  StaggerItem
+  StaggerContainer
 } from '@/components/ui'
-import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -50,39 +46,12 @@ interface FAQClientProps {
 export default function FAQClient({ faqs }: FAQClientProps) {
   return (
     <div className="bg-white font-sans text-gray-800">
-      {/* Hero Section */}
-      <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary }}>
-        <Container>
-          <div className="flex flex-col items-center justify-center min-h-[400px] py-20 text-center">
-            <FadeIn className="text-white max-w-3xl">
-              <Heading size="h1" color="white" className="mb-6">
-                FAQ
-              </Heading>
-              <Text size="lg" className="text-white/90">
-                Frequently Asked Questions
-              </Text>
-            </FadeIn>
-          </div>
-        </Container>
-      </Section>
-
       {/* FAQ Section */}
       <Section>
         <Container>
-          <FadeIn className="max-w-3xl mx-auto mb-16 text-center">
-            <Heading size="h2" className="mb-6 text-olive-900">
-              Have Questions?
-            </Heading>
-            <Text size="lg" className="text-gray-700">
-              Find answers to commonly asked questions about Serve Funding and our services.
-            </Text>
-          </FadeIn>
-
           <StaggerContainer className="max-w-3xl mx-auto space-y-4">
             {faqs.map((faq, index) => (
-              <StaggerItem key={index}>
-                <FAQItem question={faq.question} answer={faq.answer} />
-              </StaggerItem>
+              <FAQItem key={index} question={faq.question} answer={faq.answer} />
             ))}
           </StaggerContainer>
         </Container>

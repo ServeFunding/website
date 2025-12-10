@@ -6,12 +6,11 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem,
   SocialIcons,
 } from '@/components/ui'
-import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CTA } from '@/components/cta'
 import { LogoGrid } from '@/components/LogoGrid'
+import { Breadcrumb } from '@/components/breadcrumb'
 import { COLORS } from '@/lib/colors'
 import type { Metadata } from 'next'
 
@@ -51,23 +50,19 @@ const coreValues = [
 export default function AboutUs() {
   return (
     <div className="bg-white font-sans text-gray-800">
-      {/* Hero Section */}
-      <HeroFadeIn
-        title="Working Capital Advisory"
-        subtitle="Serve Funding is a boutique working capital advisory firm providing creative financing solutions from $250K to $100MM for mid-market businesses. Founded in 2021, we specialize in asset-based lending, invoice factoring, equipment leasing, and specialized funding for growing companies seeking fast, flexible capital."
-      />
+      {/* Breadcrumb - includes schema */}
+      <Breadcrumb items={[{ label: 'About Us' }]} />
 
       {/* Founder's Story Section */}
-      <Section id="our-story">
+      <Section>
         <Container>
           <FadeIn>
+            <Heading size="h2" className="text-center">
+              Entrepreneurship Runs In Our Blood.
+            </Heading>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               {/* Left: Text */}
               <div className="max-w-2xl">
-                <Heading size="h2" className="mb-8">
-                  Entrepreneurship Runs In Our Blood.
-                </Heading>
-
                 <div className="space-y-6 text-gray-700 leading-relaxed">
                   <Text>
                     At <span className="font-bold">Serve Funding</span>, we believe entrepreneurs embody the courage to pursue greater visions. Our company was founded on these values, inspired by my family's own journey as immigrants and entrepreneurs.
@@ -90,7 +85,7 @@ export default function AboutUs() {
               {/* Right: Image */}
               <div className="flex justify-center">
                 <img
-                  src="/runs in our blood.webp"
+                  src="/about/runs in our blood.webp"
                   alt="Entrepreneurship runs in our blood"
                   className="rounded-xl w-full max-w-md object-cover"
                 />
@@ -108,7 +103,7 @@ export default function AboutUs() {
               {/* Left: Image */}
               <div className="flex justify-center order-2 md:order-1">
                 <img
-                  src="/commitment to entreprenuers.webp"
+                  src="/about/commitment to entreprenuers.webp"
                   alt="Our commitment to entrepreneurs"
                   className="rounded-xl shadow-lg w-full max-w-md object-cover"
                 />
@@ -137,25 +132,22 @@ export default function AboutUs() {
       <Section id="core-values">
         <Container>
           <FadeIn className="text-center mb-16">
-            <Heading size="h2" className="mb-3">Our Core Values</Heading>
-            <Text className="text-gold-500 font-semibold text-lg">Rooted in TRUST</Text>
+            <Heading size="h2" className="mb-3">Our Core Values are Rooted in Trust</Heading>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {coreValues.map((value, index) => (
-              <StaggerItem key={index}>
-                <Card className="text-center h-full flex flex-col items-center justify-start pt-8 group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
-                  <span className="font-serif font-bold text-5xl mb-6 block" style={{ color: COLORS.primary }}>
-                    {value.title.charAt(0)}
-                  </span>
-                  <Heading size="h4" className="mb-3 text-olive-900 group-hover:text-olive-900 transition-colors">
-                    {value.title}
-                  </Heading>
-                  <Text className="text-gray-600 group-hover:text-gray-700 transition-colors text-sm">
-                    {value.desc}
-                  </Text>
-                </Card>
-              </StaggerItem>
+              <Card key={index} color='background' className="text-center h-full flex flex-col items-center justify-start pt-8 group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
+                <span className="font-serif font-bold text-5xl mb-6 block" style={{ color: COLORS.primary }}>
+                  {value.title.charAt(0)}
+                </span>
+                <Heading size="h4" className="mb-3 text-olive-900 group-hover:text-olive-900 transition-colors">
+                  {value.title}
+                </Heading>
+                <Text className="text-gray-600 group-hover:text-gray-700 transition-colors text-sm">
+                  {value.desc}
+                </Text>
+              </Card>
             ))}
           </StaggerContainer>
         </Container>
@@ -165,9 +157,9 @@ export default function AboutUs() {
       <Section background="white" style={{ backgroundColor: COLORS.primary }}>
         <Container>
           <FadeIn>
-            <div className="max-w-5xl mx-auto rounded-3xl p-12 bg-white">
+            <Card className="max-w-5xl mx-auto mt-28">
               {/* Full Width Heading */}
-              <Heading size="h2">
+              <Heading size="h2" className='!mt-0'>
                 We Believe Relationships {'>'} Bots
               </Heading>
 
@@ -206,7 +198,7 @@ export default function AboutUs() {
                   <SocialIcons />
                 </div>
               </div>
-            </div>
+            </Card>
           </FadeIn>
         </Container>
       </Section>
@@ -219,9 +211,9 @@ export default function AboutUs() {
               title="Doing Good: Supporting Our Community"
               subtitle="At Serve Funding, we give a percentage of our earnings to support exemplary non-profits. Doing good for those in need is a core part of our mission."
               logos={[
-                { src: "/About Us Serve Funding.png", alt: "Hope for the Homeless" },
-                { src: "/About Us Serve Funding (1).png", alt: "Frontline Response" },
-                { src: "/About Us Serve Funding (2).png", alt: "JAM Quest" }
+                { src: "/about/Hope Worldwide.webp", alt: "Hope for the Homeless" },
+                { src: "/about/Frontline.webp", alt: "Frontline Response" },
+                { src: "/about/Jamquest.webp", alt: "JAM Quest" }
               ]}
               maxHeight={32}
             />
@@ -233,7 +225,7 @@ export default function AboutUs() {
       <CTA
         title="Ready to Get Started?"
         text="Learn more about our funding solutions and how we can help your business grow. Schedule a consultation with one of our funding experts today."
-        buttonText="Schedule Your Consultation"
+        buttonText="Let's Talk!"
         source="about-us"
         useBG
       />

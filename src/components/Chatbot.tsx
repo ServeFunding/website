@@ -6,18 +6,21 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { getAIResponse } from '@/lib/ai'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { trackChatbotSessionStart, trackChatbotMessage } from '@/lib/tracking'
+import { Button } from '@/components/ui'
 
 interface Message {
   id: string
   text: string
   sender: 'user' | 'bot'
   timestamp: Date
+  actionButtons?: Array<{ label: string; action: string }>
 }
 
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
   const [hasShownNotification, setHasShownNotification] = useState(false)
+  const [aiContext, setAiContext] = useState('')
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -80,8 +83,8 @@ export function Chatbot() {
   const handleSendMessage = useCallback(async () => {
     if (!inputValue.trim()) return
 
-    // Track message sent
-    trackChatbotMessage()
+    // Track message sent with preview
+    trackChatbotMessage(undefined, inputValue)
 
     // Add user message
     const userMessage: Message = {
@@ -99,11 +102,24 @@ export function Chatbot() {
       // Get AI response with conversation history
       const reply = await getAIResponse(inputValue, messages)
 
+      // Parse JSON response (guaranteed to be JSON via API response_format)
+      const parsed = JSON.parse(reply)
+      const displayText = parsed.message
+      const showForm = parsed.showForm === true
+      const context = parsed.context || ''
+
+      if (showForm) {
+        setAiContext(context)
+      }
+
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: reply,
+        text: displayText,
         sender: 'bot',
         timestamp: new Date(),
+        actionButtons: showForm ? [
+          { label: "Schedule a Call", action: 'open_calendly' }
+        ] : undefined
       }
       setMessages((prev) => [...prev, botMessage])
     } catch (error) {
@@ -120,32 +136,52 @@ export function Chatbot() {
     }
   }, [inputValue, messages])
 
+  const handleActionButtonClick = useCallback((action: string) => {
+    if (action === 'open_calendly') {
+      const baseUrl = 'https://calendly.com/michael_kodinsky/discovery'
+      const now = new Date()
+      const monthParam = now.toISOString().split('T')[0].substring(0, 7) // YYYY-MM format
+      const params = new URLSearchParams({
+        month: monthParam,
+        a1: aiContext || 'I want to learn more about your services',
+        date: now.toISOString().split('T')[0],
+      })
+      const calendlyUrl = `${baseUrl}?${params.toString()}`
+      window.open(calendlyUrl, '_blank')
+    }
+  }, [aiContext])
+
+
   return (
     <>
       {/* Notification - appears above chatbot */}
       <AnimatePresence>
         {showNotification && !isOpen && (
         <motion.div
-          onClick={() => {
-            setIsOpen(true)
-            setShowNotification(false)
-          }}
           initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
+          animate={{
+            opacity: 1,
+            x: 0,
+            background: [
+              `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
+              `linear-gradient(135deg, ${BRAND_COLORS.secondary}, ${BRAND_COLORS.dark})`,
+              `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
+            ]
+          }}
           exit={{ opacity: 0, x: 100 }}
           transition={{
-            duration: 0.4,
-            ease: 'easeOut'
+            opacity: { duration: 0.4, ease: 'easeOut' },
+            x: { duration: 0.4, ease: 'easeOut' },
+            background: { duration: 4, repeat: Infinity, ease: 'easeInOut' }
           }}
           style={{
             position: 'fixed',
             bottom: '100px',
             right: '20px',
-            width: '280px',
+            width: '288px',
             zIndex: 40,
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            padding: '14px 16px',
+            borderRadius: '15px',
+            padding: '3px',
             boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
             cursor: 'pointer',
           }}
@@ -158,42 +194,88 @@ export function Chatbot() {
             e.currentTarget.style.transform = 'translateY(0)'
           }}
         >
-          <div className="flex justify-between items-start gap-2">
-            <div className="flex-1">
-              <p className="font-semibold mb-1" style={{ color: BRAND_COLORS.primary }}>Have any questions?</p>
-              <p className="text-sm text-gray-600 leading-relaxed">We're here to serve</p>
+          <div
+            onClick={() => {
+              setIsOpen(true)
+              setShowNotification(false)
+            }}
+            style={{
+              backgroundColor: BRAND_COLORS.background,
+              borderRadius: '12px',
+              padding: '14px 16px',
+              width: '100%',
+            }}
+          >
+            <div className="flex justify-between items-start gap-2">
+              <div className="flex-1">
+                <p className="font-semibold mb-1 text-lg" style={{ color: BRAND_COLORS.primary }}>Have any questions?</p>
+                <p className="text-md text-gray-700 leading-relaxed">We're here to serve you.</p>
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setShowNotification(false)
+                }}
+                className="text-gray-400 hover:text-gray-600 text-lg flex-shrink-0 leading-none transition-colors cursor-pointer"
+                style={{ marginTop: '-2px' }}
+              >
+                ✕
+              </button>
             </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setShowNotification(false)
-              }}
-              className="text-gray-400 text-lg flex-shrink-0 leading-none"
-              style={{ marginTop: '-2px' }}
-            >
-              ✕
-            </button>
           </div>
         </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Floating Button */}
-      <motion.button
-        onClick={() => {
-          setIsOpen(!isOpen)
-          if (!isOpen) setShowNotification(false)
-        }}
+      {/* Floating Button with Gradient Border */}
+      <motion.div
         style={{
-          backgroundColor: BRAND_COLORS.secondary,
+          position: 'fixed',
+          bottom: '16px',
+          right: '16px',
+          width: '75px',
+          height: '75px',
+          borderRadius: '50%',
+          padding: '3px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 50,
+        } as React.CSSProperties}
+        animate={{
+          rotate: 360,
+          background: [
+            `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
+            `linear-gradient(135deg, ${BRAND_COLORS.primary}, ${BRAND_COLORS.background})`,
+            `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
+          ]
         }}
-        className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 w-14 h-14 text-white rounded-full shadow-lg flex items-center justify-center transition-colors z-50 hover:opacity-90"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        aria-label={isOpen ? "Close chat" : "Open chat"}
+        transition={{
+          rotate: { duration: 4, repeat: Infinity, ease: 'linear' },
+          background: { duration: 4, repeat: Infinity, ease: 'easeInOut' }
+        }}
       >
-        {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
-      </motion.button>
+        <motion.button
+          onClick={() => {
+            setIsOpen(!isOpen)
+            if (!isOpen) setShowNotification(false)
+          }}
+          style={{
+            backgroundColor: BRAND_COLORS.highlight,
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+          }}
+          className="shadow-lg flex items-center justify-center transition-colors hover:opacity-90"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label={isOpen ? "Close chat" : "Open chat"}
+        >
+          {isOpen ? <X size={28} style={{ color: BRAND_COLORS.primary }} /> : <MessageCircle size={28} style={{ color: BRAND_COLORS.primary }} />}
+        </motion.button>
+      </motion.div>
 
       {/* Chat Window */}
       <AnimatePresence>
@@ -203,7 +285,7 @@ export function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 sm:inset-auto sm:bottom-20 sm:right-5 sm:w-96 sm:h-[600px] bg-white rounded-none sm:rounded-2xl shadow-2xl flex flex-col z-50"
+            className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-5 sm:w-96 sm:h-[600px] bg-white rounded-none sm:rounded-2xl shadow-2xl flex flex-col z-50"
             style={{
               // Mobile: full viewport height with keyboard handling
               height: typeof window !== 'undefined' && window.innerWidth < 640 ? '100vh' : undefined,
@@ -239,11 +321,11 @@ export function Chatbot() {
                   key={message.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                  className={`flex flex-col ${message.sender === 'user' ? 'items-end' : 'items-start'}`}
                 >
                   <div
                     style={{
-                      backgroundColor: message.sender === 'user' ? BRAND_COLORS.secondary : '#f3f4f6',
+                      backgroundColor: message.sender === 'user' ? BRAND_COLORS.background : '#f3f4f6',
                       color: message.sender === 'user' ? '#333333' : '#1f2937',
                     }}
                     className={`max-w-[85%] sm:max-w-[70%] px-4 py-2 rounded-lg break-words ${
@@ -254,6 +336,21 @@ export function Chatbot() {
                   >
                     <p className="text-sm">{message.text}</p>
                   </div>
+                  {/* Action Buttons */}
+                  {message.actionButtons && message.actionButtons.length > 0 && (
+                    <div className="flex gap-2 mt-3">
+                      {message.actionButtons.map((btn, idx) => (
+                        <Button
+                          key={idx}
+                          onClick={() => handleActionButtonClick(btn.action)}
+                          variant="default"
+                          className="hover:-translate-y-0.5"
+                        >
+                          {btn.label}
+                        </Button>
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               ))}
 
@@ -277,7 +374,7 @@ export function Chatbot() {
 
             {/* Input Area */}
             <div className="border-t border-gray-200 p-4 rounded-none sm:rounded-b-2xl flex-shrink-0">
-              <div className="flex gap-2 items-center">
+              <div className="relative">
                 <input
                   type="text"
                   value={inputValue}
@@ -290,10 +387,9 @@ export function Chatbot() {
                   }}
                   placeholder="Ask a question..."
                   style={{
-                    borderColor: BRAND_COLORS.primary,
-                    '--tw-ring-color': BRAND_COLORS.primary,
+                    borderColor: BRAND_COLORS.secondary,
                   } as React.CSSProperties}
-                  className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 transition-all text-base"
+                  className="w-full px-4 py-4 pr-8 border rounded-lg focus:outline-none transition-all text-base bg-gray-50"
                   disabled={isLoading}
                   aria-label="Chat message input"
                 />
@@ -301,9 +397,9 @@ export function Chatbot() {
                   onClick={handleSendMessage}
                   disabled={isLoading || !inputValue.trim()}
                   style={{
-                    backgroundColor: BRAND_COLORS.secondary,
+                    color: BRAND_COLORS.primary,
                   }}
-                  className="text-gray-800 p-2 rounded-lg transition-opacity hover:opacity-90 disabled:opacity-50"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70 disabled:opacity-50"
                   aria-label="Send message"
                 >
                   <Send size={20} />
@@ -319,6 +415,7 @@ export function Chatbot() {
           </motion.div>
         )}
       </AnimatePresence>
+
     </>
   )
 }

@@ -1,7 +1,6 @@
 import { forwardRef, type HTMLAttributes, type ElementType } from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
-import { COLORS } from "@/lib/colors"
+import { COLORS, type HeadingColorOption } from "@/lib/colors"
 
 const headingVariants = cva(
   "font-serif tracking-tight",
@@ -9,26 +8,21 @@ const headingVariants = cva(
     variants: {
       size: {
         h1: "text-5xl md:text-6xl lg:text-7xl leading-tight font-light",
-        h2: "text-3xl md:text-4xl lg:text-5xl leading-tight font-bold mb-6 md:mb-12",
-        h3: "text-2xl md:text-3xl leading-tight font-bold",
+        h2: "text-3xl md:text-4xl lg:text-5xl leading-tight font-bold mb-6 mt-8 md:mb-12 md:mt-18",
+        h3: "text-2xl md:text-3xl leading-tight font-bold mb-4 md:mb-8",
         h4: "text-xl md:text-2xl font-bold",
       },
-      color: {
-        default: "text-olive-900",
-        gold: "text-gold-500",
-        white: "text-white",
-        dark: "text-gray-900",
-        gradient: "",
-      }
     },
     defaultVariants: {
       size: "h2",
-      color: "default",
     },
   }
 )
 
-interface HeadingProps extends Omit<HTMLAttributes<HTMLHeadingElement>, "color">, VariantProps<typeof headingVariants> {}
+interface HeadingProps extends Omit<HTMLAttributes<HTMLHeadingElement>, "color">, VariantProps<typeof headingVariants> {
+  color?: HeadingColorOption
+}
+
 
 export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ className, size = "h2", color, style, ...props }, ref) => {
@@ -49,12 +43,17 @@ export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
         WebkitTextFillColor: 'transparent',
         backgroundClip: 'text',
       }
+    } else if (finalColor && finalColor in COLORS) {
+      headingStyle = {
+        ...headingStyle,
+        color: COLORS[finalColor as keyof typeof COLORS]
+      }
     }
 
     return (
       <Comp
         ref={ref}
-        className={cn(headingVariants({ size, color: finalColor, className }))}
+        className={[headingVariants({ size }), className].filter(Boolean).join(' ')}
         style={headingStyle}
         {...props}
       />

@@ -1,4 +1,5 @@
 import { fundingSolutions } from "@/data/solutions"
+import { getTitleAsString } from "@/lib/solution-helpers"
 
 export interface DropdownItem {
   name: string
@@ -54,7 +55,7 @@ export const headerNavConfig: HeaderNavConfig = {
       label: 'Solutions',
       basePath: '/solutions',
       items: fundingSolutions.map(solution => ({
-        name: solution.title,
+        name: getTitleAsString(solution.title),
         id: solution.id
       })),
       itemType: 'pages'

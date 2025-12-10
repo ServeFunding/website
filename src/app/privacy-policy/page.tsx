@@ -1,9 +1,14 @@
 import { Container, Heading, Text, Section } from '@/components/ui'
+import { Breadcrumb } from '@/components/breadcrumb'
+import { SchemaRenderer } from '@/components/SchemaRenderer'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 export default function PrivacyPolicy() {
   return (
     <div className="bg-white font-sans text-gray-800">
+      {/* Breadcrumb - includes schema */}
+      <Breadcrumb items={[{ label: 'Privacy Policy' }]} />
+
       {/* Hero Section */}
       <Section className="pt-0 pb-0 md:py-0 overflow-hidden" style={{ backgroundColor: BRAND_COLORS.primary }}>
         <Container>

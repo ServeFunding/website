@@ -1,7 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import Link from 'next/link'
+import { useState, useEffect } from 'react'
 import {
   ChevronRight
 } from 'lucide-react'
@@ -10,16 +9,15 @@ import {
   Container,
   Heading,
   Text,
-  Card,
-  Button,
-  FadeIn,
   StaggerContainer,
-  StaggerItem
+  Card
 } from '@/components/ui'
 import { fundingCases } from '@/data/fundingData'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CaseStudyModal } from '@/components/CaseStudyModal'
 import { CTA } from '@/components/cta'
+import { Breadcrumb } from '@/components/breadcrumb'
+import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 function generateSlug(text: string): string {
   return text.toLowerCase().replace(/\s+/g, '-')
@@ -37,6 +35,18 @@ export default function Fundings() {
   const [selectedStudy, setSelectedStudy] = useState<typeof caseStudies[0] | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  useEffect(() => {
+    const hash = window.location.hash.slice(1)
+    if (hash) {
+      const element = document.getElementById(hash)
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }, 100)
+      }
+    }
+  }, [])
+
   const openModal = (study: typeof caseStudies[0]) => {
     setSelectedStudy(study)
     setIsModalOpen(true)
@@ -44,45 +54,50 @@ export default function Fundings() {
 
   return (
     <div className="bg-white font-sans text-gray-800">
+      {/* Breadcrumb - includes schema */}
+      <Breadcrumb items={[{ label: 'Fundings' }]} />
+
       {/* Hero Section */}
       <HeroFadeIn
-        title="Creative Working Capital Solutions"
-        subtitle="At Serve Funding, we provide flexible, customized working capital solutions to help businesses overcome financial challenges and seize new growth opportunities. From acquisition funding to payroll financing and beyond, we deliver fast, reliable financial solutions that drive success."
+        title="Client Success Stories"
+        subtitle={<>At Serve Funding, we provide flexible, customized working capital solutions<br />to help businesses overcome financial challenges and seize new growth opportunities. From acquisition funding to payroll financing and beyond, we deliver fast,<br />reliable financial solutions that drive success.</>}
+        compact
       />
 
       {/* Recent Fundings Grid */}
-      <Section>
+      <Section background='primary' className='overflow-visible'>
         <Container>
-          <FadeIn className="text-center mb-16">
-            <Heading size="h2" className="mb-3">Recent Fundings</Heading>
-          </FadeIn>
-
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {caseStudies.map((study, index) => (
-              <StaggerItem key={index}>
-                <button
-                  id={generateSlug(study.title)}
-                  onClick={() => openModal(study)}
-                  className="w-full h-full text-left focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2 rounded-[2rem] scroll-mt-32"
-                >
-                  <Card className="flex flex-col h-full group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer">
-                    <div className="flex items-baseline gap-2 mb-4">
-                      <Text className="text-2xl font-bold text-gold-500">
-                        {study.amount}
-                      </Text>
-                    </div>
+            {caseStudies.map((study, index) => {
+              const slug = generateSlug(study.title)
 
-                    <Heading size="h4" className="mb-2 text-olive-900 group-hover:text-gold-500 transition-colors">
+              return (
+                <button
+                  key={index}
+                  id={slug}
+                  onClick={() => openModal(study)}
+                  className="w-full h-full text-left focus:outline-none scroll-mt-32"
+                >
+                  <Card className="flex flex-col h-full cursor-pointer group">
+                    <Heading size="h4" className="mb-4 text-olive-900 group-hover:text-gold-500 transition-colors">
+                      <span
+                        className="bg-gradient-to-b bg-clip-text text-transparent"
+                        style={{ backgroundImage: `linear-gradient(to bottom, ${BRAND_COLORS.secondary}, ${BRAND_COLORS.dark})` }}
+                      >
+                        {study.amount}
+                      </span>{' '}
                       {study.title}
                     </Heading>
 
-                    <Text className="text-sm font-semibold text-gray-500 mb-4">
+                    <Text className="text-sm text-gray-500 mb-4">
                       {study.company}
                     </Text>
 
-                    <Text className="text-gray-600 group-hover:text-gray-700 transition-colors flex-1">
-                      {study.description}
-                    </Text>
+                    <div className='flex-1'>
+                      <Text className="line-clamp-5">
+                        {study.fullStory}
+                      </Text>
+                    </div>
 
                     <div className="flex items-center gap-2 mt-6 text-gold-500 group-hover:text-olive-900 transition-colors font-semibold">
                       Read More
@@ -90,8 +105,8 @@ export default function Fundings() {
                     </div>
                   </Card>
                 </button>
-              </StaggerItem>
-            ))}
+              )
+            })}
           </StaggerContainer>
         </Container>
       </Section>
@@ -116,26 +131,11 @@ export default function Fundings() {
         })}
       </script>
 
-      {/* Why We're Different Section */}
-      <Section background="gray">
-        <Container>
-          <FadeIn className="text-center mb-16">
-            <Heading size="h2">Why Serve Funding?</Heading>
-            <Text className="mt-4 text-gray-600 max-w-2xl mx-auto mb-8">
-              Whether you need capital for acquisitions, bridging cash flow gaps, or payroll funding, we deliver the right funding at the right time. Our expertise has empowered companies across industries to achieve their goals, even in difficult market conditions.
-            </Text>
-            <Link href="/about-us">
-              <Button>Learn Our Story</Button>
-            </Link>
-          </FadeIn>
-        </Container>
-      </Section>
-
       {/* Contact Section */}
       <CTA
         title="Ready to explore your financing options?"
         text="Let's discuss how we can help your business grow with the right working capital solution."
-        buttonText="Let's Talk"
+        buttonText="Let's Talk!"
         source="fundings"
       />
 

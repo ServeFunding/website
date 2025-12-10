@@ -11,16 +11,20 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem,
   SocialIcons
 } from '@/components/ui'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { IntroCallForm } from '@/components/Forms'
+import { Breadcrumb } from '@/components/breadcrumb'
+import { SchemaRenderer } from '@/components/SchemaRenderer'
 import Link from 'next/link'
 
 export default function ContactUs() {
   return (
     <div className="bg-white font-sans text-gray-800">
+      {/* Breadcrumb - includes schema */}
+      <Breadcrumb items={[{ label: 'Contact Us' }]} />
+
       {/* Hero Section */}
       <HeroFadeIn
         title="We're Here to Serve Your Business Growth"
@@ -82,18 +86,14 @@ export default function ContactUs() {
                 </Card>
               );
 
-              return (
-                <StaggerItem key={index}>
-                  {item.external ? (
-                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="block">
-                      {CardContent}
-                    </a>
-                  ) : (
-                    <a href={item.href} className="block">
-                      {CardContent}
-                    </a>
-                  )}
-                </StaggerItem>
+              return item.external ? (
+                <a key={index} href={item.href} target="_blank" rel="noopener noreferrer" className="block">
+                  {CardContent}
+                </a>
+              ) : (
+                <a key={index} href={item.href} className="block">
+                  {CardContent}
+                </a>
               );
             })}
           </StaggerContainer>

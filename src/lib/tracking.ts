@@ -15,9 +15,19 @@ declare global {
     hbspt?: {
       forms: {
         addEventListener: (event: string, callback: () => void) => void
+        create: (config: { portalId: string; formId: string; target: string }) => void
       }
     }
+    _hsq?: Array<unknown> & {
+      push: (...args: unknown[]) => number
+    }
   }
+}
+
+const HUBSPOT_PORTAL_ID = process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID || "23433903"
+
+type HubSpotQueue = Array<unknown> & {
+  push: (...args: unknown[]) => number
 }
 
 /**
@@ -89,10 +99,14 @@ export function trackChatbotSessionStart() {
 /**
  * Track chatbot message sent
  * @param topic - Topic or intent of the message
+ * @param messageText - Raw user message (trimmed for privacy)
  */
-export function trackChatbotMessage(topic?: string) {
+export function trackChatbotMessage(topic?: string, messageText?: string) {
+  const preview = messageText ? messageText.slice(0, 200) : undefined
+
   trackEvent("chatbot_message_sent", {
     ...(topic && { topic }),
+    ...(preview && { message_preview: preview, message_length: messageText?.length ?? 0 }),
   })
 }
 
@@ -121,16 +135,30 @@ export function trackExternalLinkClick(linkName: string, url?: string) {
 }
 
 /**
- * Hook to track HubSpot form submissions
- * Use this hook in components that embed HubSpot forms
- * @param formType - Type of form (e.g., 'intro_call', 'newsletter', 'contact')
+ * Push non-HubSpot (native) form submissions into HubSpot
+ * so submissions show in the portal alongside embedded forms.
  */
-export function useHubSpotFormTracking(formType: string) {
-  useEffect(() => {
-    if (window.hbspt) {
-      window.hbspt.forms.addEventListener("onFormSubmit", () => {
-        trackFormSubmission(formType)
-      })
-    }
-  }, [formType])
+export function trackHubSpotNativeForm(formType: string, formEl?: HTMLFormElement) {
+  if (typeof window === "undefined") return
+
+  if (!window._hsq) {
+    window._hsq = [] as unknown as HubSpotQueue
+  }
+
+  const queue = window._hsq as HubSpotQueue
+  const formId = `serve-funding-${formType}`
+
+  try {
+    queue.push([
+      "trackForm",
+      formEl ?? `.form-${formType}`,
+      {
+        portalId: HUBSPOT_PORTAL_ID,
+        formId,
+        conversionName: `Non-HubSpot ${formType}`,
+      },
+    ])
+  } catch (error) {
+    console.warn("HubSpot native form tracking failed", error)
+  }
 }

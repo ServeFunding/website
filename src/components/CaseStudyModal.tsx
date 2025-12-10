@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import { Heading, Text } from '@/components/ui'
 import { trackCaseStudyOpen } from '@/lib/tracking'
+import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 interface CaseStudy {
   amount: string
@@ -93,19 +94,10 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ isOpen, onClose,
                 </button>
 
                 <div className="p-8 md:p-10">
-                {/* Amount Badge */}
-                <div className="mb-6">
-                  <div className="inline-flex items-center px-4 py-2 bg-gold-500/10 rounded-full border border-gold-500/20">
-                    <span className="text-2xl font-bold text-gold-500">
-                      {caseStudy.amount}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Title */}
-                <Heading size="h2" className="mb-3 text-olive-900">
-                  {caseStudy.title}
-                </Heading>
+                  {/* Title with Amount */}
+                  <Heading size="h2" className="!my-4">
+                    {caseStudy.amount} {caseStudy.title}
+                  </Heading>
 
                 {/* Company */}
                 <Text className="text-sm font-semibold text-gray-500 mb-8 uppercase tracking-wide">
