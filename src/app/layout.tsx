@@ -84,6 +84,9 @@ export default function RootLayout({
           strategy="lazyOnload"
         />
 
+        {/* HubSpot Tracking */}
+        <script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/23433903.js"></script>
+
         {/* Vercel Speed Insights for real user monitoring */}
         <SpeedInsights />
       </body>

@@ -83,8 +83,8 @@ export function Chatbot() {
   const handleSendMessage = useCallback(async () => {
     if (!inputValue.trim()) return
 
-    // Track message sent
-    trackChatbotMessage()
+    // Track message sent with preview
+    trackChatbotMessage(undefined, inputValue)
 
     // Add user message
     const userMessage: Message = {

@@ -15,12 +15,12 @@ import {
   FormInput,
   FormGroup,
 } from '@/components/ui'
-import { trackFormSubmission } from '@/lib/tracking'
+import { trackFormSubmission, trackHubSpotNativeForm } from '@/lib/tracking'
 import { COLORS } from '@/lib/colors'
 
 // Reusable Success Content Component
 export interface FormSuccessContentProps {
-  message: string
+  message: string | React.ReactNode
   formData: FormSubmitData
   calendlyUrl: string
   ctaText?: string
@@ -29,10 +29,8 @@ export interface FormSuccessContentProps {
 
 export function FormSuccessContent({
   message,
-  formData,
   calendlyUrl,
   ctaText = 'Schedule a Call',
-  showCTA = true,
 }: FormSuccessContentProps) {
   return (
     <div className="text-center py-12">
@@ -45,16 +43,13 @@ export function FormSuccessContent({
         <CheckCircle className="w-12 h-12" style={{ color: COLORS.primary }} />
       </motion.div>
       <Text size="lg" className="mb-6">{message}</Text>
-      {showCTA && (
-        <div className="space-y-3">
-          <Text size="sm" color="dark" className="opacity-70">Or schedule a call directly:</Text>
-          <a href={calendlyUrl} target="_blank" rel="noopener noreferrer">
-            <Button variant="default" size="lg">
-              {ctaText}
-            </Button>
-          </a>
-        </div>
-      )}
+      <div className="space-y-3">
+        <a href={calendlyUrl} target="_blank" rel="noopener noreferrer">
+          <Button variant="default" size="lg">
+            {ctaText}
+          </Button>
+        </a>
+      </div>
     </div>
   )
 }
@@ -71,7 +66,12 @@ export interface FormSubmitData {
   partnership_for__commercial_banking__advisory_?: string
 }
 
-export function useFormSubmit(formType: string, webhookUrl?: string) {
+export function useFormSubmit(
+  formType: string,
+  webhookUrl?: string,
+  calendlyUrl?: string,
+  onAfterSubmit?: (data: FormSubmitData) => void
+) {
   const [success, setSuccess] = useState(false)
   const [formData, setFormData] = useState<FormSubmitData>({})
 
@@ -87,8 +87,7 @@ export function useFormSubmit(formType: string, webhookUrl?: string) {
       data[key] = value as string
     })
 
-    // Store data for Calendly
-    setFormData({
+    const submittedFormData: FormSubmitData = {
       firstname: data.firstname || '',
       lastname: data.lastname || '',
       email: data.email || '',
@@ -97,32 +96,45 @@ export function useFormSubmit(formType: string, webhookUrl?: string) {
       capital_for: data.capital_for || '',
       contact_us_details: data.contact_us_details || '',
       partnership_for__commercial_banking__advisory_: data.partnership_for__commercial_banking__advisory_ || '',
-    })
+    }
 
-    // Call webhook if provided
+    setFormData(submittedFormData)
+
+    // Track form submission to Umami
+    trackFormSubmission(formType)
+    // Track non-HubSpot form submission so it appears in HubSpot
+    trackHubSpotNativeForm(formType, form)
+
+    // HubSpot: The tracking code in layout.tsx automatically captures this form submission
+    // Webhook: Send to webhook if provided
     if (webhookUrl) {
       try {
         console.log('Submitting form data to webhook:', data)
-
-        // Send to webhook
-        const response = await fetch(webhookUrl, {
+        await fetch(webhookUrl, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
         })
-
-        console.log('Webhook response:', response.status, response.statusText)
       } catch (error) {
         console.error('Webhook submission error:', error)
-        // Continue with success even if webhook fails
       }
     }
 
-    setSuccess(true)
-    form.reset()
-    trackFormSubmission(formType)
+    // Small delay to ensure tracking completes, then proceed
+    setTimeout(() => {
+      if (onAfterSubmit) {
+        onAfterSubmit(submittedFormData)
+      }
+
+      if (calendlyUrl) {
+        // Open Calendly in new tab for intro/partner forms
+        window.open(calendlyUrl, '_blank')
+      } else {
+        // Show success page for other forms
+        setSuccess(true)
+      }
+      form.reset()
+    }, 300)
   }
 
   return { success, handleSubmit, formData }
@@ -174,16 +186,28 @@ interface IntroCallFormProps {
 }
 
 export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallFormProps = {}) {
-  const { success, handleSubmit, formData } = useFormSubmit('intro_call')
+  const buildCalendlyUrl = (data: Record<string, string>) => {
+    return `https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(`${data.firstname || ''} ${data.lastname || ''}`.trim())}&email=${encodeURIComponent(data.email || '')}&phone=${encodeURIComponent(data.phone || '')}&a1=${encodeURIComponent(data.company || '')}&a2=${encodeURIComponent(`${data.capital_for || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
+  }
+
+  const { success, handleSubmit, formData } = useFormSubmit(
+    'intro_call',
+    undefined,
+    '',
+    (data) => {
+      const url = buildCalendlyUrl(data as Record<string, string>)
+      window.open(url, '_blank')
+    }
+  )
 
   return (
     <FormContainer title={title} subtitle={subtitle}>
       {success ? (
         <FormSuccessContent
-          message="Thank you. We'll be in touch within 24 hours."
+          message={`Thanks for your info${formData.firstname ? `, ${formData.firstname}` : ''}! Click below to schedule your call.`}
           formData={formData}
-          calendlyUrl={`https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(`${formData.firstname || ''} ${formData.lastname || ''}`.trim())}&email=${encodeURIComponent(formData.email || '')}&phone=${encodeURIComponent(formData.phone || '')}&company=${encodeURIComponent(formData.company || '')}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`}
-          ctaText="Schedule a Call Now"
+          calendlyUrl={buildCalendlyUrl(formData as Record<string, string>)}
+          ctaText="Schedule a Call"
         />
       ) : (
         <form className="form-intro_call flex flex-col gap-6" onSubmit={handleSubmit}>
@@ -209,7 +233,7 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
           />
 
           <div className="flex justify-center">
-            <Button variant="default" size="lg" type="submit">Schedule Your Intro Call</Button>
+            <Button variant="default" size="lg" type="submit">Schedule a Call</Button>
           </div>
         </form>
       )}
@@ -219,15 +243,28 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
 
 // Partner Inquiry Form (for partners page)
 export function PartnerInquiryForm() {
-  const { success, handleSubmit, formData } = useFormSubmit('partner_inquiry')
+  const buildCalendlyUrl = (data: Record<string, string>) => {
+    return `https://calendly.com/michael_kodinsky/partner-strategy-call?name=${encodeURIComponent(`${data.firstname || ''} ${data.lastname || ''}`.trim())}&email=${encodeURIComponent(data.email || '')}&a1=${encodeURIComponent(`${data.partnership_for__commercial_banking__advisory_ || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
+  }
+
+  const { success, handleSubmit, formData } = useFormSubmit(
+    'partner_inquiry',
+    undefined,
+    '',
+    (data) => {
+      const url = buildCalendlyUrl(data as Record<string, string>)
+      window.open(url, '_blank')
+    }
+  )
 
   return (
     <FormContainer title="Let's Connect" subtitle="Please fill out this form and we'll schedule a call">
       {success ? (
         <FormSuccessContent
-          message="Thank you. We'll be in touch soon to discuss partnership opportunities."
+          message={`Thanks for your info${formData.firstname ? `, ${formData.firstname}` : ''}! Click below to schedule your call.`}
           formData={formData}
-          calendlyUrl={`https://calendly.com/michael_kodinsky/partner-strategy-call?name=${encodeURIComponent(`${formData.firstname || ''} ${formData.lastname || ''}`.trim())}&email=${encodeURIComponent(formData.email || '')}&a1=${encodeURIComponent(`${formData.partnership_for__commercial_banking__advisory_ || ''} - ${formData.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`}
+          calendlyUrl={buildCalendlyUrl(formData as Record<string, string>)}
+          ctaText="Schedule a Call"
         />
       ) : (
         <form className="form-partner_inquiry flex flex-col gap-6" onSubmit={handleSubmit}>
@@ -253,7 +290,7 @@ export function PartnerInquiryForm() {
           />
 
           <div className="flex justify-center">
-            <Button variant="default" size="lg" type="submit">Send Inquiry</Button>
+            <Button variant="default" size="lg" type="submit">Schedule a Call</Button>
           </div>
         </form>
       )}
@@ -277,7 +314,7 @@ export function NewsletterModalForm({
     <>
       {success ? (
         <FormSuccessContent
-          message="Check your email to confirm your subscription."
+          message={<>You're in!<br /><br />You should see an email confirmation soon.<br /><br />We'd love to talk to you as well.</>}
           formData={formData}
           calendlyUrl={`https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(`${formData.firstname || ''} ${formData.lastname || ''}`.trim())}&email=${encodeURIComponent(formData.email || '')}&phone=${encodeURIComponent(formData.phone || '')}&company=${encodeURIComponent(formData.company || '')}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`}
           ctaText="Schedule a Call"
