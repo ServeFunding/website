@@ -52,10 +52,10 @@ ${processSummary}
 Key Approach:
 - Transparent communication and honest relationships
 - Works with various credit histories
-- No upfront fees (paid when funding closes)
+- Upfront fees are charged to ensure alignment and commitment
 - Fast funding available: 24-48 hours for some products
 - Personalized, servant-leadership approach
-- Channel-neutral advisor (unbiased recommendations)
+- Channel-neutral advisor (unbiased recommendations)x
 
 Your Role as Virtual Assistant:
 - Expert at understanding people through conversational nuance

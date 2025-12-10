@@ -89,7 +89,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
         className="relative w-full lg:flex-[0.4] mx-4 sm:mx-6 lg:mx-0 rounded-2xl overflow-hidden shadow-lg lg:hover:shadow-xl transition-shadow duration-500 lg:min-w-0"
         style={{
           boxShadow: `0 10px 30px rgba(0, 0, 0, 0.1)`,
-          aspectRatio: 'auto',
+          aspectRatio: '1 / 1.2',
         }}>
         {/* Render all images in HTML - browser discovers them all early */}
         {slides.map((s, index) => (
@@ -99,7 +99,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
             alt={typeof s.heading === 'string' ? s.heading : 'Hero slide image'}
             width={1024}
             height={819}
-            className={`w-full h-full object-cover lg:object-contain transition-opacity duration-500 ease-out ${
+            className={`w-full h-full object-contain transition-opacity duration-500 ease-out ${
               index === heroIndex ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none absolute inset-0'
             }`}
             priority={index === 0}
