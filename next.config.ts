@@ -69,11 +69,11 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.hsforms.net https://js.hs-scripts.com https://js.hscollectedforms.net https://js.hs-banner.com https://js.hs-analytics.net https://js.hsadspixel.net https://snap.licdn.com https://umami-production-25e0.up.railway.app https://va.vercel-scripts.com",
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.hsforms.net https://js.hs-scripts.com https://js.hscollectedforms.net https://js.hs-banner.com https://js.hs-analytics.net https://js.hsadspixel.net https://snap.licdn.com https://umami-production-25e0.up.railway.app https://serveinfo.up.railway.app https://va.vercel-scripts.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "img-src 'self' data: https: blob:",
               "font-src 'self' data: https://fonts.gstatic.com",
-              "connect-src 'self' https://api.hsforms.com https://forms.hsforms.com https://forms.hscollectedforms.net https://forms-na1.hsforms.com https://api.hubapi.com https://snap.licdn.com https://px.ads.linkedin.com https://umami-production-25e0.up.railway.app",
+              "connect-src 'self' https://api.hsforms.com https://forms.hsforms.com https://forms.hscollectedforms.net https://forms-na1.hsforms.com https://api.hubapi.com https://snap.licdn.com https://px.ads.linkedin.com https://umami-production-25e0.up.railway.app https://serveinfo.up.railway.app",
               "frame-src 'self' https://forms.hsforms.com https://js.hsforms.net http://js.hsforms.net",
               "frame-ancestors 'self'",
               "base-uri 'self'",
