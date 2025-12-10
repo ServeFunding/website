@@ -8,7 +8,6 @@ import { ScrollToTop } from "@/components/ScrollToTop"
 import Script from "next/script"
 import { SchemaRenderer } from "@/components/SchemaRenderer"
 import { getOrganizationSchema } from "@/lib/schema-generators"
-import { SpeedInsights } from "@vercel/speed-insights/next"
 import "@/app/globals.css"
 import { Inter, Merriweather } from 'next/font/google'
 
@@ -96,9 +95,6 @@ export default function RootLayout({
           src="https://js.hs-scripts.com/23433903.js"
           strategy="lazyOnload"
         />
-
-        {/* Vercel Speed Insights for real user monitoring */}
-        <SpeedInsights />
       </body>
     </html>
   )
