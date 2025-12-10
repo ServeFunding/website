@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+/* Temporary: Debug layout shifts - Remove after debugging */
+/* Uncomment to see which elements are causing layout shifts */
+/*
+* {
+  outline: 1px solid rgba(255, 0, 0, 0.3) !important;
+  animation: debugShift 1s ease-in-out;
+}
+
+@keyframes debugShift {
+  0%, 100% { outline-color: rgba(255, 0, 0, 0.3); }
+  50% { outline-color: rgba(0, 255, 0, 0.3); }
+}
+*/
+
 /* Font display optimization */
 @layer base {
   * {
@@ -52,8 +66,16 @@
 }
 
 @layer base {
+  html {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
   body {
     @apply bg-white font-sans text-gray-800;
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
   }
 
   h1, h2, h3, h4, h5, h6 {

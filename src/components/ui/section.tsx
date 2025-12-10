@@ -1,10 +1,13 @@
-import { forwardRef, type HTMLAttributes } from "react"
+'use client'
+
+import { forwardRef, type HTMLAttributes, useState } from "react"
 import { LAYOUT } from "@/lib/layout"
 import { COLORS, type SectionBackgroundOption } from "@/lib/colors"
 import { HeroAnimation } from "@/components/HeroAnimation"
 
 export const Section = forwardRef<HTMLElement, HTMLAttributes<HTMLElement> & { background?: SectionBackgroundOption }>(
   ({ className, background = "white", children, ...props }, ref) => {
+
     const sectionElement = (
       <section
         ref={ref}

@@ -90,6 +90,9 @@ export function Header() {
   const pathname = usePathname()
 
   useEffect(() => {
+    // Initialize scroll state immediately to prevent layout shift
+    setIsScrolled(window.scrollY > 10)
+
     let ticking = false
 
     const handleScroll = () => {

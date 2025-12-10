@@ -8,26 +8,26 @@ import { NewsletterModalForm, useFormSubmit } from '@/components/Forms'
 import { COLORS } from '@/lib/colors'
 
 export function NewsletterModal() {
-  const [isMounted, setIsMounted] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const { success, handleSubmit, formData } = useFormSubmit('newsletter_modal')
 
   useEffect(() => {
-    setIsMounted(true)
-
     const showModal = () => {
       setIsOpen(true)
     }
 
-    // Show modal immediately on page load
+    // Show modal after page load
     if (document.readyState === 'complete') {
       showModal()
     } else {
       window.addEventListener('load', showModal)
     }
-  }, [])
 
-  if (!isMounted) return null
+    // Cleanup
+    return () => {
+      window.removeEventListener('load', showModal)
+    }
+  }, [])
 
   return (
     <AnimatePresence>
@@ -66,21 +66,21 @@ export function NewsletterModal() {
               </button>
 
               {/* Content */}
-              <div className="p-8 sm:p-12" style={{ backgroundColor: COLORS.white }}>
+              <div className="p-6 sm:p-8 md:p-12" style={{ backgroundColor: COLORS.white }}>
                 {/* Logo and Heading Section */}
-                <div className="mb-6 flex justify-center">
+                <div className="mb-6 sm:mb-8 flex justify-center">
                   <img
                     src="/newsletter-logo.webp"
                     alt="Creative Working Capital Newsletter"
-                    className="w-full max-w-sm"
+                    className="w-full max-w-xs sm:max-w-sm"
                   />
                 </div>
 
-                <Heading color="gradient" id="newsletter-modal-title" size="h3" className='!mt-12'>
+                <Heading color="gradient" id="newsletter-modal-title" size="h3" className='!mt-6 sm:!mt-8 md:!mt-12'>
                   Sign-up for our newsletter
                 </Heading>
 
-                <Text className="opacity-80 mb-12">
+                <Text className="opacity-80 mb-8 sm:mb-12 text-sm sm:text-base">
                   Receive exclusive access to monthly client success stories<br />and detailed credit criteria from our preferred lender network.
                 </Text>
 

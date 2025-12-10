@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import dynamic from "next/dynamic"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
-import { ChatbotWrapper } from "@/components/ChatbotWrapper"
+import { Chatbot } from "@/components/Chatbot"
 import { NewsletterModal } from "@/components/NewsletterModal"
 import { ScrollToTop } from "@/components/ScrollToTop"
 import Script from "next/script"
@@ -48,6 +48,11 @@ export const metadata: Metadata = {
     description: "Creative working capital solutions from $250K to $100MM. Asset-based lending, invoice factoring, equipment leasing, and more for entrepreneurs.",
   },
   robots: "index, follow",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  },
 }
 
 export default function RootLayout({
@@ -65,6 +70,7 @@ export default function RootLayout({
         {process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL && (
           <link rel="preconnect" href={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL} />
         )}
+        <link rel="preconnect" href="https://js.hs-scripts.com" />
       </head>
       <body className="bg-white">
         <ScrollToTop />
@@ -74,7 +80,7 @@ export default function RootLayout({
         </main>
         <NewsletterForm />
         <Footer />
-        <ChatbotWrapper />
+        <Chatbot />
         <NewsletterModal />
 
         {/* Load third-party scripts after main content */}
@@ -85,7 +91,11 @@ export default function RootLayout({
         />
 
         {/* HubSpot Tracking */}
-        <script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/23433903.js"></script>
+        <Script
+          id="hs-script-loader"
+          src="https://js.hs-scripts.com/23433903.js"
+          strategy="lazyOnload"
+        />
 
         {/* Vercel Speed Insights for real user monitoring */}
         <SpeedInsights />
