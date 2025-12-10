@@ -16,12 +16,10 @@ import {
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { IntroCallForm } from '@/components/Forms'
 import { Breadcrumb } from '@/components/breadcrumb'
-import { SchemaRenderer } from '@/components/SchemaRenderer'
-import Link from 'next/link'
 
 export default function ContactUs() {
   return (
-    <div className="bg-white font-sans text-gray-800">
+    <>
       {/* Breadcrumb - includes schema */}
       <Breadcrumb items={[{ label: 'Contact Us' }]} />
 
@@ -135,6 +133,6 @@ export default function ContactUs() {
           </div>
         </Container>
       </Section>
-    </div>
+    </>
   )
 }

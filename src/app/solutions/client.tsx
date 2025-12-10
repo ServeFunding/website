@@ -29,7 +29,7 @@ export function SolutionsClient() {
   }
 
   return (
-    <div className="bg-white font-sans text-gray-800">
+    <>
       {/* Hero Section */}
       <HeroFadeIn
         title={<>The Right Funding<br />for Your Business</>}
@@ -173,6 +173,6 @@ export function SolutionsClient() {
         source="solutions-bottom"
         useBG
       />
-    </div>
+    </>
   )
 }

@@ -63,7 +63,7 @@ const heroSlides = [
 export default function Home() {
 
   return (
-    <div className="bg-white font-sans text-gray-800">
+    <>
       {/* Hero Section */}
       <Section className="min-h-[80vh] lg:h-[65vh]">
         <HeroCarousel slides={heroSlides} />
@@ -299,6 +299,6 @@ export default function Home() {
       />
 
       <IntroCallForm />
-    </div>
+    </>
   )
 }

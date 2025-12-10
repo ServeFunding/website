@@ -20,7 +20,7 @@ import { partnerTypes, commitments, testimonials } from '@/data/partners'
 
 export default function Partners() {
   return (
-    <div className="bg-white font-sans text-gray-800">
+    <>
       {/* Breadcrumb - includes schema */}
       <Breadcrumb items={[{ label: 'Partners' }]} />
 
@@ -205,6 +205,6 @@ export default function Partners() {
       </div>
 
       <PartnerInquiryForm />
-    </div>
+    </>
   )
 }

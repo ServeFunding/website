@@ -53,7 +53,7 @@ export default function Fundings() {
   }
 
   return (
-    <div className="bg-white font-sans text-gray-800">
+    <>
       {/* Breadcrumb - includes schema */}
       <Breadcrumb items={[{ label: 'Fundings' }]} />
 
@@ -65,7 +65,7 @@ export default function Fundings() {
       />
 
       {/* Recent Fundings Grid */}
-      <Section background='primary' className='overflow-visible'>
+      <Section background='primary'>
         <Container>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {caseStudies.map((study, index) => {
@@ -145,6 +145,6 @@ export default function Fundings() {
         onClose={() => setIsModalOpen(false)}
         caseStudy={selectedStudy}
       />
-    </div>
+    </>
   )
 }

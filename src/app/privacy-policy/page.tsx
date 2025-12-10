@@ -1,11 +1,10 @@
 import { Container, Heading, Text, Section } from '@/components/ui'
 import { Breadcrumb } from '@/components/breadcrumb'
-import { SchemaRenderer } from '@/components/SchemaRenderer'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 export default function PrivacyPolicy() {
   return (
-    <div className="bg-white font-sans text-gray-800">
+    <>
       {/* Breadcrumb - includes schema */}
       <Breadcrumb items={[{ label: 'Privacy Policy' }]} />
 
@@ -295,6 +294,6 @@ export default function PrivacyPolicy() {
           </div>
         </Container>
       </Section>
-    </div>
+    </>
   )
 }

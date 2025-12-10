@@ -49,7 +49,7 @@ const coreValues = [
 
 export default function AboutUs() {
   return (
-    <div className="bg-white font-sans text-gray-800">
+    <>
       {/* Breadcrumb - includes schema */}
       <Breadcrumb items={[{ label: 'About Us' }]} />
 
@@ -229,6 +229,6 @@ export default function AboutUs() {
         source="about-us"
         useBG
       />
-    </div>
+    </>
   )
 }

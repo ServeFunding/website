@@ -206,9 +206,11 @@ export const HeroAnimation = ({
       const leafMultiplier = isMobile ? 0.005 : 0.008  // More leaves per pixel on desktop
       const scaledLeafCount = Math.max(4, Math.floor(height * leafMultiplier + Math.random() * 3))
       const leafCount = scaledLeafCount
+      const maxLeafSize = 75 // Maximum leaf size
+      const horizontalBuffer = 20 // Only buffer horizontally on mobile
       const newLeaves: Leaf[] = Array.from({ length: leafCount }, (_, i) => ({
         id: i,
-        x: Math.random() * width,
+        x: Math.random() * (width - maxLeafSize - horizontalBuffer) + horizontalBuffer / 2,
         y: Math.random() * height,
         angle: Math.random() * 360,
         size: Math.random() * 50 + 25, // 25-75px
@@ -251,9 +253,12 @@ export const HeroAnimation = ({
           const containerRect = containerRef.current.getBoundingClientRect()
           const relativeX = e.clientX - containerRect.left
           const relativeY = e.clientY - containerRect.top
+          const maxLeafSize = 60 // Max size for spawned leaves
+          const isMobile = window.innerWidth < 768
+          const horizontalBuffer = isMobile ? 20 : 0
 
-          // Only spawn if within container
-          if (relativeX < 0 || relativeX > containerRect.width ||
+          // Only spawn if within container bounds (horizontal buffer on mobile only)
+          if (relativeX < horizontalBuffer / 2 || relativeX > containerRect.width - maxLeafSize - horizontalBuffer / 2 ||
               relativeY < 0 || relativeY > containerRect.height) {
             return prev
           }
@@ -331,9 +336,6 @@ export const HeroAnimation = ({
     <div
       ref={containerRef}
       className="relative w-full h-full"
-      style={{
-        overflow: 'visible',
-      }}
     >
       {/* Main content - lower z-index */}
       <div className="relative h-full">

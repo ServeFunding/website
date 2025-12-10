@@ -55,24 +55,26 @@ export function SocialShareButtons({ title, excerpt, url }: SocialShareButtonsPr
   )
 
   return (
-    <div className="flex items-center gap-4 py-6">
-      <span className="text-sm">Share</span>
-      <div className="flex items-center gap-3">
-        <ShareButton icon={<Linkedin size={20} />} title="Share on LinkedIn" shareUrl={shareLinks.linkedin} />
-        <ShareButton icon={<Facebook size={20} />} title="Share on Facebook" shareUrl={shareLinks.facebook} />
-        <ShareButton icon={<XIcon size={20} />} title="Share on X" shareUrl={shareLinks.x} />
-        <ShareButton icon={<Mail size={20} />} title="Share via Email" shareUrl={shareLinks.email} />
-        <button
-          onClick={handleCopyLink}
-          title={copied ? 'Copied!' : 'Copy link to clipboard'}
-          className="p-2 rounded transition-colors"
-          style={{ color: COLORS.primary }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = COLORS.background)}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
-          aria-label="Copy link to clipboard"
-        >
-          {copied ? <Check size={20} /> : <Link size={20} />}
-        </button>
+    <div className="max-w-3xl mx-auto mt-12 pt-8 border-t border-gray-200">
+      <div className="flex items-center gap-4 py-6">
+        <span className="text-sm">Share</span>
+        <div className="flex items-center gap-3">
+          <ShareButton icon={<Linkedin size={20} />} title="Share on LinkedIn" shareUrl={shareLinks.linkedin} />
+          <ShareButton icon={<Facebook size={20} />} title="Share on Facebook" shareUrl={shareLinks.facebook} />
+          <ShareButton icon={<XIcon size={20} />} title="Share on X" shareUrl={shareLinks.x} />
+          <ShareButton icon={<Mail size={20} />} title="Share via Email" shareUrl={shareLinks.email} />
+          <button
+            onClick={handleCopyLink}
+            title={copied ? 'Copied!' : 'Copy link to clipboard'}
+            className="p-2 rounded transition-colors"
+            style={{ color: COLORS.primary }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = COLORS.background)}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+            aria-label="Copy link to clipboard"
+          >
+            {copied ? <Check size={20} /> : <Link size={20} />}
+          </button>
+        </div>
       </div>
     </div>
   )
