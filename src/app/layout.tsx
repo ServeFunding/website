@@ -3,7 +3,7 @@ import dynamic from "next/dynamic"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
 import { ChatbotWrapper } from "@/components/ChatbotWrapper"
-import { HubSpotNewsletterModalWrapper } from "@/components/HubSpotNewsletterModalWrapper"
+import { NewsletterModal } from "@/components/NewsletterModal"
 import { ScrollToTop } from "@/components/ScrollToTop"
 import Script from "next/script"
 import { SchemaRenderer } from "@/components/SchemaRenderer"
@@ -62,17 +62,9 @@ export default function RootLayout({
         <SchemaRenderer schema={getOrganizationSchema()} />
 
         {/* Preconnect to critical third-party origins for LCP improvement */}
-        <link rel="preconnect" href="https://umami-production-25e0.up.railway.app" />
-        <link rel="preconnect" href="https://js.hsforms.net" />
-        <link rel="preconnect" href="https://js.hs-scripts.com" />
-        <link rel="preconnect" href="https://23433903.fs1.hubspotusercontent-na1.net" />
-        <link rel="dns-prefetch" href="https://forms.hsforms.com" />
-        <link rel="dns-prefetch" href="https://forms-na1.hsforms.com" />
-        <link rel="dns-prefetch" href="https://api.hubapi.com" />
-
-        {/* HubSpot Forms - async loads in parallel without blocking render */}
-        <script async src="https://js.hsforms.net/forms/embed/23433903.js"></script>
-        <script async src="https://js.hs-scripts.com/23433903.js"></script>
+        {process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL && (
+          <link rel="preconnect" href={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL} />
+        )}
       </head>
       <body className="bg-white">
         <ScrollToTop />
@@ -83,7 +75,7 @@ export default function RootLayout({
         <NewsletterForm />
         <Footer />
         <ChatbotWrapper />
-        {/* <HubSpotNewsletterModalWrapper /> */}
+        <NewsletterModal />
 
         {/* Load third-party scripts after main content */}
         <Script

@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { CheckCircle } from 'lucide-react'
 import {
@@ -14,11 +15,25 @@ import {
   FormInput,
   FormGroup,
 } from '@/components/ui'
-import { trackFormSubmission, useHubSpotFormTracking } from '@/lib/tracking'
+import { trackFormSubmission } from '@/lib/tracking'
 import { COLORS } from '@/lib/colors'
 
-// Success message component with animated checkmark
-function FormSuccessMessage({ message }: { message: string }) {
+// Reusable Success Content Component
+export interface FormSuccessContentProps {
+  message: string
+  formData: FormSubmitData
+  calendlyUrl: string
+  ctaText?: string
+  showCTA?: boolean
+}
+
+export function FormSuccessContent({
+  message,
+  formData,
+  calendlyUrl,
+  ctaText = 'Schedule a Call',
+  showCTA = true,
+}: FormSuccessContentProps) {
   return (
     <div className="text-center py-12">
       <motion.div
@@ -29,32 +44,64 @@ function FormSuccessMessage({ message }: { message: string }) {
       >
         <CheckCircle className="w-12 h-12" style={{ color: COLORS.primary }} />
       </motion.div>
-      <FadeIn>
-        <p className="text-lg text-gray-700">{message}</p>
-      </FadeIn>
+      <Text size="lg" className="mb-6">{message}</Text>
+      {showCTA && (
+        <div className="space-y-3">
+          <Text size="sm" color="dark" className="opacity-70">Or schedule a call directly:</Text>
+          <a href={calendlyUrl} target="_blank" rel="noopener noreferrer">
+            <Button variant="default" size="lg">
+              {ctaText}
+            </Button>
+          </a>
+        </div>
+      )}
     </div>
   )
 }
 
 // Hook for form submission logic
-function useFormSubmit(formType: string, webhookUrl?: string) {
+export interface FormSubmitData {
+  firstname?: string
+  lastname?: string
+  email?: string
+  phone?: string
+  company?: string
+  capital_for?: string
+  contact_us_details?: string
+  partnership_for__commercial_banking__advisory_?: string
+}
+
+export function useFormSubmit(formType: string, webhookUrl?: string) {
   const [success, setSuccess] = useState(false)
+  const [formData, setFormData] = useState<FormSubmitData>({})
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.currentTarget
 
+    // Capture form data
+    const rawFormData = new FormData(form)
+    const data: Record<string, string> = {}
+
+    rawFormData.forEach((value, key) => {
+      data[key] = value as string
+    })
+
+    // Store data for Calendly
+    setFormData({
+      firstname: data.firstname || '',
+      lastname: data.lastname || '',
+      email: data.email || '',
+      phone: data.phone || '',
+      company: data.company || '',
+      capital_for: data.capital_for || '',
+      contact_us_details: data.contact_us_details || '',
+      partnership_for__commercial_banking__advisory_: data.partnership_for__commercial_banking__advisory_ || '',
+    })
+
     // Call webhook if provided
     if (webhookUrl) {
       try {
-        const formData = new FormData(form)
-        const data: Record<string, string> = {}
-
-        // Convert FormData to plain object
-        formData.forEach((value, key) => {
-          data[key] = value as string
-        })
-
         console.log('Submitting form data to webhook:', data)
 
         // Send to webhook
@@ -78,7 +125,7 @@ function useFormSubmit(formType: string, webhookUrl?: string) {
     trackFormSubmission(formType)
   }
 
-  return { success, handleSubmit }
+  return { success, handleSubmit, formData }
 }
 
 // Form Container with consistent styling across all forms
@@ -127,12 +174,17 @@ interface IntroCallFormProps {
 }
 
 export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallFormProps = {}) {
-  const { success, handleSubmit } = useFormSubmit('intro_call')
+  const { success, handleSubmit, formData } = useFormSubmit('intro_call')
 
   return (
     <FormContainer title={title} subtitle={subtitle}>
       {success ? (
-        <FormSuccessMessage message="Thank you. We'll be in touch within 24 hours." />
+        <FormSuccessContent
+          message="Thank you. We'll be in touch within 24 hours."
+          formData={formData}
+          calendlyUrl={`https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(`${formData.firstname || ''} ${formData.lastname || ''}`.trim())}&email=${encodeURIComponent(formData.email || '')}&phone=${encodeURIComponent(formData.phone || '')}&company=${encodeURIComponent(formData.company || '')}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`}
+          ctaText="Schedule a Call Now"
+        />
       ) : (
         <form className="form-intro_call flex flex-col gap-6" onSubmit={handleSubmit}>
           <FormGroup columns={2}>
@@ -167,12 +219,16 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
 
 // Partner Inquiry Form (for partners page)
 export function PartnerInquiryForm() {
-  const { success, handleSubmit } = useFormSubmit('partner_inquiry')
+  const { success, handleSubmit, formData } = useFormSubmit('partner_inquiry')
 
   return (
     <FormContainer title="Let's Connect" subtitle="Please fill out this form and we'll schedule a call">
       {success ? (
-        <FormSuccessMessage message="Thank you. We'll be in touch soon to discuss partnership opportunities." />
+        <FormSuccessContent
+          message="Thank you. We'll be in touch soon to discuss partnership opportunities."
+          formData={formData}
+          calendlyUrl={`https://calendly.com/michael_kodinsky/partner-strategy-call?name=${encodeURIComponent(`${formData.firstname || ''} ${formData.lastname || ''}`.trim())}&email=${encodeURIComponent(formData.email || '')}&a1=${encodeURIComponent(`${formData.partnership_for__commercial_banking__advisory_ || ''} - ${formData.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`}
+        />
       ) : (
         <form className="form-partner_inquiry flex flex-col gap-6" onSubmit={handleSubmit}>
           <FormGroup columns={2}>
@@ -205,98 +261,104 @@ export function PartnerInquiryForm() {
   )
 }
 
-// HubSpot Newsletter Modal Form (kept as is for modal popup)
-function createHubSpotModalForm(formId: string, formType: string) {
-  return function HubSpotForm() {
-    const [isMounted, setIsMounted] = useState(false)
-    useHubSpotFormTracking(formType)
-
-    useEffect(() => {
-      setIsMounted(true)
-    }, [])
-
-    // Only render form div on client to avoid hydration mismatch
-    if (!isMounted) return null
-
-    return (
-      <div className="hs-form-frame" data-region="na1" data-form-id={formId} data-portal-id="23433903"></div>
-    )
-  }
+// Newsletter Modal Form (for use in modals)
+interface NewsletterModalFormProps {
+  success: boolean
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  formData: FormSubmitData
 }
 
-export const HubSpotNewsletterModalForm = createHubSpotModalForm('f21673be-6ba2-48ca-8be2-870999c35ead', 'hubspot_newsletter_modal')
+export function NewsletterModalForm({
+  success,
+  handleSubmit,
+  formData,
+}: NewsletterModalFormProps) {
+  return (
+    <>
+      {success ? (
+        <FormSuccessContent
+          message="Check your email to confirm your subscription."
+          formData={formData}
+          calendlyUrl={`https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(`${formData.firstname || ''} ${formData.lastname || ''}`.trim())}&email=${encodeURIComponent(formData.email || '')}&phone=${encodeURIComponent(formData.phone || '')}&company=${encodeURIComponent(formData.company || '')}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`}
+          ctaText="Schedule a Call"
+        />
+      ) : (
+        <form className="form-newsletter flex flex-col gap-4" onSubmit={handleSubmit}>
+          <FormInput
+            type="text"
+            name="firstname"
+            label="First Name"
+            placeholder="Your first name"
+            required
+          />
 
+          <FormInput
+            type="email"
+            name="email"
+            label="Email"
+            placeholder="your@email.com"
+            required
+          />
+
+          <div className="flex justify-center pt-4">
+            <Button
+              variant="default"
+              size="lg"
+              type="submit"
+            >
+              Subscribe
+            </Button>
+          </div>
+
+          <Text className="text-xs text-gray-500 text-center">
+            We respect your privacy. Unsubscribe at any time.
+          </Text>
+        </form>
+      )}
+    </>
+  )
+}
 
 // Newsletter Signup Form
 export function NewsletterForm() {
-  const { success, handleSubmit } = useFormSubmit('newsletter')
+  const { success, handleSubmit, formData } = useFormSubmit('newsletter')
 
   return (
-    <Section background="background">
+    <Section background="gray">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="flex flex-col justify-center space-y-8">
-            {/* "Logo" recreation */}
-            <div className="flex items-center gap-4">
-              <img src="/android-chrome-192x192.png" alt="Serve Funding" className="w-16 h-16 flex-shrink-0" />
-              <div>
-                <h3 className="text-3xl font-serif font-bold text-olive-900 leading-none">creative<br/>working<br/>capital</h3>
-                <p className="text-xs text-olive-800 mt-1 italic">A monthly good newsletter from Serve Funding</p>
-              </div>
+            {/* Logo */}
+            <div className="relative w-full max-w-sm h-auto">
+              <Image
+                src="/newsletter-logo.webp"
+                alt="Creative Working Capital Newsletter"
+                width={1148}
+                height={429}
+                className="w-full h-auto"
+              />
             </div>
 
-            <div>
-              <Text className="text-olive-800/80 max-w-md text-lg">
-                Receive exclusive access to monthly client success stories and detailed credit criteria from our preferred lender network.
-              </Text>
-            </div>
+            <Text className="text-olive-800/80 max-w-md text-lg">
+              Receive exclusive access to monthly client success stories and detailed credit criteria from our preferred lender network.
+            </Text>
           </div>
 
           {/* Original Form Column */}
           <div className="space-y-6">
             {/* Sign-up Text Above Form */}
-            <div>
-              <Heading size="h3" className='text-center mb-8'>
-                Sign-up for our newsletter
-              </Heading>
-            </div>
+            <Heading size="h3" className='text-center mb-8'>
+              Sign-up for our newsletter
+            </Heading>
 
             {/* Form Card */}
-            <Card className="!p-0">
-              {success ? (
-                <div className="px-6 sm:px-8">
-                  <FormSuccessMessage message="Check your email to confirm your subscription." />
-                </div>
-              ) : (
-                <form className="form-newsletter flex flex-col gap-4 p-6 sm:p-8" onSubmit={handleSubmit}>
-                  <FormInput
-                    type="text"
-                    name="firstname"
-                    label="First Name"
-                    placeholder="Your first name"
-                    required
-                  />
-
-                  <FormInput
-                    type="email"
-                    name="email"
-                    label="Email Address"
-                    placeholder="your@email.com"
-                    required
-                  />
-
-                  <div className="flex justify-center">
-                    <Button variant="default" size="lg" type="submit">
-                      Subscribe
-                    </Button>
-                  </div>
-
-                  <Text className="text-xs text-gray-500 text-center">
-                    We respect your privacy. Unsubscribe at any time.
-                  </Text>
-                </form>
-              )}
+            <Card>
+              <NewsletterModalForm
+                success={success}
+                handleSubmit={handleSubmit}
+                formData={formData}
+              />
             </Card>
           </div>
         </div>

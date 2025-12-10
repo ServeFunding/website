@@ -4,24 +4,6 @@ import { Container, Heading, Text, SocialIcons, Section } from "./ui"
 import { COLORS as BRAND_COLORS } from "@/lib/colors"
 import { blogPosts } from "@/data/blog-posts"
 
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Serve Funding",
-  "url": "https://servefunding.com",
-  "logo": "https://servefunding.com/Logo_Full-color_long_samecolor-1.webp",
-  "description": "Creative working capital solutions for growing businesses",
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+770-820-7409",
-    "email": "michael@servefunding.com",
-    "contactType": "customer service"
-  },
-  "sameAs": [
-    "https://www.linkedin.com/company/serve-funding"
-  ]
-}
-
 export function Footer() {
   const sortedBlogPosts = [...blogPosts].sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -29,12 +11,6 @@ export function Footer() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(organizationSchema),
-        }}
-      />
       <footer className="text-gray-800 font-sans">
         <Section background="white">
           <Container>
