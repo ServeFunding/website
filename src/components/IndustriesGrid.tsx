@@ -72,13 +72,13 @@ export function IndustriesGrid() {
             onMouseLeave={() => handleMouseLeave()}
             onClick={() => handleClick(index)}
             onTouchStart={handleTouchStart}
-            className="cursor-pointer relative z-10 w-full h-full flex justify-center items-start"
+            className="cursor-pointer relative w-full h-full flex justify-center items-start"
           >
             <motion.div
               animate={{
                 scale: isHovered ? 1.3 : 1,
                 y: isHovered ? -30 : 0,
-                zIndex: isHovered ? 10 : 0,
+                zIndex: isHovered ? 20 : 10,
               }}
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
               className="w-fit"
