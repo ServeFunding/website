@@ -50,7 +50,7 @@ export default function BlogPage() {
   })
 
   return (
-    <div className="bg-white font-sans text-gray-800">
+    <>
       {/* Schema Markup */}
       <SchemaRenderer schema={blogCollectionSchema} />
 
@@ -109,6 +109,6 @@ export default function BlogPage() {
         source="blog"
         useBG={true}
       />
-    </div>
+    </>
   )
 }

@@ -81,7 +81,7 @@ export default async function BlogPost({ params }: Props) {
   })
 
   return (
-    <div className="bg-white font-sans text-gray-800">
+    <>
       {/* Schema Markup */}
       <SchemaRenderer schema={articleSchema} />
 
@@ -143,13 +143,11 @@ export default async function BlogPost({ params }: Props) {
           </FadeIn>
 
           {/* Social Share Buttons */}
-          <div className="max-w-3xl mx-auto mt-12 pt-8 border-t border-gray-200">
-            <SocialShareButtons
-              title={blogPost.title}
-              excerpt={blogPost.excerpt}
-              url={`https://servefunding.com/blog/${blogPost.id}`}
-            />
-          </div>
+          <SocialShareButtons
+            title={blogPost.title}
+            excerpt={blogPost.excerpt}
+            url={`https://servefunding.com/blog/${blogPost.id}`}
+          />
         </Container>
       </Section>
 
@@ -160,6 +158,6 @@ export default async function BlogPost({ params }: Props) {
         source={`blog-${blogPost.id}`}
         useBG={true}
       />
-    </div>
+    </>
   )
 }

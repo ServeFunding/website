@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import FAQClient from './faq-client'
 import { Section, Container, Heading, Text, FadeIn } from '@/components/ui'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
