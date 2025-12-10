@@ -10,8 +10,7 @@ import {
   Container,
   Heading,
   Text,
-  StaggerContainer,
-  StaggerItem
+  StaggerContainer
 } from '@/components/ui'
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
@@ -52,9 +51,7 @@ export default function FAQClient({ faqs }: FAQClientProps) {
         <Container>
           <StaggerContainer className="max-w-3xl mx-auto space-y-4">
             {faqs.map((faq, index) => (
-              <StaggerItem key={index}>
-                <FAQItem question={faq.question} answer={faq.answer} />
-              </StaggerItem>
+              <FAQItem key={index} question={faq.question} answer={faq.answer} />
             ))}
           </StaggerContainer>
         </Container>

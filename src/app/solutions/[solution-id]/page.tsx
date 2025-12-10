@@ -12,8 +12,7 @@ import {
   Heading,
   Text,
   Card,
-  StaggerContainer,
-  StaggerItem
+  StaggerContainer
 } from '@/components/ui'
 import { FeatureList } from '@/components/FeatureList'
 import { CTA } from '@/components/cta'
@@ -264,25 +263,23 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                   </Text>
                   <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {relatedPosts.map(post => (
-                      <StaggerItem key={post.id}>
-                        <Link href={`/blog/${post.id}`} className="group h-full">
-                          <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-2 bg-white flex flex-col">
-                            <Heading size="h3" className="mb-3 text-olive-900 group-hover:text-gold-500 transition-colors line-clamp-2">
-                              {post.title}
-                            </Heading>
-                            <Text className="text-gray-700 text-sm mb-4 flex-grow">
-                              {post.excerpt}
-                            </Text>
-                            <Text className="text-xs text-gray-600 mb-4">
-                              {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                            </Text>
-                            <div className="flex items-center gap-2 text-gold-500 group-hover:gap-3 transition-all">
-                              <span className="text-sm font-semibold">Read Story</span>
-                              <ChevronRight size={16} />
-                            </div>
-                          </Card>
-                        </Link>
-                      </StaggerItem>
+                      <Link key={post.id} href={`/blog/${post.id}`} className="group h-full">
+                        <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-2 bg-white flex flex-col">
+                          <Heading size="h3" className="mb-3 text-olive-900 group-hover:text-gold-500 transition-colors line-clamp-2">
+                            {post.title}
+                          </Heading>
+                          <Text className="text-gray-700 text-sm mb-4 flex-grow">
+                            {post.excerpt}
+                          </Text>
+                          <Text className="text-xs text-gray-600 mb-4">
+                            {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                          </Text>
+                          <div className="flex items-center gap-2 text-gold-500 group-hover:gap-3 transition-all">
+                            <span className="text-sm font-semibold">Read Story</span>
+                            <ChevronRight size={16} />
+                          </div>
+                        </Card>
+                      </Link>
                     ))}
                   </StaggerContainer>
                 </div>
@@ -301,19 +298,17 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                   .filter(s => s.id !== solution.id)
                   .slice(0, 3)
                   .map(relatedSolution => (
-                    <StaggerItem key={relatedSolution.id}>
-                      <Link href={`/solutions/${relatedSolution.id}`} className="h-full block">
-                        <Card className="h-full">
-                          <Heading size="h3" className="mb-2">
-                            {relatedSolution.title}
-                          </Heading>
-                          <Text size="sm" className="mb-4 line-clamp-2">
-                            {relatedSolution.whatIs}
-                          </Text>
-                          <span className="font-semibold text-sm text-olive-green">Learn More →</span>
-                        </Card>
-                      </Link>
-                    </StaggerItem>
+                    <Link key={relatedSolution.id} href={`/solutions/${relatedSolution.id}`} className="h-full block">
+                      <Card className="h-full">
+                        <Heading size="h3" className="mb-2">
+                          {relatedSolution.title}
+                        </Heading>
+                        <Text size="sm" className="mb-4 line-clamp-2">
+                          {relatedSolution.whatIs}
+                        </Text>
+                        <span className="font-semibold text-sm text-olive-green">Learn More →</span>
+                      </Card>
+                    </Link>
                   ))}
               </StaggerContainer>
             </div>

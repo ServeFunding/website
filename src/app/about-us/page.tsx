@@ -6,7 +6,6 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem,
   SocialIcons,
 } from '@/components/ui'
 import { CTA } from '@/components/cta'
@@ -138,19 +137,17 @@ export default function AboutUs() {
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {coreValues.map((value, index) => (
-              <StaggerItem key={index}>
-                <Card color='background' className="text-center h-full flex flex-col items-center justify-start pt-8 group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
-                  <span className="font-serif font-bold text-5xl mb-6 block" style={{ color: COLORS.primary }}>
-                    {value.title.charAt(0)}
-                  </span>
-                  <Heading size="h4" className="mb-3 text-olive-900 group-hover:text-olive-900 transition-colors">
-                    {value.title}
-                  </Heading>
-                  <Text className="text-gray-600 group-hover:text-gray-700 transition-colors text-sm">
-                    {value.desc}
-                  </Text>
-                </Card>
-              </StaggerItem>
+              <Card key={index} color='background' className="text-center h-full flex flex-col items-center justify-start pt-8 group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
+                <span className="font-serif font-bold text-5xl mb-6 block" style={{ color: COLORS.primary }}>
+                  {value.title.charAt(0)}
+                </span>
+                <Heading size="h4" className="mb-3 text-olive-900 group-hover:text-olive-900 transition-colors">
+                  {value.title}
+                </Heading>
+                <Text className="text-gray-600 group-hover:text-gray-700 transition-colors text-sm">
+                  {value.desc}
+                </Text>
+              </Card>
             ))}
           </StaggerContainer>
         </Container>
@@ -160,7 +157,7 @@ export default function AboutUs() {
       <Section background="white" style={{ backgroundColor: COLORS.primary }}>
         <Container>
           <FadeIn>
-            <div className="max-w-5xl mx-auto rounded-3xl p-12 mt-28 bg-white">
+            <Card className="max-w-5xl mx-auto mt-28">
               {/* Full Width Heading */}
               <Heading size="h2" className='!mt-0'>
                 We Believe Relationships {'>'} Bots
@@ -201,7 +198,7 @@ export default function AboutUs() {
                   <SocialIcons />
                 </div>
               </div>
-            </div>
+            </Card>
           </FadeIn>
         </Container>
       </Section>

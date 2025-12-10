@@ -1,9 +1,10 @@
 'use client'
 
-import { forwardRef, type HTMLAttributes, useRef } from "react"
+import { forwardRef, useRef } from "react"
+import { motion } from "framer-motion"
 import { COLORS, type CardColorOption } from "@/lib/colors"
 
-const baseCardClass = "rounded-[2rem] p-8 transition-all duration-300 border border-gray-100 shadow-xl shadow-gray-400/50 hover:-translate-y-2"
+const baseCardClass = "relative z-10 rounded-[2rem] p-8 transition-all duration-300 border border-gray-100 shadow-xl shadow-gray-400/50 hover:-translate-y-2"
 
 // Card color styles
 export const cardColorStyles = {
@@ -16,9 +17,13 @@ export const cardColorStyles = {
   }
 } as const
 
-interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'color'> {
+interface CardProps {
   color?: CardColorOption
   hoverColor?: string
+  className?: string
+  style?: React.CSSProperties
+  children?: React.ReactNode
+  [key: string]: any
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
@@ -28,15 +33,19 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 
     const cardStyle = {
       ...cardColorStyles.white,
-      ...(color && cardColorStyles[color] ? cardColorStyles[color] : {}),
+      ...(color && color in cardColorStyles ? cardColorStyles[color as keyof typeof cardColorStyles] : {}),
       ...(style || {}),
     }
 
     const bgColor = (cardStyle.backgroundColor as string) || COLORS.white
 
     return (
-      <div
+      <motion.div
         ref={mergedRef}
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+        }}
         className={[baseCardClass, className].filter(Boolean).join(' ')}
         style={{
           ...cardStyle,

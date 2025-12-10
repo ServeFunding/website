@@ -6,7 +6,6 @@ import {
   Text,
   Card,
   StaggerContainer,
-  StaggerItem,
   Button
 } from '@/components/ui'
 import { HeroFadeIn } from '@/components/hero-fade-in'
@@ -69,36 +68,34 @@ export default function BlogPage() {
         <Container>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {sortedPosts.map((post) => (
-              <StaggerItem key={post.id}>
-                <Link href={`/blog/${post.id}`}>
-                  <Card className="p-8 h-full flex flex-col hover:shadow-lg transition-all duration-300 cursor-pointer group">
-                    <div className="flex items-center gap-4 mb-4 text-sm text-gray-600">
-                      <Calendar size={16} className="text-gold-500" />
-                      <span>{formatDate(post.date)}</span>
-                    </div>
+              <Link key={post.id} href={`/blog/${post.id}`}>
+                <Card className="p-8 h-full flex flex-col hover:shadow-lg transition-all duration-300 cursor-pointer group">
+                  <div className="flex items-center gap-4 mb-4 text-sm text-gray-600">
+                    <Calendar size={16} className="text-gold-500" />
+                    <span>{formatDate(post.date)}</span>
+                  </div>
 
-                    <span className="inline-block mb-4 px-3 py-1 bg-gold-100 text-gold-700 text-xs font-semibold rounded-full w-fit">
-                      {post.category}
-                    </span>
+                  <span className="inline-block mb-4 px-3 py-1 bg-gold-100 text-gold-700 text-xs font-semibold rounded-full w-fit">
+                    {post.category}
+                  </span>
 
-                    <Heading size="h3" className="mb-2 text-olive-900 group-hover:text-gold-500 transition-colors">
-                      {post.title}
-                    </Heading>
+                  <Heading size="h3" className="mb-2 text-olive-900 group-hover:text-gold-500 transition-colors">
+                    {post.title}
+                  </Heading>
 
-                    <Text className="text-gray-600 text-sm mb-4">
-                      {post.subtitle}
-                    </Text>
+                  <Text className="text-gray-600 text-sm mb-4">
+                    {post.subtitle}
+                  </Text>
 
-                    <Text className="text-gray-700 mb-6 flex-1 leading-relaxed">
-                      {post.excerpt}
-                    </Text>
+                  <Text className="text-gray-700 mb-6 flex-1 leading-relaxed">
+                    {post.excerpt}
+                  </Text>
 
-                    <Button variant="link" className="text-gold-500 hover:text-gold-600 p-0 flex items-center gap-2 w-fit">
-                      Read More <ArrowRight size={16} />
-                    </Button>
-                  </Card>
-                </Link>
-              </StaggerItem>
+                  <Button variant="link" className="text-gold-500 hover:text-gold-600 p-0 flex items-center gap-2 w-fit">
+                    Read More <ArrowRight size={16} />
+                  </Button>
+                </Card>
+              </Link>
             ))}
           </StaggerContainer>
         </Container>

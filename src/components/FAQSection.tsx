@@ -3,7 +3,7 @@
 import { ReactNode } from 'react'
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
-import { Section, Container, Heading, Text, StaggerContainer, StaggerItem } from '@/components/ui'
+import { Section, Container, Heading, Text, StaggerContainer } from '@/components/ui'
 
 interface FAQItem {
   q: string
@@ -23,7 +23,7 @@ function FAQAccordionItem({ question, answer }: { question: string; answer: stri
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden hover:border-gold-500 transition-colors">
+    <div className="relative z-10 border border-gray-200 rounded-xl overflow-hidden hover:border-gold-500 transition-colors">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full p-6 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors text-left"
@@ -79,9 +79,7 @@ export function FAQSection({
           }`}
         >
           {displayFaqs.map((faq, index) => (
-            <StaggerItem key={`faq-${index}`}>
-              <FAQAccordionItem question={faq.q} answer={faq.a} />
-            </StaggerItem>
+            <FAQAccordionItem key={`faq-${index}`} question={faq.q} answer={faq.a} />
           ))}
         </StaggerContainer>
       </Container>

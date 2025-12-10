@@ -11,7 +11,6 @@ import {
   Card,
   FadeIn,
   StaggerContainer,
-  StaggerItem,
   SocialIcons
 } from '@/components/ui'
 import { HeroFadeIn } from '@/components/hero-fade-in'
@@ -87,18 +86,14 @@ export default function ContactUs() {
                 </Card>
               );
 
-              return (
-                <StaggerItem key={index}>
-                  {item.external ? (
-                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="block">
-                      {CardContent}
-                    </a>
-                  ) : (
-                    <a href={item.href} className="block">
-                      {CardContent}
-                    </a>
-                  )}
-                </StaggerItem>
+              return item.external ? (
+                <a key={index} href={item.href} target="_blank" rel="noopener noreferrer" className="block">
+                  {CardContent}
+                </a>
+              ) : (
+                <a key={index} href={item.href} className="block">
+                  {CardContent}
+                </a>
               );
             })}
           </StaggerContainer>

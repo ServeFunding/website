@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Container, Heading, Text, SocialIcons } from "./ui"
+import { Container, Heading, Text, SocialIcons, Section } from "./ui"
 import { COLORS as BRAND_COLORS } from "@/lib/colors"
 import { blogPosts } from "@/data/blog-posts"
 
@@ -35,8 +35,8 @@ export function Footer() {
           __html: JSON.stringify(organizationSchema),
         }}
       />
-      <footer className="bg-white text-gray-800 border-t border-gray-200 font-sans">
-        <div className="py-16">
+      <footer className="text-gray-800 font-sans">
+        <Section background="white">
           <Container>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
               {/* Menu */}
@@ -127,7 +127,7 @@ export function Footer() {
               </div>
             </div>
           </Container>
-        </div>
+        </Section>
 
         {/* Copyright - Full Width */}
         <div className="py-4" style={{ backgroundColor: BRAND_COLORS.primary }}>

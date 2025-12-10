@@ -1,4 +1,3 @@
-import React from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import {
@@ -6,10 +5,7 @@ import {
   Clock,
   Shield,
   Leaf,
-  ChevronRight,
-  TrendingUp,
-  DollarSign,
-  Handshake
+  ChevronRight
 } from 'lucide-react'
 import {
   Section,
@@ -30,7 +26,6 @@ import { LoadingSkeleton } from '@/components/LoadingSkeleton'
 import { HeroAnimation } from '@/components/HeroAnimation'
 import { HeroCarousel } from '@/components/HeroCarousel'
 import { FAQSectionWithSchema } from '@/components/FAQSection'
-import { ProcessCard } from '@/components/ProcessCard'
 
 // Lazy load below-the-fold components
 const IndustriesGrid = dynamic(() => import('@/components/IndustriesGrid').then(mod => ({ default: mod.IndustriesGrid })), {
@@ -102,8 +97,7 @@ export default function Home() {
                 desc: <>We represent your firm to our trusted lender partners to protect <br />your best interests.</>
               }
             ].map((item, index) => (
-              <StaggerItem key={`value-prop-${index}`}>
-                <Card className="flex flex-col items-center text-center h-full group transition-all duration-300 md:hover:-translate-y-2 bg-white value-card" style={{}}>
+              <Card key={`value-prop-${index}`} className="flex flex-col items-center text-center h-full group transition-all duration-300 md:hover:-translate-y-2 bg-white value-card" style={{}}>
                   <div
                     className="icon-flip-outer w-24 h-24 rounded-full mb-8"
                     style={{
@@ -128,7 +122,6 @@ export default function Home() {
                     {item.desc}
                   </Text>
                 </Card>
-              </StaggerItem>
             ))}
           </StaggerContainer>
         </Container>
@@ -179,24 +172,22 @@ export default function Home() {
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {fundingSolutions.map((solution) => (
-              <StaggerItem key={solution.id}>
-                <Link href={`/solutions#${solution.id}`} className="group cursor-pointer block h-full">
-                  <Card className="p-8 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col" style={{ background: `linear-gradient(to bottom, white, ${BRAND_COLORS.background})` }}>
-                    <div className="flex-1">
-                      <Heading size="h3" color='primary'>
-                        {solution.title}
-                      </Heading>
-                      <Text>
-                        {solution.shortDesc}
-                      </Text>
-                    </div>
-                    <div className="mt-4 flex items-center gap-2 group-hover:gap-3 transition-all">
-                      <span className="text-sm font-semibold">Learn More</span>
-                      <ChevronRight size={16} />
-                    </div>
-                  </Card>
-                </Link>
-              </StaggerItem>
+              <Link key={solution.id} href={`/solutions#${solution.id}`} className="group cursor-pointer block h-full">
+                <Card className="p-8 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col" style={{ background: `linear-gradient(to bottom, white, ${BRAND_COLORS.background})` }}>
+                  <div className="flex-1">
+                    <Heading size="h3" color='primary'>
+                      {solution.title}
+                    </Heading>
+                    <Text>
+                      {solution.shortDesc}
+                    </Text>
+                  </div>
+                  <div className="mt-4 flex items-center gap-2 group-hover:gap-3 transition-all">
+                    <span className="text-sm font-semibold">Learn More</span>
+                    <ChevronRight size={16} />
+                  </div>
+                </Card>
+              </Link>
             ))}
           </StaggerContainer>
         </Container>
@@ -236,9 +227,17 @@ export default function Home() {
                 desc: "We take responsibility to guide your lender engagements all the way to a timely closing. We are here to serve you."
               }
             ].map((item) => (
-              <StaggerItem key={item.step}>
-                <ProcessCard step={item.step} title={item.title} desc={item.desc} />
-              </StaggerItem>
+              <Card key={item.step} className="h-full flex flex-col items-center text-center group transition-all duration-300" hoverColor={BRAND_COLORS.secondary}>
+                <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 transition-all duration-300 bg-white/50 border-2 border-gold-light" style={{ color: BRAND_COLORS.primary }}>
+                  <span className="text-2xl font-bold">{item.step}</span>
+                </div>
+                <Heading size="h3" className="mb-4 transition-colors" style={{ color: BRAND_COLORS.primary }}>
+                  {item.title}
+                </Heading>
+                <Text className="text-gray-600 font-medium transition-colors">
+                  {item.desc}
+                </Text>
+              </Card>
             ))}
           </StaggerContainer>
         </Container>
@@ -256,9 +255,8 @@ export default function Home() {
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {fundingCases.slice(0, 6).map((caseStudy, index) => (
-              <StaggerItem key={`case-study-${index}`}>
-                <Link href={`/fundings#${caseStudy.title.toLowerCase().replace(/\s+/g, '-')}`} className="group cursor-pointer block h-full">
-                  <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white flex flex-col">
+              <Link key={`case-study-${index}`} href={`/fundings#${caseStudy.title.toLowerCase().replace(/\s+/g, '-')}`} className="group cursor-pointer block h-full">
+                <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white flex flex-col">
                     <Heading size="h4" className="mb-2 text-olive-900 group-hover:text-gold-500 transition-colors line-clamp-2">
                       <span 
                         className="bg-gradient-to-b bg-clip-text text-transparent"
@@ -282,7 +280,6 @@ export default function Home() {
                     </div>
                   </Card>
                 </Link>
-              </StaggerItem>
             ))}
           </StaggerContainer>
 

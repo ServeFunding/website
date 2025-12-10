@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
 import {
   ChevronRight
 } from 'lucide-react'
@@ -11,7 +10,7 @@ import {
   Heading,
   Text,
   StaggerContainer,
-  StaggerItem
+  Card
 } from '@/components/ui'
 import { fundingCases } from '@/data/fundingData'
 import { HeroFadeIn } from '@/components/hero-fade-in'
@@ -35,12 +34,10 @@ const caseStudies = fundingCases.map(c => ({
 export default function Fundings() {
   const [selectedStudy, setSelectedStudy] = useState<typeof caseStudies[0] | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [highlightedId, setHighlightedId] = useState<string>('')
 
   useEffect(() => {
     const hash = window.location.hash.slice(1)
     if (hash) {
-      setHighlightedId(hash)
       const element = document.getElementById(hash)
       if (element) {
         setTimeout(() => {
@@ -73,48 +70,41 @@ export default function Fundings() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {caseStudies.map((study, index) => {
               const slug = generateSlug(study.title)
-              const isHighlighted = highlightedId === slug
 
               return (
-                <StaggerItem key={index}>
-                  <button
-                    id={slug}
-                    onClick={() => openModal(study)}
-                    className="w-full h-full text-left focus:outline-none rounded-[2rem] scroll-mt-32"
-                  >
-                    <motion.div
-                      className="flex flex-col h-full group transition-all duration-300 hover:-translate-y-2 cursor-pointer rounded-2xl p-6"
-                      initial={isHighlighted ? { backgroundColor: BRAND_COLORS.secondary } : { backgroundColor: 'white' }}
-                      animate={{ backgroundColor: 'white' }}
-                      transition={isHighlighted ? { duration: 3.5, ease: 'easeInOut' } : { duration: 0 }}
-                    >
-                      <Heading size="h4" className="mb-4 text-olive-900 group-hover:text-gold-500 transition-colors">
-                        <span 
-                          className="bg-gradient-to-b bg-clip-text text-transparent"
-                          style={{ backgroundImage: `linear-gradient(to bottom, ${BRAND_COLORS.secondary}, ${BRAND_COLORS.dark})` }}
-                        >
-                          {study.amount}
-                        </span>{' '}
-                        {study.title}
-                      </Heading>
+                <button
+                  key={index}
+                  id={slug}
+                  onClick={() => openModal(study)}
+                  className="w-full h-full text-left focus:outline-none scroll-mt-32"
+                >
+                  <Card className="flex flex-col h-full cursor-pointer group">
+                    <Heading size="h4" className="mb-4 text-olive-900 group-hover:text-gold-500 transition-colors">
+                      <span
+                        className="bg-gradient-to-b bg-clip-text text-transparent"
+                        style={{ backgroundImage: `linear-gradient(to bottom, ${BRAND_COLORS.secondary}, ${BRAND_COLORS.dark})` }}
+                      >
+                        {study.amount}
+                      </span>{' '}
+                      {study.title}
+                    </Heading>
 
-                      <Text className="text-sm text-gray-500 mb-4">
-                        {study.company}
+                    <Text className="text-sm text-gray-500 mb-4">
+                      {study.company}
+                    </Text>
+
+                    <div className='flex-1'>
+                      <Text className="line-clamp-5">
+                        {study.fullStory}
                       </Text>
+                    </div>
 
-                      <div className='flex-1'>
-                        <Text className="line-clamp-5">
-                          {study.fullStory}
-                        </Text>
-                      </div>
-
-                      <div className="flex items-center gap-2 mt-6 text-gold-500 group-hover:text-olive-900 transition-colors font-semibold">
-                        Read More
-                        <ChevronRight size={18} />
-                      </div>
-                    </motion.div>
-                  </button>
-                </StaggerItem>
+                    <div className="flex items-center gap-2 mt-6 text-gold-500 group-hover:text-olive-900 transition-colors font-semibold">
+                      Read More
+                      <ChevronRight size={18} />
+                    </div>
+                  </Card>
+                </button>
               )
             })}
           </StaggerContainer>

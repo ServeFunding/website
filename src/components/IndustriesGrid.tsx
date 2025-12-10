@@ -72,7 +72,7 @@ export function IndustriesGrid() {
             onMouseLeave={() => handleMouseLeave()}
             onClick={() => handleClick(index)}
             onTouchStart={handleTouchStart}
-            className="cursor-pointer relative w-full h-full flex justify-center items-start"
+            className="cursor-pointer relative z-10 w-full h-full flex justify-center items-start"
           >
             <motion.div
               animate={{
@@ -92,7 +92,7 @@ export function IndustriesGrid() {
                   backgroundColor: COLORS.background,
                   borderColor: COLORS.primary,
                 }}
-                className="relative border-2 rounded-xl p-4 flex flex-col items-center justify-center text-center shadow-sm"
+                className="relative z-10 border-2 rounded-xl p-4 flex flex-col items-center justify-center text-center shadow-sm"
               >
                 <Icon size={32} className="mb-2" style={{ color: COLORS.primary }} strokeWidth={1.5} />
                 <p className="font-medium text-gray-700 line-clamp-2 text-center text-sm">

@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { COLORS } from "@/lib/colors"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-full text-base font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-95 hover:-translate-y-0.5 hover:opacity-90",
+  "relative z-10 inline-flex items-center justify-center rounded-full text-base font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-95 hover:-translate-y-0.5 hover:opacity-90",
   {
     variants: {
       variant: {

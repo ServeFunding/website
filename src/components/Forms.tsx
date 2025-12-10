@@ -232,7 +232,7 @@ export function NewsletterForm() {
   const { success, handleSubmit } = useFormSubmit('newsletter')
 
   return (
-    <section className="py-20 relative overflow-hidden" style={{ backgroundColor: COLORS.background }}>
+    <Section background="background">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
@@ -301,7 +301,7 @@ export function NewsletterForm() {
           </div>
         </div>
       </Container>
-    </section>
+    </Section>
   )
 }
 

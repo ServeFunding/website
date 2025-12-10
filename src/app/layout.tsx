@@ -87,8 +87,8 @@ export default function RootLayout({
 
         {/* Load third-party scripts after main content */}
         <Script
-          src="https://umami-production-25e0.up.railway.app/script.js"
-          data-website-id="4493b6db-f043-4505-a592-03c371ce8998"
+          src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL!}
+          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
           strategy="lazyOnload"
         />
 
