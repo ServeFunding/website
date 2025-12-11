@@ -14,7 +14,7 @@
 
 export const companyInfo = {
   name: "Serve Funding LLC",
-  tagline: "When Banks Say No, We Say How",
+  tagline: "Creative Working Capital",
 
   description: "A boutique business financing advisory firm serving growing companies with creative working capital from $250 to $100MM. As a channel-neutral advisor, we're not a lender—we're your trusted advocate with relationships across 30+ lenders. We specialize in debt refinance, payroll financing, MCA consolidation, asset-based lending, and alternative financing when traditional banks decline. Operating with servant leadership, we fight for your best interests and negotiate the best terms across multiple underwriting styles. Relationships over bots. Strategy over algorithms.",
 

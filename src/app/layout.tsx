@@ -31,11 +31,11 @@ const merriweather = Merriweather({
 })
 
 export const metadata: Metadata = {
-  title: "Serve Funding - When Banks Say No, We Say How | $250K-$100MM",
+  title: "Serve Funding - Creative Working Capital | $250K-$100MM",
   description: "Boutique working capital advisory specializing in debt refinance, payroll financing, MCA consolidation, and alternative funding when traditional banks decline. Relationships over bots. Fast funding in 3-10 days.",
   keywords: "debt refinance, payroll financing, mca consolidation, when banks say no, alternative business financing, asset-based lending, invoice factoring, channel neutral advisor, boutique lender",
   openGraph: {
-    title: "Serve Funding - When Banks Say No, We Say How | $250K-$100MM",
+    title: "Serve Funding - Creative Working Capital | $250K-$100MM",
     description: "Boutique working capital advisory specializing in debt refinance, payroll financing, MCA consolidation, and alternative funding when traditional banks decline. Relationships over bots. Fast funding in 3-10 days.",
     url: "https://servefunding.com/",
     siteName: "Serve Funding",
