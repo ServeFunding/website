@@ -31,11 +31,11 @@ const merriweather = Merriweather({
 })
 
 export const metadata: Metadata = {
-  title: "Serve Funding - When Banks Say No, We Say How | $250K-$100MM",
+  title: "Serve Funding - Creative Working Capital | $250K-$100MM",
   description: "Boutique working capital advisory specializing in debt refinance, payroll financing, MCA consolidation, and alternative funding when traditional banks decline. Relationships over bots. Fast funding in 3-10 days.",
   keywords: "debt refinance, payroll financing, mca consolidation, when banks say no, alternative business financing, asset-based lending, invoice factoring, channel neutral advisor, boutique lender",
   openGraph: {
-    title: "Serve Funding - When Banks Say No, We Say How | $250K-$100MM",
+    title: "Serve Funding - Creative Working Capital | $250K-$100MM",
     description: "Boutique working capital advisory specializing in debt refinance, payroll financing, MCA consolidation, and alternative funding when traditional banks decline. Relationships over bots. Fast funding in 3-10 days.",
     url: "https://servefunding.com/",
     siteName: "Serve Funding",
@@ -94,6 +94,15 @@ export default function RootLayout({
           id="hs-script-loader"
           src="https://js.hs-scripts.com/23433903.js"
           strategy="lazyOnload"
+        />
+
+        {/* REB2B Tracking */}
+        <Script
+          id="reb2b-tracking"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `!function(key) {if (window.reb2b) return;window.reb2b = {loaded: true};var s = document.createElement("script");s.async = true;s.src = "https://ddwl4m2hdecbv.cloudfront.net/b/" + key + "/" + key + ".js.gz";document.getElementsByTagName("script")[0].parentNode.insertBefore(s, document.getElementsByTagName("script")[0]);}("961Y0HD4J7NG");`,
+          }}
         />
       </body>
     </html>
