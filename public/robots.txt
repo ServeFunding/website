@@ -2,6 +2,9 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /private/
+Disallow: /_next/static/
+Disallow: /*.js.map
+Disallow: /*.css.map
 
 # Specific rules for search engines
 User-agent: Googlebot
