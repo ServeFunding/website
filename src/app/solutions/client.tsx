@@ -170,7 +170,6 @@ export function SolutionsClient() {
         text="Connect with our team of funding experts to discuss which solution is right for your business and get started on your path to growth."
         buttonText="Let's Talk!"
         href="/contact-us"
-        source="solutions-bottom"
         useBG
       />
     </>

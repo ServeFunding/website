@@ -136,7 +136,6 @@ export default function Fundings() {
         title="Ready to explore your financing options?"
         text="Let's discuss how we can help your business grow with the right working capital solution."
         buttonText="Let's Talk!"
-        source="fundings"
       />
 
       {/* Case Study Modal */}

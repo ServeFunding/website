@@ -46,6 +46,14 @@ export async function generateMetadata({ params }: SolutionDetailPageProps): Pro
       description: solution.shortDesc,
       url: `https://servefunding.com/solutions/${solution.id}`,
       type: 'website',
+      images: [
+        {
+          url: `https://servefunding.com/solutions/${solution.image.split('/').pop()}`,
+          width: 1024,
+          height: 728,
+          alt: titleStr,
+        },
+      ],
     },
   }
 }
@@ -93,13 +101,13 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
               <Heading size="h1" className="mb-4">
                 {`What ${getTitleAsString(solution.title).endsWith('s') ? 'are' : 'is'} ${getTitleAsString(solution.title)}?`}
               </Heading>
-
-              {/* Category Badge */}
+{/* 
+              {/* Category Badge
               <div className="mb-6">
-                <span className="inline-block bg-olive-green text-white text-sm font-semibold px-4 py-2 rounded">
+                <Text>
                   {solution.category}
-                </span>
-              </div>
+                </Text>
+              </div> */}
 
               {/* Solution Image */}
               {solution.image && (
@@ -223,7 +231,6 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
           title="Ready to Get Started?"
           text={`Learn more about ${getTitleAsString(solution.title)} and how it can help your business grow. Schedule a consultation with one of our funding experts today.`}
           buttonText="Let's Talk!"
-          source={`solution-${solution.id}`}
           useBG
         />
 

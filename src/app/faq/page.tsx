@@ -6,7 +6,7 @@ import { Breadcrumb } from '@/components/breadcrumb'
 
 export const metadata: Metadata = {
   title: 'Frequently Asked Questions | Serve Funding',
-  description: 'Get answers to common questions about working capital, business loans, asset-based lending, and more from Serve Funding. Comprehensive guides on working capital and our advisory process.',
+  description: 'Answers to your questions about working capital, business loans, asset-based lending, invoice factoring, and alternative financing solutions.',
   keywords: 'FAQ, frequently asked questions, working capital questions, business loans FAQ, serve funding questions',
   openGraph: {
     title: 'Frequently Asked Questions | Serve Funding',
@@ -14,6 +14,14 @@ export const metadata: Metadata = {
     url: 'https://servefunding.com/faq',
     siteName: 'Serve Funding',
     type: 'website',
+    images: [
+      {
+        url: "https://servefunding.com/Logo_Full-color_long_samecolor-1.webp",
+        width: 1024,
+        height: 728,
+        alt: "FAQ - Frequently Asked Questions",
+      },
+    ],
   },
 }
 

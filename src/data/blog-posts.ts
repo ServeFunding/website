@@ -11,6 +11,7 @@ export interface BlogPost {
   author: string
   date: string
   category: string
+  image?: string // path to blog post image
   content: BlogPostContent[]
   relatedSolutions?: string[] // solution IDs
   relatedIndustries?: string[] // 'healthcare', 'manufacturing', 'government-contracting'
@@ -19,12 +20,13 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     id: "building-people-estonia-trip",
-    title: "$1.475MM Bridge to Large M&A for Medical & Surgery Practice",
+    title: "$1.475MM Bridge for Medical Practice M&A",
     subtitle: "How a Trip to Estonia Reminded Us What Really Matters",
     excerpt: "A journey to Tallinn to visit his son turned into a powerful lesson about entrepreneurship, mentorship, and the importance of cultivating the next generation of leaders. Plus: how we deployed $1.475MM in bridge capital to help a surgeon protect his life's work.",
     author: "Michael Kodinsky",
     date: "2025-10-07",
     category: "Insights",
+    image: "/blog/Walking.webp",
     relatedSolutions: ["working-capital-loans", "bridge-capital"],
     relatedIndustries: ["healthcare"],
     content: [
@@ -49,7 +51,7 @@ export const blogPosts: BlogPost[] = [
       { type: 'p', text: "But there was a gap. The liquidity event was pending, but closing was still weeks away. In the meantime, he needed substantial capital to cover year-end business expenses and operational needs. He needed more than $1.25MM within a matter of weeks—or he'd have to delay the closing and miss his window." },
       { type: 'p', text: "His private banker at a major national bank knew exactly who to call. She had a counterpart on the commercial team who had a 9-year relationship with me. That banker introduced us, and we got to work." },
       { type: 'h3', text: "The Solution" },
-      { type: 'p', text: "We didn't just offer one option. We provided multiple solutions: an interest-only bridge loan tied to the doctor's property, and several revenue-based business term loans. We negotiated aggressively on his behalf—because his exit was too important to leave money on the table." },
+      { type: 'p', text: "We didn't just offer one option. We provided multiple solutions: an interest-only [[bridge loan](/solutions/bridge-capital) tied to the doctor's property, and several revenue-based business term loans. We negotiated aggressively on his behalf—because his exit was too important to leave money on the table." },
       { type: 'p', text: "Capital Deployed: $1.475MM" },
       { type: 'p', text: "Structure: Flexible bridge with aggressive prepay discounts" },
       { type: 'p', text: "Timeline: Funded in less than 2 weeks—well ahead of the surgeon's closing date" },
@@ -77,6 +79,7 @@ export const blogPosts: BlogPost[] = [
     author: "Michael Kodinsky",
     date: "2025-09-02",
     category: "Case Study",
+    image: "/blog/Cofee.webp",
     relatedSolutions: ["po-financing", "inventory-financing"],
     relatedIndustries: ["manufacturing"],
     content: [
@@ -88,7 +91,7 @@ export const blogPosts: BlogPost[] = [
       { type: 'p', text: "Then something unexpected happened: demand from corporate roasters surged almost overnight." },
       { type: 'p', text: "This was exactly the kind of problem every founder wants. More orders means more revenue. More customers means more momentum. This was growth." },
       { type: 'p', text: "Growth isn't a Hail Mary; it's a series of right plays made at the right time with the right partners." },
-      { type: 'p', text: "But growth without working capital isn't growth—it's a stall. And that's exactly where this coffee trader found themselves." },
+      { type: 'p', text: "But growth without [[working capital](/solutions/working-capital-loans) isn't growth—it's a stall. And that's exactly where this coffee trader found themselves." },
       { type: 'h2', text: "Outgrowing Your Limits" },
       { type: 'p', text: "The company had an existing purchase order (PO) facility in place. It had served them well. But like many growing businesses, they'd hit its ceiling: $150,000." },
       { type: 'p', text: "For a specialty coffee importer managing orders from corporate roasters around the country, $150K wasn't going to cut it anymore. To fulfill these new orders, they needed capital to:" },
@@ -99,7 +102,7 @@ export const blogPosts: BlogPost[] = [
       { type: 'p', text: "They asked their existing lender to increase the facility. The answer was no—the lender wouldn't budge from the $150K cap." },
       { type: 'p', text: "So they needed a partner who could think bigger. Someone who understood that growth sometimes outpaces your original financing partner's appetite. Someone who could move fast." },
       { type: 'h2', text: "The Right Partnership at the Right Time" },
-      { type: 'p', text: "The specialty coffee importer was introduced to Serve Funding by one of our asset-based lending partners. This partner relationship was the foundation—they knew our track record, our speed, and our ability to structure creative solutions." },
+      { type: 'p', text: "The specialty coffee importer was introduced to Serve Funding by one of our [[asset-based lending](/solutions/asset-based-lending) partners. This partner relationship was the foundation—they knew our track record, our speed, and our ability to structure creative solutions." },
       { type: 'p', text: "We had something else working in our favor: we leverage relationships with lenders we've worked with for years. In this case, we had an almost 10-year-old relationship with a PO lender who specialized in exactly this kind of scenario." },
       { type: 'p', text: "We called them. We explained the situation. We vouched for the client's business model and growth trajectory. And leveraging that trust-based relationship, we secured a $1,000,000 Purchase Order facility." },
       { type: 'h3', text: "What $1MM Unlocked" },
@@ -111,7 +114,7 @@ export const blogPosts: BlogPost[] = [
       { type: 'p', text: "On the surface, this is a $1MM deal. A growing business got the capital it needed. Everyone wins." },
       { type: 'p', text: "But there's something deeper happening here. This deal is about what happens when:" },
       { type: 'p', text: "Trust-Based Relationships Matter: We didn't just go shopping for capital. We leveraged a 10-year relationship with a lender who believed in us. Those relationships are built on years of doing right by clients and partners." },
-      { type: 'p', text: "Partnership Ecosystems Are Powerful: An asset-based lending partner introduced us. We brought a 10-year lender relationship. Together, we solved for a problem that couldn't be solved alone." },
+      { type: 'p', text: "Partnership Ecosystems Are Powerful: An [[asset-based lending](/solutions/asset-based-lending) partner introduced us. We brought a 10-year lender relationship. Together, we solved for a problem that couldn't be solved alone." },
       { type: 'p', text: "Growth Looks Different For Every Business: The coffee trader's original lender had a $150K limit. That wasn't personal—it was just their appetite. We found someone whose appetite matched the client's growth." },
       { type: 'p', text: "Capital Should Enable, Not Limit: This family-owned business had the orders, the relationships, and the execution. What they needed was capital that scaled with their opportunity. Now they have it." },
       { type: 'p', text: "That's how we approach every deal: not just 'how do we fund this?' but 'how do we empower this founder to build the business they're meant to build?'" },
@@ -121,18 +124,19 @@ export const blogPosts: BlogPost[] = [
       { type: 'p', text: "For this coffee trader, the answer is now yes. And it all came down to finding the right play at the right time with the right partners." },
       { type: 'p', text: "That's what Serve Funding does. We don't just fund deals. We empower founders building thriving enterprises and lasting legacies." },
       { type: 'h2', text: "Your Growth Moment Is Waiting" },
-      { type: 'p', text: "If you're a founder with demand outpacing your working capital. If you're an advisor or banker with clients in that same situation. If you're someone who understands that growth doesn't always fit in neat boxes—we want to partner with you." },
+      { type: 'p', text: "If you're a founder with demand outpacing your [[working capital](/solutions/working-capital-loans). If you're an advisor or banker with clients in that same situation. If you're someone who understands that growth doesn't always fit in neat boxes—we want to partner with you." },
       { type: 'p', text: "Let's create more growth stories. Together." },
     ]
   },
   {
     id: "ar-financing-healthcare-supply",
-    title: "$1MM Invoice Factoring Revolver at Single-Digit Rates?!",
+    title: "$1MM Invoice Factoring at Single-Digit Rates",
     subtitle: "How AR Financing Unlocked Strategic Growth Beyond the Bank Line",
     excerpt: "A healthcare supply manufacturer hit the bank line ceiling despite solid growth. Their tax return showed a loss, so traditional financing was off the table. But their invoices told a different story. How $1MM in AR financing—at better terms than a bank loan—fueled rapid expansion.",
     author: "Michael Kodinsky",
     date: "2025-08-12",
     category: "Case Study",
+    image: "/blog/Construciton meeting.webp",
     content: [
       { type: 'p', text: "Here's a truth about business that doesn't always show up on a balance sheet: you can be growing, profitable in operations, and completely unable to qualify for traditional financing." },
       { type: 'p', text: "Why? Because last year's tax return might show a loss. Or your bank line is maxed out. Or your growth is too fast for conventional lenders to understand." },
@@ -144,8 +148,8 @@ export const blogPosts: BlogPost[] = [
       { type: 'p', text: "You can't pay vendor bills with open receivables, but AR financing done right will pay for steady growth." },
       { type: 'p', text: "The irony was stark: a growing company with strong customers, consistent orders, and real revenue was being told no because of accounting entries, not business fundamentals." },
       { type: 'h2', text: "The Invoices Tell the Real Story" },
-      { type: 'p', text: "Here's what traditional lenders miss: invoices are assets." },
-      { type: 'p', text: "When a customer orders $100,000 in supplies and that order is shipped, an invoice is created. That invoice represents real money that's owed to the company. It's not a maybe. It's not a projection. It's a contractual obligation from a creditworthy customer." },
+      { type: 'p', text: "Here's what traditional lenders miss: [[invoices](/solutions/invoice-factoring) are assets." },
+      { type: 'p', text: "When a customer orders $100,000 in supplies and that order is shipped, an [[invoice](/solutions/invoice-factoring) is created. That invoice represents real money that's owed to the company. It's not a maybe. It's not a projection. It's a contractual obligation from a creditworthy customer." },
       { type: 'p', text: "Banks look at tax returns and P&Ls. We look at invoices. And that healthcare supply manufacturer's invoices told a completely different story than their tax return." },
       { type: 'p', text: "One of their competing bankers understood this. They referred the manufacturer to Serve Funding. And within 3 weeks, we had them approved and funded." },
       { type: 'h3', text: "The Structure" },
@@ -185,7 +189,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     id: "knowing-when-to-bring-right-partner",
-    title: "Unsecured Line of Credit - Product Highlight by Serve Funding",
+    title: "Unsecured Line of Credit Solutions",
     subtitle: "Knowing When to Refer: The Smartest Move Isn't Always Saying Yes",
     excerpt: "A powerful principle in lending and life: the ability to say 'I know someone who can help' transforms you from a gatekeeper into an indispensable advisor. Here's why knowing when to refer is the mark of a strategic partner.",
     author: "Michael Kodinsky",
@@ -253,6 +257,7 @@ export const blogPosts: BlogPost[] = [
     author: "Michael Kodinsky",
     date: "2025-06-03",
     category: "Case Study",
+    image: "/blog/Meeting1.webp",
     relatedSolutions: ["working-capital-loans", "asset-based-lending", "invoice-factoring"],
     relatedIndustries: ["manufacturing"],
     content: [
@@ -267,7 +272,7 @@ export const blogPosts: BlogPost[] = [
       { type: 'h2', text: "Five Years of Evolution: Six Solutions for Six Different Moments" },
       { type: 'p', text: "Here's what true partnership looks like. Over 5+ years, we deployed six different financing structures, each designed for a specific moment in their growth journey. None were permanent. All were purpose-built." },
       { type: 'h3', text: "Solution 1: Unsecured Working Capital Facility ($580K)" },
-      { type: 'p', text: "Over 2 years, in 4 separate tranches, we structured unsecured working capital lines to help them navigate large incoming orders while maintaining operational flexibility. This wasn't about locking in permanent debt. It was about flexibility." },
+      { type: 'p', text: "Over 2 years, in 4 separate tranches, we structured [[unsecured working capital](/solutions/working-capital-loans) lines to help them navigate large incoming orders while maintaining operational flexibility. This wasn't about locking in permanent debt. It was about flexibility." },
       { type: 'p', text: "Why unsecured? Because when you've built a business with real fundamentals and strong execution, you shouldn't have to mortgage the company to grow it." },
       { type: 'h3', text: "Solution 2: Bank Credit Partnership ($500K)" },
       { type: 'p', text: "In 2023, we leveraged our relationship with a Texas-based regional bank to arrange a $500K revolving line of credit. This was about bringing their primary bank into the growth equation. We didn't replace the banker—we enhanced the relationship." },
@@ -280,7 +285,7 @@ export const blogPosts: BlogPost[] = [
       { type: 'p', text: "Each solution was different because their business was different at each moment. And that's the point. True partnership means flexibility, responsiveness, and the willingness to evolve the capital structure as the business evolves." },
       { type: 'h2', text: "Looking Ahead: From $3MM to $5MM" },
       { type: 'p', text: "The label manufacturer is forecasting a major leap in 2025: from $3MM to $5MM in annual revenue. That's 67% growth. That's significant." },
-      { type: 'p', text: "And we're already at the table, working alongside them and their bank, designing the next evolution of their capital structure. We're transitioning their revolving line into an AR-based (Accounts Receivable) revolver—built to scale with their expanding order book." },
+      { type: 'p', text: "And we're already at the table, working alongside them and their bank, designing the next evolution of their capital structure. We're transitioning their revolving line into an [[AR-based (Accounts Receivable) revolver](/solutions/invoice-factoring)—built to scale with their expanding order book." },
       { type: 'p', text: "Why AR-based? Because their business model is driven by volume and customer payment cycles. An AR facility grows automatically with their sales. No refinancing needed. No new approvals needed. The capital scales with the opportunity." },
       { type: 'p', text: "This is partnership in its truest form: anticipating the next phase before it arrives, and having the capital structure ready to support it." },
       { type: 'h2', text: "The Deeper Lesson: Understanding Comes First" },
@@ -311,6 +316,7 @@ export const blogPosts: BlogPost[] = [
     author: "Michael Kodinsky",
     date: "2025-04-24",
     category: "Case Study",
+    image: "/blog/Shake hands.webp",
     content: [
       { type: 'p', text: "A phone call at the wrong time can destroy a business. But a phone call from the right person at a critical moment can save it." },
       { type: 'p', text: "This is a story about a specialty steel contractor who received one of those critical calls. Not from a savior with unlimited resources—but from a banker who knew someone who could help." },
@@ -331,7 +337,7 @@ export const blogPosts: BlogPost[] = [
       { type: 'p', text: "This banker didn't just pass along a name. They made a call on behalf of the client. They explained the situation. They vouched for the contractor's character and business fundamentals. They positioned Serve Funding as the right partner for a situation that conventional lenders couldn't solve." },
       { type: 'p', text: "That's the call that saved this contractor's business." },
       { type: 'h3', text: "The Solution" },
-      { type: 'p', text: "We moved fast. Within weeks, we structured a $300K unsecured term loan with monthly payments at mid-teens rates. This wasn't the cheapest capital ever offered, but it was available. It was responsive. And it covered the first portion of the bank payoff plus key vendor payables." },
+      { type: 'p', text: "We moved fast. Within weeks, we structured a $300K [[unsecured term loan](/solutions/working-capital-loans) with monthly payments at mid-teens rates. This wasn't the cheapest capital ever offered, but it was available. It was responsive. And it covered the first portion of the bank payoff plus key vendor payables." },
       { type: 'p', text: "A few months later, as the contractor stabilized operations and we built confidence in the relationship, we delivered an additional $250K. This final piece allowed them to completely resolve the outstanding bank balance and move forward with a clear capital structure." },
       { type: 'p', text: "Month 1: $300K unsecured term loan (monthly payments, mid-teens rate)" },
       { type: 'p', text: "Month 3-4: $250K additional capital to complete bank payoff" },
@@ -369,6 +375,7 @@ export const blogPosts: BlogPost[] = [
     author: "Michael Kodinsky",
     date: "2025-03-27",
     category: "Case Study",
+    image: "/blog/Meeting 2.webp",
     relatedSolutions: ["asset-based-lending", "invoice-factoring", "working-capital-loans"],
     relatedIndustries: ["healthcare"],
     content: [
@@ -416,6 +423,7 @@ export const blogPosts: BlogPost[] = [
     author: "Michael Kodinsky",
     date: "2024-11-26",
     category: "Business Growth",
+    image: "/blog/Meeting 3.webp",
     content: [
       { type: 'p', text: "In an age of automation and algorithms, businesses are increasingly turning to chatbots, robo-advisors, and algorithmic decision-making. While these tools have their place, they fundamentally miss something critical to sustainable business growth: the power of human relationships and trusted partnerships." },
       { type: 'p', text: "At Serve Funding, we believe that the best capital strategies aren't born from algorithms—they're built on trust, experience, and genuine partnership." },
@@ -460,6 +468,7 @@ export const blogPosts: BlogPost[] = [
     author: "Michael Kodinsky",
     date: "2025-11-19",
     category: "Case Study",
+    image: "/blog/Meeting 4.webp",
     content: [
       { type: 'p', text: "Every banker knows the feeling." },
       { type: 'p', text: "A valued client calls with urgency in their voice — payroll due, cash tied up, and the clock ticking. You want to help. But your bank's credit box says no." },

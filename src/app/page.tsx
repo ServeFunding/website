@@ -298,6 +298,23 @@ export default function Home() {
         schemaName="Business Financing Advisory"
       />
 
+      {/* About Us Link Section */}
+      <Section background="background">
+        <Container>
+          <FadeIn className="text-center">
+            <Heading size="h2" className="mb-4">Meet the Team Behind Serve Funding</Heading>
+            <Text size="lg" className="text-gray-700 mb-8 max-w-2xl mx-auto">
+              Learn about our mission, values, and the experienced team committed to helping your business grow.
+            </Text>
+            <Link href="/about-us">
+              <Button variant="default" size="lg">
+                Learn Our Story <ChevronRight size={18} className="ml-2" />
+              </Button>
+            </Link>
+          </FadeIn>
+        </Container>
+      </Section>
+
       <IntroCallForm />
     </>
   )

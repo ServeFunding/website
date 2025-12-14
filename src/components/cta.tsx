@@ -6,12 +6,11 @@ interface CTAProps {
   text: string
   buttonText: string
   href?: string
-  source?: string
   useBG?: boolean
 }
 
-export const CTA = ({ title, text, buttonText, href = "/contact-us", source, useBG }: CTAProps) => {
-  const buttonHref = source ? `${href}?source=${source}` : href
+export const CTA = ({ title, text, buttonText, href = "/contact-us", useBG }: CTAProps) => {
+  const buttonHref = href
 
   return (
     <Section background={useBG ? "background" : "white"}>
