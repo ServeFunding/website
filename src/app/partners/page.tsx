@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import type { Metadata } from 'next'
 import {
   Quote
 } from 'lucide-react'
@@ -17,6 +18,25 @@ import { HeroFadeIn } from '@/components/hero-fade-in'
 import { PartnerInquiryForm } from '@/components/Forms'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { partnerTypes, commitments, testimonials } from '@/data/partners'
+
+export const metadata: Metadata = {
+  title: 'Partnership Opportunities | Serve Funding',
+  description: 'Partner with Serve Funding to expand your advisory capabilities. Build stronger client relationships by offering alternative funding solutions.',
+  openGraph: {
+    title: 'Partnership Opportunities | Serve Funding',
+    description: 'Partner with Serve Funding to expand your advisory capabilities. Build stronger client relationships by offering alternative funding solutions.',
+    url: 'https://servefunding.com/partners',
+    type: 'website',
+    images: [
+      {
+        url: "https://servefunding.com/partners/Trust.webp",
+        width: 1024,
+        height: 728,
+        alt: "Partnership Opportunities",
+      },
+    ],
+  },
+}
 
 export default function Partners() {
   return (

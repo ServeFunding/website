@@ -83,7 +83,7 @@ export const fundingSolutions: FundingSolution[] = [
 
     whatIs: "Invoice factoring (also called AR financing) is when you sell your unpaid B2B invoices to a factor for immediate cash. Instead of waiting 30-90 days for customers to pay, you get 75-95% of the invoice value within 24-48 hours. As customers pay, the borrowing automatically decreases—making it self-liquidating.",
 
-    shortDesc: "Convert unpaid invoices into working capital in 24-48 hours. Self-liquidating, revolving, and scales with your growth—perfect for companies with strong sales but slow-paying customers.",
+    shortDesc: "Convert unpaid invoices into working capital in 24-48 hours. Self-liquidating, scales with sales—ideal for companies with slow-paying customers.",
 
     fullDesc: "Invoice factoring (AR financing) unlocks cash trapped in unpaid invoices, converting them into immediate working capital. Unlike traditional term loans that sit on your balance sheet, factoring is self-liquidating: as your customers pay, the borrowing automatically decreases. This solution is ideal for companies with commercial AR facing 30-90 day payment cycles. Factoring works for staffing, construction, manufacturing, healthcare, government contracting, and CPG industries with net-30, net-60, net-90+ payment terms. Real example: A healthcare supply manufacturer secured $1MM at Prime + 2% with 92% advance rates—better terms than most bank loans—and within 3 weeks of approval. The facility automatically scaled to $1.5MM within 2 months as their sales grew.",
 

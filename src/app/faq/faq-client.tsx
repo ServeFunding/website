@@ -62,7 +62,6 @@ export default function FAQClient({ faqs }: FAQClientProps) {
         title="Still Have Questions?"
         text="Don't see your question answered? Get in touch with our team and we'll be happy to help."
         buttonText="Contact Us"
-        source="fundings"
         useBG
       />
     </div>

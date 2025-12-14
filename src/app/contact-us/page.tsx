@@ -3,6 +3,7 @@ import {
   Phone,
   MapPin,
 } from 'lucide-react'
+import type { Metadata } from 'next'
 import {
   Section,
   Container,
@@ -17,6 +18,25 @@ import { HeroFadeIn } from '@/components/hero-fade-in'
 import { IntroCallForm } from '@/components/Forms'
 import { Breadcrumb } from '@/components/breadcrumb'
 
+export const metadata: Metadata = {
+  title: 'Contact Serve Funding | We\'re here to serve',
+  description: 'Ready to explore your funding options? Contact us today. Phone, email, or schedule a consultation with our funding advisors.',
+  openGraph: {
+    title: 'Contact Serve Funding | We\'re here to serve',
+    description: 'Ready to explore your funding options? Contact us today. Phone, email, or schedule a consultation with our funding advisors.',
+    url: 'https://servefunding.com/contact-us',
+    type: 'website',
+    images: [
+      {
+        url: "https://servefunding.com/Logo_Full-color_long_samecolor-1.webp",
+        width: 1024,
+        height: 728,
+        alt: "Contact Serve Funding",
+      },
+    ],
+  },
+}
+
 export default function ContactUs() {
   return (
     <>
@@ -25,7 +45,7 @@ export default function ContactUs() {
 
       {/* Hero Section */}
       <HeroFadeIn
-        title="We're Here to Serve Your Business Growth"
+        title={<>We're Here to Serve<br />Your Business Growth</>}
         subtitle="We believe that great relationships start with a conversation. Whether you have questions about our services, need assistance with financing, or want to explore partnership opportunities, our team is here to help. Reach out to us using the contact information below, and we'll get back to you as soon as possible."
         compact
       />
@@ -36,12 +56,6 @@ export default function ContactUs() {
       {/* Main Contact Info Section */}
       <Section>
         <Container>
-          <FadeIn className="max-w-3xl mx-auto text-center mb-16">
-            <Heading size="h2" className="mb-6 text-olive-900">
-              Contact Us
-            </Heading>
-          </FadeIn>
-
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {[
               {

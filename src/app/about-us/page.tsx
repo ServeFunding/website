@@ -21,6 +21,15 @@ export const metadata: Metadata = {
     title: "About Serve Funding | Our Story, Values & Mission",
     description: "Learn about Serve Funding's mission, core values rooted in TRUST, and commitment to supporting growing businesses and communities.",
     url: "https://servefunding.com/about-us",
+    type: "website",
+    images: [
+      {
+        url: "https://servefunding.com/about/runs%20in%20our%20blood.webp",
+        width: 1024,
+        height: 728,
+        alt: "About Serve Funding",
+      },
+    ],
   },
 }
 
@@ -57,7 +66,7 @@ export default function AboutUs() {
       <Section>
         <Container>
           <FadeIn>
-            <Heading size="h2" className="text-center">
+            <Heading size="h1" className="text-center !mt-0">
               Entrepreneurship Runs In Our Blood.
             </Heading>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -226,7 +235,6 @@ export default function AboutUs() {
         title="Ready to Get Started?"
         text="Learn more about our funding solutions and how we can help your business grow. Schedule a consultation with one of our funding experts today."
         buttonText="Let's Talk!"
-        source="about-us"
         useBG
       />
     </>

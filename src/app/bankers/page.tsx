@@ -12,7 +12,7 @@ const PartnerInquiryForm = dynamic(() => import('@/components/Forms').then(mod =
 })
 
 export const metadata = {
-  title: "Serve Funding Empowers Bankers | Serve Funding",
+  title: "Empower Your Clients with Funding Solutions | Serve Funding",
   description: "Download our overview and explore how Serve Funding helps you deliver funding solutions quickly and confidently.",
 }
 

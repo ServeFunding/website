@@ -60,7 +60,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
     <Container className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center justify-center lg:justify-start h-full pb-6">
       {/* Text Column - 40% width */}
       <div className="relative z-20 w-full lg:flex-[0.6] lg:min-w-0">
-        <Heading key={`heading-${heroIndex}`} size="h2" className="text-gray-800">
+        <Heading key={`heading-${heroIndex}`} size="h1" className="text-gray-800">
           {slide.heading}
         </Heading>
         <Text size="2xl" className="mb-6 lg:mb-8 text-gray-700">

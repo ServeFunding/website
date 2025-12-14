@@ -114,7 +114,7 @@ export function Header() {
     if (!href.startsWith('#')) {
       const currentPath = href.split('#')[0]
       if (currentPath !== pathname && currentPath !== '') {
-        return // Let normal navigation happen
+        return // Let normal navigation happen (don't prevent default)
       }
     }
 
@@ -127,11 +127,13 @@ export function Header() {
     setIsMenuOpen(false)
     setExpandedMenu(null)
 
-    // Find the element and scroll to it
-    const element = document.getElementById(anchorId)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
+    // Find the element and scroll to it with a small delay for DOM updates
+    setTimeout(() => {
+      const element = document.getElementById(anchorId)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 50)
   }
 
   return (

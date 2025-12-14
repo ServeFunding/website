@@ -14,11 +14,30 @@ interface BlogHeroFadeInProps {
   authorTitle?: string
   authorPhoto?: string
   category?: string
+  backgroundImage?: string
 }
 
-export const BlogHeroFadeIn = ({ title, subtitle, date, author, authorTitle, authorPhoto, category = "Business/Professional Trends" }: BlogHeroFadeInProps) => (
-  <Section className="py-12 md:py-16 overflow-hidden" style={{ backgroundColor: COLORS.primary, scrollMarginTop: LAYOUT.scrollMarginTop }}>
-    <Container>
+export const BlogHeroFadeIn = ({ title, subtitle, date, author, authorTitle, authorPhoto, category = "Business/Professional Trends", backgroundImage }: BlogHeroFadeInProps) => (
+  <Section className="py-12 md:py-16 overflow-hidden relative" style={{ scrollMarginTop: LAYOUT.scrollMarginTop }}>
+    {/* Background with overlay */}
+    <div 
+      className="absolute inset-0"
+      style={{
+        backgroundImage: backgroundImage ? `url('${backgroundImage}')` : undefined,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: !backgroundImage ? COLORS.dark : undefined,
+      }}
+    />
+    <div 
+      className="absolute inset-0"
+      style={{
+        backgroundColor: backgroundImage ? `${COLORS.dark}cc` : undefined, // 80% opacity overlay
+      }}
+    />
+
+    <Container className="relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -30,7 +49,7 @@ export const BlogHeroFadeIn = ({ title, subtitle, date, author, authorTitle, aut
             {category}
           </Text>
         )}
-        <Heading size="h1" color="white" className="mb-6">
+        <Heading size="h1" color="highlight" className="mb-6">
           {title}
         </Heading>
         {subtitle && (
@@ -69,7 +88,7 @@ export const BlogHeroFadeIn = ({ title, subtitle, date, author, authorTitle, aut
               </div>
             </div>
             {date && (
-              <Text size="sm" className="text-white/70">
+              <Text size="sm" style={{ color: COLORS.background}}>
                 {date}
               </Text>
             )}

@@ -32,7 +32,7 @@ const merriweather = Merriweather({
 
 export const metadata: Metadata = {
   title: "Serve Funding - Creative Working Capital | $250K-$100MM",
-  description: "Boutique working capital advisory specializing in debt refinance, payroll financing, MCA consolidation, and alternative funding when traditional banks decline. Relationships over bots. Fast funding in 3-10 days.",
+  description: "Alternative working capital and funding solutions from $250K-$100MM. Debt refinance, payroll, MCA consolidation, and more when traditional banks decline.",
   keywords: "debt refinance, payroll financing, mca consolidation, when banks say no, alternative business financing, asset-based lending, invoice factoring, channel neutral advisor, boutique lender",
   openGraph: {
     title: "Serve Funding - Creative Working Capital | $250K-$100MM",
@@ -40,6 +40,14 @@ export const metadata: Metadata = {
     url: "https://servefunding.com/",
     siteName: "Serve Funding",
     type: "website",
+    images: [
+      {
+        url: "https://servefunding.com/home/right%20funding%20solutions.webp",
+        width: 960,
+        height: 628,
+        alt: "Serve Funding - Creative Working Capital Solutions",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

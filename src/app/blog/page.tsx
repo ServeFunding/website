@@ -1,4 +1,5 @@
 import { ArrowRight, Calendar } from 'lucide-react'
+import type { Metadata } from 'next'
 import {
   Section,
   Container,
@@ -14,6 +15,25 @@ import { Breadcrumb } from '@/components/breadcrumb'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
 import { blogPosts } from '@/data/blog-posts'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Blog | Insights on Business Funding & Working Capital',
+  description: 'Financing insights, case studies, and guides for growing businesses. Learn from real funding stories and working capital strategies.',
+  openGraph: {
+    title: 'Blog | Insights on Business Funding & Working Capital',
+    description: 'Financing insights, case studies, and guides for growing businesses. Learn from real funding stories and working capital strategies.',
+    url: 'https://servefunding.com/blog',
+    type: 'website',
+    images: [
+      {
+        url: "https://servefunding.com/Logo_Full-color_long_samecolor-1.webp",
+        width: 1024,
+        height: 728,
+        alt: "Serve Funding Blog",
+      },
+    ],
+  },
+}
 
 const formatDate = (isoDate: string): string => {
   const date = new Date(isoDate + 'T00:00:00Z')
@@ -106,7 +126,6 @@ export default function BlogPage() {
         title="Ready to explore your financing options?"
         text="Let's discuss how we can help your business grow with the right working capital solution."
         buttonText="Start Your Consultation"
-        source="blog"
         useBG={true}
       />
     </>
