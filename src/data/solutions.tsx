@@ -288,7 +288,7 @@ export const fundingSolutions: FundingSolution[] = [
     image: "/solutions/Purchase Order Funding.webp",
     category: "Growth Capital",
     whatIs: "PO financing provides funding to fulfill customer purchase orders when you lack working capital for production or materials. Especially valuable for international sourcing, tariff management, and supply chain financing.",
-    shortDesc: "Fund large purchase orders from international suppliers, manage tariff costs, and scale without depleting cash. Perfect for manufacturers, importers, and distributors.",
+    shortDesc: "Fund large POs from suppliers, manage tariffs, scale without depleting cash. For manufacturers, importers & distributors.",
     fullDesc: "PO financing unlocks growth by funding purchase orders before you have customer cash in hand. This works for drop-shipped orders, international sourcing (including overseas suppliers), work-in-process goods, and inventory production. Real example: a specialty coffee importer faced demand surge from corporate roasters but was capped at $150K by their existing lender. Serve Funding secured a $1MM PO facility in 2 weeks, enabling them to pay overseas suppliers without delays, offset rising tariff costs through bulk orders, and fulfill new customer orders at scale. PO financing is ideal for manufacturers, distributors, e-commerce firms, and international traders managing complex supply chains.",
     features: [
       "Loan amounts from $250K to $50M",
@@ -432,7 +432,7 @@ export const fundingSolutions: FundingSolution[] = [
     image: "/solutions/Unsecured & Sub-Debt Loans.webp",
     category: "Strategic Financing",
     whatIs: "Bridge capital provides quick, flexible financing without requiring collateral or personal guarantees. Perfect for acquisition timing gaps, M&A bridge needs, or 'stretch capital' when you've maxed traditional lenders. Includes unsecured term loans and subordinated/mezzanine financing.",
-    shortDesc: "Fast, flexible capital without collateral. Bridge deals, manage M&A timing, or stretch your borrowing capacity—perfect when traditional lenders hit their limits.",
+    shortDesc: "Fast, flexible capital without collateral. Bridge deals, manage M&A, or stretch capacity when traditional lenders hit limits.",
     fullDesc: "Bridge capital serves multiple strategic purposes: bridging time gaps during M&A (like a surgeon's sale timing), providing 'stretch capital' when you've maxed bank lines, funding seasonal needs without long-term debt, or structuring layered capital stacks. This includes interest-only bridge loans, unsecured term loans, and subordinated debt (mezzanine financing). Real example: a surgeon securing $1.475MM in bridge capital within weeks to cover year-end expenses while completing a hospital system acquisition. Another example: a growing medical device company layering $240K unsecured term loan with their AR revolver to move inventory ahead of tariff changes. Bridge capital is typically unsecured (no UCC filings, no personal guarantees on some products) and approved for 6-36 month terms.",
     features: [
       "Loan amounts from $50K to $20MM+ (scaled to your need)",

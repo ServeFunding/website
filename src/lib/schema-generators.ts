@@ -78,29 +78,43 @@ export const getFinancialServiceSchema = (service: {
   }
 }) => ({
   "@context": "https://schema.org",
-  "@type": "Service",
-  "@id": `https://servefunding.com/solutions#${service.id}`,
-  "serviceType": service.title,
+  "@type": "FinancialService",
+  "@id": `https://servefunding.com#${service.id}`,
   "name": service.title,
+  "url": `https://servefunding.com/solutions/${service.id}`,
   "description": service.fullDesc,
-  "additionalType": "FinancialService",
-  "provider": {
-    "@type": "FinancialService",
-    "@id": "https://servefunding.com"
-  },
   "areaServed": {
     "@type": "Country",
     "name": "United States"
   },
-  "category": "Working Capital Financing",
-  "offers": {
-    "@type": "Offer",
-    "name": service.title,
-    "priceCurrency": "USD",
-    ...(service.ratesAndTerms?.minAmount && {
-      "priceRange": `${service.ratesAndTerms.minAmount} - ${service.ratesAndTerms.maxAmount}`
-    })
-  }
+  "provider": {
+    "@type": "Organization",
+    "@id": "https://servefunding.com",
+    "name": companyInfo.name,
+    "url": "https://servefunding.com"
+  },
+  "telephone": companyInfo.contact.phone,
+  "email": companyInfo.contact.email,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": companyInfo.contact.address.street,
+    "addressLocality": companyInfo.contact.address.city,
+    "addressRegion": companyInfo.contact.address.state,
+    "postalCode": companyInfo.contact.address.zip,
+    "addressCountry": companyInfo.contact.address.country
+  },
+  ...(service.ratesAndTerms && {
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      ...(service.ratesAndTerms.minAmount && {
+        "price": `${service.ratesAndTerms.minAmount} - ${service.ratesAndTerms.maxAmount}`
+      }),
+      ...(service.ratesAndTerms.interestRate && {
+        "eligibleQuantity": service.ratesAndTerms.interestRate
+      })
+    }
+  })
 })
 
 // ============================================================================
