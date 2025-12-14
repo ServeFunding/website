@@ -27,7 +27,7 @@ export const blogPosts: BlogPost[] = [
     date: "2025-10-07",
     category: "Insights",
     image: "/blog/Walking.webp",
-    relatedSolutions: ["working-capital-loans", "bridge-capital"],
+    relatedSolutions: ["working-capital-loans", "bridge-funding"],
     relatedIndustries: ["healthcare"],
     content: [
       { type: 'p', text: "We just returned from Tallinn, Estonia—and my perspective on business shifted." },
@@ -51,7 +51,7 @@ export const blogPosts: BlogPost[] = [
       { type: 'p', text: "But there was a gap. The liquidity event was pending, but closing was still weeks away. In the meantime, he needed substantial capital to cover year-end business expenses and operational needs. He needed more than $1.25MM within a matter of weeks—or he'd have to delay the closing and miss his window." },
       { type: 'p', text: "His private banker at a major national bank knew exactly who to call. She had a counterpart on the commercial team who had a 9-year relationship with me. That banker introduced us, and we got to work." },
       { type: 'h3', text: "The Solution" },
-      { type: 'p', text: "We didn't just offer one option. We provided multiple solutions: an interest-only [[bridge loan](/solutions/bridge-capital) tied to the doctor's property, and several revenue-based business term loans. We negotiated aggressively on his behalf—because his exit was too important to leave money on the table." },
+      { type: 'p', text: "We didn't just offer one option. We provided multiple solutions: an interest-only [[bridge loan](/solutions/bridge-funding) tied to the doctor's property, and several revenue-based business term loans. We negotiated aggressively on his behalf—because his exit was too important to leave money on the table." },
       { type: 'p', text: "Capital Deployed: $1.475MM" },
       { type: 'p', text: "Structure: Flexible bridge with aggressive prepay discounts" },
       { type: 'p', text: "Timeline: Funded in less than 2 weeks—well ahead of the surgeon's closing date" },
