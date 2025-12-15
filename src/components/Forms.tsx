@@ -232,6 +232,16 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
             label="Tell us about your funding needs..."
           />
 
+          {/* Honeypot field - hidden from humans, filled by bots */}
+          <input
+            type="text"
+            name="company_phone"
+            className="sr-only"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
+
           <div className="flex justify-center">
             <Button variant="default" size="lg" type="submit">Schedule a Call</Button>
           </div>
@@ -289,6 +299,16 @@ export function PartnerInquiryForm() {
             label="Tell us about your partnership interest..."
           />
 
+          {/* Honeypot field - hidden from humans, filled by bots */}
+          <input
+            type="text"
+            name="company_phone"
+            className="sr-only"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
+
           <div className="flex justify-center">
             <Button variant="default" size="lg" type="submit">Schedule a Call</Button>
           </div>
@@ -335,6 +355,16 @@ export function NewsletterModalForm({
             label="Email"
             placeholder="your@email.com"
             required
+          />
+
+          {/* Honeypot field - hidden from humans, filled by bots */}
+          <input
+            type="text"
+            name="company_phone"
+            className="sr-only"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
           />
 
           <div className="flex justify-center pt-4">

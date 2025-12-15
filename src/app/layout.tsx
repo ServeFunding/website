@@ -80,7 +80,7 @@ export default function RootLayout({
         )}
         <link rel="preconnect" href="https://js.hs-scripts.com" />
       </head>
-      <body className="bg-white">
+      <body className="bg-white flex flex-col min-h-screen">
         <ScrollToTop />
         <Header />
         <main className="flex-grow pt-20">
