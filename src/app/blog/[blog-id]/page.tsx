@@ -51,6 +51,11 @@ export async function generateMetadata({ params }: Props) {
     }
   }
 
+  // Use blog post image if available, fallback to logo
+  const imageUrl = blogPost.image
+    ? `https://servefunding.com${blogPost.image}`
+    : "https://servefunding.com/Logo_Full-color_long_samecolor-1.webp"
+
   return {
     title: `${blogPost.title} | Serve Funding`,
     description: blogPost.excerpt,
@@ -61,7 +66,7 @@ export async function generateMetadata({ params }: Props) {
       type: 'article',
       images: [
         {
-          url: "https://servefunding.com/Logo_Full-color_long_samecolor-1.webp",
+          url: imageUrl,
           width: 1024,
           height: 728,
           alt: blogPost.title,
