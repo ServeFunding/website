@@ -65,12 +65,12 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <Section className="min-h-[80vh] lg:h-[65vh]">
+      <Section className="min-h-[80vh] lg:min-h-[65vh]">
         <HeroCarousel slides={heroSlides} />
       </Section>
 
       {/* Value Props Section */}
-      <Section>
+      <Section className="!pt-0">
         <Container>
           <FadeIn className="text-center mb-20">
             <Heading size="h2" color='dark' className="!my-3">Need Business Growth Capital?</Heading>
