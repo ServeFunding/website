@@ -79,6 +79,7 @@ export default function RootLayout({
           <link rel="preconnect" href={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL} />
         )}
         <link rel="preconnect" href="https://js.hs-scripts.com" />
+        <link rel="preconnect" href="https://ddwl4m2hdecbv.cloudfront.net" />
       </head>
       <body className="bg-white flex flex-col min-h-screen">
         <ScrollToTop />
