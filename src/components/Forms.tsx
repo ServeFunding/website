@@ -386,6 +386,92 @@ export function NewsletterModalForm({
   )
 }
 
+// Deal Inquiry Form (for deal inquiry page with chat follow-up)
+interface DealInquiryFormProps {
+  title?: string
+  subtitle?: string
+  onSubmitSuccess?: (formData: FormSubmitData) => void
+}
+
+export function DealInquiryForm({
+  title = "Tell Us About Your Deal",
+  subtitle = "Share your funding need details and we'll help guide you.",
+  onSubmitSuccess,
+}: DealInquiryFormProps = {}) {
+  const { success, handleSubmit: baseHandleSubmit, formData } = useFormSubmit(
+    'deal_inquiry',
+    undefined,
+    '',
+    (data) => {
+      // Store form data for the chat interface and call callback
+      if (onSubmitSuccess) {
+        onSubmitSuccess(data)
+      }
+    }
+  )
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    await baseHandleSubmit(e)
+  }
+
+  return (
+    <FormContainer title={title} subtitle={subtitle}>
+      {!success ? (
+        <form className="form-deal_inquiry flex flex-col gap-6" onSubmit={handleSubmit}>
+          <FormGroup columns={2}>
+            <FormInput type="text" name="firstname" label="First Name" required />
+            <FormInput type="text" name="lastname" label="Last Name" required />
+          </FormGroup>
+
+          <FormGroup columns={2}>
+            <FormInput type="email" name="email" label="Email Address" required />
+            <FormInput type="tel" name="phone" label="Phone Number" required />
+          </FormGroup>
+
+          <FormInput type="text" name="company" label="Company Name" required />
+
+          <FormInput type="text" name="capital_for" label="Capital Needed (e.g., $250K - $1MM)" />
+
+          <FormInput
+            as="textarea"
+            name="contact_us_details"
+            rows={4}
+            label="Describe your deal and funding need..."
+            placeholder="Tell us about your business, what you need capital for, timeline, and any other relevant details"
+            required
+          />
+
+          {/* Honeypot field - hidden from humans, filled by bots */}
+          <input
+            type="text"
+            name="company_phone"
+            className="sr-only"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
+
+          <div className="flex justify-center">
+            <Button variant="default" size="lg" type="submit">Get AI-Powered Insights</Button>
+          </div>
+        </form>
+      ) : (
+        <div className="text-center">
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="mb-4 flex justify-center"
+          >
+            <CheckCircle className="w-12 h-12" style={{ color: COLORS.primary }} />
+          </motion.div>
+          <Text size="lg" className="mb-6">Thanks for sharing your deal details, {formData.firstname}! Let's chat about your options.</Text>
+        </div>
+      )}
+    </FormContainer>
+  )
+}
+
 // Newsletter Signup Form
 export function NewsletterForm() {
   const { success, handleSubmit, formData } = useFormSubmit('newsletter')
