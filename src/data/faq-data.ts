@@ -97,6 +97,56 @@ export const aboutServeFundingFAQs: FAQ[] = [
     id: 'channel-neutral-advisor',
     q: 'What is a channel-neutral advisor?',
     a: 'A channel-neutral advisor is not tied to any single lender or product. Unlike captive brokers who earn commissions from one lender, we maintain relationships across 30+ lenders with different underwriting styles, rate structures, and specialties. This means we can match you with the best lender for your situation—and negotiate aggressively because we\'re not beholden to any single relationship.'
+  },
+  {
+    id: 'why-banks-first',
+    q: 'Why do most businesses go to their bank first?',
+    a: 'Banks are the cheapest capital source and offer the most favorable terms for businesses that fit their credit boxes. If your banker knows you and can help, that\'s always the right first step. When banks can\'t help—whether due to credit limitations, timing, growth rate, or business model—that\'s when alternative financing becomes the next logical choice. We specialize in solving the problems your bank can\'t.'
+  },
+  {
+    id: 'spot-predatory-lender',
+    q: 'How do I know if a lender is predatory?',
+    a: 'Red flags include: high-pressure sales tactics ("this offer expires at 5 PM today"), unclear rate disclosures (advertising "6% rates" when APR is actually 80-120%), double-digit fees not explained upfront, claims of "guaranteed approval" without questions, and ads that seem too good to be true. Good lenders ask questions to understand your business, explain everything clearly, and let you shop around without pressure. Trust your gut—if something feels rushed or unclear, it probably is.'
+  },
+  {
+    id: 'tax-return-vs-invoices',
+    q: 'Why do some lenders focus on invoices instead of tax returns?',
+    a: 'Invoice factoring and asset-based lending evaluate what you\'re earning NOW (invoices and assets), not what you earned last year (tax return). If your business is growing, had a startup year, or faced temporary headwinds, your tax return might not reflect current reality. Your invoices tell the true story: strong customers, reliable payment history, and actual cash flow. We can help even if your tax return shows a loss, as long as your customers are paying reliably.'
+  },
+  {
+    id: 'profitable-need-capital',
+    q: 'How much working capital do profitable companies actually need?',
+    a: 'Profitability and cash flow are different. A $5M profitable company might need $2.5M+ in working capital to fulfill a $10M growth contract because that money funds materials, payroll, and inventory BEFORE customer payment arrives. A simple rule of thumb: maintain 2-3 months of operating expenses as working capital. For example, $500K monthly expenses suggests $1M-$1.5M in working capital. Growing companies and those with uneven payment terms need even more.'
+  },
+  {
+    id: 'layered-capital-stacking',
+    q: 'Can I combine multiple funding sources?',
+    a: 'Absolutely. "Layered capital" stacks multiple products to maximize available funds for growth. Example: $1MM AR revolver + $240K unsecured term loan + $550K second mortgage on personal real estate = $1.79MM total capital. This approach gives growing companies more runway without over-leveraging any single source. Each layer serves a different purpose: AR covers working capital needs, term loans provide bridge capital, real estate provides long-term flexibility.'
+  },
+  {
+    id: 'early-payoff-discount',
+    q: 'What\'s an "early payoff discount" and how does it work?',
+    a: 'When you need quick funding at a higher rate, we build aggressive early payoff discounts into the structure. Scenario: You fund at 18% for 90 days, but close on a customer contract after 2 weeks. Instead of paying 90 days of interest, the early payoff discount lets you exit the loan with only 2 weeks of interest owed. This lets you refinance into a cheaper product immediately. We structure deals expecting this—it rewards clients who get liquidity events quickly.'
+  },
+  {
+    id: 'percentage-need-capital',
+    q: 'What percentage of businesses actually need working capital?',
+    a: 'Approximately 90%+ of growing companies need working capital at some point in their first 5 years. It might come from family, investors, or lenders, but capital is essential for growth. Some bootstrap it themselves (slower growth), but most need an infusion. Working capital can be a one-time need or ongoing—either way, the vast majority of growing businesses face the need at some point.'
+  },
+  {
+    id: 'maxed-bank-line-options',
+    q: 'What if I\'ve maxed out my bank line but still need more capital?',
+    a: 'This is where junior/subordinated lending and unsecured options come in. When you\'ve tapped traditional lenders, we have options: unsecured term loans, subordinated debt (mezzanine financing), invoice factoring backed by your AR, or asset-based lines secured by equipment and real estate. These products are designed for businesses that have outgrown their bank but have growth opportunities. They fit \"above\" your bank line in the capital stack.'
+  },
+  {
+    id: 'emergency-payroll-speed',
+    q: 'How fast can emergency payroll be funded?',
+    a: 'In urgent situations (24-72 hours), we can secure bridge loans, invoice factoring, or lines of credit against upcoming receivables. Real example: $500K payroll emergency funded in 4 business days. Costs vary: bridge solutions typically 1-3% of payroll amount, or Prime + 4-12% annualized for term loans. The key is having assets or invoices to collateralize. Without collateral, speed increases but costs rise accordingly.'
+  },
+  {
+    id: 'why-use-serve-vs-direct',
+    q: 'Why should I use Serve Funding instead of going direct to a lender?',
+    a: 'Working with a channel-neutral advisor typically reduces your cost of capital by 10-20 percentage points vs. going direct. Here\'s why: we have relationships with 30+ lenders and can negotiate aggressively on your behalf because we\'re not committed to any one relationship. We also guide you away from predatory products and help you avoid costly mistakes. Our 65% repeat client rate shows we deliver value—we succeed only when you do.'
   }
 ]
 
