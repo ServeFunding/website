@@ -22,7 +22,7 @@ export const FormInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, Form
       borderColor: COLORS.secondary,
     }
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 mb-8">
         {label && (
           <label htmlFor={inputId} className="text-sm font-medium text-gray-700">
             {label}

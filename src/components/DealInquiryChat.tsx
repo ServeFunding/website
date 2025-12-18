@@ -18,6 +18,7 @@ interface Message {
 
 interface DealInquiryChatProps {
   formData: {
+    name?: string
     firstname?: string
     lastname?: string
     email?: string
@@ -25,6 +26,7 @@ interface DealInquiryChatProps {
     company?: string
     capital_for?: string
     contact_us_details?: string
+    user_role?: string
   }
 }
 
@@ -32,7 +34,7 @@ export function DealInquiryChat({ formData }: DealInquiryChatProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: `Hi ${formData.firstname}! 👋`,
+      text: `Hi ${formData.name || formData.firstname}! 👋`,
       sender: 'bot',
       timestamp: new Date(),
     },
@@ -61,7 +63,7 @@ export function DealInquiryChat({ formData }: DealInquiryChatProps) {
         // Use initial greeting as first user message context
         const reply = await getAIDealResponse(
           'I just filled out the form above with my deal details.',
-          [{ text: `Hi ${formData.firstname}! 👋`, sender: 'bot' }],
+          [{ text: `Hi ${formData.name || formData.firstname}! 👋`, sender: 'bot' }],
           formData
         )
 
@@ -253,7 +255,7 @@ export function DealInquiryChat({ formData }: DealInquiryChatProps) {
               const monthParam = now.toISOString().split('T')[0].substring(0, 7)
 
               const params = new URLSearchParams({
-                name: `${formData.firstname || ''} ${formData.lastname || ''}`.trim(),
+                name: formData.name || '',
                 email: formData.email || '',
                 month: monthParam,
                 a1: dealContext.substring(0, 500), // Just the context, Calendly has URL limits

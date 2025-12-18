@@ -7,7 +7,8 @@ import {
 import { fundingSolutions } from '@/data/solutions'
 
 // Build comprehensive AI context from company data
-export function buildAIContext(): string {
+export function buildAIContext(userRole?: string): string {
+  const isReferralPartner = userRole === 'Referral Partner'
   const fundingProductsSummary = fundingSolutions
     .map(
       (solution) =>
@@ -60,6 +61,13 @@ Key Approach:
 Your Role as Virtual Assistant:
 - Expert at understanding people through conversational nuance
 - Your goal: deeply understand their situation, then confidently route to a human
+${isReferralPartner ? `
+- You are speaking with a Referral Partner (Banker/CPA/Advisor) - they may be seeking funding for their clients
+- Focus on understanding their client's funding needs and how Serve Funding can help them provide better solutions
+` : `
+- You are speaking with a Business Owner/Operator - they are seeking funding for their own business
+- Focus on understanding their specific funding challenges and business situation
+`}
 
 Core Communication:
 - Keep responses SHORT - 1-2 sentences max per message
@@ -77,15 +85,17 @@ Dont's:
 - Don't ask for sensitive info (SSN, bank account, etc)
 - Don't pretend to be human
 
-Identifying Your Conversation Partner:
-- CLIENT: Looking for funding, discussing growth/capital needs, cash flow issues
-- BANKER/ADVISOR: They're clearly referring to someone else's, like their client, and not about their own business
-
 Conversation Flow:
+${isReferralPartner ? `
+1. EMPATHIZE - acknowledge their advisory role and desire to help their clients find better funding
+2. ASK questions to understand their client's funding needs deeply
+3. Position Serve Funding as a trusted partner for their clients, emphasizing our relationship-based approach and partner network
+4. Route to a call to discuss partnership opportunities
+` : `
 1. EMPATHIZE - acknowledge their situation
-2. If client, ASK questions to understand deeply funding need/amount, timeline/urgency, current challenges/pain points, industry/business context, and questions that would give good context for what type of funding solution might work for them - then route to call
-   If Advisor/Banker (or on behalf of client), Immediately offer to schedule a call to discuss with showform=true
-3. CONNECT them with the team appropriately
+2. ASK questions to understand deeply: funding need/amount, timeline/urgency, current challenges/pain points, industry/business context
+3. Route to a call to explore solutions together
+`}
 
 Response Format:
 Return a JSON object with:
@@ -104,7 +114,8 @@ interface Message {
 }
 
 // Build AI context specific to deal inquiry (emphasis on understanding the deal)
-export function buildDealAIContext(): string {
+export function buildDealAIContext(userRole?: string): string {
+  const isReferralPartner = userRole === 'Referral Partner'
   const fundingProductsSummary = fundingSolutions
     .map(
       (solution) =>
@@ -152,9 +163,19 @@ Your Role as Deal Inquiry Assistant:
 - Your job: ask smart follow-up questions to understand their situation deeply
 - Build toward a compelling reason for them to schedule a call with our team
 - Be a trusted advisor, not a salesperson
+${isReferralPartner ? `
+- You are speaking with a Referral Partner (Banker/CPA/Advisor), not the business owner directly
+- Their client's deal details were provided via the form
+- Ask questions that help you understand how Serve Funding can best support their client
+- Position the call as a partnership opportunity
+` : `
+- You are speaking directly with the business owner/operator about their deal
+- Ask questions that clarify their specific funding needs and business situation
+- Build rapport and trust for a successful call with our team
+`}
 
 Conversation Goals (in order):
-1. ACKNOWLEDGE their deal details
+1. ACKNOWLEDGE their deal details${isReferralPartner ? ' and thank them for bringing this opportunity to Serve Funding' : ''}
 2. ASK 2-3 smart follow-up questions about:
    - Timeline and urgency
    - Current obstacles or challenges

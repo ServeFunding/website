@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk"
-import { dealInquiryContext } from "@/lib/ai"
+import { buildDealAIContext } from "@/lib/ai"
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -35,7 +35,10 @@ export async function POST(request: Request) {
     })
 
     // Build system prompt with form context
-    const systemPrompt = `${dealInquiryContext}
+    const userRole = formData?.user_role
+    const dealContext = buildDealAIContext(userRole)
+
+    const systemPrompt = `${dealContext}
 
 User Information from Deal Inquiry Form:
 - Name: ${formData?.firstname || ''} ${formData?.lastname || ''}
@@ -44,6 +47,12 @@ User Information from Deal Inquiry Form:
 - Phone: ${formData?.phone || 'Not provided'}
 - Capital Needed: ${formData?.capital_for || 'Not specified'}
 - Deal Details: ${formData?.contact_us_details || 'Not provided'}
+- Business Industry: ${formData?.business_industry || 'Not specified'}
+- Time in Business: ${formData?.time_in_business || 'Not specified'}
+- Annual Revenue: ${formData?.annual_revenue || 'Not specified'}
+- Financing Needs: ${formData?.financing_needs?.join(', ') || 'Not specified'}
+- Funding Amount Needed: ${formData?.funding_amount || 'Not specified'}
+- Owner Credit Score: ${formData?.owner_credit_score || 'Not specified'}
 
 Use this context to provide personalized responses that reference their specific situation.`
 

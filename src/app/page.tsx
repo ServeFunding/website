@@ -73,7 +73,7 @@ export default function Home() {
       <Section className="!pt-0">
         <Container>
           <FadeIn className="text-center mb-20">
-            <Heading size="h2" color='dark' className="!my-3">Need Business Growth Capital?</Heading>
+            <Heading size="h2" color='dark' className="!mt-0 !mb-3">Need Business Growth Capital?</Heading>
             <Heading size="h2" color='primary' className="!my-3">We Are Here to Serve You.</Heading>
           </FadeIn>
 
@@ -122,6 +122,39 @@ export default function Home() {
                 </Card>
             ))}
           </StaggerContainer>
+        </Container>
+      </Section>
+
+      {/* Trust-Based Partnership Section */}
+      <Section background="gray" className="!pt-0">
+        <Container>
+          <FadeIn className="text-center mb-20 max-w-3xl mx-auto">
+            <Heading size="h2" className="mb-4">
+              A Different Kind<br />of Funding Partner.
+            </Heading>
+            <Heading size="h3" color='primary' className="mb-8">
+              Built on Relationships. Operated With Integrity.
+            </Heading>
+            <Text size="lg" className="mb-6 font-semibold text-olive-900">
+              Your Deal Stays With Us. Period.
+            </Text>
+            <Text size="lg" className="mb-12 text-gray-700 leading-relaxed">
+              Serve Funding is a trust-based advisory — not an algorithm driven "marketplace". We do not sell leads or shop deals indiscriminately. Every opportunity is handled with care by a dedicated, experienced team and reviewed personally by our founder.
+            </Text>
+            <Text size="lg" className="text-gray-700 leading-relaxed">
+              Whether you're a business owner or a referral partner, we treat every relationship — and every client's financing opportunity – as if it were our own.
+            </Text>
+            <div className="mt-12">
+              <Link href="/deal-inquiry">
+                <Button variant="default" size="lg">
+                  Explore Funding Options
+                </Button>
+              </Link>
+              <p className="text-sm text-gray-600 mt-3 max-w-md mx-auto">
+                Answer a few questions to find out what credit options are available to you. Takes a few minutes and there's no obligation.
+              </p>
+            </div>
+          </FadeIn>
         </Container>
       </Section>
 
