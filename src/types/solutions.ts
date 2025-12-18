@@ -50,6 +50,7 @@ export interface QualificationCriteria {
 export interface FundingSolution {
   id: string
   title: string | ReactNode
+  seoTitle?: string // SEO title for search results (benefit-driven, under 60 chars)
   image: string
   category: string
 

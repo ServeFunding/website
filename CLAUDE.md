@@ -20,11 +20,13 @@ npm run lint         # Run Next.js linter
 ### 1. Centralized Data Model
 All company information flows through a single master data source:
 - **`src/data/company-info.ts`**: Master hub containing company basics, founder info, core values, process steps, and philosophy. This file is imported across multiple parts of the app, making it the source of truth.
-- **`src/data/solutions.ts`**: Funding solutions and their metadata
-- **`src/data/faq-data.ts`**: FAQ content
+- **`src/data/solutions.ts`**: Funding solutions and their metadata with titles, descriptions, features, and industry tags
+- **`src/data/faq-data.ts`**: Comprehensive FAQ content organized by category (about Serve Funding, working capital, solutions, etc.) - **actively expanded with new content**
+- **`src/data/blog-posts.ts`**: Blog post content with metadata, rich text content, related solutions/industries. Each post is structured for SEO.
+- **`src/data/partners.ts`**: Partner types and testimonials for the partnerships page
 - **`src/data/fundingData.ts`**: Case studies and success stories
 
-**Why this matters**: Changes to company information update everywhere automatically. The file contains `[VERIFY:]` markers for items needing founder validation.
+**Why this matters**: Changes to company information update everywhere automatically. The file contains `[VERIFY:]` markers for items needing founder validation. Blog posts and FAQs are centralized for easy updates without touching page components.
 
 ### 2. AI Integration (Chatbot)
 The chatbot is powered by Claude API via the Anthropic SDK:
@@ -60,8 +62,17 @@ Uses CVA (class-variance-authority) for styled components:
   - `Chatbot.tsx` - Floating widget
   - `HeroCarousel.tsx`, `ProcessCard.tsx` - Feature components
   - `FAQSection.tsx` - FAQ display with styling
+  - `CTA.tsx` - Reusable call-to-action section (use for all CTAs, don't write manual markup)
+  - `HeroFadeIn.tsx` - Hero section with fade animation
+  - `Breadcrumb.tsx` - Breadcrumb navigation
+  - `PartnerInquiryForm.tsx` - Partner inquiry form component
 
 **Styling Approach**: Tailwind CSS v4 with custom olive/gold color scheme defined in `tailwind.config.ts`. Classes use CVA patterns like `cn()` utility for conditional styling.
+
+**Component Best Practices**:
+- **CTAs**: Always use `<CTA />` component from `src/components/cta.tsx` instead of writing manual section markup. Props: `title`, `text`, `buttonText`, `href` (default `/contact-us`), `useBG` (for gray background).
+- **Hero Sections**: Use `<HeroFadeIn />` for consistent page headers instead of manual Section/Container/Heading combinations.
+- **Forms**: Use pre-built form components from `src/components/Forms.tsx` (e.g., `PartnerInquiryForm`, `DealInquiryForm`).
 
 ### 5. Page Structure
 - **App Routes** (`src/app/`): Next.js 13+ App Router
@@ -106,11 +117,55 @@ TypeScript types are organized by feature:
 3. Add navigation links in `src/components/Header.tsx` if needed
 4. Use design system components from `src/components/ui/`
 
+### Creating Educational/Reference Pages
+Educational pages (like `/capital-strategy`) follow this pattern:
+1. **Hero Section**: Use `<HeroFadeIn />` component with clear title and subtitle
+2. **Overview Section**: Explain the concept in plain language
+3. **Main Content**: Use `<Card />` and `<StaggerContainer />` for visual hierarchy
+4. **Examples**: Real-world scenarios with specific numbers and outcomes
+5. **Decision Framework**: Help visitors choose (use cards with comparisons)
+6. **Key Takeaways**: Summary in `<Card>` components for easy scanning
+7. **CTA**: End with `<CTA />` component pointing to `/contact-us`
+8. **Metadata**: Include proper metadata object for SEO
+
+**Pattern Example**: `/src/app/capital-strategy/page.tsx` demonstrates this structure with the collateral vs. speed vs. cost tradeoff explanation.
+
 ### Modifying the Chatbot
 - System prompt: Edit `src/lib/ai.ts` `buildAIContext()` function
 - UI/styling: Edit `src/components/Chatbot.tsx`
 - API logic: Edit `src/app/api/chat/route.ts`
 - Conversation flow: Logic is in `src/components/Chatbot.tsx` state management
+
+### Adding Blog Posts
+1. Add entry to `src/data/blog-posts.ts` with:
+   - Unique `id`, `title`, `subtitle`, `excerpt` (for preview)
+   - `author`, `date` (YYYY-MM-DD format), `category` (Insights, Case Study, Growth Strategy, Business Growth)
+   - `content` array of paragraphs, headings, and blockquotes using consistent structure
+   - Optional: `relatedSolutions` and `relatedIndustries` arrays for cross-linking
+   - Optional: `image` path for hero image
+2. Blog post is automatically available at `/blog/[blog-id]`
+3. All posts appear on `/blog` page with previews
+4. Use narrative storytelling with real examples from client work
+
+**Blog Content Strategy**:
+- Focus on educational content that addresses the funding journey
+- Each post should answer specific customer questions (use PODCAST-CONTENT-ANALYSIS.md for insights)
+- Link posts to FAQ answers and solutions pages
+- Real examples and metrics build credibility
+
+### Adding or Expanding FAQ Content
+1. Edit `src/data/faq-data.ts`
+2. Add new entries to appropriate category (organize by topic for usability)
+3. Keep answers concise but comprehensive (2-3 sentences typically)
+4. Include specific examples or numbers when relevant
+5. Link to related blog posts or solutions pages in answers when appropriate
+6. FAQ answers appear automatically on `/faq` page and power the chatbot
+
+**FAQ Best Practices**:
+- Questions should target high-intent search terms
+- Answers should be skimmable (use bold, lists where appropriate)
+- Address objections and concerns directly
+- Reference company expertise and real client scenarios
 
 ### Adding SEO Schema to a Page
 1. Import schema generator from `src/lib/schema-generators.ts`
@@ -132,13 +187,20 @@ This is required for the chatbot to function.
 | File | Purpose |
 |------|---------|
 | `src/data/company-info.ts` | Master data hub - single source of truth |
+| `src/data/blog-posts.ts` | Blog post content and metadata (11+ posts) |
+| `src/data/faq-data.ts` | FAQ content organized by category (20+ answers) |
+| `src/data/solutions.ts` | Funding solutions catalog |
+| `src/data/partners.ts` | Partner types and testimonials |
 | `src/lib/ai.ts` | Chatbot AI context builder |
 | `src/app/api/chat/route.ts` | Chatbot API endpoint |
 | `src/lib/schema-generators.ts` | JSON-LD schema generation utilities |
+| `src/components/cta.tsx` | Reusable CTA component (use for all CTAs!) |
+| `src/components/HeroFadeIn.tsx` | Hero section component |
+| `src/components/Breadcrumb.tsx` | Breadcrumb navigation |
 | `next.config.ts` | Next.js configuration (headers, redirects, images) |
 | `tailwind.config.ts` | Tailwind theme with olive/gold colors |
-| `src/components/Header.tsx` | Navigation and dropdown menus |
-| `src/components/Footer.tsx` | Footer structure and links |
+| `CLAUDE.md` | This file - guidelines for working with the codebase |
+| `PODCAST-CONTENT-ANALYSIS.md` | Content gaps analysis from podcast - SEO/FAQ opportunities |
 
 ## Color Scheme
 
