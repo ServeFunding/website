@@ -248,7 +248,7 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
           ctaText="Schedule a Call"
         />
       ) : (
-        <form className="form-intro_call flex flex-col gap-6" onSubmit={handleSubmit}>
+        <form className="form-intro_call flex flex-col gap-8" onSubmit={handleSubmit}>
           <FormGroup columns={2}>
             <FormInput type="text" name="firstname" label="First Name" required />
             <FormInput type="text" name="lastname" label="Last Name" required />
@@ -315,7 +315,7 @@ export function PartnerInquiryForm() {
           ctaText="Schedule a Call"
         />
       ) : (
-        <form className="form-partner_inquiry flex flex-col gap-6" onSubmit={handleSubmit}>
+        <form className="form-partner_inquiry flex flex-col gap-8" onSubmit={handleSubmit}>
           <FormGroup columns={2}>
             <FormInput type="text" name="firstname" label="First Name" required />
             <FormInput type="text" name="lastname" label="Last Name" required />
@@ -378,7 +378,7 @@ export function NewsletterModalForm({
           ctaText="Schedule a Call"
         />
       ) : (
-        <form className="form-newsletter flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form className="form-newsletter flex flex-col gap-8" onSubmit={handleSubmit}>
           <FormInput
             type="text"
             name="firstname"
@@ -518,7 +518,7 @@ export function DealInquiryForm({
 
           {/* Step 1: Role Selector */}
           {currentStep === 1 && (
-            <div>
+            <div className="flex flex-col gap-8">
               <FormButtonGroup
                 label="I am a:"
                 name="user_role"
@@ -534,8 +534,8 @@ export function DealInquiryForm({
 
           {/* Step 2: Business Snapshot */}
           {currentStep === 2 && (
-            <div>
-              <Heading size="h4" className="mb-8 text-olive-900">Business Snapshot</Heading>
+            <div className="flex flex-col gap-8">
+              <Heading size="h4" className="text-olive-900">Business Snapshot</Heading>
 
               <FormButtonGroup
                 label="Business Industry"
@@ -607,8 +607,8 @@ export function DealInquiryForm({
 
           {/* Step 3: Contact Info */}
           {currentStep === 3 && (
-            <div>
-              <Heading size="h4" className="mb-6 text-olive-900">Contact Information</Heading>
+            <div className="flex flex-col gap-8">
+              <Heading size="h4" className="text-olive-900">Contact Information</Heading>
 
               <FormGroup columns={2}>
                 <FormInput

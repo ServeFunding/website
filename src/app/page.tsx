@@ -159,7 +159,7 @@ export default function Home() {
       </Section>
 
       {/* Funding Solutions Section */}
-      <Section background="gray">
+      <Section background="background" className="!pt-0">
         <Container className='mb-14'>
           <FadeIn className="text-center mb-20">
             <Heading size="h2" className="mb-4">

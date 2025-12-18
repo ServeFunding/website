@@ -43,7 +43,7 @@ export const FormButtonGroup = forwardRef<HTMLDivElement, FormButtonGroupProps>(
     }
 
     return (
-      <div ref={ref} className="flex flex-col gap-3 mb-8">
+      <div ref={ref} className="flex flex-col gap-3">
         {label && (
           <label className="text-sm font-medium text-gray-700">
             {label}

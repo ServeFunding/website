@@ -36,7 +36,7 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
   ({ className, variant, label, options, placeholder, ...props }, ref) => {
     const selectId = props.id || props.name
     return (
-      <div className="flex flex-col gap-2 mb-8">
+      <div className="flex flex-col gap-2">
         {label && (
           <label htmlFor={selectId} className="text-sm font-medium text-gray-700">
             {label}

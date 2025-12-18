@@ -32,7 +32,7 @@ export const FormMultiSelect = forwardRef<HTMLDivElement, FormMultiSelectProps>(
     }
 
     return (
-      <div ref={ref} className="flex flex-col gap-3 mb-8">
+      <div ref={ref} className="flex flex-col gap-3">
         {label && (
           <div className="flex items-center gap-2">
             <label className="text-sm font-medium text-gray-700">
