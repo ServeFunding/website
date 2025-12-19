@@ -5,6 +5,7 @@ import { DealInquiryForm, FormSubmitData } from '@/components/Forms'
 import { DealInquiryChat } from '@/components/DealInquiryChat'
 import { Section, Container, Heading, Text, Card, StaggerContainer, StaggerItem } from '@/components/ui'
 import { COLORS } from '@/lib/colors'
+import { FadeIn } from '@/components/ui/fade-in'
 
 const coreValues = [
   { letter: 'T', title: 'Transparency', desc: 'We communicate honestly to build a long-term relationship.' },
@@ -28,10 +29,33 @@ export default function DealInquiryPage() {
       {!formSubmitted ? (
         <>
           <DealInquiryForm
-            title={<>Discover Your<br />Business Financing Solutions</>}
-            subtitle={<>Take a few minutes to provide some general insights about the business and its capital needs<br />to receive intelligent insights on available funding options for the business today.</>}
+            title={<>Discover Your<br />Business Financing Options</>}
+            subtitle={<>Take a few minutes to provide some general insights about the business and its capital needs<br />to receive intelligent insights on available funding solutions for the business today.</>}
             onSubmitSuccess={handleFormSubmit}
           />
+
+          {/* Trust-Based Partnership Section */}
+          <Section background="gray">
+            <Container>
+              <FadeIn className="text-center mb-20 max-w-3xl mx-auto">
+                <Heading size="h2" className="mb-4">
+                  A Different Kind<br />of Funding Partner.
+                </Heading>
+                <Heading size="h3" color='primary' className="mb-8">
+                  Built on Relationships. Operated With Integrity.
+                </Heading>
+                <Text size="lg" className="mb-6 font-semibold text-olive-900">
+                  Your Deal Stays With Us. Period.
+                </Text>
+                <Text size="lg" className="mb-12 text-gray-700 leading-relaxed">
+                  Serve Funding is a trust-based advisory — not an algorithm driven "marketplace". We do not sell leads or shop deals indiscriminately. Every opportunity is handled with care by a dedicated, experienced team and reviewed personally by our founder.
+                </Text>
+                <Text size="lg" className="text-gray-700 leading-relaxed">
+                  Whether you're a business owner or a referral partner, we treat every relationship — and every client's financing opportunity – as if it were our own.
+                </Text>
+              </FadeIn>
+            </Container>
+          </Section>
 
           {/* What You Can Expect Section */}
           <Section background="gray">
