@@ -40,7 +40,7 @@ export const getOrganizationSchema = (config?: {
   },
   "areaServed": {
     "@type": "Country",
-    "name": "United States"
+    "name": "USA"
   },
   "foundingDate": `${companyInfo.founded.year}`,
   "founder": {
@@ -85,7 +85,7 @@ export const getFinancialServiceSchema = (service: {
   "description": service.fullDesc,
   "areaServed": {
     "@type": "Country",
-    "name": "United States"
+    "name": "USA"
   },
   "provider": {
     "@type": "Organization",
