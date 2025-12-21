@@ -125,20 +125,24 @@ export default function Home() {
         </Container>
       </Section>
 
-      {/* Explore Funding CTA Section */}
-      <Section background="gray" className="!pt-0">
+      {/* Trust-Based Partnership Section */}
+      <Section background="gray">
         <Container>
           <FadeIn className="text-center mb-20 max-w-3xl mx-auto">
-            <div className="mt-12">
-              <Link href="/deal-inquiry">
-                <Button variant="default" size="lg">
-                  Explore Funding Options
-                </Button>
-              </Link>
-              <p className="text-sm text-gray-600 mt-3 max-w-md mx-auto">
-                Answer a few questions to find out what credit options are available to you. Takes a few minutes and there's no obligation.
-              </p>
-            </div>
+            <Heading size="h2" className="mb-4">
+              A Different Kind<br />of Funding Partner.
+            </Heading>
+            <Heading size="h3" color='primary' className="mb-8">
+              Built on Relationships. Operated With Integrity.
+            </Heading>
+            <Text className="max-w-xl mx-auto my-6">
+              Answer a few questions to find out what credit options are available to you. Takes a few minutes and there's no obligation.
+            </Text>
+            <Link href="/deal-inquiry">
+              <Button variant="default" size="lg">
+                Explore Funding Options
+              </Button>
+            </Link>
           </FadeIn>
         </Container>
       </Section>

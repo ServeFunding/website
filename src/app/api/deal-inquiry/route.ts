@@ -74,6 +74,10 @@ Use this context to provide personalized responses that reference their specific
             context: {
               type: "string",
               description: "Brief summary of what was learned about their deal/situation (1-2 sentences)"
+            },
+            showSchedule: {
+              type: "boolean",
+              description: "Whether to show the schedule call button (true if deal fits scope, false otherwise)"
             }
           },
           required: ["message", "context"],

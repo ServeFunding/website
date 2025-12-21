@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { CheckCircle } from 'lucide-react'
+import { motion } from 'framer-motion'
 import {
   Section,
   Container,
@@ -15,8 +15,8 @@ import {
   FormInput,
   FormGroup,
   FormSelect,
-  FormMultiSelect,  // For financing needs multi-select
-  FormButtonGroup,  // For option buttons
+  SelectButtons,
+  MultiSelectButtons,
 } from '@/components/ui'
 import { trackFormSubmission, trackHubSpotNativeForm } from '@/lib/tracking'
 import { COLORS } from '@/lib/colors'
@@ -426,17 +426,107 @@ export function NewsletterModalForm({
 
 // Deal Inquiry Form (for deal inquiry page with chat follow-up)
 interface DealInquiryFormProps {
-  title?: string | React.ReactNode
-  subtitle?: string | React.ReactNode
   onSubmitSuccess?: (formData: FormSubmitData) => void
 }
 
+interface FormQuestion {
+  id: string
+  type: 'button-group' | 'multi-select' | 'text' | 'email' | 'tel' | 'textarea' | 'select' | 'contact-info'
+  label: string
+  name: string
+  options?: string[]
+  required?: boolean
+  autoAdvance?: boolean
+  placeholder?: string
+  rows?: number
+}
+
+const questions: FormQuestion[] = [
+  {
+    id: 'user_role',
+    type: 'button-group',
+    label: 'I am a:',
+    name: 'user_role',
+    options: ['Business Owner / Operator', 'Banker / CPA / Advisor / Referral Partner'],
+    autoAdvance: true,
+  },
+  {
+    id: 'business_industry',
+    type: 'button-group',
+    label: 'Business Industry',
+    name: 'business_industry',
+    options: ['Construction', 'Medical', 'Hospitality', 'Manufacturing', 'Services', 'Other'],
+    autoAdvance: true,
+  },
+  {
+    id: 'time_in_business',
+    type: 'button-group',
+    label: 'Time in Business',
+    name: 'time_in_business',
+    options: ['< 1 year', '1-2 years', '2-3 years', '3-4 years', '5+ years'],
+    autoAdvance: true,
+  },
+  {
+    id: 'annual_revenue',
+    type: 'button-group',
+    label: 'Annual Revenue (approx.)',
+    name: 'annual_revenue',
+    options: ['$500K–$1MM', '$1MM–$3MM', '$3MM–$10MM', '$10MM–$20MM', '$20MM+'],
+    autoAdvance: true,
+  },
+  {
+    id: 'financing_needs',
+    type: 'multi-select',
+    label: 'I need financing for',
+    name: 'financing_needs',
+    options: [
+      'Working capital to support growth',
+      'Short term bridge capital',
+      'Equipment or asset purchase',
+      'Business acquisition or partner buyout',
+      'Refinance existing debt',
+      'Growth / expansion',
+      'Other',
+    ],
+  },
+  {
+    id: 'funding_amount',
+    type: 'button-group',
+    label: 'Estimated funding amount needed',
+    name: 'funding_amount',
+    options: ['$100K–$250K', '$250K–$500K', '$500K–$1MM', '$1MM–$5MM', '$5MM-$10MM', '$10MM+'],
+    autoAdvance: true,
+  },
+  {
+    id: 'owner_credit_score',
+    type: 'button-group',
+    label: 'What is the owner\'s approximate FICO score?',
+    name: 'owner_credit_score',
+    options: ['Excellent (750-850)', 'Good (650-750)', 'Fair (550-650)', 'Low (below 550)', 'Not sure'],
+    autoAdvance: true,
+  },
+  {
+    id: 'contact_us_details',
+    type: 'textarea',
+    label: 'Provide additional details about the financing need or business situation',
+    name: 'contact_us_details',
+    placeholder: 'Tell us more about your situation to receive a thorough pre-screen of your funding options',
+    rows: 4,
+  },
+  {
+    id: 'contact_info',
+    type: 'contact-info',
+    label: 'Final Step: Your Contact Information',
+    name: 'contact_info',
+    required: true,
+  },
+]
+
 export function DealInquiryForm({
-  title = "Discover Your Business Financing Solutions",
-  subtitle = "Take a few minutes to provide some general insights about your business and its capital needs to receive intelligent insights on available funding options.",
   onSubmitSuccess,
 }: DealInquiryFormProps = {}) {
-  const [currentStep, setCurrentStep] = useState(1)
+  const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [userRole, setUserRole] = useState('')
   const [businessIndustry, setBusinessIndustry] = useState('')
   const [timeInBusiness, setTimeInBusiness] = useState('')
@@ -463,153 +553,212 @@ export function DealInquiryForm({
     }
   )
 
-  const handleNextStep = () => {
-    if (currentStep < 3) {
-      setCurrentStep(currentStep + 1)
+  const currentQ = questions[currentQuestion]
+  const totalQuestions = questions.length
+
+  const getFieldValue = (fieldId: string) => {
+    switch (fieldId) {
+      case 'user_role': return userRole
+      case 'business_industry': return businessIndustry
+      case 'time_in_business': return timeInBusiness
+      case 'annual_revenue': return annualRevenue
+      case 'financing_needs': return financingNeeds
+      case 'funding_amount': return fundingAmount
+      case 'owner_credit_score': return ownerCreditScore
+      case 'contact_us_details': return contactUsDetails
+      case 'name': return name
+      case 'email': return email
+      case 'phone': return phone
+      case 'company': return company
+      case 'company_state': return companyState
+      default: return ''
     }
   }
 
-  const handlePrevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1)
+  const setFieldValue = (fieldId: string, value: any) => {
+    switch (fieldId) {
+      case 'user_role': setUserRole(value); break
+      case 'business_industry': setBusinessIndustry(value); break
+      case 'time_in_business': setTimeInBusiness(value); break
+      case 'annual_revenue': setAnnualRevenue(value); break
+      case 'financing_needs': setFinancingNeeds(value); break
+      case 'funding_amount': setFundingAmount(value); break
+      case 'owner_credit_score': setOwnerCreditScore(value); break
+      case 'contact_us_details': setContactUsDetails(value); break
+      case 'name': setName(value); break
+      case 'email': setEmail(value); break
+      case 'phone': setPhone(value); break
+      case 'company': setCompany(value); break
+      case 'company_state': setCompanyState(value); break
     }
+  }
+
+  const handleAnswer = (value: any) => {
+    setFieldValue(currentQ.id, value)
+    setSelectedAnswer(value)
+
+    if (currentQ.autoAdvance) {
+      // Delay advancement to show highlight effect
+      setTimeout(() => {
+        moveToNextQuestion()
+        setSelectedAnswer(null)
+      }, 600)
+    }
+  }
+
+  const moveToNextQuestion = () => {
+    if (currentQuestion < totalQuestions - 1) {
+      setCurrentQuestion(currentQuestion + 1)
+    }
+  }
+
+  const handleContinue = () => {
+    moveToNextQuestion()
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (currentStep === 3) {
-      await baseHandleSubmit(e)
-    } else {
-      handleNextStep()
-    }
+
+    // Build form data object for submission
+    const form = e.currentTarget
+    const formElement = new FormData(form)
+
+    // Manually set all hidden inputs
+    const hiddenInputs = form.querySelectorAll('input[type="hidden"]')
+    hiddenInputs.forEach(input => {
+      const name = (input as HTMLInputElement).name
+      const value = (input as HTMLInputElement).value
+      if (!formElement.has(name)) {
+        formElement.set(name, value)
+      }
+    })
+
+    await baseHandleSubmit(e)
   }
 
-  const isStep1Valid = userRole !== ''
-  const isStep2Valid = businessIndustry !== '' && timeInBusiness !== '' && annualRevenue !== '' && fundingAmount !== '' && ownerCreditScore !== ''
-
   return (
-    <FormContainer title={title} subtitle={subtitle}>
+    <>
       {!success ? (
-        <form className="form-deal_inquiry flex flex-col gap-8" onSubmit={handleSubmit}>
-          {/* Step Indicator */}
-          <div className="flex items-center justify-center gap-2 mb-8">
-            {[1, 2, 3].map((step) => (
-              <div key={step} className="flex items-center gap-2">
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all"
-                  style={{
-                    backgroundColor: currentStep >= step ? COLORS.primary : '#e5e7eb',
-                    color: currentStep >= step ? '#ffffff' : '#9ca3af',
-                  }}
-                >
-                  {step}
-                </div>
-                {step < 3 && (
-                  <div
-                    className="w-12 h-1 transition-all"
-                    style={{
-                      backgroundColor: currentStep > step ? COLORS.primary : '#e5e7eb',
-                    }}
-                  />
-                )}
-              </div>
-            ))}
+        <form className="form-deal_inquiry flex flex-col gap-8 w-full max-w-2xl mx-auto min-h-[650px]" onSubmit={handleSubmit}>
+          {/* Progress Bar */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-gray-600">
+                Question {currentQuestion + 1} of {totalQuestions}
+              </span>
+              <span className="text-sm text-gray-500">
+                {Math.round(((currentQuestion + 1) / totalQuestions) * 100)}%
+              </span>
+            </div>
+            <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div
+                className="h-full transition-all duration-300"
+                style={{
+                  backgroundColor: COLORS.primary,
+                  width: `${((currentQuestion + 1) / totalQuestions) * 100}%`,
+                }}
+              />
+            </div>
           </div>
 
-          {/* Step 1: Role Selector */}
-          {currentStep === 1 && (
+          {/* Question Label */}
+          <div className="mt-8">
+            <Heading size="h3" className="text-olive-900 text-left !my-0">
+              {currentQ.label}
+            </Heading>
+          </div>
+
+          {/* Render Question Based on Type */}
+          {currentQ.type === 'button-group' && (
+            <SelectButtons
+              options={currentQ.options || []}
+              value={getFieldValue(currentQ.id) as string}
+              onChange={handleAnswer}
+              disabled={selectedAnswer !== null}
+              selectedAnswer={selectedAnswer}
+              align="left"
+            />
+          )}
+
+          {currentQ.type === 'multi-select' && (
             <div className="flex flex-col gap-8">
-              <FormButtonGroup
-                label="I am a:"
-                name="user_role"
-                value={userRole}
-                onChange={(value) => setUserRole(Array.isArray(value) ? '' : value)}
-                options={[
-                  { value: 'Business Owner', label: 'Business Owner / Operator' },
-                  { value: 'Referral Partner', label: 'Banker / CPA / Advisor / Referral Partner' },
-                ]}
+              <Text size="sm" className="text-center text-gray-500">
+                You can select multiple options
+              </Text>
+              <MultiSelectButtons
+                options={currentQ.options || []}
+                value={getFieldValue(currentQ.id) as string[]}
+                onChange={(value) => setFieldValue(currentQ.id, value)}
+                align="left"
               />
+              <Button
+                variant="default"
+                size="lg"
+                type="button"
+                onClick={handleContinue}
+                disabled={!getFieldValue(currentQ.id) || (Array.isArray(getFieldValue(currentQ.id)) && getFieldValue(currentQ.id).length === 0)}
+              >
+                Continue
+              </Button>
             </div>
           )}
 
-          {/* Step 2: Business Snapshot */}
-          {currentStep === 2 && (
+          {currentQ.type === 'textarea' && (
             <div className="flex flex-col gap-8">
-              <Heading size="h4" className="text-olive-900">Business Snapshot</Heading>
-
-              <FormButtonGroup
-                label="Business Industry"
-                name="business_industry"
-                value={businessIndustry}
-                onChange={(value) => setBusinessIndustry(Array.isArray(value) ? '' : value)}
-                options={['Construction', 'Medical', 'Hospitality', 'Manufacturing', 'Services', 'Other']}
-              />
-
-              <FormButtonGroup
-                label="Time in Business"
-                name="time_in_business"
-                value={timeInBusiness}
-                onChange={(value) => setTimeInBusiness(Array.isArray(value) ? '' : value)}
-                options={['< 1 year', '1-2 years', '2-3 years', '3-4 years', '5+ years']}
-              />
-
-              <FormButtonGroup
-                label="Annual Revenue (approx.)"
-                name="annual_revenue"
-                value={annualRevenue}
-                onChange={(value) => setAnnualRevenue(Array.isArray(value) ? '' : value)}
-                options={['$500K–$1MM', '$1MM–$3MM', '$3MM–$10MM', '$10MM–$20MM', '$20MM+']}
-              />
-
-              <FormButtonGroup
-                label="Estimated funding amount needed"
-                name="funding_amount"
-                value={fundingAmount}
-                onChange={(value) => setFundingAmount(Array.isArray(value) ? '' : value)}
-                options={['$100K–$250K', '$250K–$500K', '$500K–$1MM', '$1MM–$5MM', '$5MM-$10MM', '$10MM+']}
-              />
-
-              <FormMultiSelect
-                label="I need financing for"
-                name="financing_needs"
-                value={financingNeeds}
-                onChange={setFinancingNeeds}
-                options={[
-                  'Working capital to support growth',
-                  'Short term bridge capital',
-                  'Equipment or asset purchase',
-                  'Business acquisition or partner buyout',
-                  'Refinance existing debt',
-                  'Growth / expansion',
-                  'Other',
-                ]}
-              />
-
-              <FormButtonGroup
-                label="What is the owner's approximate FICO score?"
-                name="owner_credit_score"
-                value={ownerCreditScore}
-                onChange={(value) => setOwnerCreditScore(Array.isArray(value) ? '' : value)}
-                options={['Excellent (750-850)', 'Good (650-750)', 'Fair (550-650)', 'Low (below 550)', 'Not sure']}
-              />
-
               <FormInput
                 as="textarea"
-                name="contact_us_details"
-                value={contactUsDetails}
-                onChange={(e) => setContactUsDetails(e.currentTarget.value)}
-                rows={4}
-                label="Provide additional details about the financing need or business situation"
-                placeholder="Tell us more about your situation to receive a thorough pre-screen of your funding options"
+                name={currentQ.name}
+                value={getFieldValue(currentQ.id)}
+                onChange={(e) => setFieldValue(currentQ.id, e.currentTarget.value)}
+                rows={currentQ.rows || 4}
+                placeholder={currentQ.placeholder}
               />
+              <Button
+                variant="default"
+                size="lg"
+                type="button"
+                onClick={handleContinue}
+              >
+                Continue
+              </Button>
             </div>
           )}
 
-          {/* Step 3: Contact Info */}
-          {currentStep === 3 && (
+          {(currentQ.type === 'text' || currentQ.type === 'email' || currentQ.type === 'tel') && (
             <div className="flex flex-col gap-8">
-              <Heading size="h4" className="text-olive-900">Contact Information</Heading>
+              <FormInput
+                type={currentQ.type}
+                name={currentQ.name}
+                value={getFieldValue(currentQ.id)}
+                onChange={(e) => setFieldValue(currentQ.id, e.currentTarget.value)}
+                placeholder={currentQ.placeholder}
+                required={currentQ.required}
+              />
+              <Button
+                variant="default"
+                size="lg"
+                type="button"
+                onClick={handleContinue}
+                disabled={currentQ.required && !getFieldValue(currentQ.id)}
+              >
+                Continue
+              </Button>
+            </div>
+          )}
 
+          {currentQ.type === 'select' && (
+            <FormSelect
+              label=""
+              name={currentQ.name}
+              value={getFieldValue(currentQ.id)}
+              onChange={(e) => handleAnswer(e.target.value)}
+              options={currentQ.options || []}
+              placeholder="Select state"
+            />
+          )}
+
+          {currentQ.type === 'contact-info' && (
+            <div className="flex flex-col gap-8">
               <FormGroup columns={2}>
                 <FormInput
                   type="text"
@@ -659,7 +808,7 @@ export function DealInquiryForm({
             </div>
           )}
 
-          {/* Honeypot field - hidden from humans, filled by bots */}
+          {/* Honeypot field */}
           <input
             type="text"
             name="company_phone"
@@ -669,78 +818,34 @@ export function DealInquiryForm({
             aria-hidden="true"
           />
 
-          {/* Step 1: Hidden inputs for other steps */}
-          {currentStep === 1 && (
-            <>
-              <input type="hidden" name="business_industry" value={businessIndustry} />
-              <input type="hidden" name="time_in_business" value={timeInBusiness} />
-              <input type="hidden" name="annual_revenue" value={annualRevenue} />
-              <input type="hidden" name="funding_amount" value={fundingAmount} />
-              <input type="hidden" name="owner_credit_score" value={ownerCreditScore} />
-              <input type="hidden" name="contact_us_details" value={contactUsDetails} />
-              <input type="hidden" name="name" value={name} />
-              <input type="hidden" name="email" value={email} />
-              <input type="hidden" name="phone" value={phone} />
-              <input type="hidden" name="company" value={company} />
-              <input type="hidden" name="company_state" value={companyState} />
-              {financingNeeds.map((need) => (
-                <input key={need} type="hidden" name="financing_needs" value={need} />
-              ))}
-            </>
-          )}
+          {/* Hidden inputs for all form fields */}
+          <input type="hidden" name="user_role" value={userRole} />
+          <input type="hidden" name="business_industry" value={businessIndustry} />
+          <input type="hidden" name="time_in_business" value={timeInBusiness} />
+          <input type="hidden" name="annual_revenue" value={annualRevenue} />
+          <input type="hidden" name="funding_amount" value={fundingAmount} />
+          <input type="hidden" name="owner_credit_score" value={ownerCreditScore} />
+          <input type="hidden" name="contact_us_details" value={contactUsDetails} />
+          <input type="hidden" name="name" value={name} />
+          <input type="hidden" name="email" value={email} />
+          <input type="hidden" name="phone" value={phone} />
+          <input type="hidden" name="company" value={company} />
+          <input type="hidden" name="company_state" value={companyState} />
+          {financingNeeds.map((need) => (
+            <input key={need} type="hidden" name="financing_needs" value={need} />
+          ))}
 
-          {/* Step 2: Hidden inputs for other steps */}
-          {currentStep === 2 && (
-            <>
-              <input type="hidden" name="user_role" value={userRole} />
-              <input type="hidden" name="name" value={name} />
-              <input type="hidden" name="email" value={email} />
-              <input type="hidden" name="phone" value={phone} />
-              <input type="hidden" name="company" value={company} />
-              <input type="hidden" name="company_state" value={companyState} />
-              {financingNeeds.map((need) => (
-                <input key={need} type="hidden" name="financing_needs" value={need} />
-              ))}
-            </>
-          )}
-
-          {/* Step 3: Hidden inputs for other steps */}
-          {currentStep === 3 && (
-            <>
-              <input type="hidden" name="user_role" value={userRole} />
-              <input type="hidden" name="business_industry" value={businessIndustry} />
-              <input type="hidden" name="time_in_business" value={timeInBusiness} />
-              <input type="hidden" name="annual_revenue" value={annualRevenue} />
-              <input type="hidden" name="funding_amount" value={fundingAmount} />
-              <input type="hidden" name="owner_credit_score" value={ownerCreditScore} />
-              <input type="hidden" name="contact_us_details" value={contactUsDetails} />
-              {financingNeeds.map((need) => (
-                <input key={need} type="hidden" name="financing_needs" value={need} />
-              ))}
-            </>
-          )}
-
-          {/* Navigation Buttons */}
-          <div className="flex justify-between gap-4 pt-4">
-            <Button
-              variant="outline"
-              size="lg"
-              type="button"
-              onClick={handlePrevStep}
-              disabled={currentStep === 1}
-              className={currentStep === 1 ? 'opacity-50 cursor-not-allowed' : ''}
-            >
-              Back
-            </Button>
+          {/* Submit button shown on last question */}
+          {currentQuestion === totalQuestions - 1 && (
             <Button
               variant="default"
               size="lg"
               type="submit"
-              disabled={currentStep === 1 && !isStep1Valid || currentStep === 2 && !isStep2Valid}
+              disabled={currentQ.type === 'contact-info' ? !name || !email || !phone || !company || !companyState : !getFieldValue(currentQ.id)}
             >
-              {currentStep === 3 ? 'Get AI-Powered Insights' : 'Next'}
+              Get AI-Powered Insights
             </Button>
-          </div>
+          )}
         </form>
       ) : (
         <div className="text-center">
@@ -755,7 +860,7 @@ export function DealInquiryForm({
           <Text size="lg" className="mb-6">Thanks for sharing your details, {formData.name || formData.firstname}! We're reviewing your information and will get back to you shortly with your personalized funding options.</Text>
         </div>
       )}
-    </FormContainer>
+    </>
   )
 }
 

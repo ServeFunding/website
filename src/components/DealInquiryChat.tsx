@@ -6,14 +6,14 @@ import { motion } from 'framer-motion'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { trackChatbotMessage } from '@/lib/tracking'
 import { getAIDealResponse } from '@/lib/ai'
-import { Container } from '@/components/ui'
-import { Button } from '@/components/ui'
+import { Container, Button } from '@/components/ui'
 
 interface Message {
   id: string
   text: string
   sender: 'user' | 'bot'
   timestamp: Date
+  actionButtons?: Array<{ label: string; action: string }>
 }
 
 interface DealInquiryChatProps {
@@ -45,6 +45,24 @@ export function DealInquiryChat({ formData }: DealInquiryChatProps) {
   const messagesContainerRef = useRef<HTMLDivElement>(null)
   const generationAttemptedRef = useRef(false)
 
+  const handleActionButtonClick = useCallback((action: string) => {
+    if (action === 'open_calendly') {
+      const baseUrl = 'https://calendly.com/michael_kodinsky/discovery'
+      const now = new Date()
+      const monthParam = now.toISOString().split('T')[0].substring(0, 7)
+
+      const params = new URLSearchParams({
+        name: formData.name || formData.firstname || '',
+        email: formData.email || '',
+        month: monthParam,
+        a1: dealContext.substring(0, 500),
+        date: now.toISOString().split('T')[0],
+      })
+      const calendlyUrl = `${baseUrl}?${params.toString()}`
+      window.open(calendlyUrl, '_blank')
+    }
+  }, [dealContext, formData])
+
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     if (messagesContainerRef.current) {
@@ -70,12 +88,16 @@ export function DealInquiryChat({ formData }: DealInquiryChatProps) {
         const parsed = JSON.parse(reply)
         const displayText = parsed.message
         const context = parsed.context || ''
+        const showSchedule = parsed.showSchedule === true
 
         const botMessage: Message = {
           id: Date.now().toString(),
           text: displayText,
           sender: 'bot',
           timestamp: new Date(),
+          actionButtons: showSchedule ? [
+            { label: "Schedule a Call", action: 'open_calendly' }
+          ] : undefined
         }
         setMessages((prev) => [...prev, botMessage])
         setDealContext(context)
@@ -115,12 +137,16 @@ export function DealInquiryChat({ formData }: DealInquiryChatProps) {
       const parsed = JSON.parse(reply)
       const displayText = parsed.message
       const context = parsed.context || ''
+      const showSchedule = parsed.showSchedule === true
 
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: displayText,
         sender: 'bot',
         timestamp: new Date(),
+        actionButtons: showSchedule ? [
+          { label: "Schedule a Call", action: 'open_calendly' }
+        ] : undefined
       }
       setMessages((prev) => [...prev, botMessage])
 
@@ -182,6 +208,21 @@ export function DealInquiryChat({ formData }: DealInquiryChatProps) {
                 >
                   <p className="text-sm leading-relaxed">{message.text}</p>
                 </div>
+                {/* Action Buttons */}
+                {message.actionButtons && message.actionButtons.length > 0 && (
+                  <div className="flex gap-2 mt-3">
+                    {message.actionButtons.map((btn, idx) => (
+                      <Button
+                        key={idx}
+                        onClick={() => handleActionButtonClick(btn.action)}
+                        variant="default"
+                        className="hover:-translate-y-0.5"
+                      >
+                        {btn.label}
+                      </Button>
+                    ))}
+                  </div>
+                )}
               </motion.div>
             ))}
 
@@ -244,30 +285,6 @@ export function DealInquiryChat({ formData }: DealInquiryChatProps) {
           </div>
         </div>
 
-        {/* Schedule Call Button */}
-        <div className="mt-6 flex justify-center">
-          <Button
-            variant="default"
-            size="lg"
-            onClick={() => {
-              const baseUrl = 'https://calendly.com/michael_kodinsky/discovery'
-              const now = new Date()
-              const monthParam = now.toISOString().split('T')[0].substring(0, 7)
-
-              const params = new URLSearchParams({
-                name: formData.name || '',
-                email: formData.email || '',
-                month: monthParam,
-                a1: dealContext.substring(0, 500), // Just the context, Calendly has URL limits
-                date: now.toISOString().split('T')[0],
-              })
-              const calendlyUrl = `${baseUrl}?${params.toString()}`
-              window.open(calendlyUrl, '_blank')
-            }}
-          >
-            Schedule a Call
-          </Button>
-        </div>
       </Container>
     </div>
   )

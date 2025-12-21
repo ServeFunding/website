@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { DealInquiryForm, FormSubmitData } from '@/components/Forms'
 import { DealInquiryChat } from '@/components/DealInquiryChat'
 import { Section, Container, Heading, Text, Card, StaggerContainer, StaggerItem } from '@/components/ui'
@@ -26,38 +27,45 @@ export default function DealInquiryPage() {
 
   return (
     <main>
-      {!formSubmitted ? (
+      {/* Deal Inquiry Form/Chat Section */}
+      <Section background="primary" className='overflow-visible'>
+        <Container className='flex flex-col items-center !max-w-5xl'>
+          <FadeIn className="mb-12">
+            <Heading size="h1" color='highlight' className="mb-4">
+              A Different Kind<br />of Funding Partner.
+            </Heading>
+            <Heading size="h3" color='white' className="mb-8">
+              Built on Relationships. Operated With Integrity.
+            </Heading>
+            <Text size="lg" color="white" className="mb-6 font-semibold text-olive-900">
+              Your Deal Stays With Us. Period.
+            </Text>
+            <Text size="lg" color="white" className="mb-12 leading-relaxed">
+              Serve Funding is a trust-based advisory — not an algorithm driven "marketplace".<br />We do not sell leads or shop deals indiscriminately. Every opportunity is handled with care<br />by a dedicated, experienced team and reviewed personally by our founder.
+            </Text>
+            <Text size="lg" color="white"  className="mb-12 leading-relaxed">
+              Whether you're a business owner or a referral partner, we treat every relationship —<br /> and every client's financing opportunity — as if it were our own.
+            </Text>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Card className="md:p-12 bg-white">
+                {formSubmitted ? (
+                  <DealInquiryChat formData={formData} />
+                ) : (
+                  <DealInquiryForm onSubmitSuccess={handleFormSubmit} />
+                )}
+              </Card>
+            </motion.div>
+          </FadeIn>
+        </Container>
+      </Section>
+
+      {/* What You Can Expect Section - only show before form submit */}
+      {!formSubmitted && (
         <>
-          <DealInquiryForm
-            title={<>Discover Your<br />Business Financing Options</>}
-            subtitle={<>Take a few minutes to provide some general insights about the business and its capital needs<br />to receive intelligent insights on available funding solutions for the business today.</>}
-            onSubmitSuccess={handleFormSubmit}
-          />
-
-          {/* Trust-Based Partnership Section */}
-          <Section background="gray">
-            <Container>
-              <FadeIn className="text-center mb-20 max-w-3xl mx-auto">
-                <Heading size="h2" className="mb-4">
-                  A Different Kind<br />of Funding Partner.
-                </Heading>
-                <Heading size="h3" color='primary' className="mb-8">
-                  Built on Relationships. Operated With Integrity.
-                </Heading>
-                <Text size="lg" className="mb-6 font-semibold text-olive-900">
-                  Your Deal Stays With Us. Period.
-                </Text>
-                <Text size="lg" className="mb-12 text-gray-700 leading-relaxed">
-                  Serve Funding is a trust-based advisory — not an algorithm driven "marketplace". We do not sell leads or shop deals indiscriminately. Every opportunity is handled with care by a dedicated, experienced team and reviewed personally by our founder.
-                </Text>
-                <Text size="lg" className="text-gray-700 leading-relaxed">
-                  Whether you're a business owner or a referral partner, we treat every relationship — and every client's financing opportunity – as if it were our own.
-                </Text>
-              </FadeIn>
-            </Container>
-          </Section>
-
-          {/* What You Can Expect Section */}
           <Section background="gray">
             <Container>
               <div className="text-center mb-12">
@@ -107,12 +115,6 @@ export default function DealInquiryPage() {
             </Container>
           </Section>
         </>
-      ) : (
-        <Section background="background">
-          <div style={{ position: 'relative', zIndex: 10 }}>
-            <DealInquiryChat formData={formData} />
-          </div>
-        </Section>
       )}
     </main>
   )
