@@ -4,9 +4,10 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { DealInquiryForm, FormSubmitData } from '@/components/Forms'
 import { DealInquiryChat } from '@/components/DealInquiryChat'
+import { CalendlyWidget } from '@/components/CalendlyWidget'
 import { Section, Container, Heading, Text, Card, StaggerContainer, StaggerItem } from '@/components/ui'
 import { COLORS } from '@/lib/colors'
-import { FadeIn } from '@/components/ui/fade-in'
+import { HeroFadeIn } from '@/components/hero-fade-in'
 
 const coreValues = [
   { letter: 'T', title: 'Transparency', desc: 'We communicate honestly to build a long-term relationship.' },
@@ -17,54 +18,95 @@ const coreValues = [
 ]
 
 export default function DealInquiryPage() {
-  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [view, setView] = useState<'form' | 'chat' | 'calendly'>('form')
   const [formData, setFormData] = useState<FormSubmitData>({})
+  const [dealContext, setDealContext] = useState('')
 
   const handleFormSubmit = (data: FormSubmitData) => {
     setFormData(data)
-    setFormSubmitted(true)
+    setView('chat')
   }
+
+  const handleScheduleClick = (context: string) => {
+    setDealContext(context)
+    setView('calendly')
+  }
+
+  const handleBackToChat = () => {
+    setView('chat')
+  }
+
+  // const skipToCalendly = () => {
+  //   setFormData({
+  //     name: 'Test User',
+  //     firstname: 'Test',
+  //     lastname: 'User',
+  //     email: 'test@example.com',
+  //     phone: '555-0000',
+  //     company: 'Test Company',
+  //     user_role: 'Business Owner / Operator',
+  //     business_industry: 'Technology',
+  //     time_in_business: '2-3 years',
+  //     annual_revenue: '$500K–$1MM',
+  //     financing_needs: ['Equipment or asset purchase'],
+  //     funding_amount: '$250K–$500K',
+  //     owner_credit_score: 'Good (700-749)',
+  //     company_state: 'GA',
+  //   })
+  //   setDealContext('Test deal context for development')
+  //   setView('calendly')
+  // }
 
   return (
     <main>
+      {/* Hero Section */}
+      <HeroFadeIn
+        title="A Different Kind of Funding Partner."
+        subtitle="Your Deal Stays With Us. Period."
+        compact
+      />
+
       {/* Deal Inquiry Form/Chat Section */}
-      <Section background="primary" className='overflow-visible'>
-        <Container className='flex flex-col items-center !max-w-5xl'>
-          <FadeIn className="mb-12">
-            <Heading size="h1" color='highlight' className="mb-4">
-              A Different Kind<br />of Funding Partner.
-            </Heading>
-            <Heading size="h3" color='white' className="mb-8">
+      <Section background="primary" className='overflow-visible !pt-0'>
+        <Container className='flex flex-col items-center !max-w-3xl'>
+          <div className="mb-12 text-center">
+            <Heading size="h3" color='white' className="mb-6">
               Built on Relationships. Operated With Integrity.
             </Heading>
-            <Text size="lg" color="white" className="mb-6 font-semibold text-olive-900">
-              Your Deal Stays With Us. Period.
-            </Text>
-            <Text size="lg" color="white" className="mb-12 leading-relaxed">
+            <Text color="white" className="mb-6 leading-relaxed">
               Serve Funding is a trust-based advisory — not an algorithm driven "marketplace".<br />We do not sell leads or shop deals indiscriminately. Every opportunity is handled with care<br />by a dedicated, experienced team and reviewed personally by our founder.
             </Text>
-            <Text size="lg" color="white"  className="mb-12 leading-relaxed">
+            <Text color="white" className="leading-relaxed">
               Whether you're a business owner or a referral partner, we treat every relationship —<br /> and every client's financing opportunity — as if it were our own.
             </Text>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Card className="md:p-12 bg-white">
-                {formSubmitted ? (
-                  <DealInquiryChat formData={formData} />
-                ) : (
-                  <DealInquiryForm onSubmitSuccess={handleFormSubmit} />
-                )}
-              </Card>
-            </motion.div>
-          </FadeIn>
+          </div>
+          <motion.div
+            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, layout: { duration: 0.4 } }}
+            className="w-full"
+          >
+            <Card className="md:p-12 bg-white">
+              {view === 'form' && <DealInquiryForm onSubmitSuccess={handleFormSubmit} />}
+              {view === 'chat' && <DealInquiryChat formData={formData} onScheduleClick={handleScheduleClick} />}
+              {view === 'calendly' && (
+                <div className="flex flex-col gap-6">
+                  <CalendlyWidget
+                    name={formData.name || formData.firstname}
+                    email={formData.email}
+                    dealContext={dealContext}
+                    height="700px"
+                  />
+                </div>
+              )}
+            </Card>
+          </motion.div>
         </Container>
       </Section>
 
       {/* What You Can Expect Section - only show before form submit */}
-      {!formSubmitted && (
+      {view === 'form' && (
         <>
           <Section background="gray">
             <Container>
@@ -116,6 +158,7 @@ export default function DealInquiryPage() {
           </Section>
         </>
       )}
+
     </main>
   )
 }

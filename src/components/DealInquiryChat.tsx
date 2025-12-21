@@ -28,9 +28,10 @@ interface DealInquiryChatProps {
     contact_us_details?: string
     user_role?: string
   }
+  onScheduleClick?: (dealContext: string) => void
 }
 
-export function DealInquiryChat({ formData }: DealInquiryChatProps) {
+export function DealInquiryChat({ formData, onScheduleClick }: DealInquiryChatProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -46,22 +47,10 @@ export function DealInquiryChat({ formData }: DealInquiryChatProps) {
   const generationAttemptedRef = useRef(false)
 
   const handleActionButtonClick = useCallback((action: string) => {
-    if (action === 'open_calendly') {
-      const baseUrl = 'https://calendly.com/michael_kodinsky/discovery'
-      const now = new Date()
-      const monthParam = now.toISOString().split('T')[0].substring(0, 7)
-
-      const params = new URLSearchParams({
-        name: formData.name || formData.firstname || '',
-        email: formData.email || '',
-        month: monthParam,
-        a1: dealContext.substring(0, 500),
-        date: now.toISOString().split('T')[0],
-      })
-      const calendlyUrl = `${baseUrl}?${params.toString()}`
-      window.open(calendlyUrl, '_blank')
+    if (action === 'open_calendly' && onScheduleClick) {
+      onScheduleClick(dealContext)
     }
-  }, [dealContext, formData])
+  }, [dealContext, onScheduleClick])
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
