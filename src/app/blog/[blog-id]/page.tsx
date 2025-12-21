@@ -86,6 +86,16 @@ export default async function BlogPost({ params }: Props) {
 
   const formattedDate = formatDate(blogPost.date)
 
+  // Convert blog content array to full text for schema
+  const fullArticleBody = blogPost.content
+    .map((block) => {
+      if (block.type === 'h2' || block.type === 'h3') {
+        return block.text
+      }
+      return block.text
+    })
+    .join('\n\n')
+
   // Generate article schema
   const articleSchema = getArticleSchema({
     headline: blogPost.title,
@@ -95,7 +105,7 @@ export default async function BlogPost({ params }: Props) {
       name: blogPost.author,
       url: 'https://servefunding.com/about-us'
     },
-    content: blogPost.excerpt
+    content: fullArticleBody
   })
 
   return (

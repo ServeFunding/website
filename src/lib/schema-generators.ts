@@ -23,7 +23,7 @@ export const getOrganizationSchema = (config?: {
   }
 }) => ({
   "@context": "https://schema.org",
-  "@type": "FinancialService",
+  "@type": ["Organization", "LocalBusiness", "FinancialService"],
   "@id": "https://servefunding.com",
   "name": companyInfo.name,
   "description": companyInfo.description,
