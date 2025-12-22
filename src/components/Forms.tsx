@@ -262,7 +262,7 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
           ctaText="Schedule a Call"
         />
       ) : (
-        <form className="form-intro_call flex flex-col gap-8" onSubmit={handleSubmit}>
+        <form className="form-intro_call flex flex-col gap-4" onSubmit={handleSubmit}>
           <FormGroup columns={2}>
             <FormInput type="text" name="firstname" label="First Name" required />
             <FormInput type="text" name="lastname" label="Last Name" required />
@@ -329,7 +329,7 @@ export function PartnerInquiryForm() {
           ctaText="Schedule a Call"
         />
       ) : (
-        <form className="form-partner_inquiry flex flex-col gap-8" onSubmit={handleSubmit}>
+        <form className="form-partner_inquiry flex flex-col gap-4" onSubmit={handleSubmit}>
           <FormGroup columns={2}>
             <FormInput type="text" name="firstname" label="First Name" required />
             <FormInput type="text" name="lastname" label="Last Name" required />
@@ -392,7 +392,7 @@ export function NewsletterModalForm({
           ctaText="Schedule a Call"
         />
       ) : (
-        <form className="form-newsletter flex flex-col gap-8" onSubmit={handleSubmit}>
+        <form className="form-newsletter flex flex-col gap-4" onSubmit={handleSubmit}>
           <FormInput
             type="text"
             name="firstname"
@@ -653,7 +653,7 @@ export function DealInquiryForm({
   return (
     <>
       {!success ? (
-        <form className="form-deal_inquiry flex flex-col gap-8 w-full max-w-2xl mx-auto min-h-[650px]" onSubmit={handleSubmit}>
+        <form className="form-deal_inquiry flex flex-col gap-4 w-full max-w-2xl mx-auto min-h-[650px]" onSubmit={handleSubmit}>
           {/* Progress Bar */}
           <div>
             <div className="flex items-center justify-between mb-2">
