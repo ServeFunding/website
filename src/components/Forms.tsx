@@ -175,7 +175,6 @@ export function useFormSubmit(
           financing_needs: financingNeeds, // Ensure financing_needs is an array
           submittedAt: new Date().toISOString(),
         }
-        console.log('Submitting form data to webhook:', webhookPayload)
         await fetch('/api/webhook', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

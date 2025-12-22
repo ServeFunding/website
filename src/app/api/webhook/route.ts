@@ -10,8 +10,6 @@ export async function POST(request: Request) {
       )
     }
 
-    console.log(`Forwarding to webhook: ${webhookUrl}`, data)
-
     const response = await fetch(webhookUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
