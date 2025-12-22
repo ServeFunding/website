@@ -106,6 +106,7 @@ export function useFormSubmit(
     // Capture form data
     const rawFormData = new FormData(form)
     const data: Record<string, any> = {}
+    const webhookData: Record<string, any> = {} // Complete data for webhook (includes honeypot)
     const financingNeeds: string[] = []
     const honeypot = rawFormData.get('company_phone') as string
 
@@ -120,7 +121,15 @@ export function useFormSubmit(
     }
 
     rawFormData.forEach((value, key) => {
-      // Handle multi-select checkboxes (financing_needs) and skip honeypot
+      // Build webhook data with all fields including honeypot
+      if (key === 'financing_needs') {
+        financingNeeds.push(value as string)
+        webhookData[key] = webhookData[key] ? [...webhookData[key], value] : [value]
+      } else {
+        webhookData[key] = value as string
+      }
+
+      // Handle multi-select checkboxes (financing_needs) and skip honeypot for HubSpot data
       if (key === 'financing_needs') {
         financingNeeds.push(value as string)
       } else if (key !== 'company_phone') {
@@ -160,11 +169,20 @@ export function useFormSubmit(
     // Webhook: Send to webhook if provided
     if (webhookUrl) {
       try {
-        console.log('Submitting form data to webhook:', data)
-        await fetch(webhookUrl, {
+        const webhookPayload = {
+          ...webhookData,
+          formType,
+          financing_needs: financingNeeds, // Ensure financing_needs is an array
+          submittedAt: new Date().toISOString(),
+        }
+        console.log('Submitting form data to webhook:', webhookPayload)
+        await fetch('/api/webhook', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
+          body: JSON.stringify({
+            webhookUrl,
+            ...webhookPayload,
+          }),
         })
       } catch (error) {
         console.error('Webhook submission error:', error)
@@ -242,9 +260,9 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
     return `https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(`${data.firstname || ''} ${data.lastname || ''}`.trim())}&email=${encodeURIComponent(data.email || '')}&phone=${encodeURIComponent(data.phone || '')}&a1=${encodeURIComponent(data.company || '')}&a2=${encodeURIComponent(`${data.capital_for || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
   }
 
-  const { success, handleSubmit, formData } = useFormSubmit(
+  const { success, handleSubmit, formData, isSubmitting } = useFormSubmit(
     'intro_call',
-    undefined,
+    'https://aiascend.app.n8n.cloud/webhook/sf-intro',
     '',
     (data) => {
       const url = buildCalendlyUrl(data as Record<string, string>)
@@ -309,9 +327,9 @@ export function PartnerInquiryForm() {
     return `https://calendly.com/michael_kodinsky/partner-strategy-call?name=${encodeURIComponent(`${data.firstname || ''} ${data.lastname || ''}`.trim())}&email=${encodeURIComponent(data.email || '')}&a1=${encodeURIComponent(`${data.partnership_for__commercial_banking__advisory_ || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
   }
 
-  const { success, handleSubmit, formData } = useFormSubmit(
+  const { success, handleSubmit, formData, isSubmitting } = useFormSubmit(
     'partner_inquiry',
-    undefined,
+    'https://aiascend.app.n8n.cloud/webhook/sf-partner',
     '',
     (data) => {
       const url = buildCalendlyUrl(data as Record<string, string>)
@@ -555,9 +573,9 @@ export function DealInquiryForm({
   const [company, setCompany] = useState('')
   const [companyState, setCompanyState] = useState('')
 
-  const { success, handleSubmit: baseHandleSubmit, formData } = useFormSubmit(
+  const { success, handleSubmit: baseHandleSubmit, formData, isSubmitting } = useFormSubmit(
     'deal_inquiry',
-    undefined,
+    'https://aiascend.app.n8n.cloud/webhook/sf-inquiry',
     '',
     (data) => {
       // Store form data for the chat interface and call callback
@@ -880,7 +898,10 @@ export function DealInquiryForm({
 
 // Newsletter Signup Form
 export function NewsletterForm() {
-  const { success, handleSubmit, formData } = useFormSubmit('newsletter')
+  const { success, handleSubmit, formData, isSubmitting } = useFormSubmit(
+    'newsletter',
+    'https://aiascend.app.n8n.cloud/webhook/sf-newsletter'
+  )
 
   return (
     <Section background="gray">
