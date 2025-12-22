@@ -18,6 +18,7 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  /* Temporarily commented out
   {
     id: "the-funding-journey",
     title: "The Funding Journey: Bank First, Then What?",
@@ -117,6 +118,7 @@ export const blogPosts: BlogPost[] = [
       { type: 'p', text: "If you've hit a wall with your banker, let's talk. We'll show you what's possible." },
     ]
   },
+  */
   {
     id: "building-people-estonia-trip",
     title: "$1.475MM Bridge for Medical Practice M&A",
@@ -559,6 +561,7 @@ export const blogPosts: BlogPost[] = [
       { type: 'p', text: "If you're looking for a lender who sees you as a partner—not a file number—let's talk. We're here to serve your growth, not just close a deal." },
     ]
   },
+  /* Temporarily commented out
   {
     id: "layered-capital-strategy",
     title: "Layered Capital Strategy: How to Stack Funding for 30%+ Growth",
@@ -669,6 +672,8 @@ export const blogPosts: BlogPost[] = [
       { type: 'p', text: "Let's talk about what you have, what you need, and how we can layer it." },
     ]
   },
+  */
+  /* Temporarily commented out
   {
     id: "hidden-costs-online-lending",
     title: "The Hidden Cost of Online Lending: How 'Good Rates' Hide 120% APR",
@@ -766,6 +771,7 @@ export const blogPosts: BlogPost[] = [
       { type: 'p', text: "Let's change that." },
     ]
   },
+  */
   {
     id: "banker-saved-wedding-season",
     title: "Proactive Banker Saved a Venue's Wedding Season",
