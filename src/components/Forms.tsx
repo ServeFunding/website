@@ -96,21 +96,34 @@ export function useFormSubmit(
 ) {
   const [success, setSuccess] = useState(false)
   const [formData, setFormData] = useState<FormSubmitData>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.currentTarget
+    setIsSubmitting(true)
 
     // Capture form data
     const rawFormData = new FormData(form)
     const data: Record<string, any> = {}
     const financingNeeds: string[] = []
+    const honeypot = rawFormData.get('company_phone') as string
+
+    // Check honeypot - if filled, it's likely a bot, so silently succeed without processing
+    if (honeypot) {
+      setTimeout(() => {
+        setSuccess(true)
+        form.reset()
+        setIsSubmitting(false)
+      }, 300)
+      return
+    }
 
     rawFormData.forEach((value, key) => {
-      // Handle multi-select checkboxes (financing_needs)
+      // Handle multi-select checkboxes (financing_needs) and skip honeypot
       if (key === 'financing_needs') {
         financingNeeds.push(value as string)
-      } else {
+      } else if (key !== 'company_phone') {
         data[key] = value as string
       }
     })
@@ -172,10 +185,11 @@ export function useFormSubmit(
         setSuccess(true)
       }
       form.reset()
+      setIsSubmitting(false)
     }, 300)
   }
 
-  return { success, handleSubmit, formData }
+  return { success, handleSubmit, formData, isSubmitting }
 }
 
 // Form Container with consistent styling across all forms
