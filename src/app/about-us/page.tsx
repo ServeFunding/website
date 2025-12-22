@@ -11,6 +11,8 @@ import {
 import { CTA } from '@/components/cta'
 import { LogoGrid } from '@/components/LogoGrid'
 import { Breadcrumb } from '@/components/breadcrumb'
+import { SchemaRenderer } from '@/components/SchemaRenderer'
+import { getPersonSchema } from '@/lib/schema-generators'
 import { COLORS } from '@/lib/colors'
 import type { Metadata } from 'next'
 
@@ -59,6 +61,16 @@ const coreValues = [
 export default function AboutUs() {
   return (
     <>
+      {/* Founder Person Schema */}
+      <SchemaRenderer
+        schema={getPersonSchema({
+          name: "Michael Kodinsky",
+          jobTitle: "Founder & CEO",
+          description: "Founder and CEO of Serve Funding. With 18+ years of experience guiding small and mid-sized companies through their working capital challenges, Michael founded Serve Funding in 2021 to help entrepreneurs overcome inefficient funding processes. His vision is rooted in his family's entrepreneurial heritage as immigrants who arrived in the U.S. in 1981 with just $300 and five suitcases.",
+          image: "https://servefunding.com/Michael Headshot.webp"
+        })}
+      />
+
       {/* Breadcrumb - includes schema */}
       <Breadcrumb items={[{ label: 'About Us' }]} />
 

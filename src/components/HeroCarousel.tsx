@@ -27,8 +27,9 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
     if (document.readyState === 'complete') {
       setPageLoaded(true)
     } else {
-      window.addEventListener('load', () => setPageLoaded(true))
-      return () => window.removeEventListener('load', () => setPageLoaded(true))
+      const handleLoad = () => setPageLoaded(true)
+      window.addEventListener('load', handleLoad)
+      return () => window.removeEventListener('load', handleLoad)
     }
   }, [])
 

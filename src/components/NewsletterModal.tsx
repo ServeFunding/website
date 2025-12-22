@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Heading, Text } from '@/components/ui'
@@ -69,10 +70,14 @@ export function NewsletterModal() {
               <div className="p-6 sm:p-8 md:p-12" style={{ backgroundColor: COLORS.white }}>
                 {/* Logo and Heading Section */}
                 <div className="mb-6 sm:mb-8 flex justify-center">
-                  <img
+                  <Image
                     src="/newsletter-logo.webp"
                     alt="Creative Working Capital Newsletter"
-                    className="w-full max-w-xs sm:max-w-sm"
+                    width={560}
+                    height={210}
+                    className="w-full max-w-xs sm:max-w-sm h-auto"
+                    sizes="(max-width: 640px) 320px, 384px"
+                    priority={false}
                   />
                 </div>
 

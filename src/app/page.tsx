@@ -65,15 +65,15 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <Section className="min-h-[80vh] lg:h-[65vh]">
+      <Section className="min-h-[80vh] lg:min-h-[65vh]">
         <HeroCarousel slides={heroSlides} />
       </Section>
 
       {/* Value Props Section */}
-      <Section>
+      <Section className="!pt-0">
         <Container>
           <FadeIn className="text-center mb-20">
-            <Heading size="h2" color='dark' className="!my-3">Need Business Growth Capital?</Heading>
+            <Heading size="h2" color='dark' className="!mt-0 !mb-3">Need Business Growth Capital?</Heading>
             <Heading size="h2" color='primary' className="!my-3">We Are Here to Serve You.</Heading>
           </FadeIn>
 
@@ -125,8 +125,30 @@ export default function Home() {
         </Container>
       </Section>
 
-      {/* Funding Solutions Section */}
+      {/* Trust-Based Partnership Section */}
       <Section background="gray">
+        <Container>
+          <FadeIn className="text-center mb-20 max-w-3xl mx-auto">
+            <Heading size="h2" className="mb-4">
+              A Different Kind<br />of Funding Partner.
+            </Heading>
+            <Heading size="h3" color='primary' className="mb-8">
+              Built on Relationships. Operated With Integrity.
+            </Heading>
+            <Text className="max-w-xl mx-auto my-6">
+              Answer a few questions to find out what credit options are available to you. Takes a few minutes and there's no obligation.
+            </Text>
+            <Link href="/deal-inquiry">
+              <Button variant="default" size="lg">
+                Explore Funding Options
+              </Button>
+            </Link>
+          </FadeIn>
+        </Container>
+      </Section>
+
+      {/* Funding Solutions Section */}
+      <Section background="background" className="!pt-0">
         <Container className='mb-14'>
           <FadeIn className="text-center mb-20">
             <Heading size="h2" className="mb-4">

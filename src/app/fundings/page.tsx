@@ -17,6 +17,8 @@ import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CaseStudyModal } from '@/components/CaseStudyModal'
 import { CTA } from '@/components/cta'
 import { Breadcrumb } from '@/components/breadcrumb'
+import { SchemaRenderer } from '@/components/SchemaRenderer'
+import { getReviewSchema } from '@/lib/schema-generators'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 function generateSlug(text: string): string {
@@ -130,6 +132,21 @@ export default function Fundings() {
           }))
         })}
       </script>
+
+      {/* Review Schemas for Each Case Study */}
+      {fundingCases.map((caseStudy, index) => (
+        <SchemaRenderer
+          key={index}
+          schema={getReviewSchema({
+            companyName: caseStudy.company,
+            title: caseStudy.title,
+            description: caseStudy.description,
+            fullStory: caseStudy.fullStory,
+            amount: caseStudy.amount,
+            ratingValue: 5
+          })}
+        />
+      ))}
 
       {/* Contact Section */}
       <CTA

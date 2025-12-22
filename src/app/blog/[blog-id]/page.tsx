@@ -51,6 +51,11 @@ export async function generateMetadata({ params }: Props) {
     }
   }
 
+  // Use blog post image if available, fallback to logo
+  const imageUrl = blogPost.image
+    ? `https://servefunding.com${blogPost.image}`
+    : "https://servefunding.com/Logo_Full-color_long_samecolor-1.webp"
+
   return {
     title: `${blogPost.title} | Serve Funding`,
     description: blogPost.excerpt,
@@ -61,7 +66,7 @@ export async function generateMetadata({ params }: Props) {
       type: 'article',
       images: [
         {
-          url: "https://servefunding.com/Logo_Full-color_long_samecolor-1.webp",
+          url: imageUrl,
           width: 1024,
           height: 728,
           alt: blogPost.title,
@@ -81,6 +86,16 @@ export default async function BlogPost({ params }: Props) {
 
   const formattedDate = formatDate(blogPost.date)
 
+  // Convert blog content array to full text for schema
+  const fullArticleBody = blogPost.content
+    .map((block) => {
+      if (block.type === 'h2' || block.type === 'h3') {
+        return block.text
+      }
+      return block.text
+    })
+    .join('\n\n')
+
   // Generate article schema
   const articleSchema = getArticleSchema({
     headline: blogPost.title,
@@ -90,7 +105,7 @@ export default async function BlogPost({ params }: Props) {
       name: blogPost.author,
       url: 'https://servefunding.com/about-us'
     },
-    content: blogPost.excerpt
+    content: fullArticleBody
   })
 
   return (

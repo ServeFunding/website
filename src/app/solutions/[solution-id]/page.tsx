@@ -38,11 +38,14 @@ export async function generateMetadata({ params }: SolutionDetailPageProps): Pro
   }
 
   const titleStr = getTitleAsString(solution.title)
+  // Use seoTitle for search results if available, otherwise use regular title
+  const metaTitle = solution.seoTitle ? solution.seoTitle : titleStr
+
   return {
-    title: `${titleStr} | Serve Funding`,
+    title: `${metaTitle} | Serve Funding`,
     description: solution.shortDesc,
     openGraph: {
-      title: `${titleStr} | Serve Funding`,
+      title: `${metaTitle} | Serve Funding`,
       description: solution.shortDesc,
       url: `https://servefunding.com/solutions/${solution.id}`,
       type: 'website',

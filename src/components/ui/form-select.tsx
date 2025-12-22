@@ -15,17 +15,51 @@ const formSelectVariants = cva(
   }
 )
 
+export type FormSelectOption = string | { value: string; label?: string }
+
 export interface FormSelectProps
-  extends SelectHTMLAttributes<HTMLSelectElement>,
-    VariantProps<typeof formSelectVariants> {}
+  extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'children'>,
+    VariantProps<typeof formSelectVariants> {
+  label?: string
+  options?: FormSelectOption[]
+  placeholder?: string
+}
+
+const normalizeOption = (option: FormSelectOption) => {
+  if (typeof option === 'string') {
+    return { value: option, label: option }
+  }
+  return { value: option.value, label: option.label || option.value }
+}
 
 export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
-  ({ className, variant, ...props }, ref) => (
-    <select
-      ref={ref}
-      className={[formSelectVariants({ variant }), className].filter(Boolean).join(' ')}
-      {...props}
-    />
-  )
+  ({ className, variant, label, options, placeholder, ...props }, ref) => {
+    const selectId = props.id || props.name
+    return (
+      <div className="flex flex-col gap-2">
+        {label && (
+          <label htmlFor={selectId} className="text-sm font-medium text-gray-700">
+            {label}
+          </label>
+        )}
+        <select
+          ref={ref}
+          id={selectId}
+          className={[formSelectVariants({ variant }), className].filter(Boolean).join(' ')}
+          {...props}
+        >
+          {placeholder && <option value="">{placeholder}</option>}
+          {options?.map(option => {
+            const normalized = normalizeOption(option)
+            return (
+              <option key={normalized.value} value={normalized.value}>
+                {normalized.label}
+              </option>
+            )
+          })}
+        </select>
+      </div>
+    )
+  }
 )
 FormSelect.displayName = "FormSelect"

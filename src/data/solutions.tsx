@@ -11,12 +11,13 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "asset-based-lending",
     title: "Asset-Based Lending",
+    seoTitle: "Asset-Based Lending for Scaling Businesses",
     image: "/solutions/Asset Based Lending.webp",
     category: "Flexible Working Capital",
 
     whatIs: "Asset-Based Lending (ABL) is a flexible credit line that lets you borrow against your company's assets like accounts receivable, inventory, equipment, and real estate. Instead of focusing heavily on credit history, ABL lenders evaluate the value of your collateral.",
 
-    shortDesc: "Leverage business assets such as AR, Inventory, Equipment & CRE for flexible lines of credit that grow with your business.",
+    shortDesc: "Asset-based lending for growing companies. Flexible credit lines backed by AR, inventory, equipment & real estate. Scale from $1MM-$100MM.",
 
     fullDesc: "Asset-Based Lending (ABL) allows businesses to leverage their accounts receivable, inventory, equipment, and commercial real estate as collateral to access flexible working capital. These lines of credit are ideal for companies which are going through seasons of rapid growth or experiencing temporary financial challenges. ABL lines are typically used for working capital, expansion, acquisitions, or debt restructuring.",
 
@@ -78,12 +79,13 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "invoice-factoring",
     title: "Invoice Financing",
+    seoTitle: "Invoice Financing That Scales With You",
     image: "/solutions/Invoice AI Financing.webp",
     category: "Fast Cash Flow",
 
     whatIs: "Invoice factoring (also called AR financing) is when you sell your unpaid B2B invoices to a factor for immediate cash. Instead of waiting 30-90 days for customers to pay, you get 75-95% of the invoice value within 24-48 hours. As customers pay, the borrowing automatically decreases—making it self-liquidating.",
 
-    shortDesc: "Convert unpaid invoices into working capital in 24-48 hours. Self-liquidating, scales with sales—ideal for companies with slow-paying customers.",
+    shortDesc: "Invoice financing for growing companies. Fast cash access once approved. Scales with sales. Better for rapidly growing businesses than bank loans.",
 
     fullDesc: "Invoice factoring (AR financing) unlocks cash trapped in unpaid invoices, converting them into immediate working capital. Unlike traditional term loans that sit on your balance sheet, factoring is self-liquidating: as your customers pay, the borrowing automatically decreases. This solution is ideal for companies with commercial AR facing 30-90 day payment cycles. Factoring works for staffing, construction, manufacturing, healthcare, government contracting, and CPG industries with net-30, net-60, net-90+ payment terms. Real example: A healthcare supply manufacturer secured $1MM at Prime + 2% with 92% advance rates—better terms than most bank loans—and within 3 weeks of approval. The facility automatically scaled to $1.5MM within 2 months as their sales grew.",
 
@@ -159,12 +161,13 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "working-capital-loans",
     title: "Working Capital Loans & LoC's",
+    seoTitle: "Fast Working Capital for Growth",
     image: "/solutions/Working Capital Loans.webp",
     category: "Quick Operations Funding",
 
     whatIs: "A working capital loan is short-term financing that helps businesses cover day-to-day operational expenses: payroll, inventory, accounts payable, rent, etc.",
 
-    shortDesc: "Secure creative working capital options which close quickly, serving as bridge funding to cover expenses & support growth.",
+    shortDesc: "Working capital loans for growing companies. Fast approval (1-3 days). Support payroll, inventory, expansion. $100K-$5MM+.",
 
     fullDesc: "Working capital funding is typically funded on a revenue-based underwriting model. They can be closed quickly – often within days – and provide essential funding for managing day-to-day operating expenses. They are typically used for help to cover payroll, fund additional inventory, address accounts payable, and more. Working capital loans ensure smooth operations amid cash flow challenges stemming from the unexpected to seasonal fluctuations.",
 
@@ -226,10 +229,11 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "inventory-financing",
     title: "Inventory Financing",
+    seoTitle: "Inventory Financing for Growing Retailers",
     image: "/solutions/Inventory Financing.webp",
     category: "Asset-Based",
     whatIs: "Inventory financing is a short-term loan option that leverages existing inventory as collateral, offering businesses the liquidity to manage inventory levels.",
-    shortDesc: "Access the value tied up in your existing inventory or use specialized financing solutions to purchase new inventory.",
+    shortDesc: "Inventory financing for growing e-commerce & retail. Scale inventory levels without depleting working capital. Up to 85% advance.",
     fullDesc: "Inventory financing is a short-term loan option that leverages existing inventory as collateral, offering businesses the liquidity to manage inventory levels. It's ideal for companies needing to maintain stock to satisfy customer demand while facing interim cash flow issues.",
     features: [
       "Loan amounts from $500K to $20M",
@@ -255,10 +259,11 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "equipment-leasing",
     title: <>Equipment Leasing <br />& Financing</>,
+    seoTitle: "Equipment Financing for Growing Operations",
     image: "/solutions/Equipment Leasing.webp",
     category: "Asset Acquisition",
     whatIs: "Equipment leasing lets you acquire essential machinery, vehicles, technology without large upfront capital. Monthly payments spread the cost over 3-7 years.",
-    shortDesc: "Take advantage of flexible equipment financing & lease options to purchase new equipment or cash-out of existing equipment.",
+    shortDesc: "Equipment financing for growing manufacturers & contractors. 3-7 year terms. Avoid upfront capital costs. Scale operations.",
     fullDesc: "Equipment leasing offers businesses a practical solution to acquire essential machinery, vehicles, and technology without large upfront costs. By opting for a lease or loan specifically for equipment, companies can efficiently manage cash flow while securing the assets necessary for their operations. This financing method is ideal for most industries, including manufacturing, construction, transportation, healthcare, and technology.",
     features: [
       "Loan range from $100K to $50MM+",
@@ -285,10 +290,11 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "purchase-order-funding",
     title: "PO Funding",
+    seoTitle: "Purchase Order Funding for Growth",
     image: "/solutions/Purchase Order Funding.webp",
     category: "Growth Capital",
     whatIs: "PO financing provides funding to fulfill customer purchase orders when you lack working capital for production or materials. Especially valuable for international sourcing, tariff management, and supply chain financing.",
-    shortDesc: "Fund large POs from suppliers, manage tariffs, scale without depleting cash. For manufacturers, importers & distributors.",
+    shortDesc: "PO funding for growing manufacturers & importers. Scale orders without cash depletion. Manage tariffs, international suppliers.",
     fullDesc: "PO financing unlocks growth by funding purchase orders before you have customer cash in hand. This works for drop-shipped orders, international sourcing (including overseas suppliers), work-in-process goods, and inventory production. Real example: a specialty coffee importer faced demand surge from corporate roasters but was capped at $150K by their existing lender. Serve Funding secured a $1MM PO facility in 2 weeks, enabling them to pay overseas suppliers without delays, offset rising tariff costs through bulk orders, and fulfill new customer orders at scale. PO financing is ideal for manufacturers, distributors, e-commerce firms, and international traders managing complex supply chains.",
     features: [
       "Loan amounts from $250K to $50M",
@@ -337,10 +343,11 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "government-contracts",
     title: "Government Contracts",
+    seoTitle: "Government Contract Financing for Scaling Contractors",
     image: "/solutions/Government Contract Financing.webp",
     category: "Contract-Based",
     whatIs: "Government contract financing funds federal, state, and local contracts, covering payroll, materials, and upfront costs until government payment arrives (often 30-90+ days). Works for prime and subcontractors.",
-    shortDesc: "Fund government contracts without depleting working capital. Prime and subcontractor support, fast approval, and payment-cycle management.",
+    shortDesc: "Government contract financing. Fund federal, state & local contracts. For prime contractors, subcontractors & vendors.",
     fullDesc: "Government contract financing bridges the timing gap between contract performance and government payment (often 30-120 days). This covers upfront materials, labor, payroll, and project costs without depleting working capital. Works for federal, state, and local contracts, as well as subcontractors. This solution is essential for contractors competing in government space—government clients prefer contractors who can fund their own projects without requesting advance payments.",
     features: [
       "Financing facilities from $250K to $50MM+",
@@ -384,10 +391,11 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "real-estate-lending",
     title: "Real Estate Lending",
+    seoTitle: "Real Estate Financing for Business Growth",
     image: "/solutions/Raeal Estate Lending.webp",
     category: "Long-Term Financing",
     whatIs: "Real estate financing covers commercial property purchases, refinancing, cash-out refinancing, and business owner financing needs. Includes bridge loans (12-36 months) and permanent financing (25-30 year terms).",
-    shortDesc: "Bridge and long-term financing for commercial real estate. Purchases, refinancing, cash-out options, and acquisition timing.",
+    shortDesc: "Real estate financing for growing companies. Bridge loans, refinancing, cash-out options. Fast approval for acquisition timing.",
     fullDesc: "Real estate financing solutions cover all property types and purposes: industrial, office, retail, multi-family, mixed-use, and investment portfolios. Options include short-term bridge financing (12-36 months) for acquisition timing, permanent commercial loans (25-30 year amortization), refinancing with cash-out, and business owner financing. Work with banks, credit unions, institutional lenders, private investors, and equity funds. Real example: a surgeon used real estate financing as part of a layered capital strategy—securing a second mortgage on personal assets to provide additional runway during M&A.",
     features: [
       "Financing facilities from $500K to $100MM+",
@@ -429,10 +437,11 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "unsecured-debt",
     title: "Subordinated & Unsecured Credit",
+    seoTitle: "Unsecured Capital When Banks Say No",
     image: "/solutions/Unsecured & Sub-Debt Loans.webp",
     category: "Strategic Financing",
     whatIs: "Bridge capital provides quick, flexible financing without requiring collateral or personal guarantees. Perfect for acquisition timing gaps, M&A bridge needs, or 'stretch capital' when you've maxed traditional lenders. Includes unsecured term loans and subordinated/mezzanine financing.",
-    shortDesc: "Fast, flexible capital without collateral. Bridge deals, manage M&A, or stretch capacity when traditional lenders hit limits.",
+    shortDesc: "Subordinated & unsecured credit for growing companies. Stretch capital when banks say no. Bridge M&A and acquisitions.",
     fullDesc: "Bridge capital serves multiple strategic purposes: bridging time gaps during M&A (like a surgeon's sale timing), providing 'stretch capital' when you've maxed bank lines, funding seasonal needs without long-term debt, or structuring layered capital stacks. This includes interest-only bridge loans, unsecured term loans, and subordinated debt (mezzanine financing). Real example: a surgeon securing $1.475MM in bridge capital within weeks to cover year-end expenses while completing a hospital system acquisition. Another example: a growing medical device company layering $240K unsecured term loan with their AR revolver to move inventory ahead of tariff changes. Bridge capital is typically unsecured (no UCC filings, no personal guarantees on some products) and approved for 6-36 month terms.",
     features: [
       "Loan amounts from $50K to $20MM+ (scaled to your need)",
@@ -482,10 +491,11 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "bridge-funding",
     title: "Bridge Funding",
+    seoTitle: "Bridge Funding for Strategic Growth",
     image: "/solutions/Bridge Funding.webp",
     category: "Short-Term Capital",
     whatIs: "Bridge funding provides short-term capital to cover timing gaps, whether waiting for contracts to close, receivables to arrive, or larger financing to fund. Typically 6-12 months, interest-only structures available.",
-    shortDesc: "Quick capital for timing gaps. Bridge acquisitions, cover operating expenses, or connect to permanent financing.",
+    shortDesc: "Bridge funding for growing companies. Quick capital for timing gaps, acquisitions, and operational expenses.",
     fullDesc: "Bridge funding serves as flexible, short-term capital when you need immediate cash for time-sensitive situations. Whether you're awaiting contract closure, managing seasonal needs, or covering expenses before larger deals close, bridge financing provides the runway you need. Terms typically range from 6-12 months with interest-only payment options available.",
     features: [
       "Loan amounts from $50K to $5MM+",
@@ -516,10 +526,11 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "sba-loans",
     title: "SBA Loans",
+    seoTitle: "SBA Loans for Growing Small Businesses",
     image: "/solutions/Small Business Administration Loans.webp",
     category: "Government-Backed",
     whatIs: "SBA Loans are government-backed loans from banks offering lower interest rates and longer terms than traditional loans.",
-    shortDesc: "Tap into lower-interest and longer-term loans and lines of credit in Federal SBA programs for working capital & real estate financing.",
+    shortDesc: "SBA loans for established small businesses. Lower rates, longer terms. Working capital, equipment, real estate.",
     fullDesc: "SBA Loans foster small business growth by offering government-backed guarantees on loans from banks or credit unions. This support reduces lenders' risk, enabling businesses to secure essential capital. With options like the versatile 7(a) Loan for various needs, the 504 Loan for asset purchases, and the Express Loans for quick funding, SBA Loans cater to diverse business requirements.",
     features: [
       "Loan amounts from $250K to $5MM+",
@@ -542,12 +553,13 @@ export const fundingSolutions: FundingSolution[] = [
     {
     id: "debt-refinance",
     title: "Consolidation & Recapitalization",
+    seoTitle: "Debt Refinancing for Scaling Businesses",
     image: "/solutions/Consolidation and Recapitalization.webp",
     category: "Strategic Restructuring",
 
     whatIs: "Debt refinancing lets you replace high-cost debt (like merchant cash advances, expensive term loans, or multiple loan payments) with a single, more affordable financing solution. It's designed to free up cash flow, reduce monthly payments, and give your business breathing room to grow.",
 
-    shortDesc: "Refinance high-cost debt and consolidate multiple loans into one strategic solution. Escape MCA debt traps and reduce monthly payments.",
+    shortDesc: "Debt refinancing for growing companies. Consolidate loans, refinance MCAs, reduce payments by 30-50%. Cash out for growth.",
 
     fullDesc: "When your business is burdened by high-cost debt—whether it's merchant cash advances (MCAs), expensive equipment loans, or overlapping credit lines—debt refinancing provides a path forward. We help you consolidate and restructure debt into more manageable terms, often reducing your total cost of capital while freeing up working capital for growth. This solution is ideal for businesses trapped in daily or weekly MCA payments, facing renewal at high rates, or simply wanting to clean up their balance sheet.",
 

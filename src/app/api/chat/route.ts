@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk"
-import { websiteContext } from "@/lib/ai"
+import { buildAIContext } from "@/lib/ai"
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -12,7 +12,7 @@ interface ConversationMessage {
 
 export async function POST(request: Request) {
   try {
-    const { message, conversationHistory } = await request.json()
+    const { message, conversationHistory, userRole } = await request.json()
 
     if (!message) {
       return Response.json(
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
       model: "claude-haiku-4-5-20251001",
       max_tokens: 1024,
       betas: ["structured-outputs-2025-11-13"],
-      system: websiteContext,
+      system: buildAIContext(userRole),
       messages,
       output_format: {
         type: "json_schema",

@@ -1,9 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback, memo } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { X, Send, MessageCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { getAIResponse } from '@/lib/ai'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { trackChatbotSessionStart, trackChatbotMessage } from '@/lib/tracking'
 import { Button } from '@/components/ui'
@@ -16,11 +15,16 @@ interface Message {
   actionButtons?: Array<{ label: string; action: string }>
 }
 
-export function Chatbot() {
+interface ChatbotProps {
+  userRole?: string
+}
+
+export function Chatbot({ userRole }: ChatbotProps = {}) {
   const [isOpen, setIsOpen] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
   const [hasShownNotification, setHasShownNotification] = useState(false)
   const [aiContext, setAiContext] = useState('')
+  const [storedUserRole, setStoredUserRole] = useState<string | undefined>(userRole)
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -99,8 +103,16 @@ export function Chatbot() {
     setIsLoading(true)
 
     try {
-      // Get AI response with conversation history
-      const reply = await getAIResponse(inputValue, messages)
+      // Get AI response with conversation history and user role
+      const reply = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: inputValue,
+          conversationHistory: messages,
+          userRole: storedUserRole,
+        }),
+      }).then(res => res.json()).then(data => data.reply)
 
       // Parse JSON response (guaranteed to be JSON via API response_format)
       const parsed = JSON.parse(reply)

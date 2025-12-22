@@ -23,7 +23,7 @@ export const getOrganizationSchema = (config?: {
   }
 }) => ({
   "@context": "https://schema.org",
-  "@type": "FinancialService",
+  "@type": ["Organization", "LocalBusiness", "FinancialService"],
   "@id": "https://servefunding.com",
   "name": companyInfo.name,
   "description": companyInfo.description,
@@ -40,7 +40,7 @@ export const getOrganizationSchema = (config?: {
   },
   "areaServed": {
     "@type": "Country",
-    "name": "United States"
+    "name": "USA"
   },
   "foundingDate": `${companyInfo.founded.year}`,
   "founder": {
@@ -85,7 +85,7 @@ export const getFinancialServiceSchema = (service: {
   "description": service.fullDesc,
   "areaServed": {
     "@type": "Country",
-    "name": "United States"
+    "name": "USA"
   },
   "provider": {
     "@type": "Organization",
