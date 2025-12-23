@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import { CheckCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -18,7 +18,8 @@ import {
   SelectButtons,
   MultiSelectButtons,
 } from '@/components/ui'
-import { trackFormSubmission, trackHubSpotNativeForm } from '@/lib/tracking'
+import { useFormSubmit, FormSubmitData } from '@/hooks/useFormSubmit'
+import { useDealInquiryForm } from '@/hooks/useDealInquiryForm'
 import { COLORS } from '@/lib/colors'
 
 // US States for form
@@ -66,148 +67,8 @@ export function FormSuccessContent({
   )
 }
 
-// Hook for form submission logic
-export interface FormSubmitData {
-  firstname?: string
-  lastname?: string
-  name?: string
-  email?: string
-  phone?: string
-  company?: string
-  capital_for?: string
-  contact_us_details?: string
-  partnership_for__commercial_banking__advisory_?: string
-  // Deal inquiry expanded fields
-  user_role?: string
-  business_industry?: string
-  time_in_business?: string
-  annual_revenue?: string
-  financing_needs?: string[]
-  funding_amount?: string
-  owner_credit_score?: string
-  company_state?: string
-}
-
-export function useFormSubmit(
-  formType: string,
-  webhookUrl?: string,
-  calendlyUrl?: string,
-  onAfterSubmit?: (data: FormSubmitData) => void
-) {
-  const [success, setSuccess] = useState(false)
-  const [formData, setFormData] = useState<FormSubmitData>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const form = e.currentTarget
-    setIsSubmitting(true)
-
-    // Capture form data
-    const rawFormData = new FormData(form)
-    const data: Record<string, any> = {}
-    const webhookData: Record<string, any> = {} // Complete data for webhook (includes honeypot)
-    const financingNeeds: string[] = []
-    const honeypot = rawFormData.get('company_phone') as string
-
-    // Check honeypot - if filled, it's likely a bot, so silently succeed without processing
-    if (honeypot) {
-      setTimeout(() => {
-        setSuccess(true)
-        form.reset()
-        setIsSubmitting(false)
-      }, 300)
-      return
-    }
-
-    rawFormData.forEach((value, key) => {
-      // Build webhook data with all fields including honeypot
-      if (key === 'financing_needs') {
-        financingNeeds.push(value as string)
-        webhookData[key] = webhookData[key] ? [...webhookData[key], value] : [value]
-      } else {
-        webhookData[key] = value as string
-      }
-
-      // Handle multi-select checkboxes (financing_needs) and skip honeypot for HubSpot data
-      if (key === 'financing_needs') {
-        financingNeeds.push(value as string)
-      } else if (key !== 'company_phone') {
-        data[key] = value as string
-      }
-    })
-
-    const submittedFormData: FormSubmitData = {
-      firstname: data.firstname || '',
-      lastname: data.lastname || '',
-      name: data.name || '',
-      email: data.email || '',
-      phone: data.phone || '',
-      company: data.company || '',
-      capital_for: data.capital_for || '',
-      contact_us_details: data.contact_us_details || '',
-      partnership_for__commercial_banking__advisory_: data.partnership_for__commercial_banking__advisory_ || '',
-      // Deal inquiry expanded fields
-      user_role: data.user_role || '',
-      business_industry: data.business_industry || '',
-      time_in_business: data.time_in_business || '',
-      annual_revenue: data.annual_revenue || '',
-      financing_needs: financingNeeds,
-      funding_amount: data.funding_amount || '',
-      owner_credit_score: data.owner_credit_score || '',
-      company_state: data.company_state || '',
-    }
-
-    setFormData(submittedFormData)
-
-    // Track form submission to Umami
-    trackFormSubmission(formType)
-    // Track non-HubSpot form submission so it appears in HubSpot
-    trackHubSpotNativeForm(formType, form)
-
-    // HubSpot: The tracking code in layout.tsx automatically captures this form submission
-    // Webhook: Send to webhook if provided
-    if (webhookUrl) {
-      try {
-        const webhookPayload = {
-          ...webhookData,
-          formType,
-          financing_needs: financingNeeds, // Ensure financing_needs is an array
-          submittedAt: new Date().toISOString(),
-        }
-        await fetch('/api/webhook', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            webhookUrl,
-            ...webhookPayload,
-          }),
-        })
-      } catch (error) {
-        console.error('Webhook submission error:', error)
-      }
-    }
-
-    // Small delay to ensure tracking completes, then proceed
-    setTimeout(() => {
-      if (onAfterSubmit) {
-        onAfterSubmit(submittedFormData)
-      }
-
-      if (calendlyUrl) {
-        // Open Calendly in new tab for intro/partner forms
-        window.open(calendlyUrl, '_blank')
-      } else {
-        // Show success page for other forms
-        setSuccess(true)
-      }
-      form.reset()
-      setIsSubmitting(false)
-    }, 300)
-  }
-
-  return { success, handleSubmit, formData, isSubmitting }
-}
+// Re-export FormSubmitData for components that need it
+export type { FormSubmitData } from '@/hooks/useFormSubmit'
 
 // Form Container with consistent styling across all forms
 function FormContainer({
@@ -472,7 +333,8 @@ interface FormQuestion {
   rows?: number
 }
 
-const questions: FormQuestion[] = [
+// Questions array - must be kept in sync with useDealInquiryForm hook
+export const questions: FormQuestion[] = [
   {
     id: 'user_role',
     type: 'button-group',
@@ -556,116 +418,33 @@ const questions: FormQuestion[] = [
 export function DealInquiryForm({
   onSubmitSuccess,
 }: DealInquiryFormProps = {}) {
-  const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
-  const [userRole, setUserRole] = useState('')
-  const [businessIndustry, setBusinessIndustry] = useState('')
-  const [timeInBusiness, setTimeInBusiness] = useState('')
-  const [annualRevenue, setAnnualRevenue] = useState('')
-  const [financingNeeds, setFinancingNeeds] = useState<string[]>([])
-  const [fundingAmount, setFundingAmount] = useState('')
-  const [ownerCreditScore, setOwnerCreditScore] = useState('')
-  const [contactUsDetails, setContactUsDetails] = useState('')
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [company, setCompany] = useState('')
-  const [companyState, setCompanyState] = useState('')
-
-  const { success, handleSubmit: baseHandleSubmit, formData, isSubmitting } = useFormSubmit(
-    'deal_inquiry',
-    'https://aiascend.app.n8n.cloud/webhook/sf-inquiry',
-    '',
-    (data) => {
-      // Store form data for the chat interface and call callback
-      if (onSubmitSuccess) {
-        onSubmitSuccess(data)
-      }
-    }
-  )
+  const {
+    currentQuestion,
+    selectedAnswer,
+    userRole,
+    businessIndustry,
+    timeInBusiness,
+    annualRevenue,
+    financingNeeds,
+    fundingAmount,
+    ownerCreditScore,
+    contactUsDetails,
+    name,
+    email,
+    phone,
+    company,
+    companyState,
+    success,
+    formData,
+    getFieldValue,
+    setFieldValue,
+    handleAnswer,
+    moveToNextQuestion,
+    handleSubmit,
+  } = useDealInquiryForm(onSubmitSuccess)
 
   const currentQ = questions[currentQuestion]
   const totalQuestions = questions.length
-
-  const getFieldValue = (fieldId: string) => {
-    switch (fieldId) {
-      case 'user_role': return userRole
-      case 'business_industry': return businessIndustry
-      case 'time_in_business': return timeInBusiness
-      case 'annual_revenue': return annualRevenue
-      case 'financing_needs': return financingNeeds
-      case 'funding_amount': return fundingAmount
-      case 'owner_credit_score': return ownerCreditScore
-      case 'contact_us_details': return contactUsDetails
-      case 'name': return name
-      case 'email': return email
-      case 'phone': return phone
-      case 'company': return company
-      case 'company_state': return companyState
-      default: return ''
-    }
-  }
-
-  const setFieldValue = (fieldId: string, value: any) => {
-    switch (fieldId) {
-      case 'user_role': setUserRole(value); break
-      case 'business_industry': setBusinessIndustry(value); break
-      case 'time_in_business': setTimeInBusiness(value); break
-      case 'annual_revenue': setAnnualRevenue(value); break
-      case 'financing_needs': setFinancingNeeds(value); break
-      case 'funding_amount': setFundingAmount(value); break
-      case 'owner_credit_score': setOwnerCreditScore(value); break
-      case 'contact_us_details': setContactUsDetails(value); break
-      case 'name': setName(value); break
-      case 'email': setEmail(value); break
-      case 'phone': setPhone(value); break
-      case 'company': setCompany(value); break
-      case 'company_state': setCompanyState(value); break
-    }
-  }
-
-  const handleAnswer = (value: any) => {
-    setFieldValue(currentQ.id, value)
-    setSelectedAnswer(value)
-
-    if (currentQ.autoAdvance) {
-      // Delay advancement to show highlight effect
-      setTimeout(() => {
-        moveToNextQuestion()
-        setSelectedAnswer(null)
-      }, 600)
-    }
-  }
-
-  const moveToNextQuestion = () => {
-    if (currentQuestion < totalQuestions - 1) {
-      setCurrentQuestion(currentQuestion + 1)
-    }
-  }
-
-  const handleContinue = () => {
-    moveToNextQuestion()
-  }
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    // Build form data object for submission
-    const form = e.currentTarget
-    const formElement = new FormData(form)
-
-    // Manually set all hidden inputs
-    const hiddenInputs = form.querySelectorAll('input[type="hidden"]')
-    hiddenInputs.forEach(input => {
-      const name = (input as HTMLInputElement).name
-      const value = (input as HTMLInputElement).value
-      if (!formElement.has(name)) {
-        formElement.set(name, value)
-      }
-    })
-
-    await baseHandleSubmit(e)
-  }
 
   return (
     <>
@@ -726,7 +505,7 @@ export function DealInquiryForm({
                 variant="default"
                 size="lg"
                 type="button"
-                onClick={handleContinue}
+                onClick={moveToNextQuestion}
                 disabled={!getFieldValue(currentQ.id) || (Array.isArray(getFieldValue(currentQ.id)) && getFieldValue(currentQ.id).length === 0)}
               >
                 Continue
@@ -748,7 +527,7 @@ export function DealInquiryForm({
                 variant="default"
                 size="lg"
                 type="button"
-                onClick={handleContinue}
+                onClick={moveToNextQuestion}
               >
                 Continue
               </Button>
@@ -769,7 +548,7 @@ export function DealInquiryForm({
                 variant="default"
                 size="lg"
                 type="button"
-                onClick={handleContinue}
+                onClick={moveToNextQuestion}
                 disabled={currentQ.required && !getFieldValue(currentQ.id)}
               >
                 Continue
@@ -796,7 +575,7 @@ export function DealInquiryForm({
                   name="name"
                   label="Name"
                   value={name}
-                  onChange={(e) => setName(e.currentTarget.value)}
+                  onChange={(e) => setFieldValue('name', e.currentTarget.value)}
                   required
                 />
                 <FormInput
@@ -804,7 +583,7 @@ export function DealInquiryForm({
                   name="email"
                   label="Email"
                   value={email}
-                  onChange={(e) => setEmail(e.currentTarget.value)}
+                  onChange={(e) => setFieldValue('email', e.currentTarget.value)}
                   required
                 />
               </FormGroup>
@@ -815,7 +594,7 @@ export function DealInquiryForm({
                   name="phone"
                   label="Phone"
                   value={phone}
-                  onChange={(e) => setPhone(e.currentTarget.value)}
+                  onChange={(e) => setFieldValue('phone', e.currentTarget.value)}
                   required
                 />
                 <FormInput
@@ -823,7 +602,7 @@ export function DealInquiryForm({
                   name="company"
                   label="Company Name"
                   value={company}
-                  onChange={(e) => setCompany(e.currentTarget.value)}
+                  onChange={(e) => setFieldValue('company', e.currentTarget.value)}
                   required
                 />
               </FormGroup>
@@ -832,7 +611,7 @@ export function DealInquiryForm({
                 label="Company State"
                 name="company_state"
                 value={companyState}
-                onChange={(e) => setCompanyState(e.target.value)}
+                onChange={(e) => setFieldValue('company_state', e.target.value)}
                 options={US_STATES}
                 placeholder="Select state"
               />
