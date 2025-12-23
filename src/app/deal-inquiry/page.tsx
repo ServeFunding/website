@@ -93,10 +93,11 @@ export default function DealInquiryPage() {
               {view === 'calendly' && (
                 <div className="flex flex-col gap-6">
                   <CalendlyWidget
-                    name={formData.name || formData.firstname}
-                    email={formData.email}
-                    dealContext={dealContext}
+                    name={formData.name || formData.firstname || 'Guest'}
+                    email={formData.email || ''}
+                    dealContext={dealContext || ''}
                     height="700px"
+                    calendlyUrl={formData.calendly_url || 'https://calendly.com/michael_kodinsky/discovery'}
                   />
                 </div>
               )}

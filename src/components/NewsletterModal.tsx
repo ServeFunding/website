@@ -5,7 +5,8 @@ import Image from 'next/image'
 import { X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Heading, Text } from '@/components/ui'
-import { NewsletterModalForm, useFormSubmit } from '@/components/Forms'
+import { NewsletterModalForm } from '@/components/Forms'
+import { useFormSubmit } from '@/hooks/useFormSubmit'
 import { COLORS } from '@/lib/colors'
 
 export function NewsletterModal() {

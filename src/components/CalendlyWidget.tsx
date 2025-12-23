@@ -10,13 +10,14 @@ declare global {
 }
 
 interface CalendlyWidgetProps {
-  name?: string
-  email?: string
-  dealContext?: string
+  name: string
+  email: string
+  dealContext: string
+  calendlyUrl: string
   height?: string
 }
 
-export function CalendlyWidget({ name, email, dealContext, height = '700px' }: CalendlyWidgetProps) {
+export function CalendlyWidget({ name, email, dealContext, height = '700px', calendlyUrl }: CalendlyWidgetProps) {
   // Build URL with prefilled parameters
   const params = new URLSearchParams({
     hide_event_type_details: '1',
@@ -28,8 +29,9 @@ export function CalendlyWidget({ name, email, dealContext, height = '700px' }: C
     ...(dealContext && { a1: dealContext.substring(0, 500) }),
   })
 
-  // Replace + with %20 for proper URL encoding (Calendly expects %20 for spaces, not +)
-  const url = `https://calendly.com/michael_kodinsky/discovery?${params.toString().replace(/\+/g, '%20')}`
+  // Use passed calendlyUrl or default to Michael's discovery call
+  const baseUrl = calendlyUrl
+  const url = `${baseUrl}?${params.toString().replace(/\+/g, '%20')}`
 
   useEffect(() => {
     // If Calendly is already loaded, just initialize
