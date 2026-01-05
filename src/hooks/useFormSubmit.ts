@@ -52,13 +52,33 @@ export function useFormSubmit(
     const financingNeeds: string[] = []
     const honeypot = rawFormData.get('company_phone') as string
 
-    // Check honeypot - if filled, it's likely a bot, so silently succeed without processing
-    // Block the form submission entirely so HubSpot doesn't capture spam
+    // Check honeypot - if filled, it's likely a bot
+    // Send to webhook for logging/visibility, but skip HubSpot
     if (honeypot) {
-      // Prevent any tracking or submission
+      // Build webhook payload for spam detection
+      if (webhookUrl) {
+        try {
+          const spamPayload = {
+            ...webhookData,
+            formType,
+            is_spam: true,
+            submittedAt: new Date().toISOString(),
+          }
+          await fetch('/api/webhook', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              webhookUrl,
+              ...spamPayload,
+            }),
+          })
+        } catch (error) {
+          console.error('Spam webhook submission error:', error)
+        }
+      }
       form.reset()
       setIsSubmitting(false)
-      // Silently fail - no success state, no tracking, no webhook
+      // Silently fail - no success state, no HubSpot tracking
       return
     }
 

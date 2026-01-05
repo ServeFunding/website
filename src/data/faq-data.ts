@@ -198,17 +198,224 @@ export const workingCapitalFAQs: FAQ[] = [
   {
     id: 'what-if-cash-flow-irregular',
     q: 'What if my cash flow is irregular or seasonal?',
-    a: 'Seasonal and irregular cash flow don\'t disqualify you—they\'re actually perfect reasons to seek working capital. Businesses need financing to maintain payroll and inventory during slow periods while preparing for busy ones. Revolving lines of credit, working capital loans, and invoice factoring all work well for seasonal businesses. Landscaping, retail, hospitality, and tourism companies commonly use working capital to bridge seasonal gaps.'
+    a: 'Seasonal and irregular cash flow don\'t disqualify you—they\'re actually perfect reasons to seek working capital. Businesses need financing to maintain payroll and inventory during slow periods while preparing for busy ones. Revolving lines of credit, working capital loans, and invoice factoring all work well for seasonal businesses. Landscaping, retail, hospitality, and tourism companies commonly use working capital to bridge seasonal gaps.',
+    relatedSolutions: ['working-capital-loans', 'invoice-factoring', 'asset-based-lending']
   },
   {
     id: 'can-get-wc-for-payroll',
     q: 'Can I get working capital for payroll emergencies?',
-    a: 'Absolutely. Payroll emergencies from delayed customer payments, depleted cash reserves, or unexpected expenses are common drivers for working capital. When payroll is due but cash flow hasn\'t caught up, time isn\'t just money—it\'s team trust and operational stability. We can fund payroll emergencies in 1-2 business days through short-term bridge loans or invoice factoring without exploiting your urgency.'
+    a: 'Absolutely. Payroll emergencies from delayed customer payments, depleted cash reserves, or unexpected expenses are common drivers for working capital. When payroll is due but cash flow hasn\'t caught up, time isn\'t just money—it\'s team trust and operational stability. We can fund payroll emergencies in 1-2 business days through short-term bridge loans or invoice factoring without exploiting your urgency.',
+    relatedSolutions: ['working-capital-loans', 'invoice-factoring', 'bridge-funding']
   },
   {
     id: 'what-credit-score-needed',
     q: 'What credit score do I need for business financing?',
-    a: 'Credit score requirements vary by solution. Asset-based lending and invoice factoring focus on collateral value (550+ credit often acceptable). Term loans and lines of credit typically require 600-650+ for approval. Debt refinancing and MCA consolidation can work with 550+ if you have strong revenue and assets. The key advantage of alternative financing is that credit score is just one factor—revenue, assets, and business trajectory matter more.'
+    a: 'Credit score requirements vary by solution. Asset-based lending and invoice factoring focus on collateral value (550+ credit often acceptable). Term loans and lines of credit typically require 600-650+ for approval. Debt refinancing and MCA consolidation can work with 550+ if you have strong revenue and assets. The key advantage of alternative financing is that credit score is just one factor—revenue, assets, and business trajectory matter more.',
+    relatedSolutions: ['asset-based-lending', 'invoice-factoring', 'working-capital-loans', 'debt-refinance']
+  }
+]
+
+// ============================================================================
+// SOLUTION-SPECIFIC FAQs
+// ============================================================================
+
+export const solutionSpecificFAQs: FAQ[] = [
+  // Asset-Based Lending
+  {
+    id: "what-is-abl",
+    q: "What is asset-based lending?",
+    a: "Asset-based lending (ABL) is a flexible credit line that lets you borrow against your company's assets like accounts receivable, inventory, equipment, and real estate.",
+    relatedSolutions: ["asset-based-lending"]
+  },
+  {
+    id: "how-much-can-borrow-abl",
+    q: "How much can I borrow with ABL?",
+    a: "Most typical ABL asset-based lenders start their facilities sizes from 3-5 million and up. However, at Serve Funding, we can facilitate ABL lines from as low as $250K. Advance rates are: 70-90% of accounts receivable, 50-75% of inventory, and 40-70% of equipment.",
+    relatedSolutions: ["asset-based-lending"]
+  },
+  {
+    id: "abl-rates",
+    q: "What are typical ABL rates?",
+    a: "Interest rates typically range from Prime + 1% to Prime + 5%. You may also pay a facility fee and monthly service fees.",
+    relatedSolutions: ["asset-based-lending"]
+  },
+
+  // Invoice Factoring
+  {
+    id: "what-is-invoice-factoring",
+    q: "What is invoice factoring?",
+    a: "Invoice factoring is when you sell your unpaid B2B invoices to a factor for immediate cash. You get 75-95% of invoice value within 24-48 hours instead of waiting 30-90 days. Unlike a term loan, factoring is self-liquidating—as customers pay, the debt automatically decreases.",
+    relatedSolutions: ["invoice-factoring"]
+  },
+  {
+    id: "how-quickly-cash-factoring",
+    q: "How quickly can I get cash?",
+    a: "Approval typically takes 2-3 weeks. Once approved, you receive 75-95% of invoice value within 24-48 hours. Our real example: healthcare supply manufacturer approved and funded in 3 weeks, then expanded from $1MM to $1.5MM within 2 months as sales grew.",
+    relatedSolutions: ["invoice-factoring"]
+  },
+  {
+    id: "tax-return-factoring",
+    q: "Can I get factoring if my tax return shows a loss?",
+    a: "Yes! This is one of factoring's biggest advantages over traditional bank loans. Banks look at tax returns. We look at invoices. If your customers are paying reliably and your invoices are strong, your tax return doesn't disqualify you. Your invoice quality and customer creditworthiness are what matter.",
+    relatedSolutions: ["invoice-factoring"]
+  },
+  {
+    id: "factoring-vs-bank-loan",
+    q: "Why is factoring better than a bank line of credit?",
+    a: "Factoring is self-liquidating (debt decreases as customers pay), scales automatically with your sales, has no balance sheet impact, and doesn't require collateral beyond your invoices. Banks require strong credit, tax returns, and collateral—and their rates are often higher. A real example: one client got Prime + 2% on AR factoring (single-digit when combined), vs. traditional bank rates of 8-13%.",
+    relatedSolutions: ["invoice-factoring"]
+  },
+  {
+    id: "factoring-selective",
+    q: "Do I have to factor all my invoices?",
+    a: "No. Selective factoring lets you choose which invoices to factor and which to collect yourself. This flexibility is perfect for businesses with mixed payment terms or situations where you only need cash during specific periods.",
+    relatedSolutions: ["invoice-factoring"]
+  },
+
+  // Working Capital Loans
+  {
+    id: "what-is-wc-loan",
+    q: "What is a working capital loan?",
+    a: "Short-term financing for day-to-day operational expenses: payroll, inventory, accounts payable. Working capital loans focus on a company's historical revenue, rather than credit scores and the company's assets.",
+    relatedSolutions: ["working-capital-loans"]
+  },
+  {
+    id: "how-fast-approval-wc",
+    q: "How fast can I get approved and funded?",
+    a: "Working capital loans are the fastest funding product. Approval typically takes 1–3 business days, with funding within 2–10 business days of approval.",
+    relatedSolutions: ["working-capital-loans"]
+  },
+  {
+    id: "wc-loan-cost",
+    q: "What does it cost?",
+    a: "You can expect to pay anywhere from 1.25% to 4% per month for these products. The rates vary depending upon a number of factors, such as industry, time in business, and profitability.",
+    relatedSolutions: ["working-capital-loans"]
+  },
+  {
+    id: "rbf-approval-funding",
+    q: "What is the fastest timeline for RBF?",
+    a: "Revenue-based financing is the fastest funding product. Approval typically takes 1–3 business days with funding within 1–5 business days of approval.",
+    relatedSolutions: ["working-capital-loans"]
+  },
+
+  // Purchase Order Funding
+  {
+    id: "po-international-suppliers",
+    q: "Can PO financing work with international suppliers?",
+    a: "Yes. PO financing specifically supports payments to overseas suppliers (China, India, Vietnam, etc.). This is especially valuable when managing tariff costs—you can negotiate bulk discounts upfront and use PO financing to fund the larger order, offsetting tariff expenses.",
+    relatedSolutions: ["purchase-order-funding"]
+  },
+  {
+    id: "po-tariff-management",
+    q: "How does PO financing help with tariff costs?",
+    a: "When tariffs spike or change, bulk orders at lower per-unit costs can offset the tariff impact. PO financing lets you fund larger upfront orders without depleting working capital. Real example: an importer used their $1MM facility to bulk-order from suppliers before tariff changes, saving significantly on per-unit costs.",
+    relatedSolutions: ["purchase-order-funding"]
+  },
+  {
+    id: "po-wip-goods",
+    q: "Does PO financing cover work-in-process (WIP) goods?",
+    a: "Yes. PO financing covers work-in-process inventory, finished goods, and production materials. This is perfect for manufacturers who need to finance production before customer payment arrives.",
+    relatedSolutions: ["purchase-order-funding"]
+  },
+  {
+    id: "po-how-fast",
+    q: "How quickly can I get PO financing?",
+    a: "Approval typically takes 2-4 weeks. Once approved, funding releases in 5-10 business days for most orders. For established facilities, the process moves even faster—sometimes closing in 10-15 days total.",
+    relatedSolutions: ["purchase-order-funding"]
+  },
+
+  // Government Contracts
+  {
+    id: "gov-contract-payment-timing",
+    q: "How does government contract financing work with payment timing?",
+    a: "Government contracts often have 30-90+ day payment terms (net-30, net-60, net-90, or quarterly). Contract financing covers your costs (materials, payroll, subcontractors) upfront, then is repaid when government payment arrives. Fast example: $500K in 20 business days for a contractor who won a federal GSA contract.",
+    relatedSolutions: ["government-contracts"]
+  },
+  {
+    id: "gov-contract-subcontractor",
+    q: "Can subcontractors get government contract financing?",
+    a: "Yes. Many subcontractors face the same timing gap—they perform work, then wait 30-60+ days for prime contractor or government payment. We fund subcontractors frequently. Qualification depends on strong POs and credit history of the paying entity.",
+    relatedSolutions: ["government-contracts"]
+  },
+  {
+    id: "gov-contract-retainage",
+    q: "How do you handle retainage on government contracts?",
+    a: "Government contracts often retain 5-10% of payments until project completion. Financing structures account for this. Some facilities factor the retainage separately or provide bridge coverage until final retainage payment arrives.",
+    relatedSolutions: ["government-contracts"]
+  },
+
+  // Real Estate Lending
+  {
+    id: "cre-bridge-timing",
+    q: "What is a bridge loan in real estate?",
+    a: "A bridge loan is short-term real estate financing (12-36 months, interest-only common) used for timing gaps. Example: you're selling one property and need to close on another before the sale completes. Bridge financing covers the gap, then refinances from sale proceeds. Close in 2-3 weeks.",
+    relatedSolutions: ["real-estate-lending"]
+  },
+  {
+    id: "personal-asset-refi",
+    q: "Can I refinance personal real estate for business needs?",
+    a: "Yes. Business owners can use second mortgages on personal residences or real estate assets to fund business operations, provide stretch capital, or acquire real estate. We've structured $550K second mortgages using bank-statement-only approaches for business owners needing flexible qualification.",
+    relatedSolutions: ["real-estate-lending"]
+  },
+  {
+    id: "cre-cash-out",
+    q: "Can I do a cash-out refinance and use it for working capital?",
+    a: "Yes. Many business owners refinance commercial property at higher LTV to extract equity for working capital, acquisitions, or other business needs. LTV typically ranges 50-75% depending on property type and lender.",
+    relatedSolutions: ["real-estate-lending"]
+  },
+
+  // Unsecured/Subordinated Debt
+  {
+    id: "bridge-vs-term-loan",
+    q: "What's the difference between bridge capital and a term loan?",
+    a: "Bridge capital is typically shorter-term (6-36 months), unsecured, and designed for specific timing gaps (acquisitions, M&A closings, seasonal needs). Term loans are longer (3-5 years), secured, and sit as permanent debt. Bridge is 'get in, get out' capital; terms loans are permanent structure. Real example: a surgeon used bridge financing for 90 days until hospital acquisition closed, then refinanced into permanent capital.",
+    relatedSolutions: ["unsecured-debt"]
+  },
+  {
+    id: "bridge-acquisition-timing",
+    q: "How does bridge financing work for M&A?",
+    a: "You need capital now but large payment arrives after closing. Bridge financing covers the gap. Interest-only options mean you pay interest during the bridge period, then refinance from deal proceeds. Typical timeframe: 90-180 days. We've closed $1.475MM M&A bridge in weeks.",
+    relatedSolutions: ["unsecured-debt"]
+  },
+  {
+    id: "unsecured-stretch-capital",
+    q: "Can I get unsecured bridge capital without collateral?",
+    a: "Yes, in many cases. Unsecured bridge loans don't require collateral, UCC filings, or (on some products) personal guarantees. Qualification depends on revenue history and growth trajectory. Growing companies with $1MM+ revenue often qualify for unsecured bridge capital.",
+    relatedSolutions: ["unsecured-debt"]
+  },
+  {
+    id: "layered-capital-strategy",
+    q: "What is layered capital and how does it work?",
+    a: "Layered capital combines multiple funding sources (e.g., AR revolver + unsecured term + second lien mortgage). This maximizes available capital for growth phases. Example: a medical device company used $1MM AR revolver + $240K unsecured term + $550K second mortgage = $1.79MM total capital over 10 months, enabling 30%+ growth.",
+    relatedSolutions: ["unsecured-debt"]
+  },
+
+  // Bridge Funding
+  {
+    id: "bridge-when-use",
+    q: "When should I use bridge funding?",
+    a: "Bridge funding is ideal for timing gaps: awaiting contract closure, waiting for receivables, managing seasonal needs, or covering expenses before larger financing arrives.",
+    relatedSolutions: ["bridge-funding"]
+  },
+
+  // Debt Refinance
+  {
+    id: "what-is-debt-refinance",
+    q: "What is debt refinancing for businesses?",
+    a: "Debt refinancing replaces your existing high-cost debt with new financing at better terms. It's commonly used to escape MCA debt traps, consolidate multiple loans, or simply reduce your total cost of borrowing.",
+    relatedSolutions: ["debt-refinance"]
+  },
+  {
+    id: "can-refinance-mca",
+    q: "Can I refinance merchant cash advance debt?",
+    a: "Yes. MCA refinancing is one of our most common solutions. We help businesses trapped in daily or weekly MCA payments consolidate into monthly term loans or lines of credit with significantly lower costs.",
+    relatedSolutions: ["debt-refinance", "working-capital-loans"]
+  },
+  {
+    id: "how-much-save-refinancing",
+    q: "How much can I save by refinancing?",
+    a: "Most clients reduce monthly payments by 30-50% and lower their total cost of capital by 5-10 percentage points annually. The exact savings depend on your current debt structure and available collateral.",
+    relatedSolutions: ["debt-refinance"]
   }
 ]
 
@@ -218,5 +425,6 @@ export const workingCapitalFAQs: FAQ[] = [
 
 export const allFAQs: FAQ[] = [
   ...aboutServeFundingFAQs,
-  ...workingCapitalFAQs
+  ...workingCapitalFAQs,
+  ...solutionSpecificFAQs
 ]
