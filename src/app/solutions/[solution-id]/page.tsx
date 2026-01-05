@@ -1,5 +1,6 @@
 import { fundingSolutions } from '@/data/solutions'
 import { blogPosts } from '@/data/blog-posts'
+import { solutionSpecificFAQs } from '@/data/faq-data'
 import { getOrganizationSchema, getFinancialServiceSchema } from '@/lib/schema-generators'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
 import Link from 'next/link'
@@ -86,7 +87,6 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
             shortDesc: solution.shortDesc,
             fullDesc: solution.fullDesc,
             features: solution.features,
-            ratesAndTerms: solution.ratesAndTerms,
           }),
         ]}
       />
@@ -130,43 +130,37 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                 </Text>
               </div>
 
-              {/* Key Details Table */}
-              {solution.ratesAndTerms && (
-                <table className="w-full border-collapse border border-olive-green">
+              {/* Rates & Benefits Highlights Table */}
+              {solution.features && solution.features.length > 0 && (
+                <table className="w-full border-collapse border border-olive-green mt-8">
                   <tbody>
-                    <tr className="bg-gold-light/20">
-                      <td className="border border-olive-green p-4 font-semibold text-olive-green">Typical Amount</td>
-                      <td className="border border-olive-green p-4">
-                        {solution.ratesAndTerms.minAmount} - {solution.ratesAndTerms.maxAmount}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border border-olive-green p-4 font-semibold text-olive-green">Cost</td>
-                      <td className="border border-olive-green p-4">
-                        {solution.ratesAndTerms.interestRate ||
-                         solution.ratesAndTerms.factorFeeRange ||
-                         solution.ratesAndTerms.monthlyFactorRate}
-                      </td>
-                    </tr>
-                    <tr className="bg-gold-light/20">
-                      <td className="border border-olive-green p-4 font-semibold text-olive-green">Funding Timeline</td>
-                      <td className="border border-olive-green p-4">
-                        {solution.ratesAndTerms.closingTimeframe ||
-                         solution.ratesAndTerms.fundingSpeed ||
-                         solution.ratesAndTerms.fundingTime}
-                      </td>
-                    </tr>
-                    {solution.bestFor && (
-                      <tr>
-                        <td className="border border-olive-green p-4 font-semibold text-olive-green">Best For</td>
-                        <td className="border border-olive-green p-4">
-                          {solution.bestFor.join(', ')}
-                        </td>
-                      </tr>
-                    )}
+                    {(() => {
+                      // Extract key highlights from features
+                      const facilitySize = solution.features.find(f => f.toLowerCase().includes('size') || f.toLowerCase().includes('amount')) || ''
+                      const costOfCapital = solution.features.find(f => f.toLowerCase().includes('cost') || f.toLowerCase().includes('rate')) || ''
+                      const fundingTimeline = solution.features.find(f => f.toLowerCase().includes('funding') || f.toLowerCase().includes('timeline')) || ''
+                      const bestForText = solution.bestFor?.join(', ') || ''
+
+                      const highlights = [
+                        { label: "Facility/Loan Size", value: facilitySize },
+                        { label: "Cost of Capital", value: costOfCapital },
+                        { label: "Funding Timeline", value: fundingTimeline },
+                        { label: "Best For", value: bestForText }
+                      ]
+
+                      return highlights.map((item, index) => (
+                        item.value && (
+                          <tr key={index} className={index % 2 === 0 ? "bg-gold-light/20" : ""}>
+                            <td className="border border-olive-green p-4 font-semibold text-olive-green w-1/4">{item.label}</td>
+                            <td className="border border-olive-green p-4">{item.value}</td>
+                          </tr>
+                        )
+                      ))
+                    })()}
                   </tbody>
                 </table>
               )}
+
             </div>
           </Container>
         </Section>
@@ -193,41 +187,22 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
           </Container>
         </Section>
 
-        {/* Rates & Terms Section */}
-        {solution.ratesAndTerms && (
-          <Section background="gray">
-            <Container>
-              <div className="max-w-4xl mx-auto">
-                <Heading size="h2" className="mb-6">Rates & Terms</Heading>
-                <div className="p-8 rounded-lg bg-gold-light/20 border border-olive-green">
-                  <table className="w-full">
-                    <tbody>
-                      {Object.entries(solution.ratesAndTerms).map(([key, value]) => (
-                        <tr key={key} className="border-b border-olive-green last:border-b-0">
-                          <td className="py-3 font-semibold capitalize text-olive-green">
-                            {key.replace(/([A-Z])/g, ' $1').trim()}
-                          </td>
-                          <td className="py-3 text-right text-gray-700">{String(value)}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </Container>
-          </Section>
-        )}
 
         {/* FAQ Section - AIEO Optimized */}
-        {solution.commonQuestions && solution.commonQuestions.length > 0 && (
-          <FAQSectionWithSchema
-            title={`${getTitleAsString(solution.title)} - Common Questions`}
-            description={`Get answers to the most common questions about ${getTitleAsString(solution.title).toLowerCase()}`}
-            faqs={solution.commonQuestions}
-            background="white"
-            schemaName={getTitleAsString(solution.title)}
-          />
-        )}
+        {(() => {
+          const relatedFAQs = solutionSpecificFAQs.filter(
+            faq => faq.relatedSolutions?.includes(solution.id)
+          )
+          return relatedFAQs.length > 0 && (
+            <FAQSectionWithSchema
+              title={`${getTitleAsString(solution.title)} - Common Questions`}
+              description={`Get answers to the most common questions about ${getTitleAsString(solution.title).toLowerCase()}`}
+              faqs={relatedFAQs}
+              background="gray"
+              schemaName={getTitleAsString(solution.title)}
+            />
+          )
+        })()}
 
         {/* CTA Button Section */}
         <CTA
@@ -237,25 +212,6 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
           useBG
         />
 
-        {/* Qualification Criteria */}
-        {solution.qualificationCriteria && Object.keys(solution.qualificationCriteria).length > 0 && (
-          <Section background="gray">
-            <Container>
-              <div className="max-w-4xl mx-auto">
-                <Heading size="h2" className="mb-6">Who Qualifies?</Heading>
-                <div className="p-6 rounded-lg bg-gold-light/10 border border-gold-light/50">
-                  <ul className="space-y-3">
-                    {Object.entries(solution.qualificationCriteria).map(([key, value]) => (
-                      <li key={key}>
-                        <Text><span className="font-semibold capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}:</span>{' '}{String(value)}</Text>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </Container>
-          </Section>
-        )}
 
         {/* Related Blog Posts / Case Studies */}
         {(() => {

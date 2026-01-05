@@ -8,6 +8,7 @@ export interface FAQ {
   id: string
   q: string
   a: string
+  relatedSolutions?: string[] // Optional array of solution IDs this FAQ relates to
 }
 
 // FAQ Category for organization
