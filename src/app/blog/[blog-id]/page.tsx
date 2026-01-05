@@ -187,7 +187,7 @@ export default async function BlogPost({ params }: Props) {
             <FadeIn className="text-center mb-12">
               <Heading size="h2" className="mb-4">Related Funding Solutions</Heading>
               <Text size="lg" className="text-gray-700 mb-8 max-w-2xl mx-auto">
-                Explore the funding solutions mentioned in this article.
+                Explore the funding solutions mentioned above.
               </Text>
             </FadeIn>
 

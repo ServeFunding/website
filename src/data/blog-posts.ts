@@ -829,7 +829,7 @@ export const blogPosts: BlogPost[] = [
     date: "2025-12-19",
     category: "Case Study",
     image: "/blog/Datacenter.webp",
-    relatedSolutions: ["working-capital-loans", "subordinated-debt", "bridge-financing"],
+    relatedSolutions: ["working-capital-loans", "bridge-funding"],
     relatedIndustries: ["data-centers"],
     content: [
       { type: 'h2', text: "The Funding Story" },
