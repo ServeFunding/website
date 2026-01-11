@@ -55,6 +55,9 @@ export function useFormSubmit(
     // Check honeypot - if filled, it's likely a bot
     // Send to webhook for logging/visibility, but skip HubSpot
     if (honeypot) {
+      // Mark form as spam to prevent HubSpot from picking it up
+      form.setAttribute('data-spam-detected', 'true')
+      
       // Build webhook payload for spam detection
       if (webhookUrl) {
         try {

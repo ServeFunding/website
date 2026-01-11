@@ -141,6 +141,11 @@ export function trackExternalLinkClick(linkName: string, url?: string) {
 export function trackHubSpotNativeForm(formType: string, formEl?: HTMLFormElement) {
   if (typeof window === "undefined") return
 
+  // Skip HubSpot tracking if form was flagged as spam
+  if (formEl?.getAttribute('data-spam-detected') === 'true') {
+    return
+  }
+
   if (!window._hsq) {
     window._hsq = [] as unknown as HubSpotQueue
   }
