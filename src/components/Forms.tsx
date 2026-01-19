@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { CheckCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -30,6 +30,29 @@ const US_STATES = [
   'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
   'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY',
 ]
+
+// Basic guard that disables submit when the honeypot is touched or required fields are incomplete
+function useHoneypotGuard() {
+  const formRef = useRef<HTMLFormElement>(null)
+  const [canSubmit, setCanSubmit] = useState(false)
+
+  const recomputeGuard = useCallback(() => {
+    const form = formRef.current
+    if (!form) return
+
+    const honeypotInput = form.querySelector('input[name="company_phone"]') as HTMLInputElement | null
+    const honeypotValue = honeypotInput?.value?.trim()
+    const valid = form.checkValidity()
+
+    setCanSubmit(valid && !honeypotValue)
+  }, [])
+
+  useEffect(() => {
+    recomputeGuard()
+  }, [recomputeGuard])
+
+  return { formRef, canSubmit, recomputeGuard }
+}
 
 // Reusable Success Content Component
 export interface FormSuccessContentProps {
@@ -116,6 +139,7 @@ interface IntroCallFormProps {
 }
 
 export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallFormProps = {}) {
+  const { formRef, canSubmit, recomputeGuard } = useHoneypotGuard()
   const buildCalendlyUrl = (data: Record<string, string>) => {
     return `https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(`${data.firstname || ''} ${data.lastname || ''}`.trim())}&email=${encodeURIComponent(data.email || '')}&phone=${encodeURIComponent(data.phone || '')}&a1=${encodeURIComponent(data.company || '')}&a2=${encodeURIComponent(`${data.capital_for || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
   }
@@ -140,7 +164,13 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
           ctaText="Schedule a Call"
         />
       ) : (
-        <form className="form-intro_call flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form
+          ref={formRef}
+          className="form-intro_call flex flex-col gap-4"
+          onSubmit={handleSubmit}
+          onInput={recomputeGuard}
+          onChange={recomputeGuard}
+        >
           <FormGroup columns={2}>
             <FormInput type="text" name="firstname" label="First Name" required />
             <FormInput type="text" name="lastname" label="Last Name" required />
@@ -173,7 +203,9 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
           />
 
           <div className="flex justify-center">
-            <Button variant="default" size="lg" type="submit">Schedule a Call</Button>
+            <Button variant="default" size="lg" type="submit" disabled={!canSubmit || isSubmitting}>
+              Schedule a Call
+            </Button>
           </div>
         </form>
       )}
@@ -183,6 +215,7 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
 
 // Partner Inquiry Form (for partners page)
 export function PartnerInquiryForm() {
+  const { formRef, canSubmit, recomputeGuard } = useHoneypotGuard()
   const buildCalendlyUrl = (data: Record<string, string>) => {
     return `https://calendly.com/michael_kodinsky/partner-strategy-call?name=${encodeURIComponent(`${data.firstname || ''} ${data.lastname || ''}`.trim())}&email=${encodeURIComponent(data.email || '')}&a1=${encodeURIComponent(`${data.partnership_for__commercial_banking__advisory_ || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
   }
@@ -207,7 +240,13 @@ export function PartnerInquiryForm() {
           ctaText="Schedule a Call"
         />
       ) : (
-        <form className="form-partner_inquiry flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form
+          ref={formRef}
+          className="form-partner_inquiry flex flex-col gap-4"
+          onSubmit={handleSubmit}
+          onInput={recomputeGuard}
+          onChange={recomputeGuard}
+        >
           <FormGroup columns={2}>
             <FormInput type="text" name="firstname" label="First Name" required />
             <FormInput type="text" name="lastname" label="Last Name" required />
@@ -240,7 +279,9 @@ export function PartnerInquiryForm() {
           />
 
           <div className="flex justify-center">
-            <Button variant="default" size="lg" type="submit">Schedule a Call</Button>
+            <Button variant="default" size="lg" type="submit" disabled={!canSubmit || isSubmitting}>
+              Schedule a Call
+            </Button>
           </div>
         </form>
       )}
@@ -253,13 +294,17 @@ interface NewsletterModalFormProps {
   success: boolean
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   formData: FormSubmitData
+  isSubmitting: boolean
 }
 
 export function NewsletterModalForm({
   success,
   handleSubmit,
   formData,
+  isSubmitting,
 }: NewsletterModalFormProps) {
+  const { formRef, canSubmit, recomputeGuard } = useHoneypotGuard()
+
   return (
     <>
       {success ? (
@@ -270,7 +315,13 @@ export function NewsletterModalForm({
           ctaText="Schedule a Call"
         />
       ) : (
-        <form className="form-newsletter flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form
+          ref={formRef}
+          className="form-newsletter flex flex-col gap-4"
+          onSubmit={handleSubmit}
+          onInput={recomputeGuard}
+          onChange={recomputeGuard}
+        >
           <FormInput
             type="text"
             name="firstname"
@@ -302,6 +353,7 @@ export function NewsletterModalForm({
               variant="default"
               size="lg"
               type="submit"
+              disabled={!canSubmit || isSubmitting}
             >
               Subscribe
             </Button>
@@ -716,6 +768,7 @@ export function NewsletterForm() {
                 success={success}
                 handleSubmit={handleSubmit}
                 formData={formData}
+                isSubmitting={isSubmitting}
               />
             </Card>
           </div>
