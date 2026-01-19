@@ -826,3 +826,9 @@ export const blogPosts: BlogPost[] = [
     ]
   },
 ]
+
+// Utility: only return posts whose date is today or in the past
+export const publishedBlogPosts = blogPosts.filter((post) => {
+  const publishDate = new Date(`${post.date}T00:00:00Z`).getTime()
+  return publishDate <= Date.now()
+})

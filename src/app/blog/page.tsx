@@ -13,7 +13,7 @@ import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CTA } from '@/components/cta'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
-import { blogPosts } from '@/data/blog-posts'
+import { publishedBlogPosts } from '@/data/blog-posts'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -50,7 +50,7 @@ const blogCollectionSchema = {
   "mainEntity": {
     "@type": "Blog",
     "name": "Serve Funding Blog",
-    "blogPosts": blogPosts.map(post => ({
+    "blogPosts": publishedBlogPosts.map(post => ({
       "@type": "BlogPosting",
       "headline": post.title,
       "description": post.excerpt,
@@ -65,7 +65,7 @@ const blogCollectionSchema = {
 }
 
 export default function BlogPage() {
-  const sortedPosts = [...blogPosts].sort((a, b) => {
+  const sortedPosts = [...publishedBlogPosts].sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime()
   })
 
