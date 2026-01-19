@@ -2,10 +2,10 @@ import Link from "next/link"
 import Image from "next/image"
 import { Container, Heading, Text, SocialIcons, Section } from "./ui"
 import { COLORS as BRAND_COLORS } from "@/lib/colors"
-import { blogPosts } from "@/data/blog-posts"
+import { publishedBlogPosts } from "@/data/blog-posts"
 
 export function Footer() {
-  const sortedBlogPosts = [...blogPosts].sort((a, b) => {
+  const sortedBlogPosts = [...publishedBlogPosts].sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime()
   })
 
