@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next'
 import { fundingSolutions } from '@/data/solutions'
-import { blogPosts } from '@/data/blog-posts'
+import { publishedBlogPosts } from '@/data/blog-posts'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://servefunding.com'
@@ -33,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   // Dynamic blog routes
-  const blogRoutes = blogPosts.map((post) => ({
+  const blogRoutes = publishedBlogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.id}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,

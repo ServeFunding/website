@@ -11,7 +11,7 @@ import { COLORS } from '@/lib/colors'
 
 export function NewsletterModal() {
   const [isOpen, setIsOpen] = useState(false)
-  const { success, handleSubmit, formData } = useFormSubmit('newsletter_modal')
+  const { success, handleSubmit, formData, isSubmitting } = useFormSubmit('newsletter_modal')
 
   useEffect(() => {
     const showModal = () => {
@@ -96,6 +96,7 @@ export function NewsletterModal() {
                     success={success}
                     handleSubmit={handleSubmit}
                     formData={formData}
+                    isSubmitting={isSubmitting}
                   />
                 </div>
               </div>

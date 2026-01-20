@@ -13,7 +13,7 @@ import { SchemaRenderer } from '@/components/SchemaRenderer'
 import { SocialShareButtons } from '@/components/SocialShareButtons'
 import { RenderInlineLinks } from '@/lib/inline-links'
 import { getArticleSchema } from '@/lib/schema-generators'
-import { blogPosts } from '@/data/blog-posts'
+import { blogPosts, publishedBlogPosts } from '@/data/blog-posts'
 import { fundingSolutions } from '@/data/solutions'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -27,7 +27,7 @@ interface Props {
 
 // Generate static params for all blog posts
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
+  return publishedBlogPosts.map((post) => ({
     'blog-id': post.id,
   }))
 }
@@ -46,6 +46,14 @@ export async function generateMetadata({ params }: Props) {
   const blogPost = blogPosts.find(p => p.id === blogId)
 
   if (!blogPost) {
+    return {
+      title: 'Blog Post Not Found'
+    }
+  }
+
+  // Do not expose metadata for future-dated posts
+  const isPublished = publishedBlogPosts.some(p => p.id === blogId)
+  if (!isPublished) {
     return {
       title: 'Blog Post Not Found'
     }
@@ -78,7 +86,7 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function BlogPost({ params }: Props) {
   const { 'blog-id': blogId } = await params
-  const blogPost = blogPosts.find(p => p.id === blogId)
+  const blogPost = publishedBlogPosts.find(p => p.id === blogId)
 
   if (!blogPost) {
     notFound()
