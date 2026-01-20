@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { trackFormSubmission, trackHubSpotNativeForm } from '@/lib/tracking'
 
+const CLAY_WEBHOOK_URL = process.env.NEXT_PUBLIC_CLAY_WEBHOOK_URL || ''
+
 export interface FormSubmitData {
   firstname?: string
   lastname?: string
@@ -132,23 +134,33 @@ export function useFormSubmit(
     trackHubSpotNativeForm(formType, form)
 
     // HubSpot: The tracking code in layout.tsx automatically captures this form submission
-    // Webhook: Send to webhook if provided
-    if (webhookUrl) {
+    // Webhook: Send to primary webhook and Clay
+    const webhookPayload = {
+      ...webhookData,
+      formType,
+      financing_needs: financingNeeds, // Ensure financing_needs is an array
+      submittedAt: new Date().toISOString(),
+    }
+
+    const webhookDestinations = [
+      ...(webhookUrl ? [{ url: webhookUrl }] : []),
+      ...(CLAY_WEBHOOK_URL ? [{ url: CLAY_WEBHOOK_URL }] : []),
+    ]
+
+    if (webhookDestinations.length) {
       try {
-        const webhookPayload = {
-          ...webhookData,
-          formType,
-          financing_needs: financingNeeds, // Ensure financing_needs is an array
-          submittedAt: new Date().toISOString(),
-        }
-        await fetch('/api/webhook', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            webhookUrl,
-            ...webhookPayload,
-          }),
-        })
+        await Promise.allSettled(
+          webhookDestinations.map(({ url }) =>
+            fetch('/api/webhook', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                webhookUrl: url,
+                ...webhookPayload,
+              }),
+            })
+          )
+        )
       } catch (error) {
         console.error('Webhook submission error:', error)
       }

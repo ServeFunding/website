@@ -8,6 +8,7 @@ export function Footer() {
   const sortedBlogPosts = [...publishedBlogPosts].sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime()
   })
+  const currentYear = new Date().getFullYear()
 
   return (
     <>
@@ -109,7 +110,7 @@ export function Footer() {
         <div className="py-4" style={{ backgroundColor: BRAND_COLORS.primary }}>
           <Container>
             <Text size="sm" className="text-center" style={{ color: '#ffffff' }}>
-              © 2025 All Rights Reserved — Serve Funding, LLC.
+              © {currentYear} All Rights Reserved — Serve Funding, LLC.
             </Text>
           </Container>
         </div>
