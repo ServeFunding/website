@@ -190,7 +190,7 @@ export function Header() {
 
           {/* Center Nav - Hidden on small screens, flex-1 to center it */}
           <nav
-            className="hidden lg:flex items-stretch space-x-8 flex-1 justify-center pb-2"
+            className="hidden lg:flex items-stretch space-x-8 flex-1 justify-center py-2"
             onMouseEnter={() => {
               cancelClose()
             }}
