@@ -212,6 +212,56 @@ export const workingCapitalFAQs: FAQ[] = [
     q: 'What credit score do I need for business financing?',
     a: 'Credit score requirements vary by solution. Asset-based lending and invoice factoring focus on collateral value (550+ credit often acceptable). Term loans and lines of credit typically require 600-650+ for approval. Debt refinancing and MCA consolidation can work with 550+ if you have strong revenue and assets. The key advantage of alternative financing is that credit score is just one factor—revenue, assets, and business trajectory matter more.',
     relatedSolutions: ['asset-based-lending', 'invoice-factoring', 'working-capital-loans', 'debt-refinance']
+  },
+
+  // RBF/MCA Critical Questions
+  {
+    id: 'mca-vs-rbf-which-to-use',
+    q: 'Should I use MCA or RBF—and what\'s the difference?',
+    a: 'The core difference: MCAs take daily or weekly cuts from your card sales (typically 10-20%), while RBF takes a fixed monthly percentage (typically 5-15%) that scales with revenue. MCA hits hardest on slow days and weekends when you need cash most; RBF is predictable regardless of daily fluctuations. Working capital loans (RBF) at 1.25%-4% per month typically cost 30-50% less than MCA, making them the better choice for sustainable growth.',
+    relatedSolutions: ['working-capital-loans', 'invoice-factoring', 'debt-refinance']
+  },
+
+  {
+    id: 'mca-factor-rate-real-cost',
+    q: 'What is an MCA factor rate, and how much will it actually cost me?',
+    a: 'Factor rates hide true costs—a "1.3 factor rate" means you owe $130K on a $100K advance, which looks like 30% but is actually much higher depending on repayment speed. Over 5-6 months, that 1.3x factor rate translates to roughly 50-80%+ APR; over 3 months, it\'s significantly higher. By comparison, invoice factoring at Prime + 1-6% or working capital loans at 1.25%-4% monthly give you transparent pricing you can actually compare.',
+    relatedSolutions: ['debt-refinance', 'invoice-factoring', 'working-capital-loans']
+  },
+
+  {
+    id: 'mca-daily-payments-cash-flow',
+    q: 'Why do MCA daily payments destroy cash flow?',
+    a: 'Because MCA pulls from revenue you haven\'t stabilized yet—if 15% of daily card sales goes to MCA, slow days still require full pulls even when you\'re short on cash. Real scenario: staffing agencies need cash on Monday before weekend payroll, but if Monday is light, they\'re still short. This creates a debt spiral where you take a second or third MCA just to cover payroll, and suddenly you\'re extracting 60%+ of revenue just to service debt. We\'ve helped dozens escape this trap through debt refinancing into single monthly payments that free up 30-50% of what they were paying.',
+    relatedSolutions: ['debt-refinance', 'working-capital-loans', 'invoice-factoring']
+  },
+
+  {
+    id: 'how-to-escape-mca-process',
+    q: 'How do I actually escape MCA debt?',
+    a: 'Stop taking new advances immediately, then refinance your balance into a term loan, asset-based line, or invoice factoring—typically closing in 10-20 business days. We shop your situation across 30+ lenders because your invoices, AR, and revenue are real collateral; most clients qualify for solutions that cost 10-20 percentage points less annually than their current MCA. Real example: a staffing company paying $15K/month in MCA fees refinanced into an $8K/month term loan, freeing up $7K monthly for growth.',
+    relatedSolutions: ['debt-refinance', 'asset-based-lending', 'invoice-factoring']
+  },
+
+  {
+    id: 'mca-red-flags-predatory-lender',
+    q: 'How do I spot a predatory MCA lender?',
+    a: 'Red flags include high-pressure sales ("offer expires at 5 PM"), refusing to explain factor rate math or APR, non-negotiable daily pulls, prepayment penalties, and confession of judgment clauses. Good lenders ask about your business, disclose APR upfront, and let you shop around without pressure. When in doubt, have us review the terms before you sign—we spot predatory language regularly.',
+    relatedSolutions: ['debt-refinance']
+  },
+
+  {
+    id: 'rbf-vs-traditional-loan-when-use',
+    q: 'When should I use RBF instead of a bank loan?',
+    a: 'Use RBF when you\'re growing faster than banks can approve, your tax return doesn\'t match current revenue, or you\'ve maxed your bank line but are still scaling. Banks typically approve in 4-8 weeks; RBF closes in 1-2 weeks and adapts to revenue growth. RBF costs more (1.25%-4% monthly) than bank loans (typically 6-12% APR), so our advice is always bank first if your banker can help—but RBF when they can\'t keep up with your growth.',
+    relatedSolutions: ['working-capital-loans', 'invoice-factoring']
+  },
+
+  {
+    id: 'mca-consolidation-what-happens',
+    q: 'If I consolidate MCA debt, what happens to my daily payments?',
+    a: 'They stop immediately—you pay off the MCA and refinance into a single monthly term payment, typically 30-50% lower than what you were paying in daily MCA fees. Real example: $150K MCA balance with daily extractions owed roughly $195K total; refinanced to a term loan that costs $7K/month instead of $32K/month. The key is acting before cash flow becomes too constrained—contact us as soon as you realize MCA payments are unsustainable.',
+    relatedSolutions: ['debt-refinance', 'asset-based-lending', 'working-capital-loans']
   }
 ]
 

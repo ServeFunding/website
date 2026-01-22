@@ -4,13 +4,14 @@ import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { ChevronDown } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button, Container } from "./ui"
 import { motion } from "framer-motion"
 import { COLORS } from "@/lib/colors"
 import { trackNavClick, trackExternalLinkClick } from "@/lib/tracking"
 import { CALENDLY_URL, headerNavConfig, getExpandMenuKey, type SimpleNavItem, type DropdownNavItem, type NavItem } from "@/lib/header-nav"
-import { DropdownMenuItems, MobileMenuSection, HamburgerIcon } from "./header-components"
+import { MobileMenuSection, HamburgerIcon } from "./header-components"
+import { DropdownMenuTwoSection } from "./DropdownMenuSolutions"
 
 const navItemClasses = "text-gray-700 font-medium text-base h-full relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 after:w-0 hover:after:w-full flex items-center"
 const underlineStyle = {
@@ -54,7 +55,7 @@ function NavItem({ href, label, isActive, onAnchorClick }: NavItemProps) {
 
 interface NavDropdownProps {
   label: string
-  items: Array<{ name: string; id: string }>
+  items: Array<{ name: string; id: string; featured?: boolean; subtitle?: string; icon?: string }>
   basePath: string
   onAnchorClick: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
   type?: 'pages' | 'anchors'
@@ -63,7 +64,7 @@ interface NavDropdownProps {
 
 function NavDropdown({ label, items, basePath, onAnchorClick, type = 'pages', isActive }: NavDropdownProps) {
   return (
-    <div className="group relative h-full flex items-center">
+    <div className="relative h-full flex items-center group">
       <Link
         href={basePath}
         onClick={() => trackNavClick(label, basePath)}
@@ -72,13 +73,6 @@ function NavDropdown({ label, items, basePath, onAnchorClick, type = 'pages', is
       >
         {label} <ChevronDown size={18} />
       </Link>
-
-      {/* Dropdown Menu */}
-      <div className="absolute top-full left-1/2 -translate-x-1/2 w-96 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-4 group-hover:translate-y-2 z-50 overflow-hidden mt-2" style={{ backgroundColor: COLORS.primary }}>
-        <div className="py-2 flex flex-col">
-          <DropdownMenuItems items={items} basePath={basePath} label={label} type={type} onAnchorClick={onAnchorClick} />
-        </div>
-      </div>
     </div>
   )
 }
@@ -87,7 +81,32 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null)
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [headerHeight, setHeaderHeight] = useState(80)
   const pathname = usePathname()
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const headerRef = useRef<HTMLElement>(null)
+
+  const getActiveDropdownData = () => {
+    if (!activeDropdown) return null
+    return headerNavConfig.items.find(item => isDropdownNavItem(item) && item.label === activeDropdown) as DropdownNavItem | undefined
+  }
+
+  const activeDropdownData = getActiveDropdownData()
+
+  const closeDropdownWithDelay = () => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
+    closeTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null)
+    }, 150)
+  }
+
+  const cancelClose = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current)
+      closeTimeoutRef.current = null
+    }
+  }
 
   useEffect(() => {
     // Initialize scroll state immediately to prevent layout shift
@@ -99,6 +118,10 @@ export function Header() {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           setIsScrolled(window.scrollY > 10)
+          // Update header height on scroll to handle height changes
+          if (headerRef.current) {
+            setHeaderHeight(headerRef.current.offsetHeight)
+          }
           ticking = false
         })
         ticking = true
@@ -108,6 +131,13 @@ export function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  useEffect(() => {
+    // Measure initial header height
+    if (headerRef.current) {
+      setHeaderHeight(headerRef.current.offsetHeight)
+    }
+  }, [isScrolled])
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     // Only handle same-page anchor links
@@ -127,6 +157,9 @@ export function Header() {
     setIsMenuOpen(false)
     setExpandedMenu(null)
 
+    // Update URL hash to trigger hashchange events (for modal opening, etc)
+    window.location.hash = anchorId
+
     // Find the element and scroll to it with a small delay for DOM updates
     setTimeout(() => {
       const element = document.getElementById(anchorId)
@@ -137,11 +170,9 @@ export function Header() {
   }
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 font-sans transition-all duration-300 ${
-      isScrolled
-        ? "bg-white/80 backdrop-blur-md shadow-lg py-3"
-        : "bg-white/60 backdrop-blur-sm shadow-sm py-4"
-    } ${isMenuOpen ? 'shadow-lg' : ''}`}>
+    <header ref={headerRef} className={`fixed top-0 left-0 right-0 z-50 font-sans transition-all duration-300 bg-white/60 backdrop-blur-md shadow-md ${
+      isScrolled ? "py-3" : "py-4"
+    } ${isMenuOpen ? 'shadow-lg' : ''} ${activeDropdown ? 'bg-white' : ''}`}>
       <Container>
         {/* Single row header - Logo, centered nav, and CTA Button */}
         <div className="relative flex items-center justify-between gap-8">
@@ -158,7 +189,15 @@ export function Header() {
           </Link>
 
           {/* Center Nav - Hidden on small screens, flex-1 to center it */}
-          <nav className="hidden lg:flex items-stretch space-x-8 flex-1 justify-center">
+          <nav
+            className="hidden lg:flex items-stretch space-x-8 flex-1 justify-center py-2"
+            onMouseEnter={() => {
+              cancelClose()
+            }}
+            onMouseLeave={() => {
+              closeDropdownWithDelay()
+            }}
+          >
             {headerNavConfig.items.map((item) => {
               if (isSimpleNavItem(item)) {
                 return (
@@ -174,15 +213,19 @@ export function Header() {
 
               if (isDropdownNavItem(item)) {
                 return (
-                  <NavDropdown
+                  <div
                     key={item.label}
-                    label={item.label}
-                    basePath={item.basePath}
-                    items={item.items}
-                    isActive={getIsActive(item, pathname)}
-                    onAnchorClick={handleAnchorClick}
-                    type={item.itemType || 'pages'}
-                  />
+                    onMouseEnter={() => setActiveDropdown(item.label)}
+                  >
+                    <NavDropdown
+                      label={item.label}
+                      basePath={item.basePath}
+                      items={item.items}
+                      isActive={getIsActive(item, pathname)}
+                      onAnchorClick={handleAnchorClick}
+                      type={item.itemType || 'pages'}
+                    />
+                  </div>
                 )
               }
             })}
@@ -203,6 +246,36 @@ export function Header() {
             </div>
           </div>
         </div>
+
+        {/* Unified Dropdown Container - Full Width */}
+        {activeDropdownData && (
+          <div
+            key={activeDropdown}
+            className="hidden lg:block fixed left-0 right-0 w-screen transition-all duration-300 z-40 bg-white shadow-md"
+            style={{
+              top: `${headerHeight}px`,
+              borderColor: `${COLORS.primary}15`,
+            }}
+            onMouseEnter={() => {
+              cancelClose()
+            }}
+            onMouseLeave={() => closeDropdownWithDelay()}
+          >
+            <Container className="bg-transparent">
+              <DropdownMenuTwoSection
+                items={activeDropdownData.items}
+                basePath={activeDropdownData.basePath}
+                label={activeDropdown!}
+                type={activeDropdownData.itemType || 'pages'}
+                onClose={() => setActiveDropdown(null)}
+                description={activeDropdownData.description}
+                featuredTitle={activeDropdownData.featuredTitle}
+                regularTitle={activeDropdownData.regularTitle}
+                onAnchorClick={handleAnchorClick}
+              />
+            </Container>
+          </div>
+        )}
 
         {/* Mobile Menu - Inside header */}
         {isMenuOpen && (
@@ -230,7 +303,7 @@ export function Header() {
                         trackNavClick(item.label, item.href)
                         closeMenu()
                       }}
-                      className="block text-base font-medium py-3 border-b border-gray-200 text-olive-green"
+                      className="block text-base font-medium py-3 text-olive-green"
                     >
                       {item.label}
                     </Link>

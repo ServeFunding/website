@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next"
 import dynamic from "next/dynamic"
+import { Suspense } from "react"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
 import { Chatbot } from "@/components/Chatbot"
 import { NewsletterModal } from "@/components/NewsletterModal"
 import { ScrollToTop } from "@/components/ScrollToTop"
+import { UmamiRouteTracker } from "@/components/UmamiRouteTracker"
 import Script from "next/script"
 import { SchemaRenderer } from "@/components/SchemaRenderer"
 import { getOrganizationSchema } from "@/lib/schema-generators"
@@ -84,6 +86,9 @@ export default function RootLayout({
       <body className="bg-white flex flex-col min-h-screen">
         <ScrollToTop />
         <Header />
+        <Suspense fallback={null}>
+          <UmamiRouteTracker />
+        </Suspense>
         <main className="flex-grow pt-20">
           {children}
         </main>
@@ -96,7 +101,7 @@ export default function RootLayout({
         <Script
           src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL!}
           data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
 
         {/* HubSpot Tracking */}
