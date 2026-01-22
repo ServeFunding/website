@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import dynamic from "next/dynamic"
+import { Suspense } from "react"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
 import { Chatbot } from "@/components/Chatbot"
@@ -85,7 +86,9 @@ export default function RootLayout({
       <body className="bg-white flex flex-col min-h-screen">
         <ScrollToTop />
         <Header />
-        <UmamiRouteTracker />
+        <Suspense fallback={null}>
+          <UmamiRouteTracker />
+        </Suspense>
         <main className="flex-grow pt-20">
           {children}
         </main>
