@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { ChevronDown } from "lucide-react"
 import { motion } from "framer-motion"
-import { COLORS } from "@/lib/colors"
 import { trackNavClick } from "@/lib/tracking"
 import type { DropdownItem } from "@/lib/header-nav"
 
@@ -77,41 +76,6 @@ function NavItemRenderer({
     >
       {item.name}
     </Link>
-  )
-}
-
-interface DropdownMenuItemsProps {
-  items: DropdownItem[]
-  basePath: string
-  label: string
-  type?: 'pages' | 'anchors'
-  onAnchorClick?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
-}
-
-const dropdownItemClasses = "block px-6 py-3.5 text-white transition-colors text-base font-medium border-b border-white/10 last:border-0"
-
-export function DropdownMenuItems({ items, basePath, label, type = 'pages', onAnchorClick }: DropdownMenuItemsProps) {
-  const isAnchorBased = type === 'anchors'
-
-  return (
-    <>
-      {items.map((item) => {
-        const href = isAnchorBased ? `${basePath}#${item.id}` : `${basePath}/${item.id}`
-
-        return (
-          <NavItemRenderer
-            key={item.id}
-            item={item}
-            href={href}
-            label={label}
-            type={type}
-            className={dropdownItemClasses}
-            hoverColor={COLORS.secondary}
-            onAnchorClick={onAnchorClick}
-          />
-        )
-      })}
-    </>
   )
 }
 

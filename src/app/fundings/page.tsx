@@ -38,15 +38,33 @@ export default function Fundings() {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
-    const hash = window.location.hash.slice(1)
-    if (hash) {
-      const element = document.getElementById(hash)
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        }, 100)
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1)
+      if (hash) {
+        // Find the matching case study by slug
+        const matchingStudy = caseStudies.find(study => generateSlug(study.title) === hash)
+        if (matchingStudy) {
+          // Open modal for the matching study
+          setSelectedStudy(matchingStudy)
+          setIsModalOpen(true)
+        } else {
+          // Fallback: scroll to element if it exists
+          const element = document.getElementById(hash)
+          if (element) {
+            setTimeout(() => {
+              element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            }, 100)
+          }
+        }
       }
     }
+
+    // Handle initial load with hash
+    handleHashChange()
+
+    // Listen for hash changes while on the page
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
   }, [])
 
   const openModal = (study: typeof caseStudies[0]) => {
