@@ -1,5 +1,5 @@
 import { fundingSolutions } from '@/data/solutions'
-import { blogPosts } from '@/data/blog-posts'
+import { getBlogPosts } from '@/lib/blog-utils'
 import { solutionSpecificFAQs } from '@/data/faq-data'
 import { getOrganizationSchema, getFinancialServiceSchema } from '@/lib/schema-generators'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
@@ -215,7 +215,8 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
 
         {/* Related Blog Posts / Case Studies */}
         {(() => {
-          const relatedPosts = blogPosts.filter(post =>
+          const allBlogPosts = getBlogPosts()
+          const relatedPosts = allBlogPosts.filter(post =>
             post.relatedSolutions?.includes(solution.id)
           ).slice(0, 3)
 

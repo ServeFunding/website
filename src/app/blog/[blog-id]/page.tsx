@@ -1,3 +1,4 @@
+import Markdoc from '@markdoc/markdoc'
 import {
   Section,
   Container,
@@ -11,24 +12,26 @@ import { Breadcrumb } from '@/components/breadcrumb'
 import { CTA } from '@/components/cta'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
 import { SocialShareButtons } from '@/components/SocialShareButtons'
-import { RenderInlineLinks } from '@/lib/inline-links'
 import { getArticleSchema } from '@/lib/schema-generators'
-import { blogPosts, publishedBlogPosts } from '@/data/blog-posts'
+import { getBlogPost, getBlogPostIds } from '@/lib/blog-utils'
 import { fundingSolutions } from '@/data/solutions'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
+import { renderMarkdoc } from '@/markdoc/renderer'
+import { config } from '@/markdoc/config'
 
 interface Props {
-  params: {
+  params: Promise<{
     'blog-id': string
-  }
+  }>
 }
 
 // Generate static params for all blog posts
 export async function generateStaticParams() {
-  return publishedBlogPosts.map((post) => ({
-    'blog-id': post.id,
+  const postIds = getBlogPostIds()
+  return postIds.map((id) => ({
+    'blog-id': id,
   }))
 }
 
@@ -43,17 +46,9 @@ const formatDate = (dateString: string) => {
 
 export async function generateMetadata({ params }: Props) {
   const { 'blog-id': blogId } = await params
-  const blogPost = blogPosts.find(p => p.id === blogId)
+  const blogPost = getBlogPost(blogId)
 
   if (!blogPost) {
-    return {
-      title: 'Blog Post Not Found'
-    }
-  }
-
-  // Do not expose metadata for future-dated posts
-  const isPublished = publishedBlogPosts.some(p => p.id === blogId)
-  if (!isPublished) {
     return {
       title: 'Blog Post Not Found'
     }
@@ -86,7 +81,7 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function BlogPost({ params }: Props) {
   const { 'blog-id': blogId } = await params
-  const blogPost = publishedBlogPosts.find(p => p.id === blogId)
+  const blogPost = getBlogPost(blogId)
 
   if (!blogPost) {
     notFound()
@@ -94,15 +89,9 @@ export default async function BlogPost({ params }: Props) {
 
   const formattedDate = formatDate(blogPost.date)
 
-  // Convert blog content array to full text for schema
-  const fullArticleBody = blogPost.content
-    .map((block) => {
-      if (block.type === 'h2' || block.type === 'h3') {
-        return block.text
-      }
-      return block.text
-    })
-    .join('\n\n')
+  // Parse markdown content
+  const ast = Markdoc.parse(blogPost.content)
+  const transformed = Markdoc.transform(ast, config)
 
   // Generate article schema
   const articleSchema = getArticleSchema({
@@ -113,7 +102,7 @@ export default async function BlogPost({ params }: Props) {
       name: blogPost.author,
       url: 'https://servefunding.com/about-us'
     },
-    content: fullArticleBody
+    content: blogPost.excerpt
   })
 
   return (
@@ -142,41 +131,8 @@ export default async function BlogPost({ params }: Props) {
       {/* Main Article Content */}
       <Section background="white">
         <Container>
-          <FadeIn className="max-w-3xl mx-auto prose prose-lg">
-            {blogPost.content.map((block, index) => {
-              if (block.type === 'h2') {
-                return (
-                  <Heading key={index} size="h2">
-                    {block.text}
-                  </Heading>
-                )
-              }
-
-              if (block.type === 'h3') {
-                return (
-                  <Heading key={index} size="h3">
-                    {block.text}
-                  </Heading>
-                )
-              }
-
-              if (block.type === 'blockquote') {
-                return (
-                  <div key={index} className="p-8 bg-gold-50 border-l-4 border-gold-500 mb-8">
-                    <Text className="text-gray-700 leading-relaxed italic">
-                      {block.text}
-                    </Text>
-                  </div>
-                )
-              }
-
-              // Default to paragraph for 'p' type
-              return (
-                <Text key={index} className="text-gray-700 leading-relaxed mb-6">
-                  <RenderInlineLinks text={block.text} />
-                </Text>
-              )
-            })}
+          <FadeIn className="max-w-3xl mx-auto">
+            {renderMarkdoc(transformed)}
           </FadeIn>
 
           {/* Social Share Buttons */}

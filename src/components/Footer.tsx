@@ -2,10 +2,11 @@ import Link from "next/link"
 import Image from "next/image"
 import { Container, Heading, Text, SocialIcons, Section } from "./ui"
 import { COLORS as BRAND_COLORS } from "@/lib/colors"
-import { publishedBlogPosts } from "@/data/blog-posts"
+import { getBlogPosts } from "@/lib/blog-utils"
 
 export function Footer() {
-  const sortedBlogPosts = [...publishedBlogPosts].sort((a, b) => {
+  const blogPosts = getBlogPosts()
+  const sortedBlogPosts = [...blogPosts].sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime()
   })
   const currentYear = new Date().getFullYear()
