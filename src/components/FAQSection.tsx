@@ -8,6 +8,8 @@ import { Section, Container, Heading, Text, StaggerContainer } from '@/component
 interface FAQItem {
   q: string
   a: string
+  videoId?: string
+  videoTranscript?: string
 }
 
 interface FAQSectionProps {
@@ -19,7 +21,17 @@ interface FAQSectionProps {
   columns?: 1 | 2 // Single or two-column layout
 }
 
-function FAQAccordionItem({ question, answer }: { question: string; answer: string }) {
+function FAQAccordionItem({
+  question,
+  answer,
+  videoId,
+  videoTranscript
+}: {
+  question: string
+  answer: string
+  videoId?: string
+  videoTranscript?: string
+}) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -38,8 +50,39 @@ function FAQAccordionItem({ question, answer }: { question: string; answer: stri
         />
       </button>
       {isOpen && (
-        <div className="border-t border-gray-200 bg-gray-50 p-6">
+        <div className="border-t border-gray-200 bg-gray-50 p-6 space-y-6">
+          {/* Text Answer */}
           <Text className="text-gray-700 leading-relaxed">{answer}</Text>
+
+          {/* Video (if available) */}
+          {videoId && (
+            <div className="space-y-4">
+              <div className="rounded-lg overflow-hidden bg-black">
+                <iframe
+                  src={`https://www.youtube.com/embed/${videoId}`}
+                  title={`Video: ${question}`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                  className="w-full aspect-video"
+                />
+              </div>
+
+              {/* Transcript Toggle */}
+              {videoTranscript && (
+                <details className="border border-gray-300 rounded-lg overflow-hidden">
+                  <summary className="cursor-pointer font-semibold text-olive-900 p-4 bg-white hover:bg-gray-100 transition-colors flex items-center gap-2">
+                    <span>📄 Video Transcript</span>
+                  </summary>
+                  <div className="border-t border-gray-300 p-4 bg-white max-h-96 overflow-y-auto">
+                    <Text size="sm" className="text-gray-700 whitespace-pre-wrap leading-relaxed">
+                      {videoTranscript}
+                    </Text>
+                  </div>
+                </details>
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -79,7 +122,13 @@ export function FAQSection({
           }`}
         >
           {displayFaqs.map((faq, index) => (
-            <FAQAccordionItem key={`faq-${index}`} question={faq.q} answer={faq.a} />
+            <FAQAccordionItem
+              key={`faq-${index}`}
+              question={faq.q}
+              answer={faq.a}
+              videoId={faq.videoId}
+              videoTranscript={faq.videoTranscript}
+            />
           ))}
         </StaggerContainer>
       </Container>
@@ -94,7 +143,13 @@ export function InlineFAQ({ faqs, maxDisplay }: { faqs: FAQItem[]; maxDisplay?: 
   return (
     <div className="space-y-4">
       {displayFaqs.map((faq, index) => (
-        <FAQAccordionItem key={`inline-faq-${index}`} question={faq.q} answer={faq.a} />
+        <FAQAccordionItem
+          key={`inline-faq-${index}`}
+          question={faq.q}
+          answer={faq.a}
+          videoId={faq.videoId}
+          videoTranscript={faq.videoTranscript}
+        />
       ))}
     </div>
   )

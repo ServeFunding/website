@@ -4,6 +4,21 @@
  * Simplified FAQ structure with concise 3-5 sentence answers
  * Optimized for GEO/AIEO (Generative Engine Optimization)
  * Last Updated: 2025-12-03
+ *
+ * VIDEO SUPPORT: Each FAQ can now include an optional video answer
+ * To add a video to an FAQ, include these optional fields:
+ *   - videoId: YouTube video ID (e.g., "dQw4w9WgXcQ")
+ *   - videoTranscript: Full video transcript text for accessibility
+ *
+ * Example:
+ * {
+ *   id: 'example-faq',
+ *   q: 'What is Asset-Based Lending?',
+ *   a: 'Short text answer (2-3 sentences)...',
+ *   videoId: 'dQw4w9WgXcQ',
+ *   videoTranscript: 'Full transcript of the video...',
+ *   relatedSolutions: ['asset-based-lending']
+ * }
  */
 
 import { FAQ, FAQCategory } from '@/types/faq'

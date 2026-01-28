@@ -13,7 +13,7 @@ import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CTA } from '@/components/cta'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
-import { publishedBlogPosts } from '@/data/blog-posts'
+import { getBlogPosts } from '@/lib/blog-utils'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -40,34 +40,35 @@ const formatDate = (isoDate: string): string => {
   return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
-// Blog collection schema
-const blogCollectionSchema = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "Serve Funding Blog",
-  "description": "Insights, case studies, and financing guides for growing businesses",
-  "url": "https://servefunding.com/blog",
-  "mainEntity": {
-    "@type": "Blog",
-    "name": "Serve Funding Blog",
-    "blogPosts": publishedBlogPosts.map(post => ({
-      "@type": "BlogPosting",
-      "headline": post.title,
-      "description": post.excerpt,
-      "url": `https://servefunding.com/blog/${post.id}`,
-      "datePublished": post.date,
-      "author": {
-        "@type": "Person",
-        "name": post.author
-      }
-    }))
-  }
-}
-
 export default function BlogPage() {
-  const sortedPosts = [...publishedBlogPosts].sort((a, b) => {
+  const blogPosts = getBlogPosts()
+  const sortedPosts = [...blogPosts].sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime()
   })
+
+  // Blog collection schema
+  const blogCollectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Serve Funding Blog",
+    "description": "Insights, case studies, and financing guides for growing businesses",
+    "url": "https://servefunding.com/blog",
+    "mainEntity": {
+      "@type": "Blog",
+      "name": "Serve Funding Blog",
+      "blogPosts": sortedPosts.map(post => ({
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.excerpt,
+        "url": `https://servefunding.com/blog/${post.id}`,
+        "datePublished": post.date,
+        "author": {
+          "@type": "Person",
+          "name": post.author
+        }
+      }))
+    }
+  }
 
   return (
     <>
