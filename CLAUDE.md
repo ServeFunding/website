@@ -205,6 +205,34 @@ authorImage: "/author-headshot.webp"
 - Address objections and concerns directly
 - Reference company expertise and real client scenarios
 
+**Adding Videos to FAQ Answers** (Optional):
+For trust-building, FAQs can now include embedded YouTube videos alongside text answers:
+
+```typescript
+{
+  id: 'example-faq',
+  q: 'What is Asset-Based Lending?',
+  a: 'Short text answer (2-3 sentences for skimmable format)...',
+  videoId: 'dQw4w9WgXcQ', // YouTube video ID only (no full URL)
+  videoTranscript: 'Full video transcript for accessibility and searchability...',
+  relatedSolutions: ['asset-based-lending']
+}
+```
+
+**How it works**:
+- Video appears in expanded accordion when user clicks FAQ
+- Text answer shown first, video below for those who want more detail
+- Transcript in collapsible `<details>` section for accessibility
+- YouTube embedding is lazy-loaded for performance
+- Transcripts improve SEO (indexed as text) and accessibility (ADA compliance)
+
+**Video Guidelines**:
+- Keep videos 2-3 minutes max for engagement
+- Host on YouTube (best for indexing + analytics)
+- Include captions on video itself
+- Transcript should match video content verbatim
+- Start with 1-2 FAQs with video to test engagement impact
+
 ### Adding SEO Schema to a Page
 1. Import schema generator from `src/lib/schema-generators.ts`
 2. Create schema object with page data
