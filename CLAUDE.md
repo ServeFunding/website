@@ -22,11 +22,11 @@ All company information flows through a single master data source:
 - **`src/data/company-info.ts`**: Master hub containing company basics, founder info, core values, process steps, and philosophy. This file is imported across multiple parts of the app, making it the source of truth.
 - **`src/data/solutions.ts`**: Funding solutions and their metadata with titles, descriptions, features, and industry tags
 - **`src/data/faq-data.ts`**: Comprehensive FAQ content organized by category (about Serve Funding, working capital, solutions, etc.) - **actively expanded with new content**
-- **`src/data/blog-posts.ts`**: Blog post content with metadata, rich text content, related solutions/industries. Each post is structured for SEO.
+- **`/posts/` directory**: Blog posts stored as Markdoc files (.mdoc) with YAML frontmatter for metadata and markdown content. File-based system for easy content management.
 - **`src/data/partners.ts`**: Partner types and testimonials for the partnerships page
 - **`src/data/fundingData.ts`**: Case studies and success stories
 
-**Why this matters**: Changes to company information update everywhere automatically. The file contains `[VERIFY:]` markers for items needing founder validation. Blog posts and FAQs are centralized for easy updates without touching page components.
+**Why this matters**: Changes to company information update everywhere automatically. The file contains `[VERIFY:]` markers for items needing founder validation. Blog posts use file-based markdown for flexibility and FAQs are centralized for easy updates without touching page components.
 
 ### 2. AI Integration (Chatbot)
 The chatbot is powered by Claude API via the Anthropic SDK:
@@ -136,22 +136,60 @@ Educational pages (like `/capital-strategy`) follow this pattern:
 - API logic: Edit `src/app/api/chat/route.ts`
 - Conversation flow: Logic is in `src/components/Chatbot.tsx` state management
 
-### Adding Blog Posts
-1. Add entry to `src/data/blog-posts.ts` with:
-   - Unique `id`, `title`, `subtitle`, `excerpt` (for preview)
-   - `author`, `date` (YYYY-MM-DD format), `category` (Insights, Case Study, Growth Strategy, Business Growth)
-   - `content` array of paragraphs, headings, and blockquotes using consistent structure
-   - Optional: `relatedSolutions` and `relatedIndustries` arrays for cross-linking
-   - Optional: `image` path for hero image
-2. Blog post is automatically available at `/blog/[blog-id]`
-3. All posts appear on `/blog` page with previews
-4. Use narrative storytelling with real examples from client work
+### Understanding the Markdoc System
+Markdoc is a markdown framework that powers the blog:
+- **Config** (`src/markdoc/config.ts`): Defines available custom tags and their attributes
+- **Renderer** (`src/markdoc/renderer.tsx`): Maps Markdoc AST nodes to React components with styling
+- **Blog Utils** (`src/lib/blog-utils.ts`): Reads .mdoc files, parses YAML frontmatter, returns structured data
+- **Flow**: User creates `.mdoc` file → `getBlogPosts()` reads file → Markdoc parser creates AST → Renderer outputs styled HTML
+- **Styling**: All rendered elements auto-styled using Tailwind (olive/gold theme applied by renderer)
+- **Performance**: All 14 blog posts pre-rendered at build time via static generation
+
+### Adding Blog Posts (Markdoc-Based System)
+Blog posts use Markdoc (.mdoc files) with YAML frontmatter for flexible content management:
+
+**Step 1: Create a new file** in `/posts/[post-slug].mdoc` (slug derived from title, kebab-case)
+
+**Step 2: Add YAML frontmatter** with required metadata:
+```yaml
+---
+title: "Your Post Title Here"
+subtitle: "Optional subtitle for extra context"
+excerpt: "Short preview text for blog listing (1-2 sentences)"
+author: "Author Name"
+date: "2026-01-28"
+category: "Insights"
+image: "/blog/image-name.webp"
+relatedSolutions: ["solution-id-1", "solution-id-2"]
+relatedIndustries: ["healthcare", "manufacturing"]
+authorImage: "/author-headshot.webp"
+---
+```
+
+**Step 3: Write markdown content** with full markdown support:
+- Standard markdown: `## Heading`, `**bold**`, `[link](url)`, `- lists`, `> blockquotes`
+- Code blocks: ` ```language code``` `
+- Tables: Standard markdown table syntax
+- **Custom Callout Tags**: `{% callout type="info" title="Title" %}Content{% /callout %}`
+  - Types: `info` (blue), `warning` (amber), `tip` (green), `danger` (red)
+- **Related Posts Widget**: `{% relatedPosts category="Insights" limit="3" /%}`
+  - Filter by `category` or `solution` ID
+- All HTML auto-styled with olive/gold theme from design system
+
+**Step 4: File-based routing** - Post automatically appears at `/blog/[post-slug]` without manual route creation
+
+**Implementation Details**:
+- Utility: `src/lib/blog-utils.ts` - `getBlogPosts()` reads .mdoc files and parses frontmatter
+- Parser: `src/markdoc/config.ts` - Markdoc configuration with custom tags
+- Renderer: `src/markdoc/renderer.tsx` - Transforms Markdoc AST to styled React components
+- All 14 blog posts currently in `/posts/` as active examples
 
 **Blog Content Strategy**:
 - Focus on educational content that addresses the funding journey
 - Each post should answer specific customer questions (use PODCAST-CONTENT-ANALYSIS.md for insights)
 - Link posts to FAQ answers and solutions pages
 - Real examples and metrics build credibility
+- Use callout tags to emphasize key insights or warnings
 
 ### Adding or Expanding FAQ Content
 1. Edit `src/data/faq-data.ts`
@@ -187,7 +225,10 @@ This is required for the chatbot to function.
 | File | Purpose |
 |------|---------|
 | `src/data/company-info.ts` | Master data hub - single source of truth |
-| `src/data/blog-posts.ts` | Blog post content and metadata (11+ posts) |
+| `/posts/` | Blog post directory - Markdoc files with YAML frontmatter (14+ posts) |
+| `src/lib/blog-utils.ts` | Blog utility functions - `getBlogPosts()`, `getBlogPost()`, frontmatter parsing |
+| `src/markdoc/config.ts` | Markdoc configuration with custom tags (callout, relatedPosts) |
+| `src/markdoc/renderer.tsx` | Transforms Markdoc AST to styled React components |
 | `src/data/faq-data.ts` | FAQ content organized by category (20+ answers) |
 | `src/data/solutions.ts` | Funding solutions catalog |
 | `src/data/partners.ts` | Partner types and testimonials |
@@ -256,3 +297,5 @@ See `HOW-AI-SEES-YOUR-SITE.md` for technical architecture details.
 - **@anthropic-ai/sdk 0.70.1** - Claude API
 - **Lucide React 0.554.0** - Icon library
 - **class-variance-authority 0.7.1** - Component styling patterns
+- **@markdoc/markdoc 0.4.0** - Markdown parsing and custom tag support
+- **@markdoc/next.js 0.4.1** - Next.js integration for Markdoc
