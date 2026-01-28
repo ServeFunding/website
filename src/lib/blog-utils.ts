@@ -52,7 +52,7 @@ function parseFrontmatter(content: string): Record<string, any> {
 
 /**
  * Get all blog posts from the /posts directory
- * Falls back to legacy blog-posts.ts if posts directory doesn't exist
+ * Only returns posts with publish dates on or before today
  */
 export function getBlogPosts(): BlogPost[] {
   const postsDir = path.join(process.cwd(), 'posts')
@@ -61,6 +61,9 @@ export function getBlogPosts(): BlogPost[] {
   if (!fs.existsSync(postsDir)) {
     return []
   }
+
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
 
   const files = fs.readdirSync(postsDir).filter(file => file.endsWith('.mdoc'))
 
@@ -85,7 +88,11 @@ export function getBlogPosts(): BlogPost[] {
         relatedIndustries: frontmatter.relatedIndustries,
       } as BlogPost
     })
-    .filter(post => post.title && post.date && post.category)
+    .filter(post => {
+      if (!post.title || !post.date || !post.category) return false
+      const postDate = new Date(post.date + 'T00:00:00Z')
+      return postDate <= today
+    })
 }
 
 /**
