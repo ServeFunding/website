@@ -16,6 +16,16 @@ export interface BlogPost {
 }
 
 /**
+ * Check if a blog post is published (date is today or earlier)
+ */
+export function isPostPublished(dateString: string): boolean {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const postDate = new Date(dateString + 'T00:00:00Z')
+  return postDate <= today
+}
+
+/**
  * Parse YAML frontmatter from markdown content
  */
 function parseFrontmatter(content: string): Record<string, any> {
@@ -62,9 +72,6 @@ export function getBlogPosts(): BlogPost[] {
     return []
   }
 
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
-
   const files = fs.readdirSync(postsDir).filter(file => file.endsWith('.mdoc'))
 
   return files
@@ -88,11 +95,7 @@ export function getBlogPosts(): BlogPost[] {
         relatedIndustries: frontmatter.relatedIndustries,
       } as BlogPost
     })
-    .filter(post => {
-      if (!post.title || !post.date || !post.category) return false
-      const postDate = new Date(post.date + 'T00:00:00Z')
-      return postDate <= today
-    })
+    .filter(post => post.title && post.date && post.category && isPostPublished(post.date))
 }
 
 /**
@@ -130,6 +133,7 @@ export function getBlogPost(id: string): (BlogPost & { content: string }) | null
 
 /**
  * Get all blog post IDs for static generation
+ * Only returns IDs for posts with publish dates on or before today
  */
 export function getBlogPostIds(): string[] {
   const postsDir = path.join(process.cwd(), 'posts')
@@ -137,5 +141,12 @@ export function getBlogPostIds(): string[] {
 
   return fs.readdirSync(postsDir)
     .filter(file => file.endsWith('.mdoc'))
-    .map(file => file.replace('.mdoc', ''))
+    .map(file => {
+      const filePath = path.join(postsDir, file)
+      const source = fs.readFileSync(filePath, 'utf-8')
+      const frontmatter = parseFrontmatter(source)
+      return { id: file.replace('.mdoc', ''), date: frontmatter.date }
+    })
+    .filter(post => isPostPublished(post.date))
+    .map(post => post.id)
 }

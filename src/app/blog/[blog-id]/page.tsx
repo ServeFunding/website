@@ -13,7 +13,7 @@ import { CTA } from '@/components/cta'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
 import { SocialShareButtons } from '@/components/SocialShareButtons'
 import { getArticleSchema } from '@/lib/schema-generators'
-import { getBlogPost, getBlogPostIds } from '@/lib/blog-utils'
+import { getBlogPost, getBlogPostIds, isPostPublished } from '@/lib/blog-utils'
 import { fundingSolutions } from '@/data/solutions'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props) {
   const { 'blog-id': blogId } = await params
   const blogPost = getBlogPost(blogId)
 
-  if (!blogPost) {
+  if (!blogPost || !isPostPublished(blogPost.date)) {
     return {
       title: 'Blog Post Not Found'
     }
@@ -83,7 +83,7 @@ export default async function BlogPost({ params }: Props) {
   const { 'blog-id': blogId } = await params
   const blogPost = getBlogPost(blogId)
 
-  if (!blogPost) {
+  if (!blogPost || !isPostPublished(blogPost.date)) {
     notFound()
   }
 
