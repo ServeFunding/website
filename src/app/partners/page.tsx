@@ -21,7 +21,7 @@ import { partnerTypes, commitments, testimonials } from '@/data/partners'
 
 export const metadata: Metadata = {
   title: 'Partner With Serve Funding | Bankers, CPAs, CFOs & Advisors',
-  description: 'Bankers, CPAs, fractional CFOs, and business advisors partner with Serve Funding to offer clients alternative funding from $250K-$100MM. Expand your service offering.',
+  description: 'Partner with Serve Funding. Offer clients $250K-$100MM in alternative funding. For bankers, CPAs, CFOs & advisors.',
   keywords: 'partner with us, commercial bankers, fractional CFO, investment bankers, referral partnership, business advisors',
   openGraph: {
     title: 'Partner With Serve Funding | Bankers, CPAs, CFOs & Advisors',

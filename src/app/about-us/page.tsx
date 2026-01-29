@@ -18,7 +18,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: "About Serve Funding | Michael Kodinsky's Advisory Model",
-  description: "Meet Michael Kodinsky, founder of Serve Funding. Learn how a boutique advisory model—built on Transparency, Responsibility, and Understanding—helps growing businesses secure funding when traditional banks decline.",
+  description: "Meet Michael Kodinsky. Learn how Serve Funding's boutique advisory model helps businesses secure funding when banks decline.",
   keywords: "Michael Kodinsky, Serve Funding founder, working capital advisory, business funding advisor, boutique lender",
   openGraph: {
     title: "About Serve Funding | Michael Kodinsky's Advisory Model",

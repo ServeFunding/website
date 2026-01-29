@@ -38,7 +38,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "invoice-factoring",
     title: "Invoice Financing",
-    seoTitle: "Get Paid Faster With Invoice Financing | Eliminate Payment Delays",
+    seoTitle: "Get Paid Faster | Invoice Financing",
     image: "/solutions/Invoice AI Financing.webp",
     category: "Fast Cash Flow",
     whatIs: "Invoice factoring (also called AR financing) is when you sell your unpaid B2B invoices to a factor for immediate cash. Instead of waiting 30-90 days for customers to pay, you get 75-95% of the invoice value within 24-48 hours. As customers pay, the borrowing automatically decreases—making it self-liquidating.",
@@ -89,7 +89,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "asset-based-lending",
     title: "Asset-Based Lending",
-    seoTitle: "Get Cash Fast With Asset-Based Lending When Banks Decline",
+    seoTitle: "Asset-Based Lending Credit Lines Fast",
     image: "/solutions/Asset Based Lending.webp",
     category: "Flexible Working Capital",
     whatIs: "Asset-Based Lending (ABL) is a flexible credit line that lets you borrow against your company's assets like accounts receivable, inventory, equipment, and real estate. Instead of focusing heavily on credit history, ABL lenders evaluate the value of your collateral.",
@@ -117,7 +117,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "inventory-financing",
     title: "Inventory Financing",
-    seoTitle: "Scale Inventory Without Capital Drain | Inventory Financing",
+    seoTitle: "Inventory Financing for Growing Retailers",
     image: "/solutions/Inventory Financing.webp",
     category: "Asset-Based",
     whatIs: "Inventory financing is a short-term loan option that leverages existing inventory as collateral, offering businesses the liquidity to manage inventory levels.",
@@ -137,7 +137,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "purchase-order-funding",
     title: "PO Funding",
-    seoTitle: "Fund Purchase Orders Fast | Scale Without Cash Depletion",
+    seoTitle: "PO Funding: Scale Without Cash Drain",
     image: "/solutions/Purchase Order Funding.webp",
     category: "Growth Capital",
     whatIs: "PO financing provides funding to fulfill customer purchase orders when you lack working capital for production or materials. Especially valuable for international sourcing, tariff management, and supply chain financing.",
@@ -160,7 +160,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "government-contracts",
     title: "Government Contracts",
-    seoTitle: "Government Contract Financing | Bridge Federal & State Payment Gaps",
+    seoTitle: "Government Contract Financing Solutions",
     image: "/solutions/Government Contract Financing.webp",
     category: "Contract-Based",
     whatIs: "Government contract financing funds federal, state, and local contracts, covering payroll, materials, and upfront costs until government payment arrives (often 30-90+ days). Works for prime and subcontractors.",
@@ -183,7 +183,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "real-estate-lending",
     title: "Real Estate Lending",
-    seoTitle: "Real Estate Financing Fast | Bridge Loans & Permanent Options",
+    seoTitle: "Real Estate Financing Fast | Bridge Loans",
     image: "/solutions/Raeal Estate Lending.webp",
     category: "Long-Term Financing",
     whatIs: "Real estate financing covers commercial property purchases, refinancing, cash-out refinancing, and business owner financing needs. Includes bridge loans (12-36 months) and permanent financing (25-30 year terms).",
@@ -204,7 +204,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "unsecured-debt",
     title: "Subordinated & Unsecured Credit",
-    seoTitle: "Stretch Capital When You've Maxed Bank Lines | Unsecured Financing",
+    seoTitle: "Unsecured & Subordinated Financing",
     image: "/solutions/Unsecured & Sub-Debt Loans.webp",
     category: "Strategic Financing",
     whatIs: "Bridge capital provides quick, flexible financing without requiring collateral or personal guarantees. Perfect for acquisition timing gaps, M&A bridge needs, or 'stretch capital' when you've maxed traditional lenders. Includes unsecured term loans and subordinated/mezzanine financing.",
@@ -247,7 +247,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "sba-loans",
     title: "SBA Loans",
-    seoTitle: "SBA Loans with Lower Rates & Longer Terms | Government-Backed",
+    seoTitle: "SBA Loans: Lower Rates & Longer Terms",
     image: "/solutions/Small Business Administration Loans.webp",
     category: "Government-Backed",
     whatIs: "SBA Loans are government-backed loans from banks offering lower interest rates and longer terms than traditional loans.",
@@ -264,7 +264,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "debt-refinance",
     title: "Consolidation & Recapitalization",
-    seoTitle: "Consolidate Debt & Lower Payments by 30-50% | MCA Refinancing",
+    seoTitle: "Consolidate Debt & Lower Payments 30-50%",
     image: "/solutions/Consolidation and Recapitalization.webp",
     category: "Strategic Restructuring",
     whatIs: "Debt refinancing lets you replace high-cost debt (like merchant cash advances, expensive term loans, or multiple loan payments) with a single, more affordable financing solution. It's designed to free up cash flow, reduce monthly payments, and give your business breathing room to grow.",

@@ -17,11 +17,11 @@ import { getBlogPosts } from '@/lib/blog-utils'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'How to Fund Business Growth When Banks Decline | Strategies & Case Studies',
-  description: 'Learn how to access working capital when traditional banks say no. Real funding case studies, alternative lending strategies, and expert guides for growing businesses.',
+  title: 'Business Growth Funding When Banks Decline',
+  description: 'Learn alternative lending strategies when banks decline. Real funding case studies, working capital solutions & expert guides.',
   keywords: 'business funding, alternative lending, working capital strategies, case studies, when banks decline, growth funding',
   openGraph: {
-    title: 'How to Fund Business Growth When Banks Decline | Strategies & Case Studies',
+    title: 'Business Growth Funding When Banks Decline',
     description: 'See how real businesses secured funding in 3-10 days when banks declined. Learn alternative lending strategies, explore case studies, and discover creative working capital solutions.',
     url: 'https://servefunding.com/blog',
     type: 'website',
