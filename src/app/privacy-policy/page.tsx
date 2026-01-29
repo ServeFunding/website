@@ -1,6 +1,19 @@
+import type { Metadata } from 'next'
 import { Container, Heading, Text, Section } from '@/components/ui'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy | Serve Funding',
+  description: 'Read Serve Funding\'s privacy policy to understand how we collect, use, and protect your personal information and data.',
+  robots: 'index, follow',
+  openGraph: {
+    title: 'Privacy Policy | Serve Funding',
+    description: 'Read Serve Funding\'s privacy policy to understand how we collect, use, and protect your personal information and data.',
+    url: 'https://servefunding.com/privacy-policy',
+    type: 'website',
+  },
+}
 
 export default function PrivacyPolicy() {
   return (

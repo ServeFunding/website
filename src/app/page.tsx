@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import {
   Search,
   Clock,
@@ -26,6 +27,33 @@ import { LoadingSkeleton } from '@/components/LoadingSkeleton'
 import { HeroAnimation } from '@/components/HeroAnimation'
 import { HeroCarousel } from '@/components/HeroCarousel'
 import { FAQSectionWithSchema } from '@/components/FAQSection'
+
+export const metadata: Metadata = {
+  title: 'Relationships Over Bots | Working Capital When Banks Say No',
+  description: 'Boutique working capital advisory for growing businesses. Get funding in 3-10 days for rapid growth, acquisitions, payroll, and more. $250K-$100MM. Trusted advisors, not robots.',
+  keywords: 'working capital, business loans, when banks say no, funding advisory, asset-based lending, invoice factoring, rapid growth funding',
+  openGraph: {
+    title: 'Relationships Over Bots | Working Capital When Banks Say No',
+    description: 'Stuck with traditional lenders? Serve Funding offers creative working capital solutions in 3-10 days. Advisory service with transparent rates, trusted advisors, and relationships-first approach. $250K-$100MM.',
+    url: 'https://servefunding.com/',
+    siteName: 'Serve Funding',
+    type: 'website',
+    images: [
+      {
+        url: 'https://servefunding.com/home/right%20funding%20solutions.webp',
+        width: 960,
+        height: 628,
+        alt: 'The Right Funding Solutions for Healthy Business Growth',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Relationships Over Bots | Working Capital When Banks Say No',
+    description: 'Creative working capital from $250K-$100MM. Fast approval, trusted advisors, transparent process. When traditional banks decline, we step in.',
+  },
+  robots: 'index, follow',
+}
 
 // Lazy load below-the-fold components
 const IndustriesGrid = dynamic(() => import('@/components/IndustriesGrid').then(mod => ({ default: mod.IndustriesGrid })), {

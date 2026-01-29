@@ -17,11 +17,12 @@ import { getBlogPosts } from '@/lib/blog-utils'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Blog | Insights on Business Funding & Working Capital',
-  description: 'Financing insights, case studies, and guides for growing businesses. Learn from real funding stories and working capital strategies.',
+  title: 'How to Fund Business Growth When Banks Decline | Strategies & Case Studies',
+  description: 'Learn how to access working capital when traditional banks say no. Real funding case studies, alternative lending strategies, and expert guides for growing businesses.',
+  keywords: 'business funding, alternative lending, working capital strategies, case studies, when banks decline, growth funding',
   openGraph: {
-    title: 'Blog | Insights on Business Funding & Working Capital',
-    description: 'Financing insights, case studies, and guides for growing businesses. Learn from real funding stories and working capital strategies.',
+    title: 'How to Fund Business Growth When Banks Decline | Strategies & Case Studies',
+    description: 'See how real businesses secured funding in 3-10 days when banks declined. Learn alternative lending strategies, explore case studies, and discover creative working capital solutions.',
     url: 'https://servefunding.com/blog',
     type: 'website',
     images: [
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
         url: "https://servefunding.com/Logo_Full-color_long_samecolor-1.webp",
         width: 1024,
         height: 728,
-        alt: "Serve Funding Blog",
+        alt: "Serve Funding Blog - Funding Strategies for Growing Businesses",
       },
     ],
   },

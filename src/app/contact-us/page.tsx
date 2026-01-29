@@ -19,11 +19,12 @@ import { IntroCallForm } from '@/components/Forms'
 import { Breadcrumb } from '@/components/breadcrumb'
 
 export const metadata: Metadata = {
-  title: 'Contact Serve Funding | We\'re here to serve',
-  description: 'Ready to explore your funding options? Contact us today. Phone, email, or schedule a consultation with our funding advisors.',
+  title: 'Schedule Your Free Funding Consultation | Serve Funding',
+  description: 'Get a personalized funding recommendation in 3-10 days. Schedule your free consultation with a Serve Funding advisor today. No obligation, no fees.',
+  keywords: 'contact funding advisor, schedule funding consultation, working capital consultation, business funding advisor near me',
   openGraph: {
-    title: 'Contact Serve Funding | We\'re here to serve',
-    description: 'Ready to explore your funding options? Contact us today. Phone, email, or schedule a consultation with our funding advisors.',
+    title: 'Schedule Your Free Funding Consultation | Serve Funding',
+    description: 'Ready for working capital approval? Schedule a free 20-minute consultation with a Serve Funding advisor. Phone, email, or Zoom. Fast and confidential.',
     url: 'https://servefunding.com/contact-us',
     type: 'website',
     images: [

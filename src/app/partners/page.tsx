@@ -20,11 +20,12 @@ import { Breadcrumb } from '@/components/breadcrumb'
 import { partnerTypes, commitments, testimonials } from '@/data/partners'
 
 export const metadata: Metadata = {
-  title: 'Partnership Opportunities | Serve Funding',
-  description: 'Partner with Serve Funding to expand your advisory capabilities. Build stronger client relationships by offering alternative funding solutions.',
+  title: 'Partner With Serve Funding | Bankers, CPAs, CFOs & Advisors',
+  description: 'Bankers, CPAs, fractional CFOs, and business advisors partner with Serve Funding to offer clients alternative funding from $250K-$100MM. Expand your service offering.',
+  keywords: 'partner with us, commercial bankers, fractional CFO, investment bankers, referral partnership, business advisors',
   openGraph: {
-    title: 'Partnership Opportunities | Serve Funding',
-    description: 'Partner with Serve Funding to expand your advisory capabilities. Build stronger client relationships by offering alternative funding solutions.',
+    title: 'Partner With Serve Funding | Bankers, CPAs, CFOs & Advisors',
+    description: 'Grow your practice by partnering with Serve Funding. Offer your clients access to $250K-$100MM in alternative funding solutions. For bankers, CPAs, CFOs, and advisors.',
     url: 'https://servefunding.com/partners',
     type: 'website',
     images: [
