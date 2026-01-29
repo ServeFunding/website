@@ -5,12 +5,12 @@ import { SchemaRenderer } from '@/components/SchemaRenderer'
 import { Breadcrumb } from '@/components/breadcrumb'
 
 export const metadata: Metadata = {
-  title: 'Frequently Asked Questions | Serve Funding',
-  description: 'Answers to your questions about working capital, business loans, asset-based lending, invoice factoring, and alternative financing solutions.',
-  keywords: 'FAQ, frequently asked questions, working capital questions, business loans FAQ, serve funding questions',
+  title: 'Working Capital FAQ | Answers When Banks Decline Your Loan',
+  description: 'Get quick answers to funding questions. How fast can you approve? What if banks declined me? How does invoice factoring work? Find answers here.',
+  keywords: 'FAQ, working capital questions, when banks say no, invoice factoring, asset-based lending, business funding FAQ',
   openGraph: {
-    title: 'Frequently Asked Questions | Serve Funding',
-    description: 'Get answers to common questions about working capital, business loans, asset-based lending, and more from Serve Funding.',
+    title: 'Working Capital FAQ | Answers When Banks Decline Your Loan',
+    description: 'Questions about working capital, alternative lending, or how fast you can get approved? See real answers to common funding questions from Serve Funding.',
     url: 'https://servefunding.com/faq',
     siteName: 'Serve Funding',
     type: 'website',

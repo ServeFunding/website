@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { TrendingUp, FileText } from "lucide-react"
+import { Zap, FileText, Wrench } from "lucide-react"
 import { COLORS } from "@/lib/colors"
 import { trackNavClick } from "@/lib/tracking"
 import type { FeaturedDropdownItem } from "@/lib/header-nav"
@@ -24,8 +24,9 @@ const regularItemClasses = "block px-4 py-2.5 text-sm font-medium transition-col
 
 const getIcon = (iconName?: string) => {
   const iconMap: Record<string, React.ReactNode> = {
-    TrendingUp: <TrendingUp size={20} className="flex-shrink-0 mt-0.5" />,
+    Zap: <Zap size={20} className="flex-shrink-0 mt-0.5" />,
     FileText: <FileText size={20} className="flex-shrink-0 mt-0.5" />,
+    Wrench: <Wrench size={20} className="flex-shrink-0 mt-0.5" />,
   }
   return iconMap[iconName || '']
 }

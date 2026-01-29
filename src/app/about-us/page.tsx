@@ -17,11 +17,12 @@ import { COLORS } from '@/lib/colors'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "About Serve Funding | Our Story, Values & Mission",
-  description: "Learn about Serve Funding's mission, core values rooted in TRUST, and commitment to supporting growing businesses and communities.",
+  title: "About Serve Funding | Michael Kodinsky's Advisory Model",
+  description: "Meet Michael Kodinsky, founder of Serve Funding. Learn how a boutique advisory model—built on Transparency, Responsibility, and Understanding—helps growing businesses secure funding when traditional banks decline.",
+  keywords: "Michael Kodinsky, Serve Funding founder, working capital advisory, business funding advisor, boutique lender",
   openGraph: {
-    title: "About Serve Funding | Our Story, Values & Mission",
-    description: "Learn about Serve Funding's mission, core values rooted in TRUST, and commitment to supporting growing businesses and communities.",
+    title: "About Serve Funding | Michael Kodinsky's Advisory Model",
+    description: "Discover how Michael Kodinsky built Serve Funding on relationships, transparency, and trusted advisory—helping growing businesses access funding from $250K-$100MM when banks say no.",
     url: "https://servefunding.com/about-us",
     type: "website",
     images: [

@@ -1,6 +1,19 @@
+import type { Metadata } from 'next'
 import { Container, Heading, Text, Section } from '@/components/ui'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
+
+export const metadata: Metadata = {
+  title: 'Terms of Service | Serve Funding',
+  description: 'Review the terms and conditions governing your use of Serve Funding\'s website and services.',
+  robots: 'index, follow',
+  openGraph: {
+    title: 'Terms of Service | Serve Funding',
+    description: 'Review the terms and conditions governing your use of Serve Funding\'s website and services.',
+    url: 'https://servefunding.com/terms-of-service',
+    type: 'website',
+  },
+}
 
 export default function TermsOfService() {
   return (

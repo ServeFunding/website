@@ -9,37 +9,36 @@ import type { FundingSolution } from '@/types/solutions'
 
 export const fundingSolutions: FundingSolution[] = [
   {
-    id: "asset-based-lending",
-    title: "Asset-Based Lending",
-    seoTitle: "Asset-Based Lending for Scaling Businesses",
-    image: "/solutions/Asset Based Lending.webp",
-    category: "Flexible Working Capital",
-    whatIs: "Asset-Based Lending (ABL) is a flexible credit line that lets you borrow against your company's assets like accounts receivable, inventory, equipment, and real estate. Instead of focusing heavily on credit history, ABL lenders evaluate the value of your collateral.",
-    shortDesc: "Asset-based lending for growing companies. Flexible credit lines backed by AR, inventory, equipment & real estate. Facility sizes $250K–$25M.",
-    fullDesc: "Asset-Based Lending (ABL) allows businesses to leverage their accounts receivable, inventory, equipment, and commercial real estate as collateral to access flexible working capital. These lines of credit are ideal for companies which are going through seasons of rapid growth or experiencing temporary financial challenges. ABL lines are typically used for working capital, expansion, acquisitions, or debt restructuring.",
+    id: "working-capital-loans",
+    title: "Working Capital Loans & Lines of Credit",
+    seoTitle: "Fast Working Capital Loans Approved in 3-10 Days",
+    image: "/solutions/Working Capital Loans.webp",
+    category: "Quick Operations Funding",
+    whatIs: "A working capital loan is short-term financing that helps businesses cover day-to-day operational expenses: payroll, inventory, accounts payable, rent, etc.",
+    shortDesc: "Working capital loans for growing companies. Fast funding (2–10 business days). Support payroll, inventory, expansion. $100K–$10M+.",
+    fullDesc: "Working capital funding is typically funded on a revenue-based underwriting model. They can be closed quickly – often within days – and provide essential funding for managing day-to-day operating expenses. They are typically used for help to cover payroll, fund additional inventory, address accounts payable, and more. Working capital loans ensure smooth operations amid cash flow challenges stemming from the unexpected to seasonal fluctuations.",
     features: [
-      "Facility sizes from $250K – $25M",
-      "Revolving credit lines available",
-      "70-90% advance on receivables",
-      "50-75% advance on inventory",
-      "Cost of capital: Prime + 1–5%+",
-      "Funding timeline: 6–8 weeks",
-      "Typical industries: manufacturers, distributors, government contractors, services firms",
-      "Suitable for US-based, B2B companies"
+      "Loan sizes from $100K to $10M+",
+      "Flexible terms from 6 to 48 months",
+      "Funding within 2–10 business days",
+      "Monthly rates of 1.25%–4% per month",
+      "Focus on revenue and growth potential rather than credit scores and existing assets",
+      "Fast-growing companies across all industries"
     ],
     bestFor: [
-      "Fast-growing companies with strong assets",
-      "Companies with inconsistent cash flow",
-      "Acquisitions and expansion",
-      "Debt restructuring",
-      "Managing cash flow during growth periods"
+      "Unexpected payroll shortfalls",
+      "Seasonal cash flow gaps",
+      "Rapid growth cash flow needs",
+      "New customer order financing",
+      "Accounts payable management",
+      "Bridge between funding rounds"
     ],
   },
 
   {
     id: "invoice-factoring",
     title: "Invoice Financing",
-    seoTitle: "Invoice Financing That Scales With You",
+    seoTitle: "Get Paid Faster With Invoice Financing | Eliminate Payment Delays",
     image: "/solutions/Invoice AI Financing.webp",
     category: "Fast Cash Flow",
     whatIs: "Invoice factoring (also called AR financing) is when you sell your unpaid B2B invoices to a factor for immediate cash. Instead of waiting 30-90 days for customers to pay, you get 75-95% of the invoice value within 24-48 hours. As customers pay, the borrowing automatically decreases—making it self-liquidating.",
@@ -68,56 +67,9 @@ export const fundingSolutions: FundingSolution[] = [
   },
 
   {
-    id: "working-capital-loans",
-    title: "Working Capital Loans & Lines of Credit",
-    seoTitle: "Fast Working Capital for Growth",
-    image: "/solutions/Working Capital Loans.webp",
-    category: "Quick Operations Funding",
-    whatIs: "A working capital loan is short-term financing that helps businesses cover day-to-day operational expenses: payroll, inventory, accounts payable, rent, etc.",
-    shortDesc: "Working capital loans for growing companies. Fast funding (2–10 business days). Support payroll, inventory, expansion. $100K–$10M+.",
-    fullDesc: "Working capital funding is typically funded on a revenue-based underwriting model. They can be closed quickly – often within days – and provide essential funding for managing day-to-day operating expenses. They are typically used for help to cover payroll, fund additional inventory, address accounts payable, and more. Working capital loans ensure smooth operations amid cash flow challenges stemming from the unexpected to seasonal fluctuations.",
-    features: [
-      "Loan sizes from $100K to $10M+",
-      "Flexible terms from 6 to 48 months",
-      "Funding within 2–10 business days",
-      "Monthly rates of 1.25%–4% per month",
-      "Focus on revenue and growth potential rather than credit scores and existing assets",
-      "Fast-growing companies across all industries"
-    ],
-    bestFor: [
-      "Unexpected payroll shortfalls",
-      "Seasonal cash flow gaps",
-      "Rapid growth cash flow needs",
-      "New customer order financing",
-      "Accounts payable management",
-      "Bridge between funding rounds"
-    ],
-  },
-
-  {
-    id: "inventory-financing",
-    title: "Inventory Financing",
-    seoTitle: "Inventory Financing for Growing Retailers",
-    image: "/solutions/Inventory Financing.webp",
-    category: "Asset-Based",
-    whatIs: "Inventory financing is a short-term loan option that leverages existing inventory as collateral, offering businesses the liquidity to manage inventory levels.",
-    shortDesc: "Inventory financing for growing e-commerce & retail. Scale inventory levels without depleting working capital. Up to 85% advance.",
-    fullDesc: "Inventory financing is a short-term loan option that leverages existing inventory as collateral, offering businesses the liquidity to manage inventory levels. It's ideal for companies needing to maintain stock to satisfy customer demand while facing interim cash flow issues.",
-    features: [
-      "Loan amounts from $500K to $20M",
-      "Revolving credit lines available",
-      "Advance rate up to 85% of liquidation value",
-      "Inventory audit / review typically required",
-      "Interest based on Prime + 6-12%",
-      "Suited for B2B and B2C companies",
-      "Great solution for e-commerce firms"
-    ],
-  },
-
-  {
     id: "equipment-leasing",
     title: <>Equipment Leasing <br />& Financing</>,
-    seoTitle: "Equipment Financing for Growing Operations",
+    seoTitle: "Equipment Financing Without Big Upfront Costs",
     image: "/solutions/Equipment Leasing.webp",
     category: "Asset Acquisition",
     whatIs: "Equipment leasing lets you acquire essential machinery, vehicles, technology without large upfront capital. Monthly payments spread the cost over 3-7 years.",
@@ -135,9 +87,57 @@ export const fundingSolutions: FundingSolution[] = [
   },
 
   {
+    id: "asset-based-lending",
+    title: "Asset-Based Lending",
+    seoTitle: "Get Cash Fast With Asset-Based Lending When Banks Decline",
+    image: "/solutions/Asset Based Lending.webp",
+    category: "Flexible Working Capital",
+    whatIs: "Asset-Based Lending (ABL) is a flexible credit line that lets you borrow against your company's assets like accounts receivable, inventory, equipment, and real estate. Instead of focusing heavily on credit history, ABL lenders evaluate the value of your collateral.",
+    shortDesc: "Asset-based lending for growing companies. Flexible credit lines backed by AR, inventory, equipment & real estate. Facility sizes $250K–$25M.",
+    fullDesc: "Asset-Based Lending (ABL) allows businesses to leverage their accounts receivable, inventory, equipment, and commercial real estate as collateral to access flexible working capital. These lines of credit are ideal for companies which are going through seasons of rapid growth or experiencing temporary financial challenges. ABL lines are typically used for working capital, expansion, acquisitions, or debt restructuring.",
+    features: [
+      "Facility sizes from $250K – $25M",
+      "Revolving credit lines available",
+      "70-90% advance on receivables",
+      "50-75% advance on inventory",
+      "Cost of capital: Prime + 1–5%+",
+      "Funding timeline: 6–8 weeks",
+      "Typical industries: manufacturers, distributors, government contractors, services firms",
+      "Suitable for US-based, B2B companies"
+    ],
+    bestFor: [
+      "Fast-growing companies with strong assets",
+      "Companies with inconsistent cash flow",
+      "Acquisitions and expansion",
+      "Debt restructuring",
+      "Managing cash flow during growth periods"
+    ],
+  },
+
+  {
+    id: "inventory-financing",
+    title: "Inventory Financing",
+    seoTitle: "Scale Inventory Without Capital Drain | Inventory Financing",
+    image: "/solutions/Inventory Financing.webp",
+    category: "Asset-Based",
+    whatIs: "Inventory financing is a short-term loan option that leverages existing inventory as collateral, offering businesses the liquidity to manage inventory levels.",
+    shortDesc: "Inventory financing for growing e-commerce & retail. Scale inventory levels without depleting working capital. Up to 85% advance.",
+    fullDesc: "Inventory financing is a short-term loan option that leverages existing inventory as collateral, offering businesses the liquidity to manage inventory levels. It's ideal for companies needing to maintain stock to satisfy customer demand while facing interim cash flow issues.",
+    features: [
+      "Loan amounts from $500K to $20M",
+      "Revolving credit lines available",
+      "Advance rate up to 85% of liquidation value",
+      "Inventory audit / review typically required",
+      "Interest based on Prime + 6-12%",
+      "Suited for B2B and B2C companies",
+      "Great solution for e-commerce firms"
+    ],
+  },
+
+  {
     id: "purchase-order-funding",
     title: "PO Funding",
-    seoTitle: "Purchase Order Funding for Growth",
+    seoTitle: "Fund Purchase Orders Fast | Scale Without Cash Depletion",
     image: "/solutions/Purchase Order Funding.webp",
     category: "Growth Capital",
     whatIs: "PO financing provides funding to fulfill customer purchase orders when you lack working capital for production or materials. Especially valuable for international sourcing, tariff management, and supply chain financing.",
@@ -160,7 +160,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "government-contracts",
     title: "Government Contracts",
-    seoTitle: "Government Contract Financing for Scaling Contractors",
+    seoTitle: "Government Contract Financing | Bridge Federal & State Payment Gaps",
     image: "/solutions/Government Contract Financing.webp",
     category: "Contract-Based",
     whatIs: "Government contract financing funds federal, state, and local contracts, covering payroll, materials, and upfront costs until government payment arrives (often 30-90+ days). Works for prime and subcontractors.",
@@ -183,7 +183,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "real-estate-lending",
     title: "Real Estate Lending",
-    seoTitle: "Real Estate Financing for Business Growth",
+    seoTitle: "Real Estate Financing Fast | Bridge Loans & Permanent Options",
     image: "/solutions/Raeal Estate Lending.webp",
     category: "Long-Term Financing",
     whatIs: "Real estate financing covers commercial property purchases, refinancing, cash-out refinancing, and business owner financing needs. Includes bridge loans (12-36 months) and permanent financing (25-30 year terms).",
@@ -204,7 +204,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "unsecured-debt",
     title: "Subordinated & Unsecured Credit",
-    seoTitle: "Unsecured Capital When Banks Say No",
+    seoTitle: "Stretch Capital When You've Maxed Bank Lines | Unsecured Financing",
     image: "/solutions/Unsecured & Sub-Debt Loans.webp",
     category: "Strategic Financing",
     whatIs: "Bridge capital provides quick, flexible financing without requiring collateral or personal guarantees. Perfect for acquisition timing gaps, M&A bridge needs, or 'stretch capital' when you've maxed traditional lenders. Includes unsecured term loans and subordinated/mezzanine financing.",
@@ -227,7 +227,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "bridge-funding",
     title: "Bridge Funding",
-    seoTitle: "Bridge Funding for Strategic Growth",
+    seoTitle: "Quick Bridge Funding | Cover Timing Gaps in Days",
     image: "/solutions/Bridge Funding.webp",
     category: "Short-Term Capital",
     whatIs: "Bridge funding provides short-term capital to cover timing gaps, whether waiting for contracts to close, receivables to arrive, or larger financing to fund. Typically 6-12 months, interest-only structures available.",
@@ -247,7 +247,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "sba-loans",
     title: "SBA Loans",
-    seoTitle: "SBA Loans for Growing Small Businesses",
+    seoTitle: "SBA Loans with Lower Rates & Longer Terms | Government-Backed",
     image: "/solutions/Small Business Administration Loans.webp",
     category: "Government-Backed",
     whatIs: "SBA Loans are government-backed loans from banks offering lower interest rates and longer terms than traditional loans.",
@@ -264,7 +264,7 @@ export const fundingSolutions: FundingSolution[] = [
   {
     id: "debt-refinance",
     title: "Consolidation & Recapitalization",
-    seoTitle: "Debt Refinancing for Scaling Businesses",
+    seoTitle: "Consolidate Debt & Lower Payments by 30-50% | MCA Refinancing",
     image: "/solutions/Consolidation and Recapitalization.webp",
     category: "Strategic Restructuring",
     whatIs: "Debt refinancing lets you replace high-cost debt (like merchant cash advances, expensive term loans, or multiple loan payments) with a single, more affordable financing solution. It's designed to free up cash flow, reduce monthly payments, and give your business breathing room to grow.",

@@ -3,12 +3,12 @@ import { SolutionsClient } from './client'
 import { Breadcrumb } from '@/components/breadcrumb'
 
 export const metadata: Metadata = {
-  title: "Creative Working Capital Solutions $250K-$100MM | When Banks Say No",
-  description: "10+ alternative funding solutions: debt refinance, payroll financing, asset-based lending, invoice factoring, MCA consolidation. Fast funding in 3-10 days.",
-  keywords: "debt refinance, payroll financing, mca consolidation, asset-based lending, invoice factoring, working capital loans, when banks say no, alternative business financing",
+  title: "10+ Funding Solutions When Banks Decline | Fast Approval & Better Terms",
+  description: "Stuck with traditional lenders? Serve Funding offers 10+ alternative funding solutions: asset-based lending, invoice factoring, PO funding, equipment leasing, and more. Approvals in 3-10 days from $250K-$100MM.",
+  keywords: "when banks say no, alternative funding, asset-based lending, invoice factoring, business loans, working capital, MCA consolidation, equipment leasing",
   openGraph: {
-    title: "Creative Working Capital Solutions $250K-$100MM | When Banks Say No",
-    description: "Explore 10+ alternative funding solutions including debt refinance, payroll financing, asset-based lending, invoice factoring, and MCA consolidation. Fast funding in 3-10 days when traditional banks say no.",
+    title: "10+ Funding Solutions When Banks Decline | Fast Approval & Better Terms",
+    description: "See all 10+ funding options. Asset-based lending, invoice factoring, PO funding, equipment leasing, government contracts, and more. Get approved in 3-10 days. $250K-$100MM.",
     url: "https://servefunding.com/solutions",
     type: "website",
     images: [

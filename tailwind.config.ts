@@ -1,5 +1,16 @@
 import type { Config } from "tailwindcss";
-import { tailwindColors } from "./src/lib/colors";
+
+const tailwindColors = {
+  "brand-primary": "#65773d",
+  "brand-secondary": "#d3ce75",
+  "brand-tertiary": "#bcb450",
+  "brand-highlight": "#efe073",
+  "brand-dark": "#323b1e",
+  "brand-background": "#f1f0d5",
+  "olive-900": "#323b1e",
+  "olive-800": "#65773d",
+  "gold-500": "#d3ce75"
+};
 
 const config: Config = {
   content: [
