@@ -30,7 +30,7 @@ import { FAQSectionWithSchema } from '@/components/FAQSection'
 
 export const metadata: Metadata = {
   title: 'Relationships Over Bots | Working Capital When Banks Say No',
-  description: 'Boutique working capital advisory for growing businesses. Get funding in 3-10 days for rapid growth, acquisitions, payroll, and more. $250K-$100MM. Trusted advisors, not robots.',
+  description: 'Working capital advisory for growing businesses. Get funding in 3-10 days for growth, acquisitions, payroll & more. $250K-$100MM.',
   keywords: 'working capital, business loans, when banks say no, funding advisory, asset-based lending, invoice factoring, rapid growth funding',
   openGraph: {
     title: 'Relationships Over Bots | Working Capital When Banks Say No',

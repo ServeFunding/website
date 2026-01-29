@@ -5,13 +5,21 @@ import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 export const metadata: Metadata = {
   title: 'Terms of Service | Serve Funding',
-  description: 'Review the terms and conditions governing your use of Serve Funding\'s website and services.',
+  description: 'Review the complete terms and conditions governing your use of Serve Funding\'s website, services, and financial advisory offerings. Last updated September 2024.',
   robots: 'index, follow',
   openGraph: {
     title: 'Terms of Service | Serve Funding',
-    description: 'Review the terms and conditions governing your use of Serve Funding\'s website and services.',
+    description: 'Review the complete terms and conditions governing your use of Serve Funding\'s website, services, and financial advisory offerings. Last updated September 2024.',
     url: 'https://servefunding.com/terms-of-service',
     type: 'website',
+    images: [
+      {
+        url: 'https://servefunding.com/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Serve Funding Terms of Service',
+      },
+    ],
   },
 }
 

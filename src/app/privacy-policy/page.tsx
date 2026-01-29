@@ -12,6 +12,14 @@ export const metadata: Metadata = {
     description: 'Read Serve Funding\'s privacy policy to understand how we collect, use, and protect your personal information and data.',
     url: 'https://servefunding.com/privacy-policy',
     type: 'website',
+    images: [
+      {
+        url: 'https://servefunding.com/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Serve Funding Privacy Policy',
+      },
+    ],
   },
 }
 
