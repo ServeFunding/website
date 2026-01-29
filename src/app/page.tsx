@@ -29,12 +29,12 @@ import { HeroCarousel } from '@/components/HeroCarousel'
 import { FAQSectionWithSchema } from '@/components/FAQSection'
 
 export const metadata: Metadata = {
-  title: 'Relationships Over Bots | Working Capital When Banks Say No',
-  description: 'Working capital advisory for growing businesses. Get funding in 3-10 days for growth, acquisitions, payroll & more. $250K-$100MM.',
+  title: 'Working Capital in 3-10 Days | $250K-$100MM',
+  description: 'Trusted working capital advisory for entrepreneurs. Get funded in 3-10 days with transparency & relationships. Debt refinance, MCA consolidation & more. $250K-$100MM.',
   keywords: 'working capital, business loans, when banks say no, funding advisory, asset-based lending, invoice factoring, rapid growth funding',
   openGraph: {
-    title: 'Relationships Over Bots | Working Capital When Banks Say No',
-    description: 'Stuck with traditional lenders? Serve Funding offers creative working capital solutions in 3-10 days. Advisory service with transparent rates, trusted advisors, and relationships-first approach. $250K-$100MM.',
+    title: 'Working Capital in 3-10 Days | $250K-$100MM',
+    description: 'Entrepreneurs deserve better. Get funded fast with trusted advisors who prioritize your growth. Debt refinance, MCA consolidation, invoice factoring & working capital solutions in 3-10 days.',
     url: 'https://servefunding.com/',
     siteName: 'Serve Funding',
     type: 'website',
@@ -49,8 +49,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Relationships Over Bots | Working Capital When Banks Say No',
-    description: 'Creative working capital from $250K-$100MM. Fast approval, trusted advisors, transparent process. When traditional banks decline, we step in.',
+    title: 'Working Capital in 3-10 Days | $250K-$100MM',
+    description: 'Trusted working capital advisory for growing entrepreneurs. Fast funding when banks decline. Relationships > Bots. $250K-$100MM in 3-10 days.',
   },
   robots: 'index, follow',
 }
