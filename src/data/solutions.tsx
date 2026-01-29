@@ -9,30 +9,29 @@ import type { FundingSolution } from '@/types/solutions'
 
 export const fundingSolutions: FundingSolution[] = [
   {
-    id: "asset-based-lending",
-    title: "Asset-Based Lending",
-    seoTitle: "Get Cash Fast With Asset-Based Lending When Banks Decline",
-    image: "/solutions/Asset Based Lending.webp",
-    category: "Flexible Working Capital",
-    whatIs: "Asset-Based Lending (ABL) is a flexible credit line that lets you borrow against your company's assets like accounts receivable, inventory, equipment, and real estate. Instead of focusing heavily on credit history, ABL lenders evaluate the value of your collateral.",
-    shortDesc: "Asset-based lending for growing companies. Flexible credit lines backed by AR, inventory, equipment & real estate. Facility sizes $250K–$25M.",
-    fullDesc: "Asset-Based Lending (ABL) allows businesses to leverage their accounts receivable, inventory, equipment, and commercial real estate as collateral to access flexible working capital. These lines of credit are ideal for companies which are going through seasons of rapid growth or experiencing temporary financial challenges. ABL lines are typically used for working capital, expansion, acquisitions, or debt restructuring.",
+    id: "working-capital-loans",
+    title: "Working Capital Loans & Lines of Credit",
+    seoTitle: "Fast Working Capital Loans Approved in 3-10 Days",
+    image: "/solutions/Working Capital Loans.webp",
+    category: "Quick Operations Funding",
+    whatIs: "A working capital loan is short-term financing that helps businesses cover day-to-day operational expenses: payroll, inventory, accounts payable, rent, etc.",
+    shortDesc: "Working capital loans for growing companies. Fast funding (2–10 business days). Support payroll, inventory, expansion. $100K–$10M+.",
+    fullDesc: "Working capital funding is typically funded on a revenue-based underwriting model. They can be closed quickly – often within days – and provide essential funding for managing day-to-day operating expenses. They are typically used for help to cover payroll, fund additional inventory, address accounts payable, and more. Working capital loans ensure smooth operations amid cash flow challenges stemming from the unexpected to seasonal fluctuations.",
     features: [
-      "Facility sizes from $250K – $25M",
-      "Revolving credit lines available",
-      "70-90% advance on receivables",
-      "50-75% advance on inventory",
-      "Cost of capital: Prime + 1–5%+",
-      "Funding timeline: 6–8 weeks",
-      "Typical industries: manufacturers, distributors, government contractors, services firms",
-      "Suitable for US-based, B2B companies"
+      "Loan sizes from $100K to $10M+",
+      "Flexible terms from 6 to 48 months",
+      "Funding within 2–10 business days",
+      "Monthly rates of 1.25%–4% per month",
+      "Focus on revenue and growth potential rather than credit scores and existing assets",
+      "Fast-growing companies across all industries"
     ],
     bestFor: [
-      "Fast-growing companies with strong assets",
-      "Companies with inconsistent cash flow",
-      "Acquisitions and expansion",
-      "Debt restructuring",
-      "Managing cash flow during growth periods"
+      "Unexpected payroll shortfalls",
+      "Seasonal cash flow gaps",
+      "Rapid growth cash flow needs",
+      "New customer order financing",
+      "Accounts payable management",
+      "Bridge between funding rounds"
     ],
   },
 
@@ -68,29 +67,50 @@ export const fundingSolutions: FundingSolution[] = [
   },
 
   {
-    id: "working-capital-loans",
-    title: "Working Capital Loans & Lines of Credit",
-    seoTitle: "Fast Working Capital Loans Approved in 3-10 Days",
-    image: "/solutions/Working Capital Loans.webp",
-    category: "Quick Operations Funding",
-    whatIs: "A working capital loan is short-term financing that helps businesses cover day-to-day operational expenses: payroll, inventory, accounts payable, rent, etc.",
-    shortDesc: "Working capital loans for growing companies. Fast funding (2–10 business days). Support payroll, inventory, expansion. $100K–$10M+.",
-    fullDesc: "Working capital funding is typically funded on a revenue-based underwriting model. They can be closed quickly – often within days – and provide essential funding for managing day-to-day operating expenses. They are typically used for help to cover payroll, fund additional inventory, address accounts payable, and more. Working capital loans ensure smooth operations amid cash flow challenges stemming from the unexpected to seasonal fluctuations.",
+    id: "equipment-leasing",
+    title: <>Equipment Leasing <br />& Financing</>,
+    seoTitle: "Equipment Financing Without Big Upfront Costs",
+    image: "/solutions/Equipment Leasing.webp",
+    category: "Asset Acquisition",
+    whatIs: "Equipment leasing lets you acquire essential machinery, vehicles, technology without large upfront capital. Monthly payments spread the cost over 3-7 years.",
+    shortDesc: "Equipment financing for growing manufacturers & contractors. 3-7 year terms. Avoid upfront capital costs. Scale operations.",
+    fullDesc: "Equipment leasing offers businesses a practical solution to acquire essential machinery, vehicles, and technology without large upfront costs. By opting for a lease or loan specifically for equipment, companies can efficiently manage cash flow while securing the assets necessary for their operations. This financing method is ideal for most industries, including manufacturing, construction, transportation, healthcare, and technology.",
     features: [
-      "Loan sizes from $100K to $10M+",
-      "Flexible terms from 6 to 48 months",
-      "Funding within 2–10 business days",
-      "Monthly rates of 1.25%–4% per month",
-      "Focus on revenue and growth potential rather than credit scores and existing assets",
-      "Fast-growing companies across all industries"
+      "Loan range from $100K to $50MM+",
+      "Terms of 3 to 7 years are most typical",
+      "70%–85% advance of liquidation value",
+      "Equipment appraisal or audit required",
+      "Rates: Prime + 3% to 10%",
+      "Applicable for B2B and B2C sectors",
+      "Sale-leaseback options for existing equipment"
+    ],
+  },
+
+  {
+    id: "asset-based-lending",
+    title: "Asset-Based Lending",
+    seoTitle: "Get Cash Fast With Asset-Based Lending When Banks Decline",
+    image: "/solutions/Asset Based Lending.webp",
+    category: "Flexible Working Capital",
+    whatIs: "Asset-Based Lending (ABL) is a flexible credit line that lets you borrow against your company's assets like accounts receivable, inventory, equipment, and real estate. Instead of focusing heavily on credit history, ABL lenders evaluate the value of your collateral.",
+    shortDesc: "Asset-based lending for growing companies. Flexible credit lines backed by AR, inventory, equipment & real estate. Facility sizes $250K–$25M.",
+    fullDesc: "Asset-Based Lending (ABL) allows businesses to leverage their accounts receivable, inventory, equipment, and commercial real estate as collateral to access flexible working capital. These lines of credit are ideal for companies which are going through seasons of rapid growth or experiencing temporary financial challenges. ABL lines are typically used for working capital, expansion, acquisitions, or debt restructuring.",
+    features: [
+      "Facility sizes from $250K – $25M",
+      "Revolving credit lines available",
+      "70-90% advance on receivables",
+      "50-75% advance on inventory",
+      "Cost of capital: Prime + 1–5%+",
+      "Funding timeline: 6–8 weeks",
+      "Typical industries: manufacturers, distributors, government contractors, services firms",
+      "Suitable for US-based, B2B companies"
     ],
     bestFor: [
-      "Unexpected payroll shortfalls",
-      "Seasonal cash flow gaps",
-      "Rapid growth cash flow needs",
-      "New customer order financing",
-      "Accounts payable management",
-      "Bridge between funding rounds"
+      "Fast-growing companies with strong assets",
+      "Companies with inconsistent cash flow",
+      "Acquisitions and expansion",
+      "Debt restructuring",
+      "Managing cash flow during growth periods"
     ],
   },
 
@@ -111,26 +131,6 @@ export const fundingSolutions: FundingSolution[] = [
       "Interest based on Prime + 6-12%",
       "Suited for B2B and B2C companies",
       "Great solution for e-commerce firms"
-    ],
-  },
-
-  {
-    id: "equipment-leasing",
-    title: <>Equipment Leasing <br />& Financing</>,
-    seoTitle: "Equipment Financing Without Big Upfront Costs",
-    image: "/solutions/Equipment Leasing.webp",
-    category: "Asset Acquisition",
-    whatIs: "Equipment leasing lets you acquire essential machinery, vehicles, technology without large upfront capital. Monthly payments spread the cost over 3-7 years.",
-    shortDesc: "Equipment financing for growing manufacturers & contractors. 3-7 year terms. Avoid upfront capital costs. Scale operations.",
-    fullDesc: "Equipment leasing offers businesses a practical solution to acquire essential machinery, vehicles, and technology without large upfront costs. By opting for a lease or loan specifically for equipment, companies can efficiently manage cash flow while securing the assets necessary for their operations. This financing method is ideal for most industries, including manufacturing, construction, transportation, healthcare, and technology.",
-    features: [
-      "Loan range from $100K to $50MM+",
-      "Terms of 3 to 7 years are most typical",
-      "70%–85% advance of liquidation value",
-      "Equipment appraisal or audit required",
-      "Rates: Prime + 3% to 10%",
-      "Applicable for B2B and B2C sectors",
-      "Sale-leaseback options for existing equipment"
     ],
   },
 

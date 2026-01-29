@@ -62,14 +62,22 @@ export const headerNavConfig: HeaderNavConfig = {
       label: 'Solutions',
       basePath: '/solutions',
       items: fundingSolutions.map(solution => {
-        // Mark the two featured products
-        const isFeatured = ['working-capital-loans', 'invoice-factoring'].includes(solution.id)
+        // Mark the three featured products (working capital, invoice factoring, equipment)
+        const isFeatured = ['working-capital-loans', 'invoice-factoring', 'equipment-leasing'].includes(solution.id)
         return {
           name: getTitleAsString(solution.title),
           id: solution.id,
           featured: isFeatured,
-          subtitle: isFeatured ? (solution.id === 'working-capital-loans' ? 'RBF, MCA & short-term solutions' : 'Unlock cash from unpaid invoices') : undefined,
-          icon: isFeatured ? (solution.id === 'working-capital-loans' ? 'TrendingUp' : 'FileText') : undefined
+          subtitle: isFeatured ? (
+            solution.id === 'working-capital-loans' ? 'RBF, MCA & short-term solutions' :
+            solution.id === 'invoice-factoring' ? 'Unlock cash from unpaid invoices' :
+            'Equipment, machinery & vehicles'
+          ) : undefined,
+          icon: isFeatured ? (
+            solution.id === 'working-capital-loans' ? 'Zap' :
+            solution.id === 'invoice-factoring' ? 'FileText' :
+            'Wrench'
+          ) : undefined
         }
       }),
       itemType: 'pages',
