@@ -164,7 +164,7 @@ export const fundingSolutions: FundingSolution[] = [
     image: "/solutions/Government Contract Financing.webp",
     category: "Contract-Based",
     whatIs: "Government contract financing funds federal, state, and local contracts, covering payroll, materials, and upfront costs until government payment arrives (often 30-90+ days). Works for prime and subcontractors.",
-    shortDesc: "Government contract financing. Fund federal, state & local contracts. For prime contractors, subcontractors & vendors.",
+    shortDesc: "Government contract financing for federal, state, and local contracts. Fund prime contractors, subcontractors, and vendors while awaiting government payment.",
     fullDesc: "Government contract financing bridges the timing gap between contract performance and government payment (often 30-120 days). This covers upfront materials, labor, payroll, and project costs without depleting working capital. Works for federal, state, and local contracts, as well as subcontractors. This solution is essential for contractors competing in government space—government clients prefer contractors who can fund their own projects without requesting advance payments.",
     features: [
       "Financing facilities from $250K to $50MM+",
@@ -208,7 +208,7 @@ export const fundingSolutions: FundingSolution[] = [
     image: "/solutions/Unsecured & Sub-Debt Loans.webp",
     category: "Strategic Financing",
     whatIs: "Bridge capital provides quick, flexible financing without requiring collateral or personal guarantees. Perfect for acquisition timing gaps, M&A bridge needs, or 'stretch capital' when you've maxed traditional lenders. Includes unsecured term loans and subordinated/mezzanine financing.",
-    shortDesc: "Subordinated & unsecured credit for growing companies. Stretch capital when banks say no. Bridge M&A and acquisitions.",
+    shortDesc: "Subordinated & unsecured credit for growing companies. Stretch capital when banks say no. Bridge M&A, acquisitions, and strategic timing gaps.",
     fullDesc: "Bridge capital serves multiple strategic purposes: bridging time gaps during M&A (like a surgeon's sale timing), providing 'stretch capital' when you've maxed bank lines, funding seasonal needs without long-term debt, or structuring layered capital stacks. This includes interest-only bridge loans, unsecured term loans, and subordinated debt (mezzanine financing). Real example: a surgeon securing $1.475MM in bridge capital within weeks to cover year-end expenses while completing a hospital system acquisition. Another example: a growing medical device company layering $240K unsecured term loan with their AR revolver to move inventory ahead of tariff changes. Bridge capital is typically unsecured (no UCC filings, no personal guarantees on some products) and approved for 6-36 month terms.",
     features: [
       "Loan amounts from $50K to $20MM+ (scaled to your need)",
@@ -231,7 +231,7 @@ export const fundingSolutions: FundingSolution[] = [
     image: "/solutions/Bridge Funding.webp",
     category: "Short-Term Capital",
     whatIs: "Bridge funding provides short-term capital to cover timing gaps, whether waiting for contracts to close, receivables to arrive, or larger financing to fund. Typically 6-12 months, interest-only structures available.",
-    shortDesc: "Bridge funding for growing companies. Quick capital for timing gaps, acquisitions, and operational expenses.",
+    shortDesc: "Bridge funding for growing companies. Quick capital for timing gaps, acquisitions, operational needs, and seasonal cash flow challenges.",
     fullDesc: "Bridge funding serves as flexible, short-term capital when you need immediate cash for time-sensitive situations. Whether you're awaiting contract closure, managing seasonal needs, or covering expenses before larger deals close, bridge financing provides the runway you need. Terms typically range from 6-12 months with interest-only payment options available.",
     features: [
       "Loan amounts from $50K to $5MM+",
@@ -251,7 +251,7 @@ export const fundingSolutions: FundingSolution[] = [
     image: "/solutions/Small Business Administration Loans.webp",
     category: "Government-Backed",
     whatIs: "SBA Loans are government-backed loans from banks offering lower interest rates and longer terms than traditional loans.",
-    shortDesc: "SBA loans for established small businesses. Lower rates, longer terms. Working capital, equipment, real estate.",
+    shortDesc: "SBA loans for established small businesses. Government-backed financing with lower rates and longer terms for working capital, equipment, and real estate.",
     fullDesc: "SBA Loans foster small business growth by offering government-backed guarantees on loans from banks or credit unions. This support reduces lenders' risk, enabling businesses to secure essential capital. With options like the versatile 7(a) Loan for various needs, the 504 Loan for asset purchases, and the Express Loans for quick funding, SBA Loans cater to diverse business requirements.",
     features: [
       "Loan amounts from $250K to $5MM+",
