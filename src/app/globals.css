@@ -14,13 +14,45 @@
 }
 */
 
-/* Font display optimization */
-@layer base {
-  * {
-    font-display: swap;
+/**
+ * CSS-Only Fade Animation for LCP-Critical Content
+ *
+ * Use .fade-in-lcp class for simple fade-in effects.
+ * This avoids Framer Motion overhead and prevents CLS
+ * since it only animates opacity (no layout-affecting transforms).
+ */
+@keyframes cssOnlyFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
+.fade-in-lcp {
+  animation: cssOnlyFadeIn 0.6s ease-out;
+}
+
+/**
+ * Respect user's motion preferences for accessibility
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/**
+ * Fade + Slide Animation
+ *
+ * Used by Framer Motion components that need more complex animations.
+ * Kept for components that require transform-based effects.
+ */
 @keyframes fadeInSlide {
   from {
     opacity: 0;

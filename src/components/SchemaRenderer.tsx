@@ -1,7 +1,5 @@
 'use client'
 
-import { ReactNode } from 'react'
-
 /**
  * SchemaRenderer Component
  * 
@@ -16,9 +14,10 @@ import { ReactNode } from 'react'
 interface SchemaRendererProps {
   schema?: Record<string, any>
   schemas?: Record<string, any>[]
+  nonce?: string
 }
 
-export function SchemaRenderer({ schema, schemas }: SchemaRendererProps) {
+export function SchemaRenderer({ schema, schemas, nonce }: SchemaRendererProps) {
   // Use single schema or array of schemas
   const schemaData = schema ? [schema] : schemas || []
 
@@ -34,6 +33,7 @@ export function SchemaRenderer({ schema, schemas }: SchemaRendererProps) {
       <script
         type="application/ld+json"
         suppressHydrationWarning
+        nonce={nonce}
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(schemaContent)
         }}

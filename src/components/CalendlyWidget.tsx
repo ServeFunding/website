@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { COLORS } from '@/lib/colors'
 
 declare global {
@@ -33,10 +33,34 @@ export function CalendlyWidget({ name, email, dealContext, height = '700px', cal
   const baseUrl = calendlyUrl
   const url = `${baseUrl}?${params.toString().replace(/\+/g, '%20')}`
 
+  const widgetRef = useRef<HTMLDivElement>(null)
+  const [scriptLoaded, setScriptLoaded] = useState(false)
+
   useEffect(() => {
+    // Use Intersection Observer to load Calendly only when widget is visible
+    // This defers third-party script loading until user scrolls near the form
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !scriptLoaded) {
+          loadCalendlyScript()
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '50px' } // Start loading 50px before widget enters viewport
+    )
+
+    if (widgetRef.current) {
+      observer.observe(widgetRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [scriptLoaded])
+
+  const loadCalendlyScript = () => {
     // If Calendly is already loaded, just initialize
     if (window.Calendly) {
       window.Calendly.initializeWidget?.()
+      setScriptLoaded(true)
       return
     }
 
@@ -49,12 +73,14 @@ export function CalendlyWidget({ name, email, dealContext, height = '700px', cal
       if (window.Calendly) {
         window.Calendly.initializeWidget?.()
       }
+      setScriptLoaded(true)
     }
     document.body.appendChild(script)
-  }, [url])
+  }
 
   return (
     <div
+      ref={widgetRef}
       className="calendly-inline-widget"
       data-url={url}
       style={{ minWidth: '480px', height }}
