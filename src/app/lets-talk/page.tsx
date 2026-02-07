@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { DealInquiryForm, FormSubmitData } from '@/components/Forms'
 import { DealInquiryChat } from '@/components/DealInquiryChat'
 import { CalendlyWidget } from '@/components/CalendlyWidget'
-import { Section, Container, Heading, Text, Card, StaggerContainer, StaggerItem, FormInput, FormGroup, Button } from '@/components/ui'
+import { Section, Container, Heading, Text, Card, StaggerContainer, StaggerItem, FormInput, Button } from '@/components/ui'
 import { COLORS } from '@/lib/colors'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 
@@ -23,14 +23,12 @@ export default function DealInquiryPage() {
   const [dealContext, setDealContext] = useState('')
   const [triageContactName, setTriageContactName] = useState('')
   const [triageContactEmail, setTriageContactEmail] = useState('')
-  const [pendingTriageAction, setPendingTriageAction] = useState<string | null>(null)
 
   const handleFormSubmit = (data: FormSubmitData) => {
     setFormData(data)
 
     // If triage action was triggered, show simplified contact form
     if (data.triage_action) {
-      setPendingTriageAction(data.triage_action)
       setView('triage-contact')
     } else {
       setView('chat')
@@ -39,7 +37,6 @@ export default function DealInquiryPage() {
 
   // Watch for when form signals triage and show contact form
   const handleFormTriageDetected = (triageAction: string) => {
-    setPendingTriageAction(triageAction)
     setView('triage-contact')
   }
 
@@ -60,12 +57,15 @@ export default function DealInquiryPage() {
 
     setDealContext(answers)
 
-    // Update form data with name/email for Calendly prefill
-    setFormData(prev => ({
-      ...prev,
+    // Build complete form data with name/email
+    const completeFormData = {
+      ...formData,
       name: triageContactName,
       email: triageContactEmail,
-    }))
+    }
+
+    // Update form data for Calendly prefill
+    setFormData(completeFormData)
 
     // Submit to webhook
     try {
@@ -74,9 +74,7 @@ export default function DealInquiryPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           webhookUrl: 'https://aiascend.app.n8n.cloud/webhook/sf-inquiry',
-          ...formData,
-          name: triageContactName,
-          email: triageContactEmail,
+          ...completeFormData,
           formType: 'deal_inquiry',
           submittedAt: new Date().toISOString(),
         }),
@@ -92,10 +90,6 @@ export default function DealInquiryPage() {
   const handleScheduleClick = (context: string) => {
     setDealContext(context)
     setView('calendly')
-  }
-
-  const handleBackToChat = () => {
-    setView('chat')
   }
 
   // const skipToCalendly = () => {
@@ -153,7 +147,7 @@ export default function DealInquiryPage() {
               {view === 'form' && <DealInquiryForm onSubmitSuccess={handleFormSubmit} onTriageDetected={handleFormTriageDetected} />}
               {view === 'chat' && <DealInquiryChat formData={formData} onScheduleClick={handleScheduleClick} />}
               {view === 'triage-contact' && (
-                <form onSubmit={handleTriageContactSubmit} className="flex flex-col gap-6 max-w-2xl mx-auto">
+                <form onSubmit={handleTriageContactSubmit} className="flex flex-col gap-8 w-full max-w-2xl mx-auto">
                   <div>
                     <Heading size="h3" color="primary">
                       How can we reach you?
@@ -173,8 +167,22 @@ export default function DealInquiryPage() {
                     onChange={(e) => setTriageContactEmail(e.target.value)}
                     required
                   />
-                  <div className="flex justify-center">
-                    <Button variant="default" size="lg" type="submit">
+                  <div className="flex items-center gap-3 mt-8">
+                    <Button
+                      variant="default"
+                      size="lg"
+                      type="button"
+                      onClick={() => setView('form')}
+                    >
+                      ← Back
+                    </Button>
+                    <Button
+                      variant="default"
+                      size="lg"
+                      type="submit"
+                      disabled={!triageContactName || !triageContactEmail}
+                      className="flex-1"
+                    >
                       Let's talk about your deal
                     </Button>
                   </div>
