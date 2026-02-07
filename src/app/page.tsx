@@ -158,10 +158,10 @@ export default function Home() {
         <Container>
           <FadeIn className="text-center mb-20 max-w-3xl mx-auto">
             <Heading size="h2" className="mb-8">
-              Want to discuss your funding need?
+              Discuss your funding need
             </Heading>
             <Text className="max-w-xl mx-auto my-6">
-              Answer a few questions and schedule a call at your convenience
+              Answer a few questions and schedule a call at your convenience. <br /> Takes a few minutes and there's no obligation.
             </Text>
             <Link href="/lets-talk">
               <Button variant="default" size="lg">
