@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { DealInquiryForm, FormSubmitData } from '@/components/Forms'
 import { DealInquiryChat } from '@/components/DealInquiryChat'
 import { CalendlyWidget } from '@/components/CalendlyWidget'
-import { Section, Container, Heading, Text, Card, StaggerContainer, StaggerItem } from '@/components/ui'
+import { Section, Container, Heading, Text, Card, StaggerContainer, StaggerItem, FormInput, FormGroup, Button } from '@/components/ui'
 import { COLORS } from '@/lib/colors'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 
@@ -18,13 +18,75 @@ const coreValues = [
 ]
 
 export default function DealInquiryPage() {
-  const [view, setView] = useState<'form' | 'chat' | 'calendly'>('form')
+  const [view, setView] = useState<'form' | 'chat' | 'triage-contact' | 'calendly'>('form')
   const [formData, setFormData] = useState<FormSubmitData>({})
   const [dealContext, setDealContext] = useState('')
+  const [triageContactName, setTriageContactName] = useState('')
+  const [triageContactEmail, setTriageContactEmail] = useState('')
+  const [pendingTriageAction, setPendingTriageAction] = useState<string | null>(null)
 
   const handleFormSubmit = (data: FormSubmitData) => {
     setFormData(data)
-    setView('chat')
+
+    // If triage action was triggered, show simplified contact form
+    if (data.triage_action) {
+      setPendingTriageAction(data.triage_action)
+      setView('triage-contact')
+    } else {
+      setView('chat')
+    }
+  }
+
+  // Watch for when form signals triage and show contact form
+  const handleFormTriageDetected = (triageAction: string) => {
+    setPendingTriageAction(triageAction)
+    setView('triage-contact')
+  }
+
+  const handleTriageContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    // Build deal context from original form data
+    const answers = [
+      formData.user_role ? `Role: ${formData.user_role}` : null,
+      formData.partner_type ? `Partner Type: ${formData.partner_type}` : null,
+      formData.annual_revenue ? `Revenue: ${formData.annual_revenue}` : null,
+      formData.funding_amount ? `Funding Needed: ${formData.funding_amount}` : null,
+      formData.time_in_business ? `Time in Business: ${formData.time_in_business}` : null,
+      formData.owner_credit_score ? `Credit Score: ${formData.owner_credit_score}` : null,
+      formData.business_industry ? `Industry: ${formData.business_industry}` : null,
+      formData.financing_needs && Array.isArray(formData.financing_needs) && formData.financing_needs.length > 0 ? `Financing Needs: ${formData.financing_needs.join(', ')}` : null,
+    ].filter(Boolean).join('\n')
+
+    setDealContext(answers)
+
+    // Update form data with name/email for Calendly prefill
+    setFormData(prev => ({
+      ...prev,
+      name: triageContactName,
+      email: triageContactEmail,
+    }))
+
+    // Submit to webhook
+    try {
+      await fetch('/api/webhook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          webhookUrl: 'https://aiascend.app.n8n.cloud/webhook/sf-inquiry',
+          ...formData,
+          name: triageContactName,
+          email: triageContactEmail,
+          formType: 'deal_inquiry',
+          submittedAt: new Date().toISOString(),
+        }),
+      })
+    } catch (error) {
+      console.error('Webhook submission error:', error)
+    }
+
+    // Go to calendly view
+    setView('calendly')
   }
 
   const handleScheduleClick = (context: string) => {
@@ -61,8 +123,8 @@ export default function DealInquiryPage() {
     <main>
       {/* Hero Section */}
       <HeroFadeIn
-        title="A Different Kind of Funding Partner."
-        subtitle="Your Deal Stays With Us. Period."
+        title="Want to discuss your funding need?"
+        subtitle="Answer a few questions and schedule a call at your convenience"
         compact
       />
 
@@ -88,12 +150,43 @@ export default function DealInquiryPage() {
             className="w-full"
           >
             <Card className="md:p-12 bg-white">
-              {view === 'form' && <DealInquiryForm onSubmitSuccess={handleFormSubmit} />}
+              {view === 'form' && <DealInquiryForm onSubmitSuccess={handleFormSubmit} onTriageDetected={handleFormTriageDetected} />}
               {view === 'chat' && <DealInquiryChat formData={formData} onScheduleClick={handleScheduleClick} />}
+              {view === 'triage-contact' && (
+                <form onSubmit={handleTriageContactSubmit} className="flex flex-col gap-6 max-w-2xl mx-auto">
+                  <div>
+                    <Heading size="h3" color="primary">
+                      How can we reach you?
+                    </Heading>
+                  </div>
+                  <FormInput
+                    type="text"
+                    label="Name"
+                    value={triageContactName}
+                    onChange={(e) => setTriageContactName(e.target.value)}
+                    required
+                  />
+                  <FormInput
+                    type="email"
+                    label="Email"
+                    value={triageContactEmail}
+                    onChange={(e) => setTriageContactEmail(e.target.value)}
+                    required
+                  />
+                  <div className="flex justify-center">
+                    <Button variant="default" size="lg" type="submit">
+                      Let's talk about your deal
+                    </Button>
+                  </div>
+                </form>
+              )}
               {view === 'calendly' && (
                 <div className="flex flex-col gap-6">
+                  <Heading size="h3" color="primary">
+                    Let's schedule a time to talk
+                  </Heading>
                   <CalendlyWidget
-                    name={formData.name || formData.firstname || 'Guest'}
+                    name={formData.name || formData.firstname || ''}
                     email={formData.email || ''}
                     dealContext={dealContext || ''}
                     height="700px"
@@ -106,10 +199,8 @@ export default function DealInquiryPage() {
         </Container>
       </Section>
 
-      {/* What You Can Expect Section - only show before form submit */}
-      {view === 'form' && (
-        <>
-          <Section background="gray">
+      {/* What You Can Expect Section - always visible */}
+      <Section background="gray">
             <Container>
               <div className="text-center mb-12">
                 <Heading size="h2" className="mb-4">What You Can Expect</Heading>
@@ -156,9 +247,7 @@ export default function DealInquiryPage() {
                 ))}
               </StaggerContainer>
             </Container>
-          </Section>
-        </>
-      )}
+      </Section>
 
     </main>
   )

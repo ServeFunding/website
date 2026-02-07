@@ -175,6 +175,12 @@ const nextConfig: NextConfig = {
         destination: "/partners",
         permanent: false, // 302 temporary redirect
       },
+      // Deal inquiry redirect to lets-talk
+      {
+        source: "/deal-inquiry",
+        destination: "/lets-talk",
+        permanent: true, // 301 redirect for SEO
+      },
     ];
   },
 };

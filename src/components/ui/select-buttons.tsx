@@ -33,7 +33,7 @@ export function SelectButtons({
           whileHover={{ scale: disabled ? 1 : 1.05 }}
           whileTap={{ scale: disabled ? 1 : 0.95 }}
           animate={
-            selectedAnswer === option
+            selectedAnswer === option || value === option
               ? { scale: 1.02, backgroundColor: COLORS.primary }
               : { scale: 1, backgroundColor: '#f3f4f6' }
           }

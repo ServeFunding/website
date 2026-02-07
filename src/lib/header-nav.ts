@@ -38,7 +38,7 @@ export interface HeaderNavConfig {
   items: NavItem[]
 }
 
-export const CALENDLY_URL = "https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?month=2025-11"
+export const CALENDLY_URL = "/lets-talk"
 
 const PARTNERS_ITEMS: FeaturedDropdownItem[] = [
   { name: "Commercial Bankers", id: "commercial-bankers", featured: true, subtitle: "Our primary referral partners" },

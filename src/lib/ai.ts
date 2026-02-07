@@ -258,7 +258,7 @@ export async function getAIDealResponse(
   formData: FormData = {}
 ): Promise<string> {
   try {
-    const response = await fetch('/api/deal-inquiry', {
+    const response = await fetch('/api/lets-talk', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

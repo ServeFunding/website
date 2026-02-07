@@ -17,6 +17,7 @@ export interface FormSubmitData {
   partnership_for__commercial_banking__advisory_?: string
   // Deal inquiry expanded fields
   user_role?: string
+  partner_type?: string
   business_industry?: string
   time_in_business?: string
   annual_revenue?: string
@@ -25,6 +26,7 @@ export interface FormSubmitData {
   owner_credit_score?: string
   company_state?: string
   calendly_url?: string
+  triage_action?: string
 }
 
 export function useFormSubmit(
@@ -116,6 +118,7 @@ export function useFormSubmit(
       partnership_for__commercial_banking__advisory_: data.partnership_for__commercial_banking__advisory_ || '',
       // Deal inquiry expanded fields
       user_role: data.user_role || '',
+      partner_type: data.partner_type || '',
       business_industry: data.business_industry || '',
       time_in_business: data.time_in_business || '',
       annual_revenue: data.annual_revenue || '',
@@ -124,6 +127,7 @@ export function useFormSubmit(
       owner_credit_score: data.owner_credit_score || '',
       company_state: data.company_state || '',
       calendly_url: data.calendly_url || '',
+      triage_action: data.triage_action || '',
     }
 
     setFormData(submittedFormData)

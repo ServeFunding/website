@@ -21,7 +21,7 @@ const industries = [
   { name: "Security Guard Services", desc: "Pay guards before clients pay. Ensure continuous protection services.", icon: Lock },
   { name: "Telecommunications & IoT", desc: "Invest in equipment and infrastructure upfront. Keep up with fast-paced tech demands.", icon: Wifi },
   { name: "Transportation & Logistics", desc: "Cover fuel and maintenance costs. Bridge cash flow gaps between deliveries and payments.", icon: Navigation },
-  { name: "Professional Services", desc: "Cover operational costs and payroll before client invoicing cycles complete. Manage cash flow across projects.", icon: Building2 }
+  { name: "Software & SaaS", desc: "Fund growth, hiring, and infrastructure. Scale faster with working capital when you're building the next big thing.", icon: Building2 }
 ]
 
 export function IndustriesGrid() {
