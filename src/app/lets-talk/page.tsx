@@ -18,74 +18,34 @@ const coreValues = [
 ]
 
 export default function DealInquiryPage() {
-  const [view, setView] = useState<'form' | 'chat' | 'triage-contact' | 'calendly'>('form')
+  const [view, setView] = useState<'form' | 'chat' | 'calendly'>('form')
   const [formData, setFormData] = useState<FormSubmitData>({})
   const [dealContext, setDealContext] = useState('')
-  const [triageContactName, setTriageContactName] = useState('')
-  const [triageContactEmail, setTriageContactEmail] = useState('')
 
   const handleFormSubmit = (data: FormSubmitData) => {
     setFormData(data)
 
-    // If triage action was triggered, show simplified contact form
-    if (data.triage_action) {
-      setView('triage-contact')
+    // If mike triage action, go straight to calendly (no chat)
+    if (data.triage_action === 'mike') {
+      // Build deal context from form data
+      const answers = [
+        data.user_role ? `Role: ${data.user_role}` : null,
+        data.partner_type ? `Partner Type: ${data.partner_type}` : null,
+        data.annual_revenue ? `Revenue: ${data.annual_revenue}` : null,
+        data.funding_amount ? `Funding Needed: ${data.funding_amount}` : null,
+        data.time_in_business ? `Time in Business: ${data.time_in_business}` : null,
+        data.owner_credit_score ? `Credit Score: ${data.owner_credit_score}` : null,
+        data.business_industry ? `Industry: ${data.business_industry}` : null,
+        data.financing_needs && Array.isArray(data.financing_needs) && data.financing_needs.length > 0 ? `Financing Needs: ${data.financing_needs.join(', ')}` : null,
+      ].filter(Boolean).join('\n')
+
+      setDealContext(answers)
+      setView('calendly')
     } else {
       setView('chat')
     }
   }
 
-  // Watch for when form signals triage and show contact form
-  const handleFormTriageDetected = (triageAction: string) => {
-    setView('triage-contact')
-  }
-
-  const handleTriageContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    // Build deal context from original form data
-    const answers = [
-      formData.user_role ? `Role: ${formData.user_role}` : null,
-      formData.partner_type ? `Partner Type: ${formData.partner_type}` : null,
-      formData.annual_revenue ? `Revenue: ${formData.annual_revenue}` : null,
-      formData.funding_amount ? `Funding Needed: ${formData.funding_amount}` : null,
-      formData.time_in_business ? `Time in Business: ${formData.time_in_business}` : null,
-      formData.owner_credit_score ? `Credit Score: ${formData.owner_credit_score}` : null,
-      formData.business_industry ? `Industry: ${formData.business_industry}` : null,
-      formData.financing_needs && Array.isArray(formData.financing_needs) && formData.financing_needs.length > 0 ? `Financing Needs: ${formData.financing_needs.join(', ')}` : null,
-    ].filter(Boolean).join('\n')
-
-    setDealContext(answers)
-
-    // Build complete form data with name/email
-    const completeFormData = {
-      ...formData,
-      name: triageContactName,
-      email: triageContactEmail,
-    }
-
-    // Update form data for Calendly prefill
-    setFormData(completeFormData)
-
-    // Submit to webhook
-    try {
-      await fetch('/api/webhook', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          webhookUrl: 'https://aiascend.app.n8n.cloud/webhook/sf-inquiry',
-          ...completeFormData,
-          formType: 'deal_inquiry',
-          submittedAt: new Date().toISOString(),
-        }),
-      })
-    } catch (error) {
-      console.error('Webhook submission error:', error)
-    }
-
-    // Go to calendly view
-    setView('calendly')
-  }
 
   const handleScheduleClick = (context: string) => {
     setDealContext(context)
@@ -117,25 +77,14 @@ export default function DealInquiryPage() {
     <main>
       {/* Hero Section */}
       <HeroFadeIn
-        title="Want to discuss your funding need?"
-        subtitle="Answer a few questions and schedule a call at your convenience"
+        title="Let's Discuss your Funding Needs"
+        subtitle={<>Answer a few questions and schedule a call at your convenience.<br />Takes a few minutes and there's no obligation.</>}
         compact
       />
 
       {/* Deal Inquiry Form/Chat Section */}
       <Section background="primary" className='overflow-visible !pt-0'>
         <Container className='flex flex-col items-center !max-w-3xl'>
-          <div className="mb-12 text-center">
-            <Heading size="h3" color='white' className="mb-6">
-              Built on Relationships. Operated With Integrity.
-            </Heading>
-            <Text color="white" className="mb-6 leading-relaxed">
-              Serve Funding is a trust-based advisory — not an algorithm driven "marketplace".<br />We do not sell leads or shop deals indiscriminately. Every opportunity is handled with care<br />by a dedicated, experienced team and reviewed personally by our founder.
-            </Text>
-            <Text color="white" className="leading-relaxed">
-              Whether you're a business owner or a referral partner, we treat every relationship —<br /> and every client's financing opportunity — as if it were our own.
-            </Text>
-          </div>
           <motion.div
             layout
             initial={{ opacity: 0 }}
@@ -144,50 +93,8 @@ export default function DealInquiryPage() {
             className="w-full"
           >
             <Card className="md:p-12 bg-white">
-              {view === 'form' && <DealInquiryForm onSubmitSuccess={handleFormSubmit} onTriageDetected={handleFormTriageDetected} />}
+              {view === 'form' && <DealInquiryForm onSubmitSuccess={handleFormSubmit} />}
               {view === 'chat' && <DealInquiryChat formData={formData} onScheduleClick={handleScheduleClick} />}
-              {view === 'triage-contact' && (
-                <form onSubmit={handleTriageContactSubmit} className="flex flex-col gap-8 w-full max-w-2xl mx-auto">
-                  <div>
-                    <Heading size="h3" color="primary">
-                      How can we reach you?
-                    </Heading>
-                  </div>
-                  <FormInput
-                    type="text"
-                    label="Name"
-                    value={triageContactName}
-                    onChange={(e) => setTriageContactName(e.target.value)}
-                    required
-                  />
-                  <FormInput
-                    type="email"
-                    label="Email"
-                    value={triageContactEmail}
-                    onChange={(e) => setTriageContactEmail(e.target.value)}
-                    required
-                  />
-                  <div className="flex items-center gap-3 mt-8">
-                    <Button
-                      variant="default"
-                      size="lg"
-                      type="button"
-                      onClick={() => setView('form')}
-                    >
-                      ← Back
-                    </Button>
-                    <Button
-                      variant="default"
-                      size="lg"
-                      type="submit"
-                      disabled={!triageContactName || !triageContactEmail}
-                      className="flex-1"
-                    >
-                      Let's talk about your deal
-                    </Button>
-                  </div>
-                </form>
-              )}
               {view === 'calendly' && (
                 <div className="flex flex-col gap-6">
                   <Heading size="h3" color="primary">
@@ -204,6 +111,17 @@ export default function DealInquiryPage() {
               )}
             </Card>
           </motion.div>
+          <div className="mt-12 text-center">
+            <Heading size="h3" color='white' className="mb-6">
+              Built on Relationships. Operated With Integrity.
+            </Heading>
+            <Text color="white" className="mb-6 leading-relaxed">
+              Serve Funding is a trust-based advisory — not an algorithm driven "marketplace".<br />We do not sell leads or shop deals indiscriminately. Every opportunity is handled with care<br />by a dedicated, experienced team and reviewed personally by our founder.
+            </Text>
+            <Text color="white" className="leading-relaxed">
+              Whether you're a business owner or a referral partner, we treat every relationship —<br /> and every client's financing opportunity — as if it were our own.
+            </Text>
+          </div>
         </Container>
       </Section>
 

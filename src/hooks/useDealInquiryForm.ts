@@ -160,20 +160,27 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
     // Check if a rule applies for THIS question
     const applicableRule = checkTriageRules(currentQuestionId || '', formState)
 
-    // Only if MIKE action - skip remaining questions and go straight to calendly
+    // If a triage rule matches, skip to contact form instead of submitting
     if (applicableRule?.then.action === 'mike') {
-      setTriageAction('mike')
-      const remainingQuestions = visibleQuestions
-        .slice(currentQuestionIndex + 1)
-        .map(q => q.id)
-      setSkippedQuestions(prev => new Set([...prev, ...remainingQuestions]))
-      return // Don't advance, will auto-submit instead
-    }
+      setTriageAction(applicableRule.then.action)
 
-    // kyler_with_chat continues through the form normally
-    if (applicableRule?.then.action === 'kyler_with_chat') {
-      setTriageAction('kyler_with_chat')
-      // Don't return - let form continue normally
+      // Jump to contact question - skip all questions between current and contact
+      const contactIndex = visibleQuestions.findIndex(q => q.id === 'contact_info')
+      if (contactIndex !== -1) {
+        const questionsToSkip = visibleQuestions
+          .slice(currentQuestionIndex + 1, contactIndex)
+          .map(q => q.id)
+
+        // Calculate what the contact question index will be after skipping
+        const newSkippedQuestions = new Set([...skippedQuestions, ...questionsToSkip])
+        const newVisibleQuestions = formQuestions.filter(q => !newSkippedQuestions.has(q.id))
+        const newContactIndex = newVisibleQuestions.findIndex(q => q.id === 'contact_info')
+
+        setSkippedQuestions(newSkippedQuestions)
+        setCurrentQuestionIndex(newContactIndex)
+        setQuestionHistory(prev => [...prev, newContactIndex])
+      }
+      return // Don't call moveToNextQuestion
     }
 
     moveToNextQuestion()

@@ -14,7 +14,6 @@ import {
   FadeIn,
   FormInput,
   FormGroup,
-  FormSelect,
   SelectButtons,
   MultiSelectButtons,
 } from '@/components/ui'
@@ -22,15 +21,6 @@ import { useFormSubmit, FormSubmitData } from '@/hooks/useFormSubmit'
 import { useDealInquiryForm } from '@/hooks/useDealInquiryForm'
 import { formQuestions } from '@/data/form-questions'
 import { COLORS } from '@/lib/colors'
-
-// US States for form
-const US_STATES = [
-  'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
-  'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
-  'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
-  'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
-  'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY',
-]
 
 // Basic guard that disables submit when the honeypot is touched or required fields are incomplete
 function useHoneypotGuard() {
@@ -41,7 +31,7 @@ function useHoneypotGuard() {
     const form = formRef.current
     if (!form) return
 
-    const honeypotInput = form.querySelector('input[name="company_phone"]') as HTMLInputElement | null
+    const honeypotInput = form.querySelector('input[name="website_url"]') as HTMLInputElement | null
     const honeypotValue = honeypotInput?.value?.trim()
     const valid = form.checkValidity()
 
@@ -372,13 +362,11 @@ export function NewsletterModalForm({
 // Deal Inquiry Form (for deal inquiry page with chat follow-up)
 interface DealInquiryFormProps {
   onSubmitSuccess?: (formData: FormSubmitData) => void
-  onTriageDetected?: (triageAction: string) => void
 }
 
 
 export function DealInquiryForm({
   onSubmitSuccess,
-  onTriageDetected,
 }: DealInquiryFormProps = {}) {
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -394,7 +382,6 @@ export function DealInquiryForm({
     companyState,
     success,
     formData,
-    triageAction,
     getFieldValue,
     setFieldValue,
     handleAnswer,
@@ -404,20 +391,6 @@ export function DealInquiryForm({
     otherResponses,
   } = useDealInquiryForm(onSubmitSuccess)
 
-  // Auto-submit when triage rule matches (skip remaining questions)
-  useEffect(() => {
-    if (triageAction) {
-      // Call the callback to notify parent component
-      if (onTriageDetected) {
-        onTriageDetected(triageAction)
-      }
-
-      // Small delay to ensure state is updated, then submit
-      setTimeout(() => {
-        formRef.current?.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }))
-      }, 100)
-    }
-  }, [triageAction, onTriageDetected])
 
   return (
     <>
@@ -564,51 +537,29 @@ export function DealInquiryForm({
           {/* Contact Info Collection */}
           {currentQuestion?.type === 'contact-info' && (
             <div className="flex flex-col gap-8">
-              <FormGroup columns={2}>
-                <FormInput
-                  type="text"
-                  name="name"
-                  label="Name"
-                  value={name}
-                  onChange={(e) => setFieldValue('name', e.currentTarget.value)}
-                  required
-                />
-                <FormInput
-                  type="email"
-                  name="email"
-                  label="Email"
-                  value={email}
-                  onChange={(e) => setFieldValue('email', e.currentTarget.value)}
-                  required
-                />
-              </FormGroup>
-
-              <FormGroup columns={2}>
-                <FormInput
-                  type="tel"
-                  name="phone"
-                  label="Phone"
-                  value={phone}
-                  onChange={(e) => setFieldValue('phone', e.currentTarget.value)}
-                  required
-                />
-                <FormInput
-                  type="text"
-                  name="company"
-                  label="Company Name"
-                  value={company}
-                  onChange={(e) => setFieldValue('company', e.currentTarget.value)}
-                  required
-                />
-              </FormGroup>
-
-              <FormSelect
-                label="Company State"
-                name="company_state"
-                value={companyState}
-                onChange={(e) => setFieldValue('company_state', e.target.value)}
-                options={US_STATES}
-                placeholder="Select state"
+              <FormInput
+                type="text"
+                name="name"
+                label="Name"
+                value={name}
+                onChange={(e) => setFieldValue('name', e.currentTarget.value)}
+                onInput={(e) => {
+                  console.log('[DealInquiryForm] Name onInput:', e.currentTarget.value)
+                  setFieldValue('name', e.currentTarget.value)
+                }}
+                required
+              />
+              <FormInput
+                type="email"
+                name="email"
+                label="Email"
+                value={email}
+                onChange={(e) => setFieldValue('email', e.currentTarget.value)}
+                onInput={(e) => {
+                  console.log('[DealInquiryForm] Email onInput:', e.currentTarget.value)
+                  setFieldValue('email', e.currentTarget.value)
+                }}
+                required
               />
 
               <div className="flex items-center gap-3 mt-8">
@@ -626,19 +577,20 @@ export function DealInquiryForm({
                   variant="default"
                   size="lg"
                   type="submit"
-                  disabled={!name || !email || !phone || !company || !companyState}
+                  disabled={!name || !email}
                   className="flex-1"
                 >
-                  Continue
+                  Let's talk about your deal
                 </Button>
               </div>
             </div>
           )}
 
-          {/* Honeypot field */}
+
+          {/* Honeypot field - uncontrolled to avoid React interference with autofill detection */}
           <input
             type="text"
-            name="company_phone"
+            name="website_url"
             className="sr-only"
             tabIndex={-1}
             autoComplete="off"
@@ -649,7 +601,7 @@ export function DealInquiryForm({
           {formQuestions.map((question) => {
             const fieldValue = getFieldValue(question.id)
 
-            // Skip contact-info type questions as they're handled separately below
+            // Skip contact-info type questions as they're handled separately
             if (question.type === 'contact-info') return null
 
             // Handle multi-select questions (arrays)

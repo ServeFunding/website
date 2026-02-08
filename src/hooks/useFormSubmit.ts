@@ -54,7 +54,7 @@ export function useFormSubmit(
     const data: Record<string, any> = {}
     const webhookData: Record<string, any> = {} // Complete data for webhook (includes honeypot)
     const financingNeeds: string[] = []
-    const honeypot = rawFormData.get('company_phone') as string
+    const honeypot = rawFormData.get('website_url') as string
 
     // Check honeypot - if filled, it's likely a bot
     // Send to webhook for logging/visibility, but skip HubSpot
@@ -101,7 +101,7 @@ export function useFormSubmit(
       // Handle multi-select checkboxes (financing_needs) and skip honeypot for HubSpot data
       if (key === 'financing_needs') {
         financingNeeds.push(value as string)
-      } else if (key !== 'company_phone') {
+      } else if (key !== 'website_url') {
         data[key] = value as string
       }
     })
