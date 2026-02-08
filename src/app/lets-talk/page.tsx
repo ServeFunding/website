@@ -5,9 +5,10 @@ import { motion } from 'framer-motion'
 import { DealInquiryForm, FormSubmitData } from '@/components/Forms'
 import { DealInquiryChat } from '@/components/DealInquiryChat'
 import { CalendlyWidget } from '@/components/CalendlyWidget'
-import { Section, Container, Heading, Text, Card, StaggerContainer, StaggerItem, FormInput, Button } from '@/components/ui'
+import { Section, Container, Heading, Text, Card, StaggerContainer, StaggerItem } from '@/components/ui'
 import { COLORS } from '@/lib/colors'
 import { HeroFadeIn } from '@/components/hero-fade-in'
+import { formQuestions } from '@/data/form-questions'
 
 const coreValues = [
   { letter: 'T', title: 'Transparency', desc: 'We communicate honestly to build a long-term relationship.' },
@@ -22,24 +23,34 @@ export default function DealInquiryPage() {
   const [formData, setFormData] = useState<FormSubmitData>({})
   const [dealContext, setDealContext] = useState('')
 
+  const buildDealContext = (data: FormSubmitData): string => {
+    // Create a map of question IDs to titles for easy lookup
+    const questionMap = formQuestions.reduce((acc, q) => {
+      acc[q.id] = q.title
+      return acc
+    }, {} as Record<string, string>)
+
+    const answers = [
+      data.user_role ? `${questionMap.user_role} ${data.user_role}` : null,
+      data.partner_type ? `${questionMap.partner_type} ${data.partner_type}` : null,
+      data.annual_revenue ? `${questionMap.annual_revenue} ${data.annual_revenue}` : null,
+      data.funding_amount ? `${questionMap.funding_amount} ${data.funding_amount}` : null,
+      data.time_in_business ? `${questionMap.time_in_business} ${data.time_in_business}` : null,
+      data.owner_credit_score ? `${questionMap.owner_credit_score} ${data.owner_credit_score}` : null,
+      data.business_industry ? `${questionMap.business_industry} ${data.business_industry}` : null,
+      data.financing_needs && Array.isArray(data.financing_needs) && data.financing_needs.length > 0 ? `${questionMap.financing_needs} ${data.financing_needs.join(', ')}` : null,
+    ].filter(Boolean).join('\n')
+
+    return answers
+  }
+
   const handleFormSubmit = (data: FormSubmitData) => {
     setFormData(data)
 
     // If mike triage action, go straight to calendly (no chat)
     if (data.triage_action === 'mike') {
-      // Build deal context from form data
-      const answers = [
-        data.user_role ? `Role: ${data.user_role}` : null,
-        data.partner_type ? `Partner Type: ${data.partner_type}` : null,
-        data.annual_revenue ? `Revenue: ${data.annual_revenue}` : null,
-        data.funding_amount ? `Funding Needed: ${data.funding_amount}` : null,
-        data.time_in_business ? `Time in Business: ${data.time_in_business}` : null,
-        data.owner_credit_score ? `Credit Score: ${data.owner_credit_score}` : null,
-        data.business_industry ? `Industry: ${data.business_industry}` : null,
-        data.financing_needs && Array.isArray(data.financing_needs) && data.financing_needs.length > 0 ? `Financing Needs: ${data.financing_needs.join(', ')}` : null,
-      ].filter(Boolean).join('\n')
-
-      setDealContext(answers)
+      const dealContext = buildDealContext(data)
+      setDealContext(dealContext)
       setView('calendly')
     } else {
       setView('chat')
@@ -83,7 +94,7 @@ export default function DealInquiryPage() {
       />
 
       {/* Deal Inquiry Form/Chat Section */}
-      <Section background="primary" className='overflow-visible !pt-0'>
+      <Section background="primary" className='overflow-visible'>
         <Container className='flex flex-col items-center !max-w-3xl'>
           <motion.div
             layout
@@ -101,7 +112,7 @@ export default function DealInquiryPage() {
                     Let's schedule a time to talk
                   </Heading>
                   <CalendlyWidget
-                    name={formData.name || formData.firstname || ''}
+                    name={formData.name || ''}
                     email={formData.email || ''}
                     dealContext={dealContext || ''}
                     height="700px"
@@ -152,12 +163,12 @@ export default function DealInquiryPage() {
           </Section>
 
           {/* TRUST Values Visual */}
-          <Section background="background">
-            <Container>
+          <Section background="background" className="overflow-visible">
+            <Container className="overflow-visible">
               <div className="text-center mb-12">
                 <Heading size="h2" className="mb-4">Our Core Values are Rooted in Trust</Heading>
               </div>
-              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 overflow-visible mb-8 pt-8">
                 {coreValues.map((value, index) => (
                   <Card key={index} className="text-center h-full flex flex-col items-center justify-start pt-8 group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
                     <span className="font-serif font-bold text-5xl mb-6 block" style={{ color: COLORS.primary }}>

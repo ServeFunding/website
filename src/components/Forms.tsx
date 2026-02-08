@@ -132,7 +132,7 @@ interface IntroCallFormProps {
 export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallFormProps = {}) {
   const { formRef, canSubmit, recomputeGuard } = useHoneypotGuard()
   const buildCalendlyUrl = (data: Record<string, string>) => {
-    return `https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(`${data.firstname || ''} ${data.lastname || ''}`.trim())}&email=${encodeURIComponent(data.email || '')}&phone=${encodeURIComponent(data.phone || '')}&a1=${encodeURIComponent(data.company || '')}&a2=${encodeURIComponent(`${data.capital_for || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
+    return `https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(data.name || '')}&email=${encodeURIComponent(data.email || '')}&phone=${encodeURIComponent(data.phone || '')}&a1=${encodeURIComponent(data.company || '')}&a2=${encodeURIComponent(`${data.capital_for || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
   }
 
   const { success, handleSubmit, formData, isSubmitting } = useFormSubmit(
@@ -149,7 +149,7 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
     <FormContainer title={title} subtitle={subtitle}>
       {success ? (
         <FormSuccessContent
-          message={`Thanks for your info${formData.firstname ? `, ${formData.firstname}` : ''}! Click below to schedule your call.`}
+          message={`Thanks for your info${formData.name ? `, ${formData.name}` : ''}! Click below to schedule your call.`}
           formData={formData}
           calendlyUrl={buildCalendlyUrl(formData as Record<string, string>)}
           ctaText="Schedule a Call"
@@ -162,10 +162,7 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
           onInput={recomputeGuard}
           onChange={recomputeGuard}
         >
-          <FormGroup columns={2}>
-            <FormInput type="text" name="firstname" label="First Name" required />
-            <FormInput type="text" name="lastname" label="Last Name" required />
-          </FormGroup>
+          <FormInput type="text" name="name" label="Full Name" required />
 
           <FormInput type="email" name="email" label="Email Address" required />
 
@@ -208,7 +205,7 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
 export function PartnerInquiryForm() {
   const { formRef, canSubmit, recomputeGuard } = useHoneypotGuard()
   const buildCalendlyUrl = (data: Record<string, string>) => {
-    return `https://calendly.com/michael_kodinsky/partner-strategy-call?name=${encodeURIComponent(`${data.firstname || ''} ${data.lastname || ''}`.trim())}&email=${encodeURIComponent(data.email || '')}&a1=${encodeURIComponent(`${data.partnership_for__commercial_banking__advisory_ || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
+    return `https://calendly.com/michael_kodinsky/partner-strategy-call?name=${encodeURIComponent(data.name || '')}&email=${encodeURIComponent(data.email || '')}&a1=${encodeURIComponent(`${data.partnership_for__commercial_banking__advisory_ || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
   }
 
   const { success, handleSubmit, formData, isSubmitting } = useFormSubmit(
@@ -225,7 +222,7 @@ export function PartnerInquiryForm() {
     <FormContainer title="Let's Connect" subtitle="Please fill out this form and we'll schedule a call">
       {success ? (
         <FormSuccessContent
-          message={`Thanks for your info${formData.firstname ? `, ${formData.firstname}` : ''}! Click below to schedule your call.`}
+          message={`Thanks for your info${formData.name ? `, ${formData.name}` : ''}! Click below to schedule your call.`}
           formData={formData}
           calendlyUrl={buildCalendlyUrl(formData as Record<string, string>)}
           ctaText="Schedule a Call"
@@ -238,10 +235,7 @@ export function PartnerInquiryForm() {
           onInput={recomputeGuard}
           onChange={recomputeGuard}
         >
-          <FormGroup columns={2}>
-            <FormInput type="text" name="firstname" label="First Name" required />
-            <FormInput type="text" name="lastname" label="Last Name" required />
-          </FormGroup>
+          <FormInput type="text" name="name" label="Full Name" required />
 
           <FormInput type="text" name="company" label="Company Name" required />
 
@@ -302,7 +296,7 @@ export function NewsletterModalForm({
         <FormSuccessContent
           message={<>You're in!<br /><br />You should see an email confirmation soon.<br /><br />We'd love to talk to you as well.</>}
           formData={formData}
-          calendlyUrl={`https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(`${formData.firstname || ''} ${formData.lastname || ''}`.trim())}&email=${encodeURIComponent(formData.email || '')}&phone=${encodeURIComponent(formData.phone || '')}&company=${encodeURIComponent(formData.company || '')}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`}
+          calendlyUrl={`https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(formData.name || '')}&email=${encodeURIComponent(formData.email || '')}&phone=${encodeURIComponent(formData.phone || '')}&company=${encodeURIComponent(formData.company || '')}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`}
           ctaText="Schedule a Call"
         />
       ) : (
@@ -431,7 +425,7 @@ export function DealInquiryForm({
           </div>
 
           {/* Single choice or multi-choice with buttons */}
-          {(currentQuestion?.type === 'single' || currentQuestion?.type === 'multi') && (
+          {(currentQuestion?.type === 'single' || currentQuestion?.type === 'multi') && currentQuestion?.answers?.length! > 0 && (
             <div className="flex flex-col gap-8">
               {currentQuestion?.type === 'multi' && (
                 <Text size="sm" className="text-center text-gray-500">
@@ -472,6 +466,50 @@ export function DealInquiryForm({
                   type="button"
                   onClick={moveToNextQuestion}
                   disabled={!getFieldValue(currentQuestion?.id) || (Array.isArray(getFieldValue(currentQuestion?.id)) && (getFieldValue(currentQuestion?.id) as string[]).length === 0)}
+                  className="flex-1"
+                >
+                  Continue
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Textarea for open-ended responses (single type with no answers) */}
+          {currentQuestion?.type === 'single' && (!currentQuestion?.answers || currentQuestion?.answers.length === 0) && (
+            <div className="flex flex-col gap-8">
+              <textarea
+                name={currentQuestion?.id}
+                value={getFieldValue(currentQuestion?.id || '') as string}
+                onChange={(e) => setFieldValue(currentQuestion?.id || '', e.currentTarget.value)}
+                placeholder={currentQuestion?.placeholder || 'Enter your response...'}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-2 transition-all text-base bg-white"
+                style={{ borderColor: 'var(--color-secondary, #999)', minHeight: '150px' }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = COLORS.primary
+                  e.currentTarget.style.borderWidth = '2px'
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--color-secondary, #999)'
+                  e.currentTarget.style.borderWidth = '1px'
+                }}
+              />
+              <div className="flex items-center gap-3 mt-8">
+                {currentQuestionIndex > 0 && (
+                  <Button
+                    variant="default"
+                    size="lg"
+                    type="button"
+                    onClick={moveToPreviousQuestion}
+                  >
+                    ← Back
+                  </Button>
+                )}
+                <Button
+                  variant="default"
+                  size="lg"
+                  type="button"
+                  onClick={moveToNextQuestion}
+                  disabled={!getFieldValue(currentQuestion?.id)}
                   className="flex-1"
                 >
                   Continue
@@ -585,18 +623,6 @@ export function DealInquiryForm({
               </div>
             </div>
           )}
-
-
-          {/* Honeypot field - uncontrolled to avoid React interference with autofill detection */}
-          <input
-            type="text"
-            name="website_url"
-            className="sr-only"
-            tabIndex={-1}
-            autoComplete="off"
-            aria-hidden="true"
-          />
-
           {/* Hidden inputs for all form fields - dynamically generated from formQuestions */}
           {formQuestions.map((question) => {
             const fieldValue = getFieldValue(question.id)
@@ -636,7 +662,7 @@ export function DealInquiryForm({
           >
             <CheckCircle className="w-12 h-12" style={{ color: COLORS.primary }} />
           </motion.div>
-          <Text size="lg" className="mb-6">Thanks for sharing your details, {formData.name || formData.firstname}! We're reviewing your information and will get back to you shortly with your personalized funding options.</Text>
+          <Text size="lg" className="mb-6">Thanks for sharing your details, {formData.name}! We're reviewing your information and will get back to you shortly with your personalized funding options.</Text>
         </div>
       )}
     </>

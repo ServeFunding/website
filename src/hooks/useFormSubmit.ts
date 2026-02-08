@@ -6,8 +6,6 @@ import { trackFormSubmission, trackHubSpotNativeForm } from '@/lib/tracking'
 const CLAY_WEBHOOK_URL = process.env.NEXT_PUBLIC_CLAY_WEBHOOK_URL || ''
 
 export interface FormSubmitData {
-  firstname?: string
-  lastname?: string
   name?: string
   email?: string
   phone?: string
@@ -107,8 +105,6 @@ export function useFormSubmit(
     })
 
     const submittedFormData: FormSubmitData = {
-      firstname: data.firstname || '',
-      lastname: data.lastname || '',
       name: data.name || '',
       email: data.email || '',
       phone: data.phone || '',

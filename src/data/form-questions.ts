@@ -105,7 +105,7 @@ export const formQuestions: Question[] = [
     title: 'Tell us about your business so we can serve you the best possible',
     answers: [], // textarea, no predefined answers
     type: 'single',
-    placeholder: 'Tell us more about your situation to receive a thorough pre-screen of your funding options'
+    placeholder: 'Tell us more...'
   },
   {
     id: 'contact_info',
