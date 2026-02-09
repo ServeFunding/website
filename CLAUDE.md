@@ -182,7 +182,7 @@ authorImage: "/author-headshot.webp"
 - Utility: `src/lib/blog-utils.ts` - `getBlogPosts()` reads .mdoc files and parses frontmatter
 - Parser: `src/markdoc/config.ts` - Markdoc configuration with custom tags
 - Renderer: `src/markdoc/renderer.tsx` - Transforms Markdoc AST to styled React components
-- All 14 blog posts currently in `/posts/` as active examples
+- All 14+ blog posts currently in `/posts/` as active examples
 
 **Blog Content Strategy**:
 - Focus on educational content that addresses the funding journey
@@ -190,6 +190,72 @@ authorImage: "/author-headshot.webp"
 - Link posts to FAQ answers and solutions pages
 - Real examples and metrics build credibility
 - Use callout tags to emphasize key insights or warnings
+
+### Automating Blog Cover Image Generation
+Blog cover images can be generated automatically via webhook integration, providing professional photography-style images matching the existing visual style.
+
+**Setup & Integration**:
+1. Webhook URL: `https://aiascend.app.n8n.cloud/webhook/generate-image`
+2. Method: POST request with JSON body
+3. Request format: `{"prompt": "Description of image for generation"}`
+4. Output: PNG image file (converted to WebP for web optimization)
+
+**Image Generation Script**:
+```bash
+# Function to generate a single image
+generate_image() {
+  local filename=$1
+  local prompt=$2
+
+  echo "Generating $filename..."
+  curl -X POST https://aiascend.app.n8n.cloud/webhook/generate-image \
+    -H "Content-Type: application/json" \
+    -d "{\"prompt\": \"$prompt\"}" \
+    -o "/tmp/$filename" \
+    -s
+
+  if [ -f "/tmp/$filename" ]; then
+    cp "/tmp/$filename" "public/blog/$filename"
+    echo "✓ Saved $filename"
+  fi
+}
+
+# Call for each blog post
+generate_image "image-name.png" "Professional photograph of professionals in office setting doing [action], professional business context"
+```
+
+**Image Prompt Guidelines**:
+- **Always specify**: "Professional photograph of..."
+- **Include**: Real people in business settings, professional context
+- **Avoid**: Illustrations, graphics, cartoons, abstract designs
+- **Reference style**: Look at existing images in `/public/blog/` (Meeting1.webp, Cofee.webp, Walking.webp, etc.) - these show the target professional photography aesthetic
+- **Format**: Describe the scene, people, action, and business context explicitly
+
+**Example Prompts by Topic**:
+- **Funding/Finance Decisions**: "Professional photograph of diverse business team in modern office discussing financial decisions, reviewing charts and documents, strategic meeting setting"
+- **Cash Flow/Seasonal**: "Professional photograph of business professionals managing warehouse or inventory operations, seasonal workflow planning, real people in operational setting"
+- **Lending Partnership**: "Professional photograph of business meeting between advisors and business owner, showing collaboration and trust, handshake or engaged discussion in modern office"
+- **Growth/Revenue**: "Professional photograph of professionals reviewing growth charts and revenue reports at meeting table, analyzing success with thoughtful consideration"
+
+**Post-Generation Processing**:
+1. Images are generated as PNG files (~2MB each)
+2. Convert to WebP using cwebp for optimization: `cwebp image.png -o image.webp && rm image.png`
+3. Optimized WebP files are typically 50-150KB (90%+ smaller than PNG)
+4. Update YAML frontmatter in blog post: `image: "/blog/image-name.webp"`
+
+**Automation Workflow**:
+1. After creating blog posts, create list of image filenames and prompts
+2. Run the generation script for each image
+3. Convert PNG → WebP format
+4. Verify files are in `/public/blog/` with correct names
+5. Update YAML `image:` field in each post to match generated filename
+
+**Key Notes**:
+- Always use `.webp` format for consistency with existing blog images
+- Professional photography style (not illustrations) matches site aesthetic
+- Place all images in `/public/blog/` directory
+- Filenames should be kebab-case matching the blog post slug when possible
+- Images are automatically lazy-loaded on blog pages for performance
 
 ### Adding or Expanding FAQ Content
 1. Edit `src/data/faq-data.ts`

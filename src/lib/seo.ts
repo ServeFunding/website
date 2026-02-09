@@ -16,20 +16,20 @@ export const pageMetaData: Record<string, PageMeta> = {
     canonical: "https://servefunding.com/"
   },
   solutions: {
-    title: "Funding Solutions | Asset-Based Lending, Invoice Factoring & More | Serve Funding",
-    description: "Explore 10+ working capital solutions including asset-based lending, invoice factoring, equipment leasing, SBA loans, and government contract financing.",
+    title: "Working Capital Solutions | Asset-Based Lending & Invoice Factoring",
+    description: "Explore working capital solutions: asset-based lending, invoice factoring, equipment leasing, PO funding, and contract financing for growing businesses.",
     keywords: "asset-based lending, invoice factoring, working capital loans, equipment leasing, real estate lending, PO funding, SBA loans",
     canonical: "https://servefunding.com/solutions"
   },
   fundings: {
     title: "Funding Scenarios & Success Stories | Serve Funding",
-    description: "Explore real-world funding scenarios and success stories from growing businesses we've helped. Acquisition funding, payroll solutions, and more.",
+    description: "Real-world funding scenarios and success stories from businesses we've helped. Acquisition funding, payroll solutions, cash flow, growth needs.",
     keywords: "business funding scenarios, acquisition funding, payroll solutions, cash flow solutions, business growth",
     canonical: "https://servefunding.com/fundings"
   },
   partners: {
-    title: "Partner Types | Commercial Bankers, Private Equity & More | Serve Funding",
-    description: "Learn about our partner ecosystem including commercial bankers, fractional CFOs, investment bankers, CPAs, private equity firms, and business advisors.",
+    title: "Capital Partners | Bankers, Private Equity, CPAs & Advisors",
+    description: "Our partner ecosystem includes commercial bankers, fractional CFOs, investment bankers, CPAs, private equity firms, and business advisors supporting growth.",
     keywords: "commercial bankers, fractional CFO, investment bankers, business advisors, private equity, accountants",
     canonical: "https://servefunding.com/partners"
   },
@@ -53,13 +53,13 @@ export const pageMetaData: Record<string, PageMeta> = {
   },
   privacy: {
     title: "Privacy Policy | Serve Funding",
-    description: "Read Serve Funding's privacy policy to understand how we protect your personal information.",
+    description: "Learn how Serve Funding collects, uses, and protects your personal information with strict security standards and respects your privacy rights.",
     keywords: "privacy policy, data protection",
     canonical: "https://servefunding.com/privacy-policy"
   },
   terms: {
     title: "Terms of Service | Serve Funding",
-    description: "Review Serve Funding's terms of service.",
+    description: "Review Serve Funding's terms of service for using our website and services. Understand the legal agreements and policies governing our business.",
     keywords: "terms of service, legal",
     canonical: "https://servefunding.com/terms-of-service"
   }

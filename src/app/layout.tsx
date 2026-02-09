@@ -1,17 +1,18 @@
 import type { Metadata, Viewport } from "next"
 import dynamic from "next/dynamic"
 import { Suspense } from "react"
+import { headers } from "next/headers"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
-import { Chatbot } from "@/components/Chatbot"
-import { NewsletterModal } from "@/components/NewsletterModal"
 import { ScrollToTop } from "@/components/ScrollToTop"
 import { UmamiRouteTracker } from "@/components/UmamiRouteTracker"
+import { PerformanceMonitor } from "@/components/PerformanceMonitor"
 import Script from "next/script"
 import { SchemaRenderer } from "@/components/SchemaRenderer"
 import { getOrganizationSchema } from "@/lib/schema-generators"
 import "@/app/globals.css"
 import { Inter, Merriweather } from 'next/font/google'
+import { Chatbot, NewsletterModalLazy } from "@/components/LazyComponents"
 
 // Lazy load NewsletterForm to improve LCP
 const NewsletterForm = dynamic(() => import("@/components/Forms").then(mod => ({ default: mod.NewsletterForm })), {
@@ -65,16 +66,20 @@ export const viewport: Viewport = {
   maximumScale: 5,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  // Extract nonce from middleware for CSP
+  const headersList = await headers()
+  const nonce = headersList.get('x-nonce') || undefined
+
   return (
     <html lang="en" className={`${inter.variable} ${merriweather.variable}`}>
       <head>
         {/* Schema Markup */}
-        <SchemaRenderer schema={getOrganizationSchema()} />
+        <SchemaRenderer schema={getOrganizationSchema()} nonce={nonce} />
 
         {/* Preconnect to critical third-party origins for LCP improvement */}
         {process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL && (
@@ -85,6 +90,7 @@ export default function RootLayout({
       </head>
       <body className="bg-white flex flex-col min-h-screen">
         <ScrollToTop />
+        <PerformanceMonitor />
         <Header />
         <Suspense fallback={null}>
           <UmamiRouteTracker />
@@ -95,20 +101,24 @@ export default function RootLayout({
         <NewsletterForm />
         <Footer />
         <Chatbot />
-        <NewsletterModal />
+        <NewsletterModalLazy />
 
-        {/* Load third-party scripts after main content */}
-        <Script
-          src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL!}
-          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
-          strategy="afterInteractive"
-        />
+        {/* Load third-party scripts after main content with nonce */}
+        {process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL && (
+          <Script
+            src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL}
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+            strategy="afterInteractive"
+            nonce={nonce}
+          />
+        )}
 
-        {/* HubSpot Tracking */}
+        {/* HubSpot Tracking with nonce */}
         <Script
           id="hs-script-loader"
           src="https://js.hs-scripts.com/23433903.js"
           strategy="lazyOnload"
+          nonce={nonce}
         />
       </body>
     </html>

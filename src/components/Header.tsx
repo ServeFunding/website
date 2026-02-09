@@ -8,7 +8,7 @@ import { useState, useEffect, useRef } from "react"
 import { Button, Container } from "./ui"
 import { motion } from "framer-motion"
 import { COLORS } from "@/lib/colors"
-import { trackNavClick, trackExternalLinkClick } from "@/lib/tracking"
+import { trackNavClick } from "@/lib/tracking"
 import { CALENDLY_URL, headerNavConfig, getExpandMenuKey, type SimpleNavItem, type DropdownNavItem, type NavItem } from "@/lib/header-nav"
 import { MobileMenuSection, HamburgerIcon } from "./header-components"
 import { DropdownMenuTwoSection } from "./DropdownMenuSolutions"
@@ -234,11 +234,11 @@ export function Header() {
           {/* Right side: CTA Button + Mobile Menu */}
           <div className="flex items-center gap-4">
             {/* CTA Button */}
-            <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackExternalLinkClick('Intro Call (Header)')}>
+            <Link href={CALENDLY_URL} onClick={() => trackNavClick('Intro Call (Header)', CALENDLY_URL)}>
               <Button variant="default" size="sm" className="rounded-full flex-shrink-0">
                 Intro Call
               </Button>
-            </a>
+            </Link>
 
             {/* Mobile Menu Button - Animated */}
             <div className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -330,11 +330,11 @@ export function Header() {
               })}
 
               {/* Intro Call Button */}
-              <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackExternalLinkClick('Intro Call (Mobile Menu)')} className="w-full block pt-4">
+              <Link href={CALENDLY_URL} onClick={() => {trackNavClick('Intro Call (Mobile Menu)', CALENDLY_URL); setIsMenuOpen(false)}} className="w-full block pt-4">
                 <Button variant="default" className="w-full">
                   Intro Call
                 </Button>
-              </a>
+              </Link>
             </div>
         </motion.div>
         )}

@@ -99,8 +99,8 @@ export function Footer() {
                   src="/Logo_Full-color_long_samecolor-1.webp"
                   alt="Serve Funding"
                   className="h-28 w-auto"
-                  width={428}
-                  height={118}
+                  width={440}
+                  height={121}
                 />
               </div>
             </div>

@@ -8,6 +8,7 @@ import { CalendlyWidget } from '@/components/CalendlyWidget'
 import { Section, Container, Heading, Text, Card, StaggerContainer, StaggerItem } from '@/components/ui'
 import { COLORS } from '@/lib/colors'
 import { HeroFadeIn } from '@/components/hero-fade-in'
+import { formQuestions } from '@/data/form-questions'
 
 const coreValues = [
   { letter: 'T', title: 'Transparency', desc: 'We communicate honestly to build a long-term relationship.' },
@@ -22,18 +23,44 @@ export default function DealInquiryPage() {
   const [formData, setFormData] = useState<FormSubmitData>({})
   const [dealContext, setDealContext] = useState('')
 
+  const buildDealContext = (data: FormSubmitData): string => {
+    // Create a map of question IDs to titles for easy lookup
+    const questionMap = formQuestions.reduce((acc, q) => {
+      acc[q.id] = q.title
+      return acc
+    }, {} as Record<string, string>)
+
+    const answers = [
+      data.user_role ? `${questionMap.user_role} ${data.user_role}` : null,
+      data.partner_type ? `${questionMap.partner_type} ${data.partner_type}` : null,
+      data.annual_revenue ? `${questionMap.annual_revenue} ${data.annual_revenue}` : null,
+      data.funding_amount ? `${questionMap.funding_amount} ${data.funding_amount}` : null,
+      data.time_in_business ? `${questionMap.time_in_business} ${data.time_in_business}` : null,
+      data.owner_credit_score ? `${questionMap.owner_credit_score} ${data.owner_credit_score}` : null,
+      data.business_industry ? `${questionMap.business_industry} ${data.business_industry}` : null,
+      data.financing_needs && Array.isArray(data.financing_needs) && data.financing_needs.length > 0 ? `${questionMap.financing_needs} ${data.financing_needs.join(', ')}` : null,
+    ].filter(Boolean).join('\n')
+
+    return answers
+  }
+
   const handleFormSubmit = (data: FormSubmitData) => {
     setFormData(data)
-    setView('chat')
+
+    // If mike triage action, go straight to calendly (no chat)
+    if (data.triage_action === 'mike') {
+      const dealContext = buildDealContext(data)
+      setDealContext(dealContext)
+      setView('calendly')
+    } else {
+      setView('chat')
+    }
   }
+
 
   const handleScheduleClick = (context: string) => {
     setDealContext(context)
     setView('calendly')
-  }
-
-  const handleBackToChat = () => {
-    setView('chat')
   }
 
   // const skipToCalendly = () => {
@@ -61,25 +88,14 @@ export default function DealInquiryPage() {
     <main>
       {/* Hero Section */}
       <HeroFadeIn
-        title="A Different Kind of Funding Partner."
-        subtitle="Your Deal Stays With Us. Period."
+        title="Let's Discuss your Funding Needs"
+        subtitle={<>Answer a few questions and schedule a call at your convenience.<br />Takes a few minutes and there's no obligation.</>}
         compact
       />
 
       {/* Deal Inquiry Form/Chat Section */}
-      <Section background="primary" className='overflow-visible !pt-0'>
+      <Section background="primary" className='overflow-visible'>
         <Container className='flex flex-col items-center !max-w-3xl'>
-          <div className="mb-12 text-center">
-            <Heading size="h3" color='white' className="mb-6">
-              Built on Relationships. Operated With Integrity.
-            </Heading>
-            <Text color="white" className="mb-6 leading-relaxed">
-              Serve Funding is a trust-based advisory — not an algorithm driven "marketplace".<br />We do not sell leads or shop deals indiscriminately. Every opportunity is handled with care<br />by a dedicated, experienced team and reviewed personally by our founder.
-            </Text>
-            <Text color="white" className="leading-relaxed">
-              Whether you're a business owner or a referral partner, we treat every relationship —<br /> and every client's financing opportunity — as if it were our own.
-            </Text>
-          </div>
           <motion.div
             layout
             initial={{ opacity: 0 }}
@@ -92,8 +108,11 @@ export default function DealInquiryPage() {
               {view === 'chat' && <DealInquiryChat formData={formData} onScheduleClick={handleScheduleClick} />}
               {view === 'calendly' && (
                 <div className="flex flex-col gap-6">
+                  <Heading size="h3" color="primary">
+                    Let's schedule a time to talk
+                  </Heading>
                   <CalendlyWidget
-                    name={formData.name || formData.firstname || 'Guest'}
+                    name={formData.name || ''}
                     email={formData.email || ''}
                     dealContext={dealContext || ''}
                     height="700px"
@@ -103,13 +122,22 @@ export default function DealInquiryPage() {
               )}
             </Card>
           </motion.div>
+          <div className="mt-12 text-center">
+            <Heading size="h3" color='white' className="mb-6">
+              Built on Relationships. Operated With Integrity.
+            </Heading>
+            <Text color="white" className="mb-6 leading-relaxed">
+              Serve Funding is a trust-based advisory — not an algorithm driven "marketplace".<br />We do not sell leads or shop deals indiscriminately. Every opportunity is handled with care<br />by a dedicated, experienced team and reviewed personally by our founder.
+            </Text>
+            <Text color="white" className="leading-relaxed">
+              Whether you're a business owner or a referral partner, we treat every relationship —<br /> and every client's financing opportunity — as if it were our own.
+            </Text>
+          </div>
         </Container>
       </Section>
 
-      {/* What You Can Expect Section - only show before form submit */}
-      {view === 'form' && (
-        <>
-          <Section background="gray">
+      {/* What You Can Expect Section - always visible */}
+      <Section background="gray">
             <Container>
               <div className="text-center mb-12">
                 <Heading size="h2" className="mb-4">What You Can Expect</Heading>
@@ -135,12 +163,12 @@ export default function DealInquiryPage() {
           </Section>
 
           {/* TRUST Values Visual */}
-          <Section background="background">
-            <Container>
+          <Section background="background" className="overflow-visible">
+            <Container className="overflow-visible">
               <div className="text-center mb-12">
                 <Heading size="h2" className="mb-4">Our Core Values are Rooted in Trust</Heading>
               </div>
-              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 overflow-visible mb-8 pt-8">
                 {coreValues.map((value, index) => (
                   <Card key={index} className="text-center h-full flex flex-col items-center justify-start pt-8 group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
                     <span className="font-serif font-bold text-5xl mb-6 block" style={{ color: COLORS.primary }}>
@@ -156,9 +184,7 @@ export default function DealInquiryPage() {
                 ))}
               </StaggerContainer>
             </Container>
-          </Section>
-        </>
-      )}
+      </Section>
 
     </main>
   )

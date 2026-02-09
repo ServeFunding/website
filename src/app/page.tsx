@@ -157,18 +157,15 @@ export default function Home() {
       <Section background="gray">
         <Container>
           <FadeIn className="text-center mb-20 max-w-3xl mx-auto">
-            <Heading size="h2" className="mb-4">
-              A Different Kind<br />of Funding Partner.
-            </Heading>
-            <Heading size="h3" color='primary' className="mb-8">
-              Built on Relationships. Operated With Integrity.
+            <Heading size="h2" className="mb-8">
+              Discuss your Funding Needs.
             </Heading>
             <Text className="max-w-xl mx-auto my-6">
-              Answer a few questions to find out what credit options are available to you. Takes a few minutes and there's no obligation.
+              Answer a few questions and schedule a call at your convenience. <br /> Takes a few minutes and there's no obligation.
             </Text>
-            <Link href="/deal-inquiry">
+            <Link href="/lets-talk">
               <Button variant="default" size="lg">
-                Explore Funding Options
+                Let's talk
               </Button>
             </Link>
           </FadeIn>

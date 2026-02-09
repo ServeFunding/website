@@ -6,8 +6,6 @@ import { trackFormSubmission, trackHubSpotNativeForm } from '@/lib/tracking'
 const CLAY_WEBHOOK_URL = process.env.NEXT_PUBLIC_CLAY_WEBHOOK_URL || ''
 
 export interface FormSubmitData {
-  firstname?: string
-  lastname?: string
   name?: string
   email?: string
   phone?: string
@@ -17,6 +15,7 @@ export interface FormSubmitData {
   partnership_for__commercial_banking__advisory_?: string
   // Deal inquiry expanded fields
   user_role?: string
+  partner_type?: string
   business_industry?: string
   time_in_business?: string
   annual_revenue?: string
@@ -25,6 +24,7 @@ export interface FormSubmitData {
   owner_credit_score?: string
   company_state?: string
   calendly_url?: string
+  triage_action?: string
 }
 
 export function useFormSubmit(
@@ -52,7 +52,7 @@ export function useFormSubmit(
     const data: Record<string, any> = {}
     const webhookData: Record<string, any> = {} // Complete data for webhook (includes honeypot)
     const financingNeeds: string[] = []
-    const honeypot = rawFormData.get('company_phone') as string
+    const honeypot = rawFormData.get('website_url') as string
 
     // Check honeypot - if filled, it's likely a bot
     // Send to webhook for logging/visibility, but skip HubSpot
@@ -99,14 +99,12 @@ export function useFormSubmit(
       // Handle multi-select checkboxes (financing_needs) and skip honeypot for HubSpot data
       if (key === 'financing_needs') {
         financingNeeds.push(value as string)
-      } else if (key !== 'company_phone') {
+      } else if (key !== 'website_url') {
         data[key] = value as string
       }
     })
 
     const submittedFormData: FormSubmitData = {
-      firstname: data.firstname || '',
-      lastname: data.lastname || '',
       name: data.name || '',
       email: data.email || '',
       phone: data.phone || '',
@@ -116,6 +114,7 @@ export function useFormSubmit(
       partnership_for__commercial_banking__advisory_: data.partnership_for__commercial_banking__advisory_ || '',
       // Deal inquiry expanded fields
       user_role: data.user_role || '',
+      partner_type: data.partner_type || '',
       business_industry: data.business_industry || '',
       time_in_business: data.time_in_business || '',
       annual_revenue: data.annual_revenue || '',
@@ -124,6 +123,7 @@ export function useFormSubmit(
       owner_credit_score: data.owner_credit_score || '',
       company_state: data.company_state || '',
       calendly_url: data.calendly_url || '',
+      triage_action: data.triage_action || '',
     }
 
     setFormData(submittedFormData)

@@ -14,22 +14,13 @@ import {
   FadeIn,
   FormInput,
   FormGroup,
-  FormSelect,
   SelectButtons,
   MultiSelectButtons,
 } from '@/components/ui'
 import { useFormSubmit, FormSubmitData } from '@/hooks/useFormSubmit'
 import { useDealInquiryForm } from '@/hooks/useDealInquiryForm'
+import { formQuestions } from '@/data/form-questions'
 import { COLORS } from '@/lib/colors'
-
-// US States for form
-const US_STATES = [
-  'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
-  'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
-  'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
-  'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
-  'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY',
-]
 
 // Basic guard that disables submit when the honeypot is touched or required fields are incomplete
 function useHoneypotGuard() {
@@ -40,7 +31,7 @@ function useHoneypotGuard() {
     const form = formRef.current
     if (!form) return
 
-    const honeypotInput = form.querySelector('input[name="company_phone"]') as HTMLInputElement | null
+    const honeypotInput = form.querySelector('input[name="website_url"]') as HTMLInputElement | null
     const honeypotValue = honeypotInput?.value?.trim()
     const valid = form.checkValidity()
 
@@ -141,7 +132,7 @@ interface IntroCallFormProps {
 export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallFormProps = {}) {
   const { formRef, canSubmit, recomputeGuard } = useHoneypotGuard()
   const buildCalendlyUrl = (data: Record<string, string>) => {
-    return `https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(`${data.firstname || ''} ${data.lastname || ''}`.trim())}&email=${encodeURIComponent(data.email || '')}&phone=${encodeURIComponent(data.phone || '')}&a1=${encodeURIComponent(data.company || '')}&a2=${encodeURIComponent(`${data.capital_for || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
+    return `https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(data.name || '')}&email=${encodeURIComponent(data.email || '')}&phone=${encodeURIComponent(data.phone || '')}&a1=${encodeURIComponent(data.company || '')}&a2=${encodeURIComponent(`${data.capital_for || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
   }
 
   const { success, handleSubmit, formData, isSubmitting } = useFormSubmit(
@@ -158,7 +149,7 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
     <FormContainer title={title} subtitle={subtitle}>
       {success ? (
         <FormSuccessContent
-          message={`Thanks for your info${formData.firstname ? `, ${formData.firstname}` : ''}! Click below to schedule your call.`}
+          message={`Thanks for your info${formData.name ? `, ${formData.name}` : ''}! Click below to schedule your call.`}
           formData={formData}
           calendlyUrl={buildCalendlyUrl(formData as Record<string, string>)}
           ctaText="Schedule a Call"
@@ -171,10 +162,7 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
           onInput={recomputeGuard}
           onChange={recomputeGuard}
         >
-          <FormGroup columns={2}>
-            <FormInput type="text" name="firstname" label="First Name" required />
-            <FormInput type="text" name="lastname" label="Last Name" required />
-          </FormGroup>
+          <FormInput type="text" name="name" label="Full Name" required />
 
           <FormInput type="email" name="email" label="Email Address" required />
 
@@ -217,7 +205,7 @@ export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallForm
 export function PartnerInquiryForm() {
   const { formRef, canSubmit, recomputeGuard } = useHoneypotGuard()
   const buildCalendlyUrl = (data: Record<string, string>) => {
-    return `https://calendly.com/michael_kodinsky/partner-strategy-call?name=${encodeURIComponent(`${data.firstname || ''} ${data.lastname || ''}`.trim())}&email=${encodeURIComponent(data.email || '')}&a1=${encodeURIComponent(`${data.partnership_for__commercial_banking__advisory_ || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
+    return `https://calendly.com/michael_kodinsky/partner-strategy-call?name=${encodeURIComponent(data.name || '')}&email=${encodeURIComponent(data.email || '')}&a1=${encodeURIComponent(`${data.partnership_for__commercial_banking__advisory_ || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
   }
 
   const { success, handleSubmit, formData, isSubmitting } = useFormSubmit(
@@ -234,7 +222,7 @@ export function PartnerInquiryForm() {
     <FormContainer title="Let's Connect" subtitle="Please fill out this form and we'll schedule a call">
       {success ? (
         <FormSuccessContent
-          message={`Thanks for your info${formData.firstname ? `, ${formData.firstname}` : ''}! Click below to schedule your call.`}
+          message={`Thanks for your info${formData.name ? `, ${formData.name}` : ''}! Click below to schedule your call.`}
           formData={formData}
           calendlyUrl={buildCalendlyUrl(formData as Record<string, string>)}
           ctaText="Schedule a Call"
@@ -247,10 +235,7 @@ export function PartnerInquiryForm() {
           onInput={recomputeGuard}
           onChange={recomputeGuard}
         >
-          <FormGroup columns={2}>
-            <FormInput type="text" name="firstname" label="First Name" required />
-            <FormInput type="text" name="lastname" label="Last Name" required />
-          </FormGroup>
+          <FormInput type="text" name="name" label="Full Name" required />
 
           <FormInput type="text" name="company" label="Company Name" required />
 
@@ -311,7 +296,7 @@ export function NewsletterModalForm({
         <FormSuccessContent
           message={<>You're in!<br /><br />You should see an email confirmation soon.<br /><br />We'd love to talk to you as well.</>}
           formData={formData}
-          calendlyUrl={`https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(`${formData.firstname || ''} ${formData.lastname || ''}`.trim())}&email=${encodeURIComponent(formData.email || '')}&phone=${encodeURIComponent(formData.phone || '')}&company=${encodeURIComponent(formData.company || '')}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`}
+          calendlyUrl={`https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(formData.name || '')}&email=${encodeURIComponent(formData.email || '')}&phone=${encodeURIComponent(formData.phone || '')}&company=${encodeURIComponent(formData.company || '')}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`}
           ctaText="Schedule a Call"
         />
       ) : (
@@ -373,114 +358,17 @@ interface DealInquiryFormProps {
   onSubmitSuccess?: (formData: FormSubmitData) => void
 }
 
-interface FormQuestion {
-  id: string
-  type: 'button-group' | 'multi-select' | 'text' | 'email' | 'tel' | 'textarea' | 'select' | 'contact-info'
-  label: string
-  name: string
-  options?: string[]
-  required?: boolean
-  autoAdvance?: boolean
-  placeholder?: string
-  rows?: number
-}
-
-// Questions array - must be kept in sync with useDealInquiryForm hook
-export const questions: FormQuestion[] = [
-  {
-    id: 'user_role',
-    type: 'button-group',
-    label: 'I am a:',
-    name: 'user_role',
-    options: ['Business Owner / Operator', 'Banker / CPA / Advisor / Referral Partner'],
-    autoAdvance: true,
-  },
-  {
-    id: 'business_industry',
-    type: 'button-group',
-    label: 'Business Industry',
-    name: 'business_industry',
-    options: ['Construction', 'Medical', 'Hospitality', 'Manufacturing', 'Services', 'Other'],
-    autoAdvance: true,
-  },
-  {
-    id: 'time_in_business',
-    type: 'button-group',
-    label: 'Time in Business',
-    name: 'time_in_business',
-    options: ['< 1 year', '1-2 years', '2-3 years', '3-4 years', '5+ years'],
-    autoAdvance: true,
-  },
-  {
-    id: 'annual_revenue',
-    type: 'button-group',
-    label: 'Annual Revenue (approx.)',
-    name: 'annual_revenue',
-    options: ['$500K–$1MM', '$1MM–$3MM', '$3MM–$10MM', '$10MM–$20MM', '$20MM+'],
-    autoAdvance: true,
-  },
-  {
-    id: 'financing_needs',
-    type: 'multi-select',
-    label: 'I need financing for',
-    name: 'financing_needs',
-    options: [
-      'Working capital to support growth',
-      'Short term bridge capital',
-      'Equipment or asset purchase',
-      'Business acquisition or partner buyout',
-      'Refinance existing debt',
-      'Growth / expansion',
-      'Other',
-    ],
-  },
-  {
-    id: 'funding_amount',
-    type: 'button-group',
-    label: 'Estimated funding amount needed',
-    name: 'funding_amount',
-    options: ['$100K–$250K', '$250K–$500K', '$500K–$1MM', '$1MM–$5MM', '$5MM-$10MM', '$10MM+'],
-    autoAdvance: true,
-  },
-  {
-    id: 'owner_credit_score',
-    type: 'button-group',
-    label: 'What is the owner\'s approximate FICO score?',
-    name: 'owner_credit_score',
-    options: ['Excellent (750-850)', 'Good (650-750)', 'Fair (550-650)', 'Low (below 550)', 'Not sure'],
-    autoAdvance: true,
-  },
-  {
-    id: 'contact_us_details',
-    type: 'textarea',
-    label: 'Provide additional details about the financing need or business situation',
-    name: 'contact_us_details',
-    placeholder: 'Tell us more about your situation to receive a thorough pre-screen of your funding options',
-    rows: 4,
-  },
-  {
-    id: 'contact_info',
-    type: 'contact-info',
-    label: 'Final Step: Your Contact Information',
-    name: 'contact_info',
-    required: true,
-  },
-]
 
 export function DealInquiryForm({
   onSubmitSuccess,
 }: DealInquiryFormProps = {}) {
+  const formRef = useRef<HTMLFormElement>(null)
+
   const {
     currentQuestion,
+    currentQuestionIndex,
+    totalQuestions,
     selectedAnswer,
-    userRole,
-    businessIndustry,
-    timeInBusiness,
-    annualRevenue,
-    financingNeeds,
-    fundingAmount,
-    ownerCreditScore,
-    contactUsDetails,
     name,
     email,
     phone,
@@ -492,24 +380,24 @@ export function DealInquiryForm({
     setFieldValue,
     handleAnswer,
     moveToNextQuestion,
+    moveToPreviousQuestion,
     handleSubmit,
+    otherResponses,
   } = useDealInquiryForm(onSubmitSuccess)
 
-  const currentQ = questions[currentQuestion]
-  const totalQuestions = questions.length
 
   return (
     <>
       {!success ? (
-        <form className="form-deal_inquiry flex flex-col gap-4 w-full max-w-2xl mx-auto min-h-[650px]" onSubmit={handleSubmit}>
+        <form ref={formRef} className="form-deal_inquiry flex flex-col gap-4 w-full max-w-2xl mx-auto min-h-[650px]" onSubmit={handleSubmit}>
           {/* Progress Bar */}
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-gray-600">
-                Question {currentQuestion + 1} of {totalQuestions}
+                Question {currentQuestionIndex + 1} of {totalQuestions}
               </span>
               <span className="text-sm text-gray-500">
-                {Math.round(((currentQuestion + 1) / totalQuestions) * 100)}%
+                {Math.round(((currentQuestionIndex + 1) / totalQuestions) * 100)}%
               </span>
             </div>
             <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -517,7 +405,7 @@ export function DealInquiryForm({
                 className="h-full transition-all duration-300"
                 style={{
                   backgroundColor: COLORS.primary,
-                  width: `${((currentQuestion + 1) / totalQuestions) * 100}%`,
+                  width: `${((currentQuestionIndex + 1) / totalQuestions) * 100}%`,
                 }}
               />
             </div>
@@ -525,189 +413,244 @@ export function DealInquiryForm({
 
           {/* Question Label */}
           <div className="mt-8">
-            <Heading size="h3" className="text-olive-900 text-left !my-0">
-              {currentQ.label}
+            <Heading size="h3" color="primary" className="text-left !my-0">
+              {currentQuestion?.title}
             </Heading>
+            {currentQuestion?.helpHtml && (
+              <div
+                className="mt-2 text-sm text-gray-600"
+                dangerouslySetInnerHTML={{ __html: currentQuestion.helpHtml }}
+              />
+            )}
           </div>
 
-          {/* Render Question Based on Type */}
-          {currentQ.type === 'button-group' && (
-            <SelectButtons
-              options={currentQ.options || []}
-              value={getFieldValue(currentQ.id) as string}
-              onChange={handleAnswer}
-              disabled={selectedAnswer !== null}
-              selectedAnswer={selectedAnswer}
-              align="left"
-            />
+          {/* Single choice or multi-choice with buttons */}
+          {(currentQuestion?.type === 'single' || currentQuestion?.type === 'multi') && currentQuestion?.answers?.length! > 0 && (
+            <div className="flex flex-col gap-8">
+              {currentQuestion?.type === 'multi' && (
+                <Text size="sm" className="text-center text-gray-500">
+                  You can select multiple options
+                </Text>
+              )}
+              {currentQuestion?.type === 'single' ? (
+                <SelectButtons
+                  options={currentQuestion?.answers || []}
+                  value={getFieldValue(currentQuestion?.id || '') as string}
+                  onChange={handleAnswer}
+                  disabled={selectedAnswer !== null}
+                  selectedAnswer={selectedAnswer}
+                  align="left"
+                />
+              ) : (
+                <MultiSelectButtons
+                  options={currentQuestion?.answers || []}
+                  value={getFieldValue(currentQuestion?.id || '') as string[]}
+                  onChange={(value) => setFieldValue(currentQuestion?.id || '', value)}
+                  align="left"
+                />
+              )}
+              <div className="flex items-center gap-3 mt-8">
+                {currentQuestionIndex > 0 && (
+                  <Button
+                    variant="default"
+                    size="lg"
+                    type="button"
+                    onClick={moveToPreviousQuestion}
+                  >
+                    ← Back
+                  </Button>
+                )}
+                <Button
+                  variant="default"
+                  size="lg"
+                  type="button"
+                  onClick={moveToNextQuestion}
+                  disabled={!getFieldValue(currentQuestion?.id) || (Array.isArray(getFieldValue(currentQuestion?.id)) && (getFieldValue(currentQuestion?.id) as string[]).length === 0)}
+                  className="flex-1"
+                >
+                  Continue
+                </Button>
+              </div>
+            </div>
           )}
 
-          {currentQ.type === 'multi-select' && (
+          {/* Textarea for open-ended responses (single type with no answers) */}
+          {currentQuestion?.type === 'single' && (!currentQuestion?.answers || currentQuestion?.answers.length === 0) && (
             <div className="flex flex-col gap-8">
-              <Text size="sm" className="text-center text-gray-500">
-                You can select multiple options
-              </Text>
-              <MultiSelectButtons
-                options={currentQ.options || []}
-                value={getFieldValue(currentQ.id) as string[]}
-                onChange={(value) => setFieldValue(currentQ.id, value)}
+              <textarea
+                name={currentQuestion?.id}
+                value={getFieldValue(currentQuestion?.id || '') as string}
+                onChange={(e) => setFieldValue(currentQuestion?.id || '', e.currentTarget.value)}
+                placeholder={currentQuestion?.placeholder || 'Enter your response...'}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-2 transition-all text-base bg-white"
+                style={{ borderColor: 'var(--color-secondary, #999)', minHeight: '150px' }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = COLORS.primary
+                  e.currentTarget.style.borderWidth = '2px'
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--color-secondary, #999)'
+                  e.currentTarget.style.borderWidth = '1px'
+                }}
+              />
+              <div className="flex items-center gap-3 mt-8">
+                {currentQuestionIndex > 0 && (
+                  <Button
+                    variant="default"
+                    size="lg"
+                    type="button"
+                    onClick={moveToPreviousQuestion}
+                  >
+                    ← Back
+                  </Button>
+                )}
+                <Button
+                  variant="default"
+                  size="lg"
+                  type="button"
+                  onClick={moveToNextQuestion}
+                  disabled={!getFieldValue(currentQuestion?.id)}
+                  className="flex-1"
+                >
+                  Continue
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Single choice with "Other" option */}
+          {currentQuestion?.type === 'single_with_other' && (
+            <div className="flex flex-col gap-8">
+              <SelectButtons
+                options={currentQuestion?.answers || []}
+                value={getFieldValue(currentQuestion?.id || '') as string}
+                onChange={handleAnswer}
+                disabled={selectedAnswer !== null}
+                selectedAnswer={selectedAnswer}
                 align="left"
               />
-              <Button
-                variant="default"
-                size="lg"
-                type="button"
-                onClick={moveToNextQuestion}
-                disabled={!getFieldValue(currentQ.id) || (Array.isArray(getFieldValue(currentQ.id)) && getFieldValue(currentQ.id).length === 0)}
-              >
-                Continue
-              </Button>
+
+              {/* Show input when "Other" is selected */}
+              {typeof getFieldValue(currentQuestion?.id || '') === 'string' && (getFieldValue(currentQuestion?.id || '') === 'Other' || (getFieldValue(currentQuestion?.id || '') as string).toLowerCase().includes('other')) && (
+                <div className="mt-4 pl-0">
+                  <FormInput
+                    type="text"
+                    name={`${currentQuestion?.id}_other`}
+                    label="Please specify"
+                    value={getFieldValue(`${currentQuestion?.id}_other`) || ''}
+                    onChange={(e) => setFieldValue(`${currentQuestion?.id}_other`, e.currentTarget.value)}
+                    placeholder="Enter your response"
+                  />
+                </div>
+              )}
+
+              <div className="flex items-center gap-3 mt-8">
+                {currentQuestionIndex > 0 && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    type="button"
+                    onClick={moveToPreviousQuestion}
+                  >
+                    ← Back
+                  </Button>
+                )}
+                <Button
+                  variant="default"
+                  size="lg"
+                  type="button"
+                  onClick={moveToNextQuestion}
+                  disabled={
+                    !getFieldValue(currentQuestion?.id) ||
+                    (getFieldValue(currentQuestion?.id) === 'Other' && !getFieldValue(`${currentQuestion?.id}_other`))
+                  }
+                  className="flex-1"
+                >
+                  Continue
+                </Button>
+              </div>
             </div>
           )}
 
-          {currentQ.type === 'textarea' && (
+          {/* Contact Info Collection */}
+          {currentQuestion?.type === 'contact-info' && (
             <div className="flex flex-col gap-8">
               <FormInput
-                as="textarea"
-                name={currentQ.name}
-                value={getFieldValue(currentQ.id)}
-                onChange={(e) => setFieldValue(currentQ.id, e.currentTarget.value)}
-                rows={currentQ.rows || 4}
-                placeholder={currentQ.placeholder}
+                type="text"
+                name="name"
+                label="Name"
+                value={name}
+                onChange={(e) => setFieldValue('name', e.currentTarget.value)}
+                onInput={(e) => {
+                  console.log('[DealInquiryForm] Name onInput:', e.currentTarget.value)
+                  setFieldValue('name', e.currentTarget.value)
+                }}
+                required
               />
-              <Button
-                variant="default"
-                size="lg"
-                type="button"
-                onClick={moveToNextQuestion}
-              >
-                Continue
-              </Button>
-            </div>
-          )}
-
-          {(currentQ.type === 'text' || currentQ.type === 'email' || currentQ.type === 'tel') && (
-            <div className="flex flex-col gap-8">
               <FormInput
-                type={currentQ.type}
-                name={currentQ.name}
-                value={getFieldValue(currentQ.id)}
-                onChange={(e) => setFieldValue(currentQ.id, e.currentTarget.value)}
-                placeholder={currentQ.placeholder}
-                required={currentQ.required}
+                type="email"
+                name="email"
+                label="Email"
+                value={email}
+                onChange={(e) => setFieldValue('email', e.currentTarget.value)}
+                onInput={(e) => {
+                  console.log('[DealInquiryForm] Email onInput:', e.currentTarget.value)
+                  setFieldValue('email', e.currentTarget.value)
+                }}
+                required
               />
-              <Button
-                variant="default"
-                size="lg"
-                type="button"
-                onClick={moveToNextQuestion}
-                disabled={currentQ.required && !getFieldValue(currentQ.id)}
-              >
-                Continue
-              </Button>
+
+              <div className="flex items-center gap-3 mt-8">
+                {currentQuestionIndex > 0 && (
+                  <Button
+                    variant="default"
+                    size="lg"
+                    type="button"
+                    onClick={moveToPreviousQuestion}
+                  >
+                    ← Back
+                  </Button>
+                )}
+                <Button
+                  variant="default"
+                  size="lg"
+                  type="submit"
+                  disabled={!name || !email}
+                  className="flex-1"
+                >
+                  Let's talk about your deal
+                </Button>
+              </div>
             </div>
           )}
+          {/* Hidden inputs for all form fields - dynamically generated from formQuestions */}
+          {formQuestions.map((question) => {
+            const fieldValue = getFieldValue(question.id)
 
-          {currentQ.type === 'select' && (
-            <FormSelect
-              label=""
-              name={currentQ.name}
-              value={getFieldValue(currentQ.id)}
-              onChange={(e) => handleAnswer(e.target.value)}
-              options={currentQ.options || []}
-              placeholder="Select state"
-            />
-          )}
+            // Skip contact-info type questions as they're handled separately
+            if (question.type === 'contact-info') return null
 
-          {currentQ.type === 'contact-info' && (
-            <div className="flex flex-col gap-8">
-              <FormGroup columns={2}>
-                <FormInput
-                  type="text"
-                  name="name"
-                  label="Name"
-                  value={name}
-                  onChange={(e) => setFieldValue('name', e.currentTarget.value)}
-                  required
-                />
-                <FormInput
-                  type="email"
-                  name="email"
-                  label="Email"
-                  value={email}
-                  onChange={(e) => setFieldValue('email', e.currentTarget.value)}
-                  required
-                />
-              </FormGroup>
+            // Handle multi-select questions (arrays)
+            if (Array.isArray(fieldValue)) {
+              return fieldValue.map((value) => (
+                <input key={`${question.id}-${value}`} type="hidden" name={question.id} value={value} />
+              ))
+            }
 
-              <FormGroup columns={2}>
-                <FormInput
-                  type="tel"
-                  name="phone"
-                  label="Phone"
-                  value={phone}
-                  onChange={(e) => setFieldValue('phone', e.currentTarget.value)}
-                  required
-                />
-                <FormInput
-                  type="text"
-                  name="company"
-                  label="Company Name"
-                  value={company}
-                  onChange={(e) => setFieldValue('company', e.currentTarget.value)}
-                  required
-                />
-              </FormGroup>
+            // Handle single-value questions
+            return <input key={question.id} type="hidden" name={question.id} value={fieldValue as string} />
+          })}
 
-              <FormSelect
-                label="Company State"
-                name="company_state"
-                value={companyState}
-                onChange={(e) => setFieldValue('company_state', e.target.value)}
-                options={US_STATES}
-                placeholder="Select state"
-              />
-            </div>
-          )}
-
-          {/* Honeypot field */}
-          <input
-            type="text"
-            name="company_phone"
-            className="sr-only"
-            tabIndex={-1}
-            autoComplete="off"
-            aria-hidden="true"
-          />
-
-          {/* Hidden inputs for all form fields */}
-          <input type="hidden" name="user_role" value={userRole} />
-          <input type="hidden" name="business_industry" value={businessIndustry} />
-          <input type="hidden" name="time_in_business" value={timeInBusiness} />
-          <input type="hidden" name="annual_revenue" value={annualRevenue} />
-          <input type="hidden" name="funding_amount" value={fundingAmount} />
-          <input type="hidden" name="owner_credit_score" value={ownerCreditScore} />
-          <input type="hidden" name="contact_us_details" value={contactUsDetails} />
+          {/* Contact info fields (handled separately as they're part of contact-info type) */}
           <input type="hidden" name="name" value={name} />
           <input type="hidden" name="email" value={email} />
           <input type="hidden" name="phone" value={phone} />
           <input type="hidden" name="company" value={company} />
           <input type="hidden" name="company_state" value={companyState} />
-          {financingNeeds.map((need) => (
-            <input key={need} type="hidden" name="financing_needs" value={need} />
+          {/* Hidden inputs for "other" responses */}
+          {Object.entries(otherResponses).map(([fieldId, value]) => (
+            <input key={fieldId} type="hidden" name={fieldId} value={String(value)} />
           ))}
-
-          {/* Submit button shown on last question */}
-          {currentQuestion === totalQuestions - 1 && (
-            <Button
-              variant="default"
-              size="lg"
-              type="submit"
-              disabled={currentQ.type === 'contact-info' ? !name || !email || !phone || !company || !companyState : !getFieldValue(currentQ.id)}
-            >
-              Get AI-Powered Insights
-            </Button>
-          )}
         </form>
       ) : (
         <div className="text-center">
@@ -719,7 +662,7 @@ export function DealInquiryForm({
           >
             <CheckCircle className="w-12 h-12" style={{ color: COLORS.primary }} />
           </motion.div>
-          <Text size="lg" className="mb-6">Thanks for sharing your details, {formData.name || formData.firstname}! We're reviewing your information and will get back to you shortly with your personalized funding options.</Text>
+          <Text size="lg" className="mb-6">Thanks for sharing your details, {formData.name}! We're reviewing your information and will get back to you shortly with your personalized funding options.</Text>
         </div>
       )}
     </>

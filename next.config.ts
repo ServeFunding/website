@@ -12,7 +12,13 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
-  
+
+  // Minification is automatic with Turbopack in Next.js 16
+  compiler: {
+    // Remove console.logs in production for smaller bundle
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
+  },
+
   // Optimize images
   images: {
     remotePatterns: [
@@ -24,13 +30,13 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    qualities: [75, 85],
+    qualities: [85], // Consistent high quality for all images
     minimumCacheTTL: 31536000, // 1 year
   },
-  
+
   // Enable compression
   compress: true,
-  
+
   // Production optimizations
   productionBrowserSourceMaps: false,
   
@@ -65,21 +71,8 @@ const nextConfig: NextConfig = {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()'
           },
-          {
-            key: 'Content-Security-Policy',
-            value: [
-              "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.hsforms.net https://js.hs-scripts.com https://js.hscollectedforms.net https://js.hs-banner.com https://js.hs-analytics.net https://js.hsadspixel.net https://snap.licdn.com https://umami-production-25e0.up.railway.app https://serveinfo.up.railway.app https://va.vercel-scripts.com https://ddwl4m2hdecbv.cloudfront.net https://static.hsappstatic.net https://assets.calendly.com",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com",
-              "img-src 'self' data: https: blob:",
-              "font-src 'self' data: https://fonts.gstatic.com",
-              "connect-src 'self' https://api.hsforms.com https://forms.hsforms.com https://forms.hscollectedforms.net https://forms-na1.hsforms.com https://api.hubapi.com https://snap.licdn.com https://px.ads.linkedin.com https://umami-production-25e0.up.railway.app https://serveinfo.up.railway.app https://static.hsappstatic.net https://calendly.com https://assets.calendly.com",
-              "frame-src 'self' https://forms.hsforms.com https://js.hsforms.net http://js.hsforms.net https://calendly.com",
-              "frame-ancestors 'self'",
-              "base-uri 'self'",
-              "form-action 'self' https://forms.hsforms.com https://calendly.com"
-            ].join('; ')
-          }
+          // CSP is now handled by middleware.ts with nonce for better security
+          // This removes 'unsafe-inline' and 'unsafe-eval' from script-src
         ],
       },
       // Static asset caching
@@ -181,6 +174,12 @@ const nextConfig: NextConfig = {
         source: "/refer",
         destination: "/partners",
         permanent: false, // 302 temporary redirect
+      },
+      // Deal inquiry redirect to lets-talk
+      {
+        source: "/deal-inquiry",
+        destination: "/lets-talk",
+        permanent: true, // 301 redirect for SEO
       },
     ];
   },

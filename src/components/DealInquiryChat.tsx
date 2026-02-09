@@ -19,8 +19,6 @@ interface Message {
 interface DealInquiryChatProps {
   formData: {
     name?: string
-    firstname?: string
-    lastname?: string
     email?: string
     phone?: string
     company?: string
@@ -35,7 +33,7 @@ export function DealInquiryChat({ formData, onScheduleClick }: DealInquiryChatPr
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: `Hi ${formData.name || formData.firstname}! 👋`,
+      text: `Hi ${formData.name}! 👋`,
       sender: 'bot',
       timestamp: new Date(),
     },
@@ -70,7 +68,7 @@ export function DealInquiryChat({ formData, onScheduleClick }: DealInquiryChatPr
         // Use initial greeting as first user message context
         const reply = await getAIDealResponse(
           'I just filled out the form above with my deal details.',
-          [{ text: `Hi ${formData.name || formData.firstname}! 👋`, sender: 'bot' }],
+          [{ text: `Hi ${formData.name}! 👋`, sender: 'bot' }],
           formData
         )
 
