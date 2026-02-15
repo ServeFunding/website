@@ -88,7 +88,7 @@ export default function DealInquiryPage() {
     <main>
       {/* Hero Section */}
       <HeroFadeIn
-        title="Let's Discuss your Funding Needs"
+        title="Let's Discuss Your Funding Needs"
         subtitle={<>Answer a few questions and schedule a call at your convenience.<br />Takes a few minutes and there's no obligation.</>}
         compact
       />
