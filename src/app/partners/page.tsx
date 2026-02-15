@@ -48,7 +48,7 @@ export default function Partners() {
       {/* Hero Section */}
       <HeroFadeIn
         title="Our Trusted Partners"
-        subtitle={<>Serve Funding Partners with commercial bankers, CPA's,<br />Fractional CFO's, investment bankers, and business advisors.<br />Help your clients access funding solutions from $250K to $100MM.</>}
+        subtitle={<>Serve Funding Partners with Commercial Bankers, CPA's,<br />Fractional CFO's, Investment Bankers, and Business Advisors.<br />Help Your Clients Access Funding Solutions from $250K to $100MM.</>}
       />
 
       {/* The Problem We Solve */}
@@ -63,6 +63,13 @@ export default function Partners() {
 
             <StaggerContainer className="space-y-6">
               <Card color='background' className="bg-white border-l-4 p-8">
+                <Heading size="h3" className="text-olive-900 mb-3">You are the Hero in Their Story</Heading>
+                <Text className="text-gray-700 leading-relaxed">
+                  When we come through for your prospect, they remember that you went out of your way. They see you as the banker or advisor who didn't give up, who found a solution. They often come back to you as a stronger, more loyal client. When we solve for your existing clients, you strengthen that relationship by being the one who delivered. Either way—you've deepened trust, enhanced your reputation, and positioned yourself as the trusted advisor your clients can count on.
+                </Text>
+              </Card>
+
+              <Card color='background' className="bg-white border-l-4 p-8">
                 <Heading size="h3" className="text-olive-900 mb-3">Time Wasted, Credibility Lost</Heading>
                 <Text className="text-gray-700 leading-relaxed">
                   You refer a prospect or client to an alternative lender. They go down the road. Two to four weeks of underwriting pass. Then the lender hits a wall—maybe it's a customer contract clause that makes the deal impossible, maybe it's collateral issues, maybe the leverage doesn't work. The business owner gets turned down. Again. Meanwhile, weeks have passed, their opportunity window is closing, and your credibility takes a hit for the referral that didn't work out.
@@ -73,13 +80,6 @@ export default function Partners() {
                 <Heading size="h3" className="text-olive-900 mb-3">If There's a Way, We'll Find It</Heading>
                 <Text className="text-gray-700 leading-relaxed">
                   Here's our commitment: if there's a way to get it done, we will find a way. We're not locked into one product or one box. We can layer solutions. We can look at multiple lenders at once. We can use real estate, equipment, personal assets, cash flow—whatever combination works. The only time we can't help is if expectations are just unrealistic. But as long as there's something viable to build on, we'll sweep the corners of the known credit universe to find it. That's how we protect your reputation.
-                </Text>
-              </Card>
-
-              <Card color='background' className="bg-white border-l-4 p-8">
-                <Heading size="h3" className="text-olive-900 mb-3">You are the Hero in Their Story</Heading>
-                <Text className="text-gray-700 leading-relaxed">
-                  When we come through for your prospect, they remember that you went out of your way. They see you as the banker or advisor who didn't give up, who found a solution. They often come back to you as a stronger, more loyal client. When we solve for your existing clients, you strengthen that relationship by being the one who delivered. Either way—you've deepened trust, enhanced your reputation, and positioned yourself as the trusted advisor your clients can count on.
                 </Text>
               </Card>
             </StaggerContainer>
