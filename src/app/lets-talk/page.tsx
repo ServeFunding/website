@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { DealInquiryForm, FormSubmitData } from '@/components/Forms'
 import { DealInquiryChat } from '@/components/DealInquiryChat'
@@ -22,6 +22,13 @@ export default function DealInquiryPage() {
   const [view, setView] = useState<'form' | 'chat' | 'calendly'>('form')
   const [formData, setFormData] = useState<FormSubmitData>({})
   const [dealContext, setDealContext] = useState('')
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (view === 'calendly' || view === 'chat') {
+      cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [view])
 
   const buildDealContext = (data: FormSubmitData): string => {
     // Create a map of question IDs to titles for easy lookup
@@ -103,13 +110,13 @@ export default function DealInquiryPage() {
             transition={{ duration: 0.3, layout: { duration: 0.4 } }}
             className="w-full"
           >
-            <Card className="md:p-12 bg-white">
+            <Card ref={cardRef} className="md:p-12 bg-white">
               {view === 'form' && <DealInquiryForm onSubmitSuccess={handleFormSubmit} />}
               {view === 'chat' && <DealInquiryChat formData={formData} onScheduleClick={handleScheduleClick} />}
               {view === 'calendly' && (
                 <div className="flex flex-col gap-6">
-                  <Heading size="h3" color="primary">
-                    Let's schedule a time to talk
+                  <Heading size="h3" color="primary" className="text-center">
+                    Let's schedule a time to talk!
                   </Heading>
                   <CalendlyWidget
                     name={formData.name || ''}
