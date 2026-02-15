@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import {
   Quote
@@ -10,7 +11,8 @@ import {
   Text,
   Card,
   FadeIn,
-  StaggerContainer
+  StaggerContainer,
+  Button
 } from '@/components/ui'
 import { COLORS } from '@/lib/colors'
 import { FeatureList } from '@/components/FeatureList'
@@ -50,6 +52,25 @@ export default function Partners() {
         title="Our Trusted Partners"
         subtitle={<>Serve Funding Partners with Commercial Bankers, CPA's,<br />Fractional CFO's, Investment Bankers, and Business Advisors.<br />Help Your Clients Access Funding Solutions from $250K to $100MM.</>}
       />
+
+      {/* Discuss Funding Needs CTA */}
+      <Section background="gray">
+        <Container>
+          <FadeIn className="text-center max-w-3xl mx-auto">
+            <Heading size="h2" className="mb-8">
+              Let's Discuss Your Clients or Prospects Funding Needs.
+            </Heading>
+            <Text className="max-w-xl mx-auto my-6">
+              Answer a few questions and schedule a call at your convenience. <br /> Takes a few minutes and there's no obligation.
+            </Text>
+            <Link href="/lets-talk">
+              <Button variant="default" size="lg">
+                Let's talk
+              </Button>
+            </Link>
+          </FadeIn>
+        </Container>
+      </Section>
 
       {/* The Problem We Solve */}
       <Section>
