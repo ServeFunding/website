@@ -58,7 +58,7 @@ export default function Partners() {
         <Container>
           <FadeIn className="text-center max-w-3xl mx-auto">
             <Heading size="h2" className="mb-8">
-              Let's Discuss Your Clients or Prospects Funding Needs.
+              Let's Discuss Your Client's or Prospect's Funding Needs.
             </Heading>
             <Text className="max-w-xl mx-auto my-6">
               Answer a few questions and schedule a call at your convenience. <br /> Takes a few minutes and there's no obligation.
