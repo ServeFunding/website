@@ -485,11 +485,67 @@ export const solutionSpecificFAQs: FAQ[] = [
 ]
 
 // ============================================================================
+// SOLUTION COMPARISON FAQs (General - for /solutions listing page)
+// ============================================================================
+
+export const solutionComparisonFAQs: FAQ[] = [
+  {
+    id: 'which-funding-fastest',
+    q: 'Which funding solution is the fastest?',
+    a: 'Working capital loans and revenue-based financing are the fastest, with approval in 1-3 business days and funding in 2-10 days. Bridge funding and invoice factoring (once approved) can also move quickly—factoring releases cash within 24-48 hours per invoice. Asset-based lending and SBA loans take longer (4-8 weeks) but offer lower rates.',
+    relatedSolutions: ['working-capital-loans', 'bridge-funding', 'invoice-factoring']
+  },
+  {
+    id: 'bank-declined-options',
+    q: 'What if my bank declined me?',
+    a: 'When banks say no, we say how. Bank declines are actually our most common starting point—bankers are our primary referral source. Alternative lenders evaluate businesses differently: invoice factoring looks at your customers\' credit (not yours), asset-based lending focuses on collateral value, and working capital loans weigh revenue trajectory. We have 30+ lender relationships to find the right fit.',
+    relatedSolutions: ['asset-based-lending', 'invoice-factoring', 'working-capital-loans']
+  },
+  {
+    id: 'combine-funding-types',
+    q: 'Can I combine multiple funding types?',
+    a: 'Yes—this is called "layered capital" and it\'s one of our specialties. Example: $1MM AR revolver + $240K unsecured term loan + $550K second mortgage = $1.79MM total capital. Each layer serves a different purpose and sits at a different position in the capital stack. This approach maximizes available funds without over-leveraging any single source.',
+    relatedSolutions: ['asset-based-lending', 'unsecured-debt', 'real-estate-lending']
+  },
+  {
+    id: 'how-much-qualify-for',
+    q: 'How much can I qualify for?',
+    a: 'Qualification depends on your assets, revenue, and the funding type. Working capital loans range from $100K-$10M+ based on revenue. Invoice factoring provides 75-95% of your AR value ($250K-$100MM). Asset-based lending offers $250K-$25M against receivables, inventory, and equipment. We typically find the right structure within your first consultation.',
+    relatedSolutions: ['working-capital-loans', 'invoice-factoring', 'asset-based-lending']
+  },
+  {
+    id: 'documents-needed-funding',
+    q: 'What documents do I need to apply?',
+    a: 'Most solutions require 3-6 months of bank statements, a recent accounts receivable aging report, and basic business financials (P&L, balance sheet). Some products like invoice factoring focus primarily on your AR and customer creditworthiness rather than tax returns. Working capital loans may only need bank statements and a simple application. We\'ll tell you exactly what\'s needed in our first call.',
+    relatedSolutions: ['working-capital-loans', 'invoice-factoring', 'asset-based-lending']
+  },
+  {
+    id: 'how-long-approval-takes',
+    q: 'How long does approval take?',
+    a: 'Timeline varies by product: working capital loans approve in 1-3 business days, invoice factoring in 2-3 weeks (then 24-48 hours per invoice), asset-based lending in 4-8 weeks, and SBA loans in 4-12 weeks. Bridge funding and emergency payroll can close in as few as 3-5 business days when time is critical.',
+    relatedSolutions: ['working-capital-loans', 'invoice-factoring', 'asset-based-lending', 'bridge-funding']
+  },
+  {
+    id: 'which-solution-cheapest',
+    q: 'Which funding solution has the lowest cost?',
+    a: 'SBA loans offer the lowest rates (Prime + 2-3%) but take the longest to close. Invoice factoring (Prime + 1-6%) and asset-based lending (Prime + 1-5%) are next, offering competitive rates with faster timelines. Working capital loans (1.25-4% monthly) cost more but close in days. The cheapest option depends on your timeline, collateral, and business profile—we help you find the best balance of cost and speed.',
+    relatedSolutions: ['sba-loans', 'invoice-factoring', 'asset-based-lending', 'working-capital-loans']
+  },
+  {
+    id: 'collateral-required',
+    q: 'Do I need collateral to get business funding?',
+    a: 'Not always. Working capital loans and unsecured bridge capital don\'t require traditional collateral—they\'re approved based on revenue and growth trajectory. Invoice factoring uses your unpaid invoices as collateral. Asset-based lending requires hard assets (AR, inventory, equipment). Real estate lending requires property. We match you to the right product based on what you have available.',
+    relatedSolutions: ['working-capital-loans', 'unsecured-debt', 'invoice-factoring', 'asset-based-lending']
+  }
+]
+
+// ============================================================================
 // ALL FAQs COMBINED
 // ============================================================================
 
 export const allFAQs: FAQ[] = [
   ...aboutServeFundingFAQs,
   ...workingCapitalFAQs,
-  ...solutionSpecificFAQs
+  ...solutionSpecificFAQs,
+  ...solutionComparisonFAQs
 ]
