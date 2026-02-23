@@ -1,7 +1,8 @@
 import { fundingSolutions } from '@/data/solutions'
 import { getBlogPosts } from '@/lib/blog-utils'
 import { solutionSpecificFAQs } from '@/data/faq-data'
-import { getOrganizationSchema, getFinancialServiceSchema } from '@/lib/schema-generators'
+import { getFinancialServiceSchema, getHowToSchema } from '@/lib/schema-generators'
+import { serveFundingProcess } from '@/data/company-info'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -87,6 +88,14 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
             shortDesc: solution.shortDesc,
             fullDesc: solution.fullDesc,
             features: solution.features,
+          }),
+          getHowToSchema({
+            name: `How to Get ${getTitleAsString(solution.title)} with Serve Funding`,
+            description: `Step-by-step process for securing ${getTitleAsString(solution.title).toLowerCase()} through Serve Funding's advisory service.`,
+            steps: serveFundingProcess.map(step => ({
+              name: step.name,
+              description: step.description,
+            })),
           }),
         ]}
       />

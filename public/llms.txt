@@ -1,0 +1,48 @@
+# Serve Funding
+
+> Serve Funding is a boutique business financing advisory providing transparent alternative financing
+> including asset-based lending, invoice factoring, working capital loans, equipment leasing,
+> PO funding, debt refinancing, and MCA consolidation for businesses seeking $250K-$100MM.
+> Channel-neutral advisor with 30+ lender relationships. Atlanta-based, nationwide service.
+
+## Website
+- https://servefunding.com: Main site
+
+## Key Pages
+- https://servefunding.com/solutions: All funding solutions overview and comparison
+- https://servefunding.com/solutions/working-capital-loans: Working Capital Loans & Lines of Credit
+- https://servefunding.com/solutions/invoice-factoring: Invoice Financing (AR Factoring)
+- https://servefunding.com/solutions/asset-based-lending: Asset-Based Lending
+- https://servefunding.com/solutions/equipment-leasing: Equipment Leasing & Financing
+- https://servefunding.com/solutions/purchase-order-funding: PO Funding
+- https://servefunding.com/solutions/government-contracts: Government Contract Financing
+- https://servefunding.com/solutions/real-estate-lending: Real Estate Lending
+- https://servefunding.com/solutions/unsecured-debt: Subordinated & Unsecured Credit
+- https://servefunding.com/solutions/bridge-funding: Bridge Funding
+- https://servefunding.com/solutions/sba-loans: SBA Loans
+- https://servefunding.com/solutions/debt-refinance: Consolidation & Recapitalization
+- https://servefunding.com/faq: Comprehensive FAQ organized by funding type
+- https://servefunding.com/blog: Educational articles on business financing
+- https://servefunding.com/about-us: Company information and founder story
+- https://servefunding.com/partners: Partner and referral information
+- https://servefunding.com/contact-us: Contact and consultation scheduling
+
+## Solution Categories
+- Working Capital: Revenue-based loans, lines of credit ($100K-$10M+, 2-10 day funding)
+- Invoice Factoring: AR financing, sell unpaid invoices ($250K-$100MM, Prime + 1-6%)
+- Asset-Based Lending: Credit lines backed by AR, inventory, equipment ($250K-$25M)
+- Equipment Financing: Leasing and financing for machinery, vehicles, technology ($100K-$50M+)
+- PO Funding: Purchase order financing for manufacturers and importers ($250K-$50M)
+- Government Contracts: Federal, state, local contract financing ($250K-$50M+)
+- Real Estate: Bridge loans, commercial financing, cash-out refinance ($500K-$100M+)
+- Bridge Capital: Short-term unsecured financing for timing gaps ($50K-$5M+)
+- SBA Loans: Government-backed loans with lower rates ($250K-$5M+)
+- Debt Refinance: MCA consolidation, payment reduction, recapitalization ($250K-$10M+)
+
+## About
+Serve Funding is a channel-neutral working capital advisory founded in 2021 in Atlanta, GA.
+Led by Michael Kodinsky with 15+ years in commercial lending. The company connects businesses
+with 30+ alternative lenders when traditional banks decline. Success-fee model (1-2% of funded
+amount, paid only at closing). Core values: Transparency, Responsibility, Understanding,
+Service, Thankfulness (T.R.U.S.T.). Serves manufacturing, construction, staffing, healthcare,
+CPG, e-commerce, government contractors, and professional services nationwide.

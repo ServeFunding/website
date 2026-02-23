@@ -208,7 +208,7 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
   }
 
   // Calendly URLs
-  const KYLER_CALENDLY = 'https://calendly.com/kyler-servefunding/30min'
+  const KYLER_CALENDLY = 'https://calendly.com/d/cxqk-t6s-72q/30-minute-funding-strategy-call'
   const MICHAEL_DISCOVERY = 'https://calendly.com/michael_kodinsky/discovery'
 
   const getTriagedCalendlyUrl = (): string => {
