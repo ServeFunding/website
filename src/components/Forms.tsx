@@ -11,9 +11,7 @@ import {
   Text,
   Button,
   Card,
-  FadeIn,
   FormInput,
-  FormGroup,
   SelectButtons,
   MultiSelectButtons,
 } from '@/components/ui'
@@ -83,196 +81,6 @@ export function FormSuccessContent({
 
 // Re-export FormSubmitData for components that need it
 export type { FormSubmitData } from '@/hooks/useFormSubmit'
-
-// Form Container with consistent styling across all forms
-function FormContainer({
-  children,
-  title,
-  subtitle,
-  background = "primary"
-}: {
-  children: React.ReactNode
-  title: string | React.ReactNode
-  subtitle?: string | React.ReactNode
-  background?: "primary" | "background"
-}) {
-  const isDarkBackground = background === "primary"
-
-  return (
-    <Section background={background} className='overflow-visible'>
-      <Container className='flex flex-col items-center !max-w-5xl'>
-          {title && (
-            <FadeIn className="text-center mb-12">
-              <Heading size="h2" color={isDarkBackground ? "highlight" : "primary"}>
-                {title}
-              </Heading>
-              {subtitle && (
-                <Text size="lg" color={isDarkBackground ? "white" : "primary"} className="mt-2">
-                  {subtitle}
-                </Text>
-              )}
-            </FadeIn>
-          )}
-          <FadeIn delay={0.2} className='w-full'>
-            <Card className="md:p-12 bg-gray-100">
-              {children}
-            </Card>
-          </FadeIn>
-      </Container>
-    </Section>
-  )
-}
-
-// Standard Lead Form (for homepage, solutions, fundings, contact, etc.)
-interface IntroCallFormProps {
-  title?: string
-  subtitle?: string
-}
-
-export function IntroCallForm({ title = "Let's Talk.", subtitle }: IntroCallFormProps = {}) {
-  const { formRef, canSubmit, recomputeGuard } = useHoneypotGuard()
-  const buildCalendlyUrl = (data: Record<string, string>) => {
-    return `https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(data.name || '')}&email=${encodeURIComponent(data.email || '')}&phone=${encodeURIComponent(data.phone || '')}&a1=${encodeURIComponent(data.company || '')}&a2=${encodeURIComponent(`${data.capital_for || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
-  }
-
-  const { success, handleSubmit, formData, isSubmitting } = useFormSubmit(
-    'intro_call',
-    'https://aiascend.app.n8n.cloud/webhook/sf-intro',
-    '',
-    (data) => {
-      const url = buildCalendlyUrl(data as Record<string, string>)
-      window.open(url, '_blank')
-    }
-  )
-
-  return (
-    <FormContainer title={title} subtitle={subtitle}>
-      {success ? (
-        <FormSuccessContent
-          message={`Thanks for your info${formData.name ? `, ${formData.name}` : ''}! Click below to schedule your call.`}
-          formData={formData}
-          calendlyUrl={buildCalendlyUrl(formData as Record<string, string>)}
-          ctaText="Schedule a Call"
-        />
-      ) : (
-        <form
-          ref={formRef}
-          className="form-intro_call flex flex-col gap-4"
-          onSubmit={handleSubmit}
-          onInput={recomputeGuard}
-          onChange={recomputeGuard}
-        >
-          <FormInput type="text" name="name" label="Full Name" required />
-
-          <FormInput type="email" name="email" label="Email Address" required />
-
-          <FormGroup columns={2}>
-            <FormInput type="text" name="company" label="Company Name" required />
-            <FormInput type="tel" name="phone" label="Phone Number" required />
-          </FormGroup>
-
-          <FormInput type="text" name="capital_for" label="Capital Needed (e.g., $250K - $1MM)" />
-
-          <FormInput
-            as="textarea"
-            name="contact_us_details"
-            rows={4}
-            label="Tell us about your funding needs..."
-          />
-
-          {/* Honeypot field - hidden from humans, filled by bots */}
-          <input
-            type="text"
-            name="company_phone"
-            className="sr-only"
-            tabIndex={-1}
-            autoComplete="off"
-            aria-hidden="true"
-          />
-
-          <div className="flex justify-center">
-            <Button variant="default" size="lg" type="submit" disabled={!canSubmit || isSubmitting}>
-              Schedule a Call
-            </Button>
-          </div>
-        </form>
-      )}
-    </FormContainer>
-  )
-}
-
-// Partner Inquiry Form (for partners page)
-export function PartnerInquiryForm() {
-  const { formRef, canSubmit, recomputeGuard } = useHoneypotGuard()
-  const buildCalendlyUrl = (data: Record<string, string>) => {
-    return `https://calendly.com/michael_kodinsky/partner-strategy-call?name=${encodeURIComponent(data.name || '')}&email=${encodeURIComponent(data.email || '')}&a1=${encodeURIComponent(`${data.partnership_for__commercial_banking__advisory_ || ''} - ${data.contact_us_details || ''}`.trim())}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
-  }
-
-  const { success, handleSubmit, formData, isSubmitting } = useFormSubmit(
-    'partner_inquiry',
-    'https://aiascend.app.n8n.cloud/webhook/sf-partner',
-    '',
-    (data) => {
-      const url = buildCalendlyUrl(data as Record<string, string>)
-      window.open(url, '_blank')
-    }
-  )
-
-  return (
-    <FormContainer title="Let's Connect" subtitle="Please fill out this form and we'll schedule a call">
-      {success ? (
-        <FormSuccessContent
-          message={`Thanks for your info${formData.name ? `, ${formData.name}` : ''}! Click below to schedule your call.`}
-          formData={formData}
-          calendlyUrl={buildCalendlyUrl(formData as Record<string, string>)}
-          ctaText="Schedule a Call"
-        />
-      ) : (
-        <form
-          ref={formRef}
-          className="form-partner_inquiry flex flex-col gap-4"
-          onSubmit={handleSubmit}
-          onInput={recomputeGuard}
-          onChange={recomputeGuard}
-        >
-          <FormInput type="text" name="name" label="Full Name" required />
-
-          <FormInput type="text" name="company" label="Company Name" required />
-
-          <FormGroup columns={2}>
-            <FormInput type="email" name="email" label="Email Address" required />
-            <FormInput type="tel" name="phone" label="Phone Number" required />
-          </FormGroup>
-
-          <FormInput type="text" name="partnership_for__commercial_banking__advisory_" label="Partnership For (Commercial Banking, Advisory, etc.)" />
-
-          <FormInput
-            as="textarea"
-            name="contact_us_details"
-            rows={4}
-            label="Tell us about your partnership interest..."
-          />
-
-          {/* Honeypot field - hidden from humans, filled by bots */}
-          <input
-            type="text"
-            name="company_phone"
-            className="sr-only"
-            tabIndex={-1}
-            autoComplete="off"
-            aria-hidden="true"
-          />
-
-          <div className="flex justify-center">
-            <Button variant="default" size="lg" type="submit" disabled={!canSubmit || isSubmitting}>
-              Schedule a Call
-            </Button>
-          </div>
-        </form>
-      )}
-    </FormContainer>
-  )
-}
 
 // Newsletter Modal Form (for use in modals)
 interface NewsletterModalFormProps {
@@ -390,25 +198,20 @@ export function DealInquiryForm({
     <>
       {!success ? (
         <form ref={formRef} className="form-deal_inquiry flex flex-col gap-4 w-full max-w-2xl mx-auto min-h-[650px]" onSubmit={handleSubmit}>
-          {/* Progress Bar */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-600">
-                Question {currentQuestionIndex + 1} of {totalQuestions}
-              </span>
-              <span className="text-sm text-gray-500">
-                {Math.round(((currentQuestionIndex + 1) / totalQuestions) * 100)}%
-              </span>
-            </div>
-            <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+          {/* Progress Dots */}
+          <div className="flex items-center justify-center gap-2">
+            {Array.from({ length: totalQuestions }).map((_, i) => (
               <div
-                className="h-full transition-all duration-300"
+                key={i}
+                className="rounded-full transition-all duration-300"
                 style={{
-                  backgroundColor: COLORS.primary,
-                  width: `${((currentQuestionIndex + 1) / totalQuestions) * 100}%`,
+                  width: i === currentQuestionIndex ? '24px' : '8px',
+                  height: '8px',
+                  backgroundColor: i <= currentQuestionIndex ? COLORS.primary : '#d1d5db',
+                  borderRadius: '9999px',
                 }}
               />
-            </div>
+            ))}
           </div>
 
           {/* Question Label */}

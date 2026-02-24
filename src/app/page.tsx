@@ -27,6 +27,7 @@ import { LoadingSkeleton } from '@/components/LoadingSkeleton'
 import { HeroAnimation } from '@/components/HeroAnimation'
 import { HeroCarousel } from '@/components/HeroCarousel'
 import { FAQSectionWithSchema } from '@/components/FAQSection'
+import { CTA } from '@/components/cta'
 
 export const metadata: Metadata = {
   title: 'Working Capital in 3-10 Days | $250K-$100MM',
@@ -60,9 +61,6 @@ const IndustriesGrid = dynamic(() => import('@/components/IndustriesGrid').then(
   loading: () => <LoadingSkeleton />
 })
 
-const IntroCallForm = dynamic(() => import('@/components/Forms').then(mod => ({ default: mod.IntroCallForm })), {
-  loading: () => <LoadingSkeleton />
-})
 
 const heroSlides = [
   {
@@ -362,7 +360,12 @@ export default function Home() {
         </Container>
       </Section>
 
-      <IntroCallForm />
+      <CTA
+        title="Ready to Get Started?"
+        text="Answer a few questions and schedule a call at your convenience. Takes a few minutes and there's no obligation."
+        buttonText="Let's Talk!"
+        href="/lets-talk"
+      />
     </>
   )
 }

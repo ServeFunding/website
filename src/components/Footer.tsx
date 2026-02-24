@@ -35,7 +35,7 @@ export function Footer() {
                 <div className="space-y-3 flex flex-col">
                   <Link href="/privacy-policy" className="text-olive-900 hover:text-gold-500 transition-colors">Privacy Policy</Link>
                   <Link href="/terms-of-service" className="text-olive-900 hover:text-gold-500 transition-colors">Terms of Service</Link>
-                  <Link href="/contact-us" className="text-olive-900 hover:text-gold-500 transition-colors">Contact Us</Link>
+                  <Link href="/lets-talk" className="text-olive-900 hover:text-gold-500 transition-colors">Contact Us</Link>
                   <Link href="/faq" className="text-olive-900 hover:text-gold-500 transition-colors">FAQ</Link>
                 </div>
               </div>

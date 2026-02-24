@@ -40,10 +40,10 @@ export const pageMetaData: Record<string, PageMeta> = {
     canonical: "https://servefunding.com/about-us"
   },
   contactUs: {
-    title: "Contact Serve Funding | Get Your Intro Call Scheduled",
-    description: "Get in touch with Serve Funding. Schedule your intro call and connect with our team to explore working capital solutions.",
+    title: "Let's Talk | Schedule Your Free Funding Consultation",
+    description: "Get in touch with Serve Funding. Answer a few questions and schedule a free consultation to explore working capital solutions for your business.",
     keywords: "contact us, get started, schedule call, working capital consultation",
-    canonical: "https://servefunding.com/contact-us"
+    canonical: "https://servefunding.com/lets-talk"
   },
   faq: {
     title: "Frequently Asked Questions | Serve Funding",

@@ -181,6 +181,12 @@ const nextConfig: NextConfig = {
         destination: "/lets-talk",
         permanent: true, // 301 redirect for SEO
       },
+      // Contact us consolidated into lets-talk
+      {
+        source: "/contact-us",
+        destination: "/lets-talk",
+        permanent: true, // 301 redirect for SEO
+      },
     ];
   },
 };

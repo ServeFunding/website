@@ -1,15 +1,16 @@
+import { ReactNode } from "react"
 import { FadeIn, Section, Container, Heading, Text, Button } from "./ui"
 import Link from "next/link"
 
 interface CTAProps {
   title: string
-  text: string
+  text: ReactNode
   buttonText: string
   href?: string
   useBG?: boolean
 }
 
-export const CTA = ({ title, text, buttonText, href = "/contact-us", useBG }: CTAProps) => {
+export const CTA = ({ title, text, buttonText, href = "/lets-talk", useBG }: CTAProps) => {
   const buttonHref = href
 
   return (
@@ -21,7 +22,7 @@ export const CTA = ({ title, text, buttonText, href = "/contact-us", useBG }: CT
             {text}
           </Text>
           <Link href={buttonHref}>
-            <Button variant="gold" size="lg">
+            <Button variant={useBG ? "default" : "gold"} size="lg">
               {buttonText}
             </Button>
           </Link>
