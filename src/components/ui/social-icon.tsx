@@ -7,13 +7,22 @@ export interface SocialIconProps {
   href: string
   icon: LucideIcon
   label: string
+  color?: string
+}
+
+const brandColors: Record<string, string> = {
+  LinkedIn: '#0A66C2',
+  Facebook: '#1877F2',
 }
 
 export function SocialIcon({
   href,
   icon: Icon,
   label,
+  color,
 }: SocialIconProps) {
+  const bgColor = color || brandColors[label] || COLORS.primary
+
   return (
     <a
       href={href}
@@ -28,7 +37,7 @@ export function SocialIcon({
         }
       }}
       className="text-white p-3 rounded-lg transition-opacity hover:opacity-80"
-      style={{ backgroundColor: COLORS.primary }}
+      style={{ backgroundColor: bgColor }}
       title={label}
       aria-label={label}
     >

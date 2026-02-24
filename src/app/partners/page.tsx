@@ -17,7 +17,7 @@ import {
 import { COLORS } from '@/lib/colors'
 import { FeatureList } from '@/components/FeatureList'
 import { HeroFadeIn } from '@/components/hero-fade-in'
-import { PartnerInquiryForm } from '@/components/Forms'
+import { CTA } from '@/components/cta'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { partnerTypes, commitments, testimonials } from '@/data/partners'
 
@@ -246,7 +246,13 @@ export default function Partners() {
             })}
       </div>
 
-      <PartnerInquiryForm />
+      <CTA
+        title="Have a Client in Need of Financing?"
+        text={<>Answer a few questions and schedule a call at your convenience.<br />Takes a few minutes and there's no obligation.</>}
+        buttonText="Let's Talk!"
+        href="/lets-talk"
+        useBG
+      />
     </>
   )
 }
