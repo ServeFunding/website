@@ -84,7 +84,8 @@ export function renderMarkdoc(content: any): ReactNode {
       const config = elementConfig[name]
       if (config) {
         const Tag = config.tag as any
-        if (name === 'img') {
+        // Void elements (self-closing) cannot have children
+        if (name === 'img' || name === 'hr' || name === 'br') {
           return <Tag key={keyCounter++} className={config.className} {...attributes} />
         }
         return (
