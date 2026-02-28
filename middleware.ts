@@ -25,7 +25,7 @@ export function middleware(request: NextRequest) {
   // Note: 'unsafe-inline' removed from script-src - all inline scripts use nonce
   const csp = [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' https://js.hsforms.net https://js.hs-scripts.com https://umami-production-25e0.up.railway.app https://serveinfo.up.railway.app https://va.vercel-scripts.com https://ddwl4m2hdecbv.cloudfront.net https://static.hsappstatic.net https://assets.calendly.com`,
+    `script-src 'self' 'nonce-${nonce}' https://js.hsforms.net https://js.hs-scripts.com https://js.hscollectedforms.net https://js.hs-analytics.net https://umami-production-25e0.up.railway.app https://serveinfo.up.railway.app https://va.vercel-scripts.com https://ddwl4m2hdecbv.cloudfront.net https://static.hsappstatic.net https://assets.calendly.com`,
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com",
     "img-src 'self' data: https: blob:",
     "font-src 'self' data: https://fonts.gstatic.com",
