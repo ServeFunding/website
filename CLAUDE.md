@@ -176,6 +176,11 @@ authorImage: "/author-headshot.webp"
   - Filter by `category` or `solution` ID
 - All HTML auto-styled with olive/gold theme from design system
 
+**Markdoc Content Restrictions (IMPORTANT):**
+- **NEVER use `---` (horizontal rules) in blog post body content.** Markdoc renders `---` as `<hr>` which causes React hydration errors (500 errors in production). Use headings or whitespace for visual separation instead.
+- **NEVER use checkbox syntax (`- [ ]` or `- [x]`)** in blog posts. Markdoc does not support checkboxes — they render as plain text `[ ]`. Use regular bullet points (`-`) instead.
+- Only use markdown features listed above. Unsupported syntax may cause silent rendering failures or 500 errors in production.
+
 **Step 4: File-based routing** - Post automatically appears at `/blog/[post-slug]` without manual route creation
 
 **Implementation Details**:
