@@ -15,9 +15,10 @@ interface CalendlyWidgetProps {
   dealContext: string
   calendlyUrl: string
   height?: string
+  customAnswers?: Record<string, string>
 }
 
-export function CalendlyWidget({ name, email, dealContext, height = '700px', calendlyUrl }: CalendlyWidgetProps) {
+export function CalendlyWidget({ name, email, dealContext, height = '700px', calendlyUrl, customAnswers }: CalendlyWidgetProps) {
   // Build URL with prefilled parameters
   const params = new URLSearchParams({
     hide_event_type_details: '1',
@@ -26,7 +27,13 @@ export function CalendlyWidget({ name, email, dealContext, height = '700px', cal
     primary_color: COLORS.primary.replace('#', ''),
     ...(name && { name }),
     ...(email && { email }),
-    ...(dealContext && { a1: dealContext.substring(0, 500) }),
+    // Use custom answers if provided, otherwise fall back to dealContext as a1
+    ...(customAnswers
+      ? Object.fromEntries(
+          Object.entries(customAnswers).map(([key, val]) => [key, val.substring(0, 500)])
+        )
+      : dealContext ? { a1: dealContext.substring(0, 500) } : {}
+    ),
   })
 
   // Use passed calendlyUrl or default to Michael's discovery call
@@ -55,6 +62,26 @@ export function CalendlyWidget({ name, email, dealContext, height = '700px', cal
 
     return () => observer.disconnect()
   }, [scriptLoaded])
+
+  // Listen for Calendly event_scheduled to redirect to confirmation page
+  useEffect(() => {
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data?.event === 'calendly.event_scheduled') {
+        const payload = e.data?.payload || {}
+        const params = new URLSearchParams({
+          event_type_name: payload.event_type?.name || '',
+          event_start_time: payload.event?.start_time || '',
+          assigned_to: payload.event?.assigned_to?.[0] || '',
+          invitee_full_name: payload.invitee?.name || name || '',
+          invitee_email: payload.invitee?.email || email || '',
+        })
+        window.location.href = `/call-confirmed?${params.toString()}`
+      }
+    }
+
+    window.addEventListener('message', handleMessage)
+    return () => window.removeEventListener('message', handleMessage)
+  }, [name, email])
 
   const loadCalendlyScript = () => {
     // If Calendly is already loaded, just initialize

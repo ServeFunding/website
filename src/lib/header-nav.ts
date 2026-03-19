@@ -38,7 +38,8 @@ export interface HeaderNavConfig {
   items: NavItem[]
 }
 
-export const CALENDLY_URL = "/lets-talk"
+// Header CTA goes directly to Kyler's Calendly for quick scheduling
+export const CALENDLY_URL = "https://calendly.com/d/cxqk-t6s-72q/30-minute-funding-strategy-call"
 
 const PARTNERS_ITEMS: FeaturedDropdownItem[] = [
   { name: "Commercial Bankers", id: "commercial-bankers", featured: true, subtitle: "Our primary referral partners" },

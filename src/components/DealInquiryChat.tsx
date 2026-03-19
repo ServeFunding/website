@@ -26,7 +26,7 @@ interface DealInquiryChatProps {
     contact_us_details?: string
     user_role?: string
   }
-  onScheduleClick?: (dealContext: string) => void
+  onScheduleClick?: (dealContext: string, chatTranscript: string) => void
 }
 
 export function DealInquiryChat({ formData, onScheduleClick }: DealInquiryChatProps) {
@@ -46,9 +46,13 @@ export function DealInquiryChat({ formData, onScheduleClick }: DealInquiryChatPr
 
   const handleActionButtonClick = useCallback((action: string) => {
     if (action === 'open_calendly' && onScheduleClick) {
-      onScheduleClick(dealContext)
+      // Build full chat transcript
+      const transcript = messages
+        .map(m => `${m.sender === 'bot' ? 'Serve Funding' : formData.name || 'User'}: ${m.text}`)
+        .join('\n')
+      onScheduleClick(dealContext, transcript)
     }
-  }, [dealContext, onScheduleClick])
+  }, [dealContext, messages, formData.name, onScheduleClick])
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {

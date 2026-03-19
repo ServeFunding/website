@@ -234,11 +234,11 @@ export function Header() {
           {/* Right side: CTA Button + Mobile Menu */}
           <div className="flex items-center gap-4">
             {/* CTA Button */}
-            <Link href={CALENDLY_URL} onClick={() => trackNavClick('Intro Call (Header)', CALENDLY_URL)}>
+            <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackNavClick("Let's Talk (Header)", CALENDLY_URL)}>
               <Button variant="default" size="sm" className="rounded-full flex-shrink-0">
-                Intro Call
+                Let&apos;s Talk
               </Button>
-            </Link>
+            </a>
 
             {/* Mobile Menu Button - Animated */}
             <div className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -329,12 +329,12 @@ export function Header() {
                 }
               })}
 
-              {/* Intro Call Button */}
-              <Link href={CALENDLY_URL} onClick={() => {trackNavClick('Intro Call (Mobile Menu)', CALENDLY_URL); setIsMenuOpen(false)}} className="w-full block pt-4">
+              {/* Let's Talk Button */}
+              <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" onClick={() => {trackNavClick("Let's Talk (Mobile Menu)", CALENDLY_URL); setIsMenuOpen(false)}} className="w-full block pt-4">
                 <Button variant="default" className="w-full">
-                  Intro Call
+                  Let&apos;s Talk
                 </Button>
-              </Link>
+              </a>
             </div>
         </motion.div>
         )}

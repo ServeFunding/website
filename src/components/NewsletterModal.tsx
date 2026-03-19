@@ -11,7 +11,10 @@ import { COLORS } from '@/lib/colors'
 
 export function NewsletterModal() {
   const [isOpen, setIsOpen] = useState(false)
-  const { success, handleSubmit, formData, isSubmitting } = useFormSubmit('newsletter_modal')
+  const { success, handleSubmit, formData, isSubmitting } = useFormSubmit(
+    'newsletter_modal',
+    'https://aiascend.app.n8n.cloud/webhook/sf-newsletter'
+  )
 
   useEffect(() => {
     const showModal = () => {

@@ -4,7 +4,8 @@ import { forwardRef, useRef } from "react"
 import { motion } from "framer-motion"
 import { COLORS, type CardColorOption } from "@/lib/colors"
 
-const baseCardClass = "relative z-10 rounded-[2rem] p-8 transition-all duration-300 border border-gray-100 shadow-xl shadow-gray-400/50 hover:-translate-y-2"
+const baseCardClass = "relative z-10 rounded-[2rem] p-8 transition-all duration-300 border border-gray-100 shadow-xl shadow-gray-400/50"
+const hoverClass = "hover:-translate-y-2"
 
 // Card color styles
 export const cardColorStyles = {
@@ -20,6 +21,7 @@ export const cardColorStyles = {
 interface CardProps {
   color?: CardColorOption
   hoverColor?: string
+  noHover?: boolean
   className?: string
   style?: React.CSSProperties
   children?: React.ReactNode
@@ -27,7 +29,7 @@ interface CardProps {
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ className, color, style, hoverColor, ...props }, ref) => {
+  ({ className, color, style, hoverColor, noHover, ...props }, ref) => {
     const cardRef = useRef<HTMLDivElement>(null)
     const mergedRef = ref || cardRef
 
@@ -46,7 +48,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
           hidden: { opacity: 0, y: 20 },
           show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
         }}
-        className={[baseCardClass, className].filter(Boolean).join(' ')}
+        className={[baseCardClass, noHover ? '' : hoverClass, className].filter(Boolean).join(' ')}
         style={{
           ...cardStyle,
           transition: hoverColor ? 'background-color 0.3s' : undefined,
