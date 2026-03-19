@@ -39,6 +39,12 @@ export const formQuestions: Question[] = [
     type: 'single'
   },
   {
+    id: 'contact_info',
+    title: '',
+    answers: [],
+    type: 'contact-info'
+  },
+  {
     id: 'annual_revenue',
     title: 'Annual Revenue (approx.)',
     answers: ['$500K-$1MM', '$1MM-$3MM', '$3MM-$10MM', '$10MM-$20MM', '$20MM-$50MM', '$50MM-$100MM', '$100MM+'],
@@ -55,7 +61,7 @@ export const formQuestions: Question[] = [
     title: 'Time in Business',
     answers: ['< 1 year', '1-2 years', '2-3 years', '3-4 years', '5+ years'],
     type: 'single'
-  },  
+  },
   {
     id: 'owner_credit_score',
     title: "What is the owner's approximate FICO score?",
@@ -100,17 +106,4 @@ export const formQuestions: Question[] = [
     ],
     type: 'multi'
   },
-  {
-    id: 'contact_us_details',
-    title: 'Tell us about your business so we can serve you the best possible',
-    answers: [], // textarea, no predefined answers
-    type: 'single',
-    placeholder: 'Tell us more...'
-  },
-  {
-    id: 'contact_info',
-    title: 'How can we reach you?',
-    answers: [],
-    type: 'contact-info'
-  }
 ]

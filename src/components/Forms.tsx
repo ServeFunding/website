@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { CheckCircle } from 'lucide-react'
+import { Calendar, CheckCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
 import {
   Section,
@@ -25,7 +25,7 @@ function useHoneypotGuard() {
   const formRef = useRef<HTMLFormElement>(null)
   const [canSubmit, setCanSubmit] = useState(false)
 
-  const recomputeGuard = useCallback(() => {
+  const recomputeGuard = React.useCallback(() => {
     const form = formRef.current
     if (!form) return
 
@@ -82,6 +82,22 @@ export function FormSuccessContent({
 // Re-export FormSubmitData for components that need it
 export type { FormSubmitData } from '@/hooks/useFormSubmit'
 
+// "or Schedule a Call" quick link shown below form buttons during triage questions
+function ScheduleCallLink({ onClick }: { onClick?: () => void }) {
+  return (
+    <div className="text-center mt-4">
+      <button
+        type="button"
+        onClick={onClick}
+        className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
+      >
+        <Calendar size={14} />
+        or schedule a call directly
+      </button>
+    </div>
+  )
+}
+
 // Newsletter Modal Form (for use in modals)
 interface NewsletterModalFormProps {
   success: boolean
@@ -102,10 +118,10 @@ export function NewsletterModalForm({
     <>
       {success ? (
         <FormSuccessContent
-          message={<>You're in!<br /><br />You should see an email confirmation soon.<br /><br />We'd love to talk to you as well.</>}
+          message={<>You&#39;re in!<br /><br />You should see an email confirmation soon.<br /><br />We&#39;d love to talk to you as well.</>}
           formData={formData}
-          calendlyUrl={`https://calendly.com/michael_kodinsky/intro-call-with-serve-funding?name=${encodeURIComponent(formData.name || '')}&email=${encodeURIComponent(formData.email || '')}&phone=${encodeURIComponent(formData.phone || '')}&company=${encodeURIComponent(formData.company || '')}&month=${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`}
-          ctaText="Schedule a Call"
+          calendlyUrl="/lets-talk"
+          ctaText="Let's Talk"
         />
       ) : (
         <form
@@ -164,11 +180,13 @@ export function NewsletterModalForm({
 // Deal Inquiry Form (for deal inquiry page with chat follow-up)
 interface DealInquiryFormProps {
   onSubmitSuccess?: (formData: FormSubmitData) => void
+  onScheduleDirectly?: (formData: FormSubmitData) => void
 }
 
 
 export function DealInquiryForm({
   onSubmitSuccess,
+  onScheduleDirectly,
 }: DealInquiryFormProps = {}) {
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -181,7 +199,6 @@ export function DealInquiryForm({
     email,
     phone,
     company,
-    companyState,
     success,
     formData,
     getFieldValue,
@@ -189,9 +206,32 @@ export function DealInquiryForm({
     handleAnswer,
     moveToNextQuestion,
     moveToPreviousQuestion,
+    flagEarlySubmit,
     handleSubmit,
     otherResponses,
+    isLastQuestion,
+    pendingSubmit,
+    resetPendingSubmit,
+    getCurrentFormData,
   } = useDealInquiryForm(onSubmitSuccess)
+
+  // Watch for pendingSubmit flag (triggered by mike triage) and submit the form
+  useEffect(() => {
+    if (pendingSubmit && formRef.current) {
+      formRef.current.requestSubmit()
+      resetPendingSubmit()
+    }
+  }, [pendingSubmit, resetPendingSubmit])
+
+  // Is the current step a triage question (after contact info)?
+  const isTriageStep = currentQuestion?.type !== 'contact-info' && currentQuestionIndex > 0
+    && currentQuestion?.id !== 'user_role' && currentQuestion?.id !== 'partner_type'
+
+  const handleScheduleDirectly = () => {
+    if (onScheduleDirectly) {
+      onScheduleDirectly(getCurrentFormData())
+    }
+  }
 
 
   return (
@@ -214,22 +254,25 @@ export function DealInquiryForm({
             ))}
           </div>
 
-          {/* Question Label */}
-          <div className="mt-8">
-            <Heading size="h3" color="primary" className="text-left !my-0">
-              {currentQuestion?.title}
-            </Heading>
-            {currentQuestion?.helpHtml && (
-              <div
-                className="mt-2 text-sm text-gray-600"
-                dangerouslySetInnerHTML={{ __html: currentQuestion.helpHtml }}
-              />
-            )}
-          </div>
+          {/* Question Label - only show if title exists */}
+          {currentQuestion?.title && (
+            <div className="mt-8">
+              <Heading size="h3" color="primary" className="text-left !my-0">
+                {currentQuestion.title}
+              </Heading>
+              {currentQuestion?.helpHtml && (
+                <div
+                  className="mt-2 text-sm text-gray-600"
+                  dangerouslySetInnerHTML={{ __html: currentQuestion.helpHtml }}
+                />
+              )}
+            </div>
+          )}
 
           {/* Single choice or multi-choice with buttons */}
           {(currentQuestion?.type === 'single' || currentQuestion?.type === 'multi') && currentQuestion?.answers?.length! > 0 && (
             <div className="flex flex-col gap-8">
+              {!currentQuestion?.title && <div className="mt-8" />}
               {currentQuestion?.type === 'multi' && (
                 <Text size="sm" className="text-center text-gray-500">
                   You can select multiple options
@@ -260,64 +303,21 @@ export function DealInquiryForm({
                     type="button"
                     onClick={moveToPreviousQuestion}
                   >
-                    ← Back
+                    &larr; Back
                   </Button>
                 )}
                 <Button
                   variant="default"
                   size="lg"
-                  type="button"
-                  onClick={moveToNextQuestion}
+                  type={isLastQuestion ? "submit" : "button"}
+                  onClick={isLastQuestion ? undefined : moveToNextQuestion}
                   disabled={!getFieldValue(currentQuestion?.id) || (Array.isArray(getFieldValue(currentQuestion?.id)) && (getFieldValue(currentQuestion?.id) as string[]).length === 0)}
                   className="flex-1"
                 >
-                  Continue
+                  {isLastQuestion ? "Let's talk about your deal" : "Continue"}
                 </Button>
               </div>
-            </div>
-          )}
-
-          {/* Textarea for open-ended responses (single type with no answers) */}
-          {currentQuestion?.type === 'single' && (!currentQuestion?.answers || currentQuestion?.answers.length === 0) && (
-            <div className="flex flex-col gap-8">
-              <textarea
-                name={currentQuestion?.id}
-                value={getFieldValue(currentQuestion?.id || '') as string}
-                onChange={(e) => setFieldValue(currentQuestion?.id || '', e.currentTarget.value)}
-                placeholder={currentQuestion?.placeholder || 'Enter your response...'}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-2 transition-all text-base bg-white"
-                style={{ borderColor: 'var(--color-secondary, #999)', minHeight: '150px' }}
-                onFocus={(e) => {
-                  e.currentTarget.style.borderColor = COLORS.primary
-                  e.currentTarget.style.borderWidth = '2px'
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--color-secondary, #999)'
-                  e.currentTarget.style.borderWidth = '1px'
-                }}
-              />
-              <div className="flex items-center gap-3 mt-8">
-                {currentQuestionIndex > 0 && (
-                  <Button
-                    variant="default"
-                    size="lg"
-                    type="button"
-                    onClick={moveToPreviousQuestion}
-                  >
-                    ← Back
-                  </Button>
-                )}
-                <Button
-                  variant="default"
-                  size="lg"
-                  type="button"
-                  onClick={moveToNextQuestion}
-                  disabled={!getFieldValue(currentQuestion?.id)}
-                  className="flex-1"
-                >
-                  Continue
-                </Button>
-              </div>
+              {isTriageStep && <ScheduleCallLink onClick={handleScheduleDirectly} />}
             </div>
           )}
 
@@ -355,7 +355,7 @@ export function DealInquiryForm({
                     type="button"
                     onClick={moveToPreviousQuestion}
                   >
-                    ← Back
+                    &larr; Back
                   </Button>
                 )}
                 <Button
@@ -372,23 +372,29 @@ export function DealInquiryForm({
                   Continue
                 </Button>
               </div>
+              {isTriageStep && <ScheduleCallLink onClick={handleScheduleDirectly} />}
             </div>
           )}
 
           {/* Contact Info Collection */}
           {currentQuestion?.type === 'contact-info' && (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-6 mt-4">
               <FormInput
                 type="text"
                 name="name"
                 label="Name"
                 value={name}
                 onChange={(e) => setFieldValue('name', e.currentTarget.value)}
-                onInput={(e) => {
-                  console.log('[DealInquiryForm] Name onInput:', e.currentTarget.value)
-                  setFieldValue('name', e.currentTarget.value)
-                }}
+                onInput={(e) => setFieldValue('name', e.currentTarget.value)}
                 required
+              />
+              <FormInput
+                type="text"
+                name="company"
+                label="Company"
+                value={company}
+                onChange={(e) => setFieldValue('company', e.currentTarget.value)}
+                onInput={(e) => setFieldValue('company', e.currentTarget.value)}
               />
               <FormInput
                 type="email"
@@ -396,14 +402,25 @@ export function DealInquiryForm({
                 label="Email"
                 value={email}
                 onChange={(e) => setFieldValue('email', e.currentTarget.value)}
-                onInput={(e) => {
-                  console.log('[DealInquiryForm] Email onInput:', e.currentTarget.value)
-                  setFieldValue('email', e.currentTarget.value)
-                }}
+                onInput={(e) => setFieldValue('email', e.currentTarget.value)}
                 required
               />
+              <div>
+                <FormInput
+                  type="tel"
+                  name="phone"
+                  label="Phone (optional)"
+                  value={phone}
+                  onChange={(e) => setFieldValue('phone', e.currentTarget.value)}
+                  onInput={(e) => setFieldValue('phone', e.currentTarget.value)}
+                  placeholder="(555) 123-4567"
+                />
+                <Text className="text-xs text-gray-400 mt-1.5 ml-1">
+                  Don&#39;t worry, we don&#39;t spam.
+                </Text>
+              </div>
 
-              <div className="flex items-center gap-3 mt-8">
+              <div className="flex items-center gap-3 mt-4">
                 {currentQuestionIndex > 0 && (
                   <Button
                     variant="default"
@@ -411,17 +428,18 @@ export function DealInquiryForm({
                     type="button"
                     onClick={moveToPreviousQuestion}
                   >
-                    ← Back
+                    &larr; Back
                   </Button>
                 )}
                 <Button
                   variant="default"
                   size="lg"
                   type="submit"
+                  onClick={flagEarlySubmit}
                   disabled={!name || !email}
                   className="flex-1"
                 >
-                  Let's talk about your deal
+                  Continue
                 </Button>
               </div>
             </div>
@@ -449,7 +467,6 @@ export function DealInquiryForm({
           <input type="hidden" name="email" value={email} />
           <input type="hidden" name="phone" value={phone} />
           <input type="hidden" name="company" value={company} />
-          <input type="hidden" name="company_state" value={companyState} />
           {/* Hidden inputs for "other" responses */}
           {Object.entries(otherResponses).map(([fieldId, value]) => (
             <input key={fieldId} type="hidden" name={fieldId} value={String(value)} />
@@ -465,7 +482,7 @@ export function DealInquiryForm({
           >
             <CheckCircle className="w-12 h-12" style={{ color: COLORS.primary }} />
           </motion.div>
-          <Text size="lg" className="mb-6">Thanks for sharing your details, {formData.name}! We're reviewing your information and will get back to you shortly with your personalized funding options.</Text>
+          <Text size="lg" className="mb-6">Thanks for sharing your details, {formData.name}! We&#39;re reviewing your information and will get back to you shortly with your personalized funding options.</Text>
         </div>
       )}
     </>
@@ -523,4 +540,3 @@ export function NewsletterForm() {
     </Section>
   )
 }
-

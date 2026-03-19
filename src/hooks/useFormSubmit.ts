@@ -10,6 +10,7 @@ export interface FormSubmitData {
   email?: string
   phone?: string
   company?: string
+  business_name?: string
   capital_for?: string
   contact_us_details?: string
   partnership_for__commercial_banking__advisory_?: string
@@ -94,13 +95,10 @@ export function useFormSubmit(
         webhookData[key] = webhookData[key] ? [...webhookData[key], value] : [value]
       } else {
         webhookData[key] = value as string
-      }
-
-      // Handle multi-select checkboxes (financing_needs) and skip honeypot for HubSpot data
-      if (key === 'financing_needs') {
-        financingNeeds.push(value as string)
-      } else if (key !== 'website_url') {
-        data[key] = value as string
+        // Skip honeypot for HubSpot data
+        if (key !== 'website_url') {
+          data[key] = value as string
+        }
       }
     })
 
