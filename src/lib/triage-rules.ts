@@ -16,17 +16,6 @@ export interface TriageRule {
 }
 
 export const triageRules: TriageRule[] = [
-  // After user_role: Skip partner_type if not a Referral Partner
-  {
-    question_id: 'user_role',
-    if: { user_role: ['Business Owner / Operator', 'Commercial Banker'] },
-    type: 'OR',
-    then: {
-      action: 'skip_question',
-      skipQuestionId: 'partner_type'
-    }
-  },
-
   // After funding_amount: Route to Mike if revenue >= $10M
   {
     question_id: 'funding_amount',

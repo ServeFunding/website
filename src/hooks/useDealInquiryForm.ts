@@ -26,7 +26,7 @@ export const CALENDLY_URLS = {
 export const QUICK_SCHEDULE_URL = CALENDLY_URLS.kyler.owner
 
 function getRoleType(userRole: string): 'owner' | 'partner' {
-  return userRole === 'Business Owner / Operator' ? 'owner' : 'partner'
+  return userRole === 'A Business Owner or Operator Seeking Funding' ? 'owner' : 'partner'
 }
 
 function getCalendlyUrlForAction(action: string, userRole: string): string {
@@ -56,7 +56,6 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
 
   // Form field states
   const [userRole, setUserRole] = useState('')
-  const [partnerType, setPartnerType] = useState('')
   const [businessIndustry, setBusinessIndustry] = useState('')
   const [timeInBusiness, setTimeInBusiness] = useState('')
   const [annualRevenue, setAnnualRevenue] = useState('')
@@ -93,7 +92,6 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
 
     switch (fieldId) {
       case 'user_role': return userRole
-      case 'partner_type': return partnerType
       case 'business_industry': return businessIndustry
       case 'time_in_business': return timeInBusiness
       case 'annual_revenue': return annualRevenue
@@ -120,7 +118,6 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
 
     switch (fieldId) {
       case 'user_role': setUserRole(value); break
-      case 'partner_type': setPartnerType(value); break
       case 'business_industry': setBusinessIndustry(value); break
       case 'time_in_business': setTimeInBusiness(value); break
       case 'annual_revenue': setAnnualRevenue(value); break
@@ -137,7 +134,6 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
   // Build current form state for triage evaluation
   const getCurrentFormState = () => ({
     user_role: userRole,
-    partner_type: partnerType,
     business_industry: businessIndustry,
     time_in_business: timeInBusiness,
     annual_revenue: annualRevenue,
@@ -176,7 +172,6 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
       phone,
       company,
       user_role: userRole,
-      partner_type: partnerType,
       is_early_capture: true,
     }
 
@@ -350,7 +345,7 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
       // a2: "What types of funding needs do your clients most often have?" (checkboxes)
       // a3: "Where do you currently see gaps in serving your clients' funding needs?"
       // a4: "Is there anything specific you'd like to cover during the call?"
-      const roleDesc = partnerType || userRole
+      const roleDesc = userRole
 
       return {
         ...(roleDesc && { a1: roleDesc }),
@@ -369,7 +364,6 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
       phone,
       company,
       user_role: userRole,
-      partner_type: partnerType,
       business_industry: businessIndustry,
       time_in_business: timeInBusiness,
       annual_revenue: annualRevenue,
@@ -451,7 +445,6 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
     totalQuestions: totalVisibleQuestions,
     selectedAnswer,
     userRole,
-    partnerType,
     businessIndustry,
     timeInBusiness,
     annualRevenue,

@@ -195,6 +195,7 @@ export function DealInquiryForm({
     currentQuestionIndex,
     totalQuestions,
     selectedAnswer,
+    userRole,
     name,
     email,
     phone,
@@ -225,7 +226,13 @@ export function DealInquiryForm({
 
   // Is the current step a triage question (after contact info)?
   const isTriageStep = currentQuestion?.type !== 'contact-info' && currentQuestionIndex > 0
-    && currentQuestion?.id !== 'user_role' && currentQuestion?.id !== 'partner_type'
+    && currentQuestion?.id !== 'user_role'
+
+  // Resolve the display title — use partnerTitle when the user is a Banker / Business Advisor
+  const isPartner = userRole === 'A Banker / Business Advisor'
+  const displayTitle = isPartner && currentQuestion?.partnerTitle
+    ? currentQuestion.partnerTitle
+    : currentQuestion?.title
 
   const handleScheduleDirectly = () => {
     if (onScheduleDirectly) {
@@ -255,10 +262,10 @@ export function DealInquiryForm({
           </div>
 
           {/* Question Label - only show if title exists */}
-          {currentQuestion?.title && (
+          {displayTitle && (
             <div className="mt-8">
               <Heading size="h3" color="primary" className="text-left !my-0">
-                {currentQuestion.title}
+                {displayTitle}
               </Heading>
               {currentQuestion?.helpHtml && (
                 <div
@@ -379,10 +386,16 @@ export function DealInquiryForm({
           {/* Contact Info Collection */}
           {currentQuestion?.type === 'contact-info' && (
             <div className="flex flex-col gap-6 mt-4">
+              {isPartner && (
+                <Text size="sm" className="text-gray-600">
+                  Answer a few questions and schedule a call at your convenience.
+                  Takes a few minutes, and there&#39;s no obligation.
+                </Text>
+              )}
               <FormInput
                 type="text"
                 name="name"
-                label="Name"
+                label={isPartner ? 'Your Name' : 'Name'}
                 value={name}
                 onChange={(e) => setFieldValue('name', e.currentTarget.value)}
                 onInput={(e) => setFieldValue('name', e.currentTarget.value)}
@@ -391,7 +404,7 @@ export function DealInquiryForm({
               <FormInput
                 type="text"
                 name="company"
-                label="Company"
+                label={isPartner ? 'Your Firm' : 'Business Name'}
                 value={company}
                 onChange={(e) => setFieldValue('company', e.currentTarget.value)}
                 onInput={(e) => setFieldValue('company', e.currentTarget.value)}
