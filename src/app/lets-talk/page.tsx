@@ -30,7 +30,6 @@ export default function DealInquiryPage() {
 
     const answers = [
       data.user_role ? `${questionMap.user_role} ${data.user_role}` : null,
-      data.partner_type ? `${questionMap.partner_type} ${data.partner_type}` : null,
       data.annual_revenue ? `${questionMap.annual_revenue} ${data.annual_revenue}` : null,
       data.funding_amount ? `${questionMap.funding_amount} ${data.funding_amount}` : null,
       data.time_in_business ? `${questionMap.time_in_business} ${data.time_in_business}` : null,
@@ -44,7 +43,7 @@ export default function DealInquiryPage() {
 
   // Build Calendly custom answers based on role type
   const buildCalendlyCustomAnswers = (data: FormSubmitData): Record<string, string> => {
-    const isOwner = data.user_role === 'Business Owner / Operator'
+    const isOwner = data.user_role === 'A Business Owner or Operator Seeking Funding'
 
     if (isOwner) {
       // Owner Calendly questions:
@@ -85,7 +84,7 @@ export default function DealInquiryPage() {
       }
     } else {
       // Partner Calendly: a1=role description
-      const roleDesc = data.partner_type || data.user_role || ''
+      const roleDesc = data.user_role || ''
       return {
         ...(roleDesc && { a1: roleDesc }),
       }

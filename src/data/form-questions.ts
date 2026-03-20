@@ -1,6 +1,7 @@
 export interface Question {
   id: string
   title: string
+  partnerTitle?: string // Alternate title shown when user is a Banker / Business Advisor
   answers: string[]
   type?: 'single' | 'multi' | 'single_with_other' | 'contact-info'
   placeholder?: string
@@ -28,25 +29,21 @@ export interface Question {
 export const formQuestions: Question[] = [
   {
     id: 'user_role',
-    title: 'I am a:',
-    answers: ['Business Owner / Operator', 'Commercial Banker', 'Fractional CFO / CPA / Attorney / Accountant / Business Consultant / Other'],
-    type: 'single'
-  },
-  {
-    id: 'partner_type',
-    title: 'What type of partner are you?',
-    answers: ['Fractional CFO', 'CPA', 'Attorney', 'Accountant', 'Business Consultant', 'Other'],
+    title: 'I am:',
+    answers: ['A Business Owner or Operator Seeking Funding', 'A Banker / Business Advisor'],
     type: 'single'
   },
   {
     id: 'contact_info',
-    title: '',
+    title: 'Tell us about your business',
+    partnerTitle: "Let's Discuss Your Client's or Prospect's Funding Needs.",
     answers: [],
     type: 'contact-info'
   },
   {
     id: 'annual_revenue',
     title: 'Annual Revenue (approx.)',
+    partnerTitle: 'Client Revenue Range',
     answers: ['$500K-$1MM', '$1MM-$3MM', '$3MM-$10MM', '$10MM-$20MM', '$20MM-$50MM', '$50MM-$100MM', '$100MM+'],
     type: 'single'
   },
@@ -72,6 +69,7 @@ export const formQuestions: Question[] = [
   {
     id: 'business_industry',
     title: 'Business Industry',
+    partnerTitle: 'Client Industry',
     answers: [
       'Manufacturing',
       'Wholesale & Distribution',

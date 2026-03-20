@@ -16,9 +16,9 @@ function escapeHtml(str: string): string {
 }
 
 function buildContactTable(body: Record<string, any>): string {
-  const { name, email, phone, company, user_role, partner_type } = body
-  const isOwner = user_role === 'Business Owner / Operator'
-  const roleLabel = isOwner ? 'Business Owner / Operator' : partner_type || user_role || 'Unknown'
+  const { name, email, phone, company, user_role } = body
+  const isOwner = user_role === 'A Business Owner or Operator Seeking Funding'
+  const roleLabel = isOwner ? 'Business Owner / Operator' : user_role || 'Unknown'
 
   const rows: Array<{ label: string; value: string; isLink?: boolean }> = [
     { label: 'Name', value: name },
@@ -87,7 +87,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Name and email required' }, { status: 400 })
     }
 
-    const isOwner = body.user_role === 'Business Owner / Operator'
+    const isOwner = body.user_role === 'A Business Owner or Operator Seeking Funding'
     const roleShort = isOwner ? 'Owner' : 'Partner'
 
     if (type === 'early') {

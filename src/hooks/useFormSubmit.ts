@@ -16,7 +16,6 @@ export interface FormSubmitData {
   partnership_for__commercial_banking__advisory_?: string
   // Deal inquiry expanded fields
   user_role?: string
-  partner_type?: string
   business_industry?: string
   time_in_business?: string
   annual_revenue?: string
@@ -112,7 +111,6 @@ export function useFormSubmit(
       partnership_for__commercial_banking__advisory_: data.partnership_for__commercial_banking__advisory_ || '',
       // Deal inquiry expanded fields
       user_role: data.user_role || '',
-      partner_type: data.partner_type || '',
       business_industry: data.business_industry || '',
       time_in_business: data.time_in_business || '',
       annual_revenue: data.annual_revenue || '',
