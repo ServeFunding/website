@@ -152,23 +152,12 @@ export default function Home() {
       </Section>
 
       {/* Trust-Based Partnership Section */}
-      <Section background="gray">
-        <Container>
-          <FadeIn className="text-center mb-20 max-w-3xl mx-auto">
-            <Heading size="h2" className="mb-8">
-              Let's Discuss Your Funding Needs.
-            </Heading>
-            <Text className="max-w-xl mx-auto my-6">
-              Answer a few questions and schedule a call at your convenience. <br /> Takes a few minutes and there's no obligation.
-            </Text>
-            <Link href="/lets-talk">
-              <Button variant="default" size="lg">
-                Let's talk
-              </Button>
-            </Link>
-          </FadeIn>
-        </Container>
-      </Section>
+      <CTA
+        title="Let's Discuss Your Funding Needs."
+        text="Answer a few questions and schedule a call at your convenience. Takes a few minutes and there's no obligation."
+        buttonText="Let's talk"
+        background="gray"
+      />
 
       {/* Funding Solutions Section */}
       <Section background="background" className="!pt-0">
@@ -179,7 +168,7 @@ export default function Home() {
             </Heading>
           </FadeIn>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 max-w-4xl mx-auto">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 max-w-6xl mx-auto">
             {[
               "Financing Periods Of Rapid Growth",
               "The Bank Says \"No,\" Or Calls Your Line",
@@ -194,7 +183,7 @@ export default function Home() {
             ].map((item, index) => (
               <StaggerItem key={`benefit-${index}`} className="flex items-center gap-4 group ml-8">
                 <Leaf size={28} style={{ color: BRAND_COLORS.primary }} />
-                <Text>{item}</Text>
+                <Text size="2xl">{item}</Text>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -208,7 +197,7 @@ export default function Home() {
             <Heading size="h2" color="highlight" className="mb-4" style={{ color: '#ffffff'}}>
               Creative Working Capital
             </Heading>
-            <Text size="lg" className="text-white/90 max-w-2xl mx-auto">
+            <Text size="2xl" className="text-white/90 max-w-2xl mx-auto">
               From $250K to $100MM, we offer <br /><b style={{ background: `linear-gradient(to bottom, ${BRAND_COLORS.secondary}, ${BRAND_COLORS.highlight})`, backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>creative working capital solutions</b> <br />tailored to your business needs
             </Text>
           </FadeIn>
@@ -291,7 +280,7 @@ export default function Home() {
         <Container>
           <FadeIn className="text-center mb-16">
             <Heading size="h2" color="highlight" className="mb-4">Successful Client Fundings</Heading>
-            <Text size="lg" className="text-white/90 max-w-2xl mx-auto">
+            <Text size="2xl" className="text-white/90 max-w-2xl mx-auto">
               See how we've helped businesses across industries<br />secure the capital they needed to grow
             </Text>
           </FadeIn>
@@ -348,7 +337,7 @@ export default function Home() {
         <Container>
           <FadeIn className="text-center">
             <Heading size="h2" className="mb-4">Meet the Team Behind Serve Funding</Heading>
-            <Text size="lg" className="text-gray-700 mb-8 max-w-2xl mx-auto">
+            <Text size="2xl" className="text-gray-700 mb-8 max-w-2xl mx-auto">
               Learn about our mission, values, and the experienced team committed to helping your business grow.
             </Text>
             <Link href="/about-us">

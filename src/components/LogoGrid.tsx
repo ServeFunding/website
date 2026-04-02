@@ -29,7 +29,7 @@ export function LogoGrid({ logos, maxHeight = 24, title, subtitle }: LogoGridPro
             </Heading>
           )}
           {subtitle && (
-            <Text size="lg">
+            <Text size="2xl">
               {subtitle}
             </Text>
           )}

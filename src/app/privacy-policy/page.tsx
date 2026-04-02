@@ -36,7 +36,7 @@ export default function PrivacyPolicy() {
             <Heading size="h1" color="white" className="mb-4">
               Privacy Policy
             </Heading>
-            <Text size="lg" className="text-white/90 max-w-3xl">
+            <Text size="2xl" className="text-white/90 max-w-3xl">
               Last Updated: September 8, 2024
             </Text>
           </div>

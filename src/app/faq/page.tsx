@@ -113,7 +113,7 @@ export default function FAQ() {
             <Heading size="h1" className="mb-4 text-olive-900">
               Frequently Asked Questions
             </Heading>
-            <Text size="lg" className="text-gray-700 max-w-3xl mx-auto">
+            <Text size="2xl" className="text-gray-700 max-w-3xl mx-auto">
               Explore our comprehensive guides or browse common questions below
             </Text>
           </FadeIn>

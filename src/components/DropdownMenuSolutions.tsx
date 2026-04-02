@@ -65,7 +65,7 @@ export function DropdownMenuTwoSection({
     <div className="flex flex-col gap-0">
       {/* Header - Always show */}
       <div className="border-b p-6 lg:p-8 gap-3 flex flex-col" style={{ borderColor: `${COLORS.primary}15` }}>
-        <div className="text-lg font-semibold font-serif" style={{ color: COLORS.dark }}>
+        <div className="text-lg font-semibold" style={{ color: COLORS.dark }}>
           {label}
         </div>
         {description && (

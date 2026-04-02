@@ -22,7 +22,7 @@ export const HeroFadeIn = ({ title, subtitle, compact }: HeroFadeInProps) => (
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="max-w-5xl"
         >
-          <Heading size="h1" color="highlight" className="mb-10">
+          <Heading size="hero" color="highlight" className="mb-10">
             {title}
           </Heading>
           {subtitle && (

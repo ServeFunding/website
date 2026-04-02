@@ -42,7 +42,7 @@ export function renderMarkdoc(content: any): ReactNode {
       const headingClasses = {
         h1: 'text-4xl font-bold text-olive-900 mt-8 mb-4',
         h2: 'text-3xl font-bold text-olive-900 mt-8 mb-4',
-        h3: 'text-2xl font-bold text-olive-900 mt-6 mb-3',
+        h3: 'text-2xl font-semibold text-olive-900 mt-6 mb-3',
         h4: 'text-lg font-semibold text-olive-900 mt-4 mb-2',
         h5: 'text-base font-semibold text-olive-900 mt-4 mb-2',
         h6: 'text-sm font-semibold text-olive-900 mt-4 mb-2',

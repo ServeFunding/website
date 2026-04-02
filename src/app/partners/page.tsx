@@ -115,7 +115,7 @@ export default function Partners() {
             <Heading size="h2" className="mb-6 text-olive-900">
               Why Partner With Us
             </Heading>
-            <Text size="lg" className="text-gray-700 mb-4">
+            <Text size="2xl" className="text-gray-700 mb-4">
               We value our trusted network. Partnering with Serve Funding means you're working with a committed team that understands the importance of your reputation with every referral.
             </Text>
           </FadeIn>

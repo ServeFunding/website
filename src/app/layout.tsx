@@ -11,7 +11,7 @@ import Script from "next/script"
 import { SchemaRenderer } from "@/components/SchemaRenderer"
 import { getOrganizationSchema } from "@/lib/schema-generators"
 import "@/app/globals.css"
-import { Inter, Merriweather } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import { Chatbot, NewsletterModalLazy } from "@/components/LazyComponents"
 
 // Lazy load NewsletterForm to improve LCP
@@ -20,16 +20,10 @@ const NewsletterForm = dynamic(() => import("@/components/Forms").then(mod => ({
   loading: () => <div className="py-20" />
 })
 
-const inter = Inter({
+const montserrat = Montserrat({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-sans',
-  display: 'swap',
-})
-
-const merriweather = Merriweather({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-  variable: '--font-serif',
   display: 'swap',
 })
 
@@ -76,7 +70,7 @@ export default async function RootLayout({
   const nonce = headersList.get('x-nonce') || undefined
 
   return (
-    <html lang="en" className={`${inter.variable} ${merriweather.variable}`}>
+    <html lang="en" className={montserrat.variable}>
       <head>
         {/* Schema Markup */}
         <SchemaRenderer schema={getOrganizationSchema()} nonce={nonce} />
