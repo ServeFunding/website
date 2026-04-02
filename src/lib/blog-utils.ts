@@ -9,6 +9,7 @@ export interface BlogPost {
   author: string
   authorImage?: string
   date: string
+  lastUpdated?: string
   category: string
   image?: string
   relatedSolutions?: string[]
@@ -89,6 +90,7 @@ export function getBlogPosts(): BlogPost[] {
         author: frontmatter.author || '',
         authorImage: frontmatter.authorImage,
         date: frontmatter.date || '',
+        lastUpdated: frontmatter.lastUpdated,
         category: frontmatter.category || '',
         image: frontmatter.image,
         relatedSolutions: frontmatter.relatedSolutions,
@@ -123,6 +125,7 @@ export function getBlogPost(id: string): (BlogPost & { content: string }) | null
     author: frontmatter.author || '',
     authorImage: frontmatter.authorImage,
     date: frontmatter.date || '',
+    lastUpdated: frontmatter.lastUpdated,
     category: frontmatter.category || '',
     image: frontmatter.image,
     relatedSolutions: frontmatter.relatedSolutions,
