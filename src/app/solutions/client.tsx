@@ -217,8 +217,8 @@ export function SolutionsClient() {
             <Text size="2xl" className="mb-6 text-gray-700">
               Ready to find the right solution for your business? Our team is ready to guide you through every step.
             </Text>
-            <Link href="/lets-talk">
-              <Button variant="gold" size="lg">Let's Talk!</Button>
+            <Link href="/discover">
+              <Button variant="gold" size="lg">Explore Funding Options</Button>
             </Link>
           </FadeIn>
         </Container>
@@ -281,8 +281,8 @@ export function SolutionsClient() {
       <CTA
         title="Ready to Take the Next Step?"
         text="Connect with our team of funding experts to discuss which solution is right for your business and get started on your path to growth."
-        buttonText="Let's Talk!"
-        href="/lets-talk"
+        buttonText="Explore Funding Options"
+        href="/discover"
         useBG
       />
     </>

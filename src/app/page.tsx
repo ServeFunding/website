@@ -153,9 +153,9 @@ export default function Home() {
 
       {/* Trust-Based Partnership Section */}
       <CTA
-        title="Let's Discuss Your Funding Needs."
-        text="Answer a few questions and schedule a call at your convenience. Takes a few minutes and there's no obligation."
-        buttonText="Let's talk"
+        title="A Different Kind of Funding Partner."
+        text="Answer a few questions to find out what credit options are available to you. Takes a few minutes and there's no obligation."
+        buttonText="Explore Funding Options"
         background="gray"
       />
 
@@ -352,8 +352,8 @@ export default function Home() {
       <CTA
         title="Ready to Get Started?"
         text="Answer a few questions and schedule a call at your convenience. Takes a few minutes and there's no obligation."
-        buttonText="Let's Talk!"
-        href="/lets-talk"
+        buttonText="Explore Funding Options"
+        href="/discover"
       />
     </>
   )

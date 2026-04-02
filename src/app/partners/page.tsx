@@ -63,9 +63,9 @@ export default function Partners() {
             <Text className="max-w-xl mx-auto my-6">
               Answer a few questions and schedule a call at your convenience. <br /> Takes a few minutes and there's no obligation.
             </Text>
-            <Link href="/lets-talk">
+            <Link href="/discover?role=partner">
               <Button variant="default" size="lg">
-                Let's talk
+                Discuss a Client's Funding Needs
               </Button>
             </Link>
           </FadeIn>
@@ -249,8 +249,8 @@ export default function Partners() {
       <CTA
         title="Have a Client in Need of Financing?"
         text={<>Answer a few questions and schedule a call at your convenience.<br />Takes a few minutes and there's no obligation.</>}
-        buttonText="Let's Talk!"
-        href="/lets-talk"
+        buttonText="Discuss a Client's Funding Needs"
+        href="/discover?role=partner"
         useBG
       />
     </>

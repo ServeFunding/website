@@ -12,7 +12,7 @@ interface CTAProps {
   background?: SectionBackgroundOption
 }
 
-export const CTA = ({ title, text, buttonText, href = "/lets-talk", useBG, background }: CTAProps) => {
+export const CTA = ({ title, text, buttonText, href = "/discover", useBG, background }: CTAProps) => {
   const bg = background ?? (useBG ? "background" : "white")
   const useAltButton = bg !== "white"
 

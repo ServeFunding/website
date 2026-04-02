@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/solutions',
     '/fundings',
     '/partners',
-    '/lets-talk',
+    '/discover',
     '/faq',
     '/blog',
     '/privacy-policy',

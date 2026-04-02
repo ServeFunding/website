@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { usePathname } from 'next/navigation'
 import { X, Send, MessageCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
@@ -20,6 +21,7 @@ interface ChatbotProps {
 }
 
 export function Chatbot({ userRole }: ChatbotProps = {}) {
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
   const [hasShownNotification, setHasShownNotification] = useState(false)
@@ -163,6 +165,9 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
     }
   }, [aiContext])
 
+
+  // Hide chatbot on the discover page (has its own inline AI chat)
+  if (pathname === '/discover') return null
 
   return (
     <>
