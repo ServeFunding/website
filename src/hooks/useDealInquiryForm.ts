@@ -65,18 +65,7 @@ export function useDealInquiryForm(
   const [questionHistory, setQuestionHistory] = useState<number[]>(initialRole ? [0] : [])
   const [showChoicePoint, setShowChoicePoint] = useState(false)
   const [chosenPath, setChosenPath] = useState<ChosenPath>(null)
-  const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>(() => {
-    if (initialRole) {
-      return [{
-        questionIndex: 0,
-        questionId: 'user_role',
-        displayTitle: 'Welcome! Are you a business owner or a funding partner?',
-        answer: initialRole,
-        options: ['A Business Owner or Operator Seeking Funding', 'A Banker / Business Advisor'],
-      }]
-    }
-    return []
-  })
+  const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([])
 
   // Form field states
   const [userRole, setUserRole] = useState(initialRole || '')

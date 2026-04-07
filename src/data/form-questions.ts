@@ -36,7 +36,7 @@ export const formQuestions: Question[] = [
   {
     id: 'annual_revenue',
     title: "Got it. What's your approximate annual revenue?",
-    partnerTitle: "Got it. What's your client's approximate annual revenue?",
+    partnerTitle: "Welcome! What's your client's approximate annual revenue?",
     answers: ['$500K-$1MM', '$1MM-$3MM', '$3MM-$10MM', '$10MM-$20MM', '$20MM-$50MM', '$50MM-$100MM', '$100MM+'],
     type: 'single'
   },
