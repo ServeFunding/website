@@ -34,6 +34,13 @@ export const formQuestions: Question[] = [
     type: 'single'
   },
   {
+    id: 'contact_info',
+    title: "Great — let's get to know you. What's your name and how can we reach you?",
+    partnerTitle: "Great — let's get to know you. What's your name and how can we reach you?",
+    answers: [],
+    type: 'contact-info'
+  },
+  {
     id: 'business_industry',
     title: 'What industry is the business in?',
     partnerTitle: "What industry is your client in?",
@@ -89,12 +96,5 @@ export const formQuestions: Question[] = [
       'Other'
     ],
     type: 'multi'
-  },
-  {
-    id: 'contact_info',
-    title: "Great — let's get you connected with our team",
-    partnerTitle: "Great — let's discuss your client's funding needs",
-    answers: [],
-    type: 'contact-info'
   },
 ]

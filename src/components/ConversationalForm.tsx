@@ -20,29 +20,41 @@ interface ConversationalFormProps {
 
 // Help text is hardcoded in form-questions.ts (not user input), safe to render
 function HelpText({ html }: { html: string }) {
-  return <div className="mt-1 text-xs text-white/50" dangerouslySetInnerHTML={{ __html: html }} />
+  return <div className="mt-1 text-xs text-gray-500" dangerouslySetInnerHTML={{ __html: html }} />
 }
 
 // Question row — left-aligned, 80% width container
 function QuestionRow({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-      <div className="px-8 py-4 rounded-2xl inline-block text-center" style={{ backgroundColor: '#323b1e' }}>
-        <p className="font-semibold text-lg leading-snug" style={{ color: COLORS.highlight }}>{children}</p>
+      <div className="px-8 py-4 inline-block text-center" style={{ maxWidth: '820px' }}>
+        <p className="text-lg sm:text-xl md:text-2xl leading-relaxed" style={{ color: COLORS.dark }}>{children}</p>
       </div>
     </div>
   )
 }
 
-// Answer row — centered
-function AnswerRow({ children }: { children: React.ReactNode }) {
+// Answer row — centered, constrained max-width so options wrap into balanced rows
+function AnswerRow({ children, maxWidth = 900, fill = false }: { children: React.ReactNode; maxWidth?: number; fill?: boolean }) {
   return (
-    <div style={{ width: '100%' }}>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center' }}>
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center', maxWidth: `${maxWidth}px`, width: fill ? '100%' : undefined }}>
         {children}
       </div>
     </div>
   )
+}
+
+// Compute a balanced max-width for an answer row based on the option labels
+function computeAnswerRowWidth(options: string[]): number {
+  if (options.length === 0) return 900
+  const maxLen = Math.max(...options.map(o => o.length))
+  // approx pill width: ~11px per char + 80px horizontal padding (px-8 + buffer)
+  const pillWidth = maxLen * 11 + 80
+  // aim for ~floor(sqrt(n)) rows so the grid feels balanced; small sets stay on one row
+  const targetRows = options.length <= 5 ? 1 : Math.max(2, Math.floor(Math.sqrt(options.length)))
+  const itemsPerRow = Math.ceil(options.length / targetRows)
+  return Math.round(itemsPerRow * pillWidth + (itemsPerRow - 1) * 12)
 }
 
 // Right-aligned chat bubble (answer from user)
@@ -54,9 +66,9 @@ function AnswerBubble({ children, onClick }: { children: React.ReactNode; onClic
         onClick={onClick}
         className="group"
       >
-        <div className="bg-white/20 backdrop-blur-sm border border-white/15 rounded-2xl rounded-tr-sm px-5 py-3 text-white font-medium text-base transition-all group-hover:bg-white/30 group-hover:scale-[1.01] flex items-center gap-2">
+        <div className="bg-gray-100 border border-gray-200 rounded-2xl rounded-tr-sm px-5 py-3 font-medium text-base transition-all group-hover:bg-gray-200 group-hover:scale-[1.01] flex items-center gap-2" style={{ color: COLORS.dark }}>
           {children}
-          <span className="text-white/40 text-xs opacity-0 group-hover:opacity-100 transition-opacity">edit</span>
+          <span className="text-gray-400 text-xs opacity-0 group-hover:opacity-100 transition-opacity">edit</span>
         </div>
       </button>
     </div>
@@ -77,8 +89,8 @@ function OptionPill({ label, isSelected, onClick, disabled }: {
       whileHover={disabled ? {} : { scale: 1.02, y: -1 }}
       whileTap={disabled ? {} : { scale: 0.98 }}
       animate={isSelected
-        ? { backgroundColor: COLORS.highlight, color: COLORS.dark }
-        : { backgroundColor: 'rgba(255,255,255,0.92)', color: '#1f2937' }
+        ? { backgroundColor: COLORS.primary, color: COLORS.white }
+        : { backgroundColor: COLORS.gray, color: '#1f2937' }
       }
       transition={{ duration: 0.15 }}
       className="px-8 py-4 rounded-2xl font-medium text-[15px]"
@@ -93,9 +105,7 @@ function ContactInfoFields({
   isPartner,
   name, email, phone, company,
   setFieldValue,
-  chosenPath,
-  getFieldValue,
-  handleSubmit,
+  onContinue,
 }: {
   isPartner: boolean
   name: string
@@ -103,12 +113,16 @@ function ContactInfoFields({
   phone: string
   company: string
   setFieldValue: (id: string, value: any) => void
-  chosenPath: ChosenPath
-  getFieldValue: (id: string) => any
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  onContinue: () => void
 }) {
   return (
-    <form className="form-deal_inquiry" onSubmit={handleSubmit}>
+    <form
+      className="form-deal_inquiry"
+      onSubmit={(e) => {
+        e.preventDefault()
+        onContinue()
+      }}
+    >
       <div style={{
         backgroundColor: 'white',
         borderRadius: '20px',
@@ -132,7 +146,7 @@ function ContactInfoFields({
             required={input.required}
             placeholder={input.placeholder}
             style={{
-              backgroundColor: '#f3f4f6',
+              backgroundColor: COLORS.gray,
               color: '#1f2937',
               borderRadius: '12px',
               padding: '14px 20px',
@@ -146,30 +160,14 @@ function ContactInfoFields({
         <p style={{ fontSize: '12px', color: '#9ca3af', marginLeft: '4px' }}>We respect your privacy. No spam, ever.</p>
       </div>
 
-      {/* Hidden inputs for all triage form fields */}
-      {formQuestions.map((question) => {
-        const fieldValue = getFieldValue(question.id)
-        if (question.type === 'contact-info') return null
-        if (Array.isArray(fieldValue)) {
-          return fieldValue.map((value) => (
-            <input key={`${question.id}-${value}`} type="hidden" name={question.id} value={value} />
-          ))
-        }
-        return <input key={question.id} type="hidden" name={question.id} value={fieldValue as string} />
-      })}
-      <input type="hidden" name="name" value={name} />
-      <input type="hidden" name="email" value={email} />
-      <input type="hidden" name="phone" value={phone} />
-      <input type="hidden" name="company" value={company} />
-
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '12px' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '12px' }}>
         <Button
           type="submit"
-          variant="white"
+          variant="default"
           size="lg"
           disabled={!name || !email}
         >
-          {chosenPath === 'schedule' ? 'Continue to Scheduling' : 'Continue to Chat'}
+          Continue
           <ChevronRight size={18} className="ml-1" />
         </Button>
       </div>
@@ -198,23 +196,13 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
     setFieldValue,
     handleAnswer,
     moveToNextQuestion,
-    handleGoBack,
+    handleGoBack: hookHandleGoBack,
     handlePathChoice: hookHandlePathChoice,
-    handleSubmit,
+    handleContactInfoContinue,
+    notifyScheduleTransition,
     getCurrentFormData,
     getCalendlyCustomAnswers,
-  } = useDealInquiryForm(
-    (data) => {
-      if (chosenPath === 'ai_chat') {
-        // Contact info submitted — now start AI chat inline
-        setShowAIChat(true)
-        startAIChat()
-      } else if (chosenPath) {
-        onComplete(data, chosenPath)
-      }
-    },
-    initialRole
-  )
+  } = useDealInquiryForm(undefined, initialRole)
 
   const [showCalendlyInline, setShowCalendlyInline] = useState(false)
   const [showAIChat, setShowAIChat] = useState(false)
@@ -222,14 +210,36 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
   const [aiInput, setAiInput] = useState('')
   const [aiLoading, setAiLoading] = useState(false)
   const aiInputRef = useRef<HTMLInputElement>(null)
+  const calendlyRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (showCalendlyInline) {
+      setTimeout(() => {
+        calendlyRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 200)
+    }
+  }, [showCalendlyInline])
+
+  const handleGoBack = (answeredIndex: number) => {
+    setShowCalendlyInline(false)
+    setShowAIChat(false)
+    setAiMessages([])
+    setAiInput('')
+    setAiLoading(false)
+    hookHandleGoBack(answeredIndex)
+  }
 
   const handlePathChoice = (path: 'schedule' | 'ai_chat') => {
     trackEvent('discover_path_choice', { path })
     hookHandlePathChoice(path)
     if (path === 'schedule') {
       setShowCalendlyInline(true)
+      onComplete(getCurrentFormData(), 'schedule')
+    } else if (path === 'ai_chat') {
+      setShowAIChat(true)
+      startAIChat()
+      onComplete(getCurrentFormData(), 'ai_chat')
     }
-    // AI chat path goes through contact info first (handled by the hook advancing to contact_info question)
   }
 
   const startAIChat = async () => {
@@ -304,7 +314,7 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
               <QuestionRow>{aq.displayTitle}</QuestionRow>
 
               {/* All options — right aligned, selected one highlighted */}
-              <AnswerRow>
+              <AnswerRow maxWidth={computeAnswerRowWidth(aq.options)}>
                 {aq.options.length > 0 ? (
                   aq.options.map((option) => {
                     const isSelected = Array.isArray(aq.answer)
@@ -317,8 +327,8 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
                         onClick={() => handleGoBack(index)}
                         className="px-8 py-4 rounded-2xl font-medium text-[15px] transition-all hover:scale-[1.01]"
                         style={{
-                          backgroundColor: isSelected ? COLORS.highlight : 'rgba(255,255,255,0.5)',
-                          color: isSelected ? COLORS.dark : 'rgba(255,255,255,0.6)',
+                          backgroundColor: isSelected ? COLORS.primary : '#f3f4f6',
+                          color: isSelected ? '#ffffff' : '#9ca3af',
                         }}
                       >
                         {option}
@@ -344,7 +354,7 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
             transition={{ duration: 0.3 }}
             className="flex flex-col gap-4"
           >
-            <QuestionRow>Thanks for sharing! Would you like to speak with our team or explore options with our AI assistant?</QuestionRow>
+            <QuestionRow>Thanks for sharing! Would you like to speak with our team or explore options with our Funding Navigator?</QuestionRow>
 
             <AnswerRow>
               <OptionPill
@@ -352,11 +362,29 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
                 isSelected={false}
                 onClick={() => handlePathChoice('schedule')}
               />
-              <OptionPill
-                label="Explore with our Funding Navigator"
-                isSelected={false}
+              <motion.button
+                type="button"
                 onClick={() => handlePathChoice('ai_chat')}
-              />
+                whileHover={{ scale: 1.02, y: -1 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-8 py-4 rounded-2xl font-medium text-[15px]"
+                style={{ backgroundColor: COLORS.gray, color: COLORS.dark, border: 'none' }}
+              >
+                Explore with our{' '}
+                <span
+                  style={{
+                    background: 'linear-gradient(135deg, #c99c42 0%, #e8c170 35%, #6b8e23 100%)',
+                    backgroundSize: '200% 200%',
+                    animation: 'gradient-shift 4s ease infinite',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    fontWeight: 700,
+                  }}
+                >
+                  Funding Navigator
+                </span>
+              </motion.button>
             </AnswerRow>
           </motion.div>
         )}
@@ -385,7 +413,7 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
 
             {/* Answer options — right aligned */}
             {currentQuestion.type === 'single' && (
-              <AnswerRow>
+              <AnswerRow maxWidth={computeAnswerRowWidth(currentQuestion.answers)}>
                 {currentQuestion.answers.map((option) => {
                   const isSelected = selectedAnswer === option || getFieldValue(currentQuestion.id) === option
                   return (
@@ -409,8 +437,8 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
             )}
 
             {currentQuestion.type === 'multi' && (
-              <div style={{ width: '100%' }} className="flex flex-col items-center gap-3">
-                <p className="text-white/50 text-xs">Select all that apply</p>
+              <div style={{ width: '100%', maxWidth: `${computeAnswerRowWidth(currentQuestion.answers)}px`, marginLeft: 'auto', marginRight: 'auto' }} className="flex flex-col items-center gap-3">
+                <p className="text-gray-500 text-xs">Select all that apply</p>
                 <div className="flex flex-wrap gap-3 justify-center">
                   {currentQuestion.answers.map((option) => {
                     const currentValues = (getFieldValue(currentQuestion.id) as string[]) || []
@@ -432,7 +460,7 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
                 </div>
                 <Button
                   type="button"
-                  variant="white"
+                  variant="default"
                   size="lg"
                   onClick={() => {
                     trackEvent('discover_step_answered', {
@@ -452,7 +480,7 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
         )}
 
         {/* Contact Info (after choice point) */}
-        {isContactInfoStep && chosenPath && !showCalendlyInline && !showAIChat && (
+        {isContactInfoStep && !showChoicePoint && !chosenPath && !showCalendlyInline && !showAIChat && (
           <motion.div
             ref={activeQuestionRef}
             key="contact-info"
@@ -471,37 +499,7 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
                 phone={phone}
                 company={company}
                 setFieldValue={setFieldValue}
-                chosenPath={chosenPath}
-                getFieldValue={getFieldValue}
-                handleSubmit={handleSubmit}
-              />
-            </div>
-          </motion.div>
-        )}
-
-        {/* Inline Calendly — appears in conversation after choosing Schedule */}
-        {showCalendlyInline && (
-          <motion.div
-            ref={activeQuestionRef}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="flex flex-col gap-3"
-          >
-            <QuestionRow>Pick a time that works for you</QuestionRow>
-
-            <div style={{ width: '100%', marginLeft: 'auto', marginRight: 'auto' }}>
-              <CalendlyWidget
-                name={name}
-                email={email}
-                dealContext=""
-                height="1100px"
-                calendlyUrl={
-                  userRole === 'A Banker / Business Advisor'
-                    ? CALENDLY_URLS.michael.partner
-                    : CALENDLY_URLS.michael.owner
-                }
-                customAnswers={getCalendlyCustomAnswers()}
+                onContinue={handleContactInfoContinue}
               />
             </div>
           </motion.div>
@@ -520,14 +518,39 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
             {aiMessages.map((msg, i) => (
               <div key={i}>
                 {msg.sender === 'bot' ? (
-                  <QuestionRow>{msg.text}</QuestionRow>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.4, ease: 'easeOut' }}
+                    style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+                  >
+                    <div
+                      className="rounded-2xl inline-block text-center transition-all duration-[400ms]"
+                      style={{
+                        maxWidth: '820px',
+                        padding: '2px',
+                        background: 'linear-gradient(135deg, #c99c42 0%, #e8c170 35%, #6b8e23 100%)',
+                        backgroundSize: '200% 200%',
+                        animation: 'gradient-shift 6s ease infinite',
+                      }}
+                    >
+                      <div
+                        className="px-8 py-8 rounded-2xl"
+                        style={{ backgroundColor: '#fdfaf0' }}
+                      >
+                        <p className="text-lg sm:text-xl md:text-2xl leading-relaxed" style={{ color: COLORS.dark }}>
+                          {msg.text}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
                 ) : (
                   <AnswerRow>
                     <div style={{
-                      backgroundColor: COLORS.highlight,
+                      backgroundColor: COLORS.primary,
                       borderRadius: '16px',
                       padding: '14px 20px',
-                      color: COLORS.dark,
+                      color: COLORS.white,
                       fontSize: '15px',
                       fontWeight: 500,
                     }}>
@@ -538,25 +561,79 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
               </div>
             ))}
 
-            {/* Loading indicator */}
+            {/* Loading indicator — pending AI bubble while waiting */}
             {aiLoading && (
-              <QuestionRow>
-                <span className="flex gap-1.5">
-                  <span className="w-2 h-2 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="w-2 h-2 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="w-2 h-2 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                </span>
-              </QuestionRow>
+              <motion.div
+                initial={{ opacity: 0, y: 20, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+              >
+                <div
+                  className="rounded-2xl inline-block"
+                  style={{
+                    padding: '2px',
+                    background: 'linear-gradient(135deg, #c99c42 0%, #e8c170 35%, #6b8e23 100%)',
+                    backgroundSize: '200% 200%',
+                    animation: 'gradient-shift 6s ease infinite',
+                  }}
+                >
+                  <div className="px-8 py-8 rounded-2xl" style={{ backgroundColor: '#fdfaf0' }}>
+                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'center' }}>
+                      <motion.div
+                        style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: COLORS.primary }}
+                        animate={{ y: [0, -8, 0] }}
+                        transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut', delay: 0 }}
+                      />
+                      <motion.div
+                        style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: COLORS.primary }}
+                        animate={{ y: [0, -8, 0] }}
+                        transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut', delay: 0.15 }}
+                      />
+                      <motion.div
+                        style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: COLORS.primary }}
+                        animate={{ y: [0, -8, 0] }}
+                        transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             )}
 
-            {/* Input */}
-            <AnswerRow>
+            {/* Input — only show when bot is done responding */}
+            {!aiLoading && aiMessages.length > 0 && !showCalendlyInline && (
+            <div style={{ width: '100%', maxWidth: '824px', marginLeft: 'auto', marginRight: 'auto', marginTop: '16px' }}>
               <div style={{
                 display: 'flex',
-                gap: '8px',
+                gap: '12px',
                 width: '100%',
                 alignItems: 'center',
               }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const transcript = aiMessages
+                      .map(m => `${m.sender === 'bot' ? 'Serve Funding' : name || 'User'}: ${m.text}`)
+                      .join('\n')
+                    notifyScheduleTransition('ai_chat', transcript)
+                    setShowCalendlyInline(true)
+                  }}
+                  style={{
+                    backgroundColor: COLORS.gray,
+                    color: COLORS.dark,
+                    borderRadius: '16px',
+                    padding: '14px 20px',
+                    fontSize: '15px',
+                    fontWeight: 500,
+                    border: 'none',
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  Schedule a Call
+                </button>
                 <input
                   ref={aiInputRef}
                   type="text"
@@ -572,8 +649,9 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
                   disabled={aiLoading}
                   style={{
                     flex: 1,
-                    backgroundColor: 'white',
-                    color: '#1f2937',
+                    minWidth: 0,
+                    backgroundColor: COLORS.gray,
+                    color: COLORS.dark,
                     borderRadius: '16px',
                     padding: '14px 20px',
                     fontSize: '15px',
@@ -585,8 +663,8 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
                   onClick={sendAIMessage}
                   disabled={aiLoading || !aiInput.trim()}
                   style={{
-                    backgroundColor: COLORS.highlight,
-                    color: COLORS.dark,
+                    backgroundColor: COLORS.primary,
+                    color: COLORS.white,
                     borderRadius: '50%',
                     width: '48px',
                     height: '48px',
@@ -602,19 +680,32 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
                   <Send size={18} />
                 </button>
               </div>
-            </AnswerRow>
+            </div>
+            )}
+          </motion.div>
+        )}
 
-            {/* Schedule call option */}
-            <AnswerRow>
-              <OptionPill
-                label="Schedule a Call"
-                isSelected={false}
-                onClick={() => {
-                  setShowAIChat(false)
-                  setShowCalendlyInline(true)
-                }}
+        {/* Inline Calendly — appears below the AI chat after choosing Schedule */}
+        {showCalendlyInline && (
+          <motion.div
+            ref={calendlyRef}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="flex flex-col gap-3"
+          >
+            <QuestionRow>Pick a time that works for you</QuestionRow>
+
+            <div style={{ width: '100%', marginLeft: 'auto', marginRight: 'auto' }}>
+              <CalendlyWidget
+                name={name}
+                email={email}
+                dealContext=""
+                height="1100px"
+                calendlyUrl={getCurrentFormData().calendly_url || CALENDLY_URLS.michael.owner}
+                customAnswers={getCalendlyCustomAnswers()}
               />
-            </AnswerRow>
+            </div>
           </motion.div>
         )}
       </div>

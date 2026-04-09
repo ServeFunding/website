@@ -129,12 +129,8 @@ function DiscoverContent() {
     const context = buildDealContext(data)
     setDealContext(context)
 
-    if (path === 'schedule') {
-      sendNotification(data, context, 'discover_schedule')
-      setView('calendly')
-    } else {
-      setView('chat')
-    }
+    // Notification email is fired from useDealInquiryForm.submitFinalForm
+    // ai_chat & schedule both continue inline within the ConversationalForm
   }
 
   const handleScheduleClick = (context: string, chatTranscript?: string) => {
@@ -153,7 +149,7 @@ function DiscoverContent() {
       />
 
       {/* Conversational Form / Chat / Calendly */}
-      <Section className="overflow-visible" style={{ backgroundColor: '#323b1e' }}>
+      <Section className="overflow-visible" background="white">
         <Container className="flex flex-col items-center !max-w-5xl">
           {view === 'form' && (
             <ConversationalForm
@@ -213,7 +209,7 @@ function DiscoverContent() {
             <Text color="white" size="2xl" className="mb-6 leading-relaxed">
               Serve Funding is a relationship-based advisory — not an algorithm-driven &quot;marketplace&quot;. We do not sell leads or shop deals indiscriminately. Every client is handled with care by members of our dedicated, experienced team.
             </Text>
-            <Text color="white" size="lg" className="leading-relaxed">
+            <Text color="white" size="lg" className="leading-relaxed italic">
               We treat every relationship and every client&#39;s financing opportunity as if it were our own.
             </Text>
           </FadeIn>

@@ -286,13 +286,11 @@ export function useDealInquiryForm(
       setTriageAction(applicableRule.then.action)
     }
 
-    // Check if next visible question is contact_info (meaning triage is done)
+    // If no more questions, show choice point
     const nextIndex = currentQuestionIndex + 1
     const updatedVisible = formQuestions.filter(q => !newSkippedQuestions.has(q.id))
-    const nextQuestion = updatedVisible[nextIndex]
 
-    if (nextQuestion?.type === 'contact-info') {
-      // All triage questions answered — show choice point
+    if (nextIndex >= updatedVisible.length) {
       setShowChoicePoint(true)
       return
     }
@@ -352,41 +350,118 @@ export function useDealInquiryForm(
     setShowChoicePoint(false)
 
     // Add the choice as an answered question in the thread
-    const choiceLabel = path === 'schedule' ? 'Schedule a Call' : 'Explore Options with AI'
+    const choiceLabel = path === 'schedule' ? 'Schedule a Call' : 'Explore with our Funding Navigator'
     setAnsweredQuestions(prev => [...prev, {
       questionIndex: -1,
       questionId: 'path_choice',
-      displayTitle: 'Thanks for sharing! Would you like to speak with our team or explore options with our AI assistant?',
+      displayTitle: 'Thanks for sharing! Would you like to speak with our team or explore options with our Funding Navigator?',
       answer: choiceLabel,
-      options: ['Schedule a Call', 'Explore Options with AI'],
+      options: ['Schedule a Call', 'Explore with our Funding Navigator'],
     }])
 
-    if (path === 'schedule') {
-      // Schedule goes straight to Calendly — no contact info needed
-      return
-    }
+    // Fire final submission (contact info already collected at Q2)
+    void submitFinalForm(path)
+  }
 
-    // AI chat path — collect contact info first
-    const contactInfoIndex = visibleQuestions.findIndex(q => q.type === 'contact-info')
-    if (contactInfoIndex !== -1) {
-      setQuestionHistory(prev => [...prev, currentQuestionIndex])
-      setCurrentQuestionIndex(contactInfoIndex)
+  const submitFinalForm = async (path: ChosenPath) => {
+    const triagedCalendlyUrl = getTriagedCalendlyUrl()
+
+    trackEvent('deal_inquiry_form_submitted', {
+      triage_action: triageAction || 'default',
+      calendly_url: triagedCalendlyUrl,
+      user_role: userRole,
+      chosen_path: path || '',
+    })
+
+    const contactData = {
+      ...getCurrentFormState(),
+      name,
+      email,
+      phone,
+      company,
+      chosen_path: path,
+    }
+    sendToWebhooks(contactData, 'deal_inquiry')
+
+    // Only send the "scheduling a call" email when they actually pick scheduling
+    if (path === 'schedule') {
+      notifyScheduleTransition('schedule_directly')
     }
   }
 
+  const notifyScheduleTransition = (source: 'schedule_directly' | 'ai_chat', chatTranscript?: string) => {
+    const contactData = {
+      ...getCurrentFormState(),
+      name,
+      email,
+      phone,
+      company,
+    }
+    try {
+      fetch('/api/notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...contactData,
+          type: 'calendly',
+          transition_source: source,
+          chat_transcript: chatTranscript || '',
+        }),
+      })
+    } catch (error) {
+      console.error('Notify email error:', error)
+    }
+  }
+
+  // Continue from contact-info step (Q2) to next triage question without final submission
+  const handleContactInfoContinue = () => {
+    if (!name || !email) return
+
+    const isPartner = userRole === 'A Banker / Business Advisor'
+    const displayTitle = (isPartner && currentQuestion?.partnerTitle)
+      ? currentQuestion.partnerTitle
+      : currentQuestion?.title || ''
+
+    setAnsweredQuestions(prev => [...prev, {
+      questionIndex: currentQuestionIndex,
+      questionId: 'contact_info',
+      displayTitle,
+      answer: `${name} · ${email}`,
+      options: [],
+    }])
+
+    sendAnswerWebhook('contact_info', { name, email, phone, company })
+
+    // Fire instant notify email so we hear about the lead even if they abandon mid-triage
+    try {
+      fetch('/api/notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...getCurrentFormState(),
+          name,
+          email,
+          phone,
+          company,
+          type: 'early',
+        }),
+      })
+    } catch (error) {
+      console.error('Notify email error:', error)
+    }
+
+    trackEvent('deal_inquiry_question_answered', {
+      question_id: 'contact_info',
+      answer: 'submitted',
+    })
+
+    checkAndAdvance('contact_info', { name, email, phone, company })
+  }
+
   const getTriagedCalendlyUrl = (): string => {
-    if (triageAction === 'mike') {
-      return getCalendlyUrlForAction('mike', userRole)
+    if (triageAction) {
+      return getCalendlyUrlForAction(triageAction, userRole)
     }
-
-    const formState = getCurrentFormState()
-    const applicableRule = checkTriageRules('owner_credit_score', formState)
-
-    if (applicableRule) {
-      const { action } = applicableRule.then
-      return getCalendlyUrlForAction(action, userRole)
-    }
-
     return getCalendlyUrlForAction('mike_with_chat', userRole)
   }
 
@@ -555,6 +630,8 @@ export function useDealInquiryForm(
     handleGoBack,
     handlePathChoice,
     handleSubmit,
+    handleContactInfoContinue,
+    notifyScheduleTransition,
     getCalendlyCustomAnswers,
     getCurrentFormData,
   }

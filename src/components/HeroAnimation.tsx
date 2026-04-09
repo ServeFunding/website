@@ -211,7 +211,7 @@ export const HeroAnimation = ({
       const newLeaves: Leaf[] = Array.from({ length: leafCount }, (_, i) => ({
         id: i,
         x: Math.random() * (width - maxLeafSize - horizontalBuffer) + horizontalBuffer / 2,
-        y: Math.random() * height,
+        y: Math.random() * Math.max(0, height - maxLeafSize),
         angle: Math.random() * 360,
         size: Math.random() * 50 + 25, // 25-75px
         opacity: Math.random() * 0.4 + 0.25, // 0.25-0.65
