@@ -153,7 +153,7 @@ export default function Home() {
 
       {/* Trust-Based Partnership Section */}
       <CTA
-        title="Capital That Serves You | Serve Funding"
+        title="Capital That Serves You"
         text="Answer a few questions to find out what credit options are available to you. Takes a few minutes and there's no obligation."
         buttonText="Explore Funding Options"
         background="gray"
