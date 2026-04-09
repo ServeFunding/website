@@ -11,6 +11,7 @@ import { Button, Text } from '@/components/ui'
 import { CalendlyWidget } from '@/components/CalendlyWidget'
 import { CALENDLY_URLS } from '@/hooks/useDealInquiryForm'
 import { getAIDealResponse } from '@/lib/ai'
+import { trackEvent } from '@/lib/tracking'
 
 interface ConversationalFormProps {
   initialRole?: string
@@ -223,6 +224,7 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
   const aiInputRef = useRef<HTMLInputElement>(null)
 
   const handlePathChoice = (path: 'schedule' | 'ai_chat') => {
+    trackEvent('discover_path_choice', { path })
     hookHandlePathChoice(path)
     if (path === 'schedule') {
       setShowCalendlyInline(true)
@@ -351,7 +353,7 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
                 onClick={() => handlePathChoice('schedule')}
               />
               <OptionPill
-                label="Explore Options with AI"
+                label="Explore with our Funding Navigator"
                 isSelected={false}
                 onClick={() => handlePathChoice('ai_chat')}
               />
@@ -391,7 +393,14 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
                       key={option}
                       label={option}
                       isSelected={isSelected}
-                      onClick={() => handleAnswer(option)}
+                      onClick={() => {
+                        trackEvent('discover_step_answered', {
+                          question: currentQuestion.id,
+                          step: currentQuestionIndex + 1,
+                          answer: option,
+                        })
+                        handleAnswer(option)
+                      }}
                       disabled={selectedAnswer !== null}
                     />
                   )
@@ -425,7 +434,14 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
                   type="button"
                   variant="white"
                   size="lg"
-                  onClick={moveToNextQuestion}
+                  onClick={() => {
+                    trackEvent('discover_step_answered', {
+                      question: currentQuestion.id,
+                      step: currentQuestionIndex + 1,
+                      answer: ((getFieldValue(currentQuestion.id) as string[]) || []).join(', '),
+                    })
+                    moveToNextQuestion()
+                  }}
                   disabled={(getFieldValue(currentQuestion.id) as string[])?.length === 0}
                 >
                   Continue <ChevronRight size={18} className="ml-1" />

@@ -10,6 +10,7 @@ import { ConversationalForm } from '@/components/ConversationalForm'
 import { Section, Container, Heading, Text, Card, FadeIn, SocialIcons } from '@/components/ui'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { formQuestions } from '@/data/form-questions'
+import { trackEvent } from '@/lib/tracking'
 
 function DiscoverContent() {
   const searchParams = useSearchParams()
@@ -28,6 +29,10 @@ function DiscoverContent() {
       resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }, [view])
+
+  useEffect(() => {
+    trackEvent('discover_started', { role: roleParam ?? 'unspecified' })
+  }, [roleParam])
 
   const buildDealContext = (data: FormSubmitData): string => {
     const questionMap = formQuestions.reduce((acc, q) => {

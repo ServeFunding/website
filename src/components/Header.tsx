@@ -8,8 +8,8 @@ import { useState, useEffect, useRef } from "react"
 import { Button, Container } from "./ui"
 import { motion } from "framer-motion"
 import { COLORS } from "@/lib/colors"
-import { trackNavClick } from "@/lib/tracking"
-import { CALENDLY_URL, headerNavConfig, getExpandMenuKey, type SimpleNavItem, type DropdownNavItem, type NavItem } from "@/lib/header-nav"
+import { trackNavClick, trackEvent } from "@/lib/tracking"
+import { headerNavConfig, getExpandMenuKey, type SimpleNavItem, type DropdownNavItem, type NavItem } from "@/lib/header-nav"
 import { MobileMenuSection, HamburgerIcon } from "./header-components"
 import { DropdownMenuTwoSection } from "./DropdownMenuSolutions"
 
@@ -234,11 +234,11 @@ export function Header() {
           {/* Right side: CTA Button + Mobile Menu */}
           <div className="flex items-center gap-4">
             {/* CTA Button */}
-            <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackNavClick("Let's Talk (Header)", CALENDLY_URL)}>
+            <Link href="/discover" onClick={() => { trackNavClick("Let's Talk (Header)", "/discover"); trackEvent("lets_talk_click", { location: "header" }) }}>
               <Button variant="default" size="sm" className="rounded-full flex-shrink-0">
                 Let&apos;s Talk
               </Button>
-            </a>
+            </Link>
 
             {/* Mobile Menu Button - Animated */}
             <div className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -330,11 +330,11 @@ export function Header() {
               })}
 
               {/* Let's Talk Button */}
-              <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" onClick={() => {trackNavClick("Let's Talk (Mobile Menu)", CALENDLY_URL); setIsMenuOpen(false)}} className="w-full block pt-4">
+              <Link href="/discover" onClick={() => { trackNavClick("Let's Talk (Mobile Menu)", "/discover"); trackEvent("lets_talk_click", { location: "mobile_menu" }); setIsMenuOpen(false) }} className="w-full block pt-4">
                 <Button variant="default" className="w-full">
                   Let&apos;s Talk
                 </Button>
-              </a>
+              </Link>
             </div>
         </motion.div>
         )}

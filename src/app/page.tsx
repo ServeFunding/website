@@ -44,7 +44,7 @@ export const metadata: Metadata = {
         url: 'https://servefunding.com/home/right%20funding%20solutions.webp',
         width: 960,
         height: 628,
-        alt: 'The Right Funding Solutions for Healthy Business Growth',
+        alt: 'The Right Funding Solutions to Serve Healthy Business Growth',
       },
     ],
   },
@@ -64,7 +64,7 @@ const IndustriesGrid = dynamic(() => import('@/components/IndustriesGrid').then(
 
 const heroSlides = [
   {
-    heading: "Funding Solutions for Healthy Business Growth",
+    heading: "Funding Solutions to Serve Healthy Business Growth",
     desc: <>An advisory service committed to serve<br />the best interests of your company's<br />current needs and future goals.</>,
     image: "/home/right funding solutions.webp",
     width: 960,
