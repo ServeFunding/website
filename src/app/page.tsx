@@ -64,21 +64,21 @@ const IndustriesGrid = dynamic(() => import('@/components/IndustriesGrid').then(
 
 const heroSlides = [
   {
-    heading: "The Right Funding Solutions for Healthy Business Growth",
+    heading: "Funding Solutions for Healthy Business Growth",
     desc: <>An advisory service committed to serve<br />the best interests of your company's<br />current needs and future goals.</>,
     image: "/home/right funding solutions.webp",
     width: 960,
     height: 628
   },
   {
-    heading: "Creative Working Capital Empowering Entrepreneurs",
+    heading: "Creative Capital Empowering Entrepreneurs",
     desc: <>Because your company is unique,<br />you want partners who truly understand<br />your story and align with your objectives.</>,
     image: "/home/creative working capital.webp",
     width: 1024,
     height: 945
   },
     {
-    heading: <>You Value Relationships<br />Over Bots & Quick Fixes</>,
+    heading: <>You Value Relationships<br />Over Quick Fixes</>,
     desc: <>We partner with like-minded business leaders<br />who want trusted advisors in their corner<br />to ensure they make the best decisions.</>,
     image: "/home/value relationships over bots.webp",
     width: 1024,
