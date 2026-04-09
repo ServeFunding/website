@@ -30,11 +30,11 @@ import { FAQSectionWithSchema } from '@/components/FAQSection'
 import { CTA } from '@/components/cta'
 
 export const metadata: Metadata = {
-  title: 'Working Capital in 3-10 Days | $250K-$100MM',
+  title: 'Capital That Serves You | Serve Funding',
   description: 'Trusted working capital advisory for entrepreneurs. Get funded in 3-10 days with transparency & relationships. Debt refinance, MCA consolidation & more. $250K-$100MM.',
   keywords: 'working capital, business loans, when banks say no, funding advisory, asset-based lending, invoice factoring, rapid growth funding',
   openGraph: {
-    title: 'Working Capital in 3-10 Days | $250K-$100MM',
+    title: 'Capital That Serves You | Serve Funding',
     description: 'Entrepreneurs deserve better. Get funded fast with trusted advisors who prioritize your growth. Debt refinance, MCA consolidation, invoice factoring & working capital solutions in 3-10 days.',
     url: 'https://servefunding.com/',
     siteName: 'Serve Funding',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Working Capital in 3-10 Days | $250K-$100MM',
+    title: 'Capital That Serves You | Serve Funding',
     description: 'Trusted working capital advisory for growing entrepreneurs. Fast funding when banks decline. Relationships > Bots. $250K-$100MM in 3-10 days.',
   },
   robots: 'index, follow',
@@ -153,7 +153,7 @@ export default function Home() {
 
       {/* Trust-Based Partnership Section */}
       <CTA
-        title="A Different Kind of Funding Partner."
+        title="Capital That Serves You | Serve Funding"
         text="Answer a few questions to find out what credit options are available to you. Takes a few minutes and there's no obligation."
         buttonText="Explore Funding Options"
         background="gray"
