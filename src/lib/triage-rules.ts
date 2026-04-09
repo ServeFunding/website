@@ -41,29 +41,13 @@ export const triageRules: TriageRule[] = [
     }
   },
 
-  // After owner_credit_score: Route to Mike if revenue >= $3M AND funding >= $250K AND 2+ years AND credit >= 700
+  // After financing_needs: Route to Mike if revenue >= $3M AND funding >= $250K AND 2+ years in business AND priority industry
   {
-    question_id: 'owner_credit_score',
+    question_id: 'financing_needs',
     if: {
       annual_revenue: ['$3MM-$10MM', '$10MM-$20MM', '$20MM-$50MM', '$50MM-$100MM', '$100MM+'],
       funding_amount: ['$250K-$500K', '$500K-$1MM', '$1MM-$5MM', '$5MM-$10MM', '$10MM+'],
       time_in_business: ['2-3 years', '3-4 years', '5+ years'],
-      owner_credit_score: ['Excellent (750-850)', 'Good (700-750)']
-    },
-    type: 'AND',
-    then: {
-      action: 'mike'
-    }
-  },
-
-  // After owner_credit_score: Route to Mike if credit >= 650 AND industry is priority (manufacturing, wholesale, healthcare, govcon, staffing, saas, ecommerce)
-  {
-    question_id: 'business_industry',
-    if: {
-      annual_revenue: ['$3MM-$10MM', '$10MM-$20MM', '$20MM-$50MM', '$50MM-$100MM', '$100MM+'],
-      funding_amount: ['$250K-$500K', '$500K-$1MM', '$1MM-$5MM', '$5MM-$10MM', '$10MM+'],
-      time_in_business: ['2-3 years', '3-4 years', '5+ years'],
-      owner_credit_score: ['Fair (650-700)', 'Excellent (750-850)', 'Good (700-750)'],
       business_industry: ['Manufacturing', 'Wholesale & Distribution', 'Healthcare Services', 'Government Contractors', 'Staffing Agency', 'Software & SaaS', 'E-Commerce & Retail']
     },
     type: 'AND',
@@ -72,9 +56,9 @@ export const triageRules: TriageRule[] = [
     }
   },
 
-  // After owner_credit_score: Route to Kyler_with_chat if revenue < $1M OR funding < $250K OR time_in_business < 1yr
+  // After financing_needs: Route to Kyler if revenue < $1M OR funding < $250K OR time_in_business < 1yr
   {
-    question_id: 'owner_credit_score',
+    question_id: 'financing_needs',
     if: {
       annual_revenue: ['$500K-$1MM'],
       funding_amount: ['$100K-$250K'],

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { usePathname } from 'next/navigation'
 import { X, Send, MessageCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
@@ -20,6 +21,7 @@ interface ChatbotProps {
 }
 
 export function Chatbot({ userRole }: ChatbotProps = {}) {
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
   const [hasShownNotification, setHasShownNotification] = useState(false)
@@ -163,6 +165,9 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
     }
   }, [aiContext])
 
+
+  // Hide chatbot on the discover page (has its own inline AI chat)
+  if (pathname === '/discover') return null
 
   return (
     <>
@@ -314,7 +319,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
               className="text-white px-6 py-4 rounded-none sm:rounded-t-2xl flex items-center justify-between flex-shrink-0"
             >
               <div>
-                <h3 className="font-semibold">Serve Funding AI Assistant</h3>
+                <h3 className="font-semibold">Serve Funding Navigator</h3>
                 <p className="text-sm opacity-90">Always here to serve</p>
               </div>
               <button
@@ -419,8 +424,8 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
               </div>
               {/* AI Disclaimer */}
               <div className="mt-2">
-                <p className="text-xs text-gray-500 text-center">
-                  <span className="font-semibold">AI can make mistakes.</span> For important funding decisions, please speak with our team directly.
+                <p className="text-xs text-gray-400 text-center">
+                  AI can make mistakes. For important funding decisions, please speak with our team directly.
                 </p>
               </div>
             </div>

@@ -93,7 +93,7 @@ export function SolutionsClient() {
             <Heading size="h2">
               Compare <span className="text-gold-500">Funding Solutions</span>
             </Heading>
-            <Text size="lg" className="text-gray-700">
+            <Text size="2xl" className="text-gray-700">
               Find the right fit based on speed, collateral, and funding amount
             </Text>
           </FadeIn>
@@ -214,11 +214,11 @@ export function SolutionsClient() {
           </StaggerContainer>
 
           <FadeIn className="text-center">
-            <Text size="lg" className="mb-6 text-gray-700">
+            <Text size="2xl" className="mb-6 text-gray-700">
               Ready to find the right solution for your business? Our team is ready to guide you through every step.
             </Text>
-            <Link href="/lets-talk">
-              <Button variant="gold" size="lg">Let's Talk!</Button>
+            <Link href="/discover">
+              <Button variant="gold" size="lg">Explore Funding Options</Button>
             </Link>
           </FadeIn>
         </Container>
@@ -281,8 +281,8 @@ export function SolutionsClient() {
       <CTA
         title="Ready to Take the Next Step?"
         text="Connect with our team of funding experts to discuss which solution is right for your business and get started on your path to growth."
-        buttonText="Let's Talk!"
-        href="/lets-talk"
+        buttonText="Explore Funding Options"
+        href="/discover"
         useBG
       />
     </>

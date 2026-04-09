@@ -30,11 +30,11 @@ import { FAQSectionWithSchema } from '@/components/FAQSection'
 import { CTA } from '@/components/cta'
 
 export const metadata: Metadata = {
-  title: 'Working Capital in 3-10 Days | $250K-$100MM',
+  title: 'Capital That Serves You | Serve Funding',
   description: 'Trusted working capital advisory for entrepreneurs. Get funded in 3-10 days with transparency & relationships. Debt refinance, MCA consolidation & more. $250K-$100MM.',
   keywords: 'working capital, business loans, when banks say no, funding advisory, asset-based lending, invoice factoring, rapid growth funding',
   openGraph: {
-    title: 'Working Capital in 3-10 Days | $250K-$100MM',
+    title: 'Capital That Serves You | Serve Funding',
     description: 'Entrepreneurs deserve better. Get funded fast with trusted advisors who prioritize your growth. Debt refinance, MCA consolidation, invoice factoring & working capital solutions in 3-10 days.',
     url: 'https://servefunding.com/',
     siteName: 'Serve Funding',
@@ -44,13 +44,13 @@ export const metadata: Metadata = {
         url: 'https://servefunding.com/home/right%20funding%20solutions.webp',
         width: 960,
         height: 628,
-        alt: 'The Right Funding Solutions for Healthy Business Growth',
+        alt: 'The Right Funding Solutions to Serve Healthy Business Growth',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Working Capital in 3-10 Days | $250K-$100MM',
+    title: 'Capital That Serves You | Serve Funding',
     description: 'Trusted working capital advisory for growing entrepreneurs. Fast funding when banks decline. Relationships > Bots. $250K-$100MM in 3-10 days.',
   },
   robots: 'index, follow',
@@ -64,21 +64,21 @@ const IndustriesGrid = dynamic(() => import('@/components/IndustriesGrid').then(
 
 const heroSlides = [
   {
-    heading: "The Right Funding Solutions for Healthy Business Growth",
+    heading: "Funding Solutions to Serve Healthy Business Growth",
     desc: <>An advisory service committed to serve<br />the best interests of your company's<br />current needs and future goals.</>,
     image: "/home/right funding solutions.webp",
     width: 960,
     height: 628
   },
   {
-    heading: "Creative Working Capital Empowering Entrepreneurs",
+    heading: "Creative Capital Empowering Entrepreneurs",
     desc: <>Because your company is unique,<br />you want partners who truly understand<br />your story and align with your objectives.</>,
     image: "/home/creative working capital.webp",
     width: 1024,
     height: 945
   },
     {
-    heading: <>You Value Relationships<br />Over Bots & Quick Fixes</>,
+    heading: <>You Value Relationships<br />Over Quick Fixes</>,
     desc: <>We partner with like-minded business leaders<br />who want trusted advisors in their corner<br />to ensure they make the best decisions.</>,
     image: "/home/value relationships over bots.webp",
     width: 1024,
@@ -152,23 +152,12 @@ export default function Home() {
       </Section>
 
       {/* Trust-Based Partnership Section */}
-      <Section background="gray">
-        <Container>
-          <FadeIn className="text-center mb-20 max-w-3xl mx-auto">
-            <Heading size="h2" className="mb-8">
-              Let's Discuss Your Funding Needs.
-            </Heading>
-            <Text className="max-w-xl mx-auto my-6">
-              Answer a few questions and schedule a call at your convenience. <br /> Takes a few minutes and there's no obligation.
-            </Text>
-            <Link href="/lets-talk">
-              <Button variant="default" size="lg">
-                Let's talk
-              </Button>
-            </Link>
-          </FadeIn>
-        </Container>
-      </Section>
+      <CTA
+        title="Capital That Serves You"
+        text="Answer a few questions to find out what credit options are available to you. Takes a few minutes and there's no obligation."
+        buttonText="Explore Funding Options"
+        background="gray"
+      />
 
       {/* Funding Solutions Section */}
       <Section background="background" className="!pt-0">
@@ -179,7 +168,7 @@ export default function Home() {
             </Heading>
           </FadeIn>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 max-w-4xl mx-auto">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 max-w-6xl mx-auto">
             {[
               "Financing Periods Of Rapid Growth",
               "The Bank Says \"No,\" Or Calls Your Line",
@@ -194,7 +183,7 @@ export default function Home() {
             ].map((item, index) => (
               <StaggerItem key={`benefit-${index}`} className="flex items-center gap-4 group ml-8">
                 <Leaf size={28} style={{ color: BRAND_COLORS.primary }} />
-                <Text>{item}</Text>
+                <Text size="2xl">{item}</Text>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -208,7 +197,7 @@ export default function Home() {
             <Heading size="h2" color="highlight" className="mb-4" style={{ color: '#ffffff'}}>
               Creative Working Capital
             </Heading>
-            <Text size="lg" className="text-white/90 max-w-2xl mx-auto">
+            <Text size="2xl" className="text-white/90 max-w-2xl mx-auto">
               From $250K to $100MM, we offer <br /><b style={{ background: `linear-gradient(to bottom, ${BRAND_COLORS.secondary}, ${BRAND_COLORS.highlight})`, backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>creative working capital solutions</b> <br />tailored to your business needs
             </Text>
           </FadeIn>
@@ -291,7 +280,7 @@ export default function Home() {
         <Container>
           <FadeIn className="text-center mb-16">
             <Heading size="h2" color="highlight" className="mb-4">Successful Client Fundings</Heading>
-            <Text size="lg" className="text-white/90 max-w-2xl mx-auto">
+            <Text size="2xl" className="text-white/90 max-w-2xl mx-auto">
               See how we've helped businesses across industries<br />secure the capital they needed to grow
             </Text>
           </FadeIn>
@@ -348,7 +337,7 @@ export default function Home() {
         <Container>
           <FadeIn className="text-center">
             <Heading size="h2" className="mb-4">Meet the Team Behind Serve Funding</Heading>
-            <Text size="lg" className="text-gray-700 mb-8 max-w-2xl mx-auto">
+            <Text size="2xl" className="text-gray-700 mb-8 max-w-2xl mx-auto">
               Learn about our mission, values, and the experienced team committed to helping your business grow.
             </Text>
             <Link href="/about-us">
@@ -363,8 +352,8 @@ export default function Home() {
       <CTA
         title="Ready to Get Started?"
         text="Answer a few questions and schedule a call at your convenience. Takes a few minutes and there's no obligation."
-        buttonText="Let's Talk!"
-        href="/lets-talk"
+        buttonText="Explore Funding Options"
+        href="/discover"
       />
     </>
   )

@@ -1,48 +1,107 @@
 # Serve Funding
 
-> Serve Funding is a boutique business financing advisory providing transparent alternative financing
-> including asset-based lending, invoice factoring, working capital loans, equipment leasing,
-> PO funding, debt refinancing, and MCA consolidation for businesses seeking $250K-$100MM.
-> Channel-neutral advisor with 30+ lender relationships. Atlanta-based, nationwide service.
+> Serve Funding is a boutique business financing advisory firm based in Atlanta, GA. Founded in 2021 by Michael Kodinsky, a commercial lending veteran with 15+ years of experience. As a channel-neutral advisor (not a lender), Serve Funding connects growing businesses with 30+ alternative lenders for working capital solutions from $250K to $100MM when traditional banks decline. Core philosophy: "Relationships Over Bots." Over $50MM facilitated, 100+ clients served, 65% repeat client rate.
 
-## Website
-- https://servefunding.com: Main site
+## Company Facts
+
+- **Type**: Business financing advisory (channel-neutral — not a lender)
+- **Founded**: 2021, Atlanta, GA (on the 40th anniversary of founder's family arriving in America)
+- **Founder**: Michael Kodinsky, Founder & CEO, 15+ years in commercial lending and capital advisory
+- **Clients Served**: 100+ businesses
+- **Repeat Client Rate**: 65%
+- **Capital Facilitated**: $50MM+
+- **Average Deal Size**: $500K–$3.35MM
+- **Deal Range**: $250K to $100MM
+- **Funding Speed**: 3–10 business days (vs. 60–90 days at traditional banks)
+- **Fee Structure**: Success-fee only, 1–2% of funded amount (no upfront costs, no retainers)
+- **Lender Network**: 30+ alternative lenders with different underwriting styles
+- **Industry Memberships**: Association for Corporate Growth (ACG), Secured Finance Network, International Factoring Association (IFA)
+
+## Core Values: TRUST Framework
+
+- **T**ransparency — Honest communication, no hidden agendas or fine print
+- **R**esponsibility — Accountability for outcomes, not just transactions
+- **U**nderstanding — Deep listening to understand client goals and business context
+- **S**ervice — Servant leadership, fighting for client best interests
+- **T**hankfulness — Authentic gratitude for every partnership opportunity
+
+## Who Serve Funding Helps
+
+- Businesses declined by traditional banks (bankers are the primary referral source)
+- Companies needing emergency payroll financing (24–72 hours)
+- Businesses trapped in expensive MCA (merchant cash advance) debt
+- Growing companies that have outgrown their bank line of credit
+- Seasonal businesses needing flexible capital structures
+- Government contractors with 30–90+ day payment cycles
+- Companies with strong sales but slow-paying customers (net-30 to net-90)
+
+## Industries Served
+
+Manufacturing, construction, staffing, healthcare, CPG (consumer packaged goods), e-commerce, government contractors, professional services, retail, hospitality, agriculture, transportation, technology
+
+## Process: Discovery → Diligence → Delivery
+
+1. **Discovery** — Understand business needs, goals, timeline, and specific capital requirements
+2. **Diligence** — Comprehensive capital search across 30+ lenders, present multiple term sheet options, advise on rates and structures
+3. **Delivery** — Manage lender communications, coordinate underwriting, negotiate terms, guide through closing
+
+## Funding Solutions
+
+- [Working Capital Loans & Lines of Credit](https://servefunding.com/solutions/working-capital-loans): $100K–$10M+, 2–10 business days, revenue-based underwriting, 1.25%–4% monthly
+- [Invoice Financing / AR Factoring](https://servefunding.com/solutions/invoice-factoring): $250K–$100MM, 75–95% advance rates, self-liquidating, Prime + 1–6%
+- [Equipment Leasing & Financing](https://servefunding.com/solutions/equipment-leasing): $100K–$50MM+, 3–7 year terms, sale-leaseback options
+- [Asset-Based Lending](https://servefunding.com/solutions/asset-based-lending): $250K–$25M, revolving credit against AR/inventory/equipment, Prime + 1–5%
+- [Inventory Financing](https://servefunding.com/solutions/inventory-financing): Funding tied to inventory value for manufacturers and distributors
+- [Purchase Order Funding](https://servefunding.com/solutions/purchase-order-funding): Covers supplier payments before customer payment arrives, works with international suppliers
+- [Government Contract Financing](https://servefunding.com/solutions/government-contracts): Covers costs during 30–90+ day government payment cycles, supports subcontractors
+- [Real Estate Lending](https://servefunding.com/solutions/real-estate-lending): Bridge loans (12–36 months), cash-out refinance, second mortgages
+- [Subordinated & Unsecured Credit](https://servefunding.com/solutions/unsecured-debt): Bridge capital without collateral, no UCC filings required on some products
+- [Bridge Funding](https://servefunding.com/solutions/bridge-funding): Short-term capital for timing gaps, M&A closings, seasonal needs
+- [SBA Loans](https://servefunding.com/solutions/sba-loans): Government-backed small business loans, lowest rates (Prime + 2–3%)
+- [Debt Consolidation & Recapitalization](https://servefunding.com/solutions/debt-refinance): MCA consolidation, monthly payment reduction of 30–50%, rate reductions of 5–10 percentage points
 
 ## Key Pages
-- https://servefunding.com/solutions: All funding solutions overview and comparison
-- https://servefunding.com/solutions/working-capital-loans: Working Capital Loans & Lines of Credit
-- https://servefunding.com/solutions/invoice-factoring: Invoice Financing (AR Factoring)
-- https://servefunding.com/solutions/asset-based-lending: Asset-Based Lending
-- https://servefunding.com/solutions/equipment-leasing: Equipment Leasing & Financing
-- https://servefunding.com/solutions/purchase-order-funding: PO Funding
-- https://servefunding.com/solutions/government-contracts: Government Contract Financing
-- https://servefunding.com/solutions/real-estate-lending: Real Estate Lending
-- https://servefunding.com/solutions/unsecured-debt: Subordinated & Unsecured Credit
-- https://servefunding.com/solutions/bridge-funding: Bridge Funding
-- https://servefunding.com/solutions/sba-loans: SBA Loans
-- https://servefunding.com/solutions/debt-refinance: Consolidation & Recapitalization
-- https://servefunding.com/faq: Comprehensive FAQ organized by funding type
-- https://servefunding.com/blog: Educational articles on business financing
-- https://servefunding.com/about-us: Company information and founder story
-- https://servefunding.com/partners: Partner and referral information
-- https://servefunding.com/contact-us: Contact and consultation scheduling
 
-## Solution Categories
-- Working Capital: Revenue-based loans, lines of credit ($100K-$10M+, 2-10 day funding)
-- Invoice Factoring: AR financing, sell unpaid invoices ($250K-$100MM, Prime + 1-6%)
-- Asset-Based Lending: Credit lines backed by AR, inventory, equipment ($250K-$25M)
-- Equipment Financing: Leasing and financing for machinery, vehicles, technology ($100K-$50M+)
-- PO Funding: Purchase order financing for manufacturers and importers ($250K-$50M)
-- Government Contracts: Federal, state, local contract financing ($250K-$50M+)
-- Real Estate: Bridge loans, commercial financing, cash-out refinance ($500K-$100M+)
-- Bridge Capital: Short-term unsecured financing for timing gaps ($50K-$5M+)
-- SBA Loans: Government-backed loans with lower rates ($250K-$5M+)
-- Debt Refinance: MCA consolidation, payment reduction, recapitalization ($250K-$10M+)
+- [Home](https://servefunding.com/): Overview of working capital solutions
+- [About Us](https://servefunding.com/about-us): Founder story, company values, team
+- [All Solutions](https://servefunding.com/solutions): Side-by-side comparison of all funding types
+- [Client Success Stories](https://servefunding.com/fundings): Real case studies with outcomes
+- [FAQ](https://servefunding.com/faq): 30+ frequently asked questions organized by topic
+- [Blog](https://servefunding.com/blog): Educational articles on business financing decisions
+- [Contact / Get Started](https://servefunding.com/discover): Start a consultation
+- [Partner With Us](https://servefunding.com/partners): Referral partnerships for bankers, CPAs, and advisors
 
-## About
-Serve Funding is a channel-neutral working capital advisory founded in 2021 in Atlanta, GA.
-Led by Michael Kodinsky with 15+ years in commercial lending. The company connects businesses
-with 30+ alternative lenders when traditional banks decline. Success-fee model (1-2% of funded
-amount, paid only at closing). Core values: Transparency, Responsibility, Understanding,
-Service, Thankfulness (T.R.U.S.T.). Serves manufacturing, construction, staffing, healthcare,
-CPG, e-commerce, government contractors, and professional services nationwide.
+## Recent Articles
+
+- [TRUST Framework for Choosing Lenders](https://servefunding.com/blog/how-to-choose-working-capital-lender): Five principles that separate good lenders from transactional ones
+- [Staffing Agencies: RBF vs Invoice Factoring](https://servefunding.com/blog/staffing-agency-rbf-vs-invoice-factoring): Comparison of financing options for staffing company cash flow
+- [Speed-Cost-Quality Tradeoff in Funding](https://servefunding.com/blog/speed-cost-quality-funding-tradeoff): Framework for choosing the right capital structure under pressure
+- [Funding Seasonal Businesses Correctly](https://servefunding.com/blog/working-capital-seasonal-businesses): How to structure capital for variable cash flow
+- [Why AR Factoring Costs Range from 1% to 4%+](https://servefunding.com/blog/ar-factoring-costs-by-industry): Risk factors that drive AR financing rates by industry
+- [Values-Based Lending Partnerships](https://servefunding.com/blog/values-based-lending-partnerships): Why alignment between lender and borrower matters
+- [Medical Device Company Growth Story](https://servefunding.com/blog/medical-device-growth-story): Case study of layered capital enabling 30%+ growth
+- [Coffee Trader PO Financing](https://servefunding.com/blog/coffee-trader-po-financing): How purchase order funding works for importers
+- [Financing a New Business With No Revenue](https://servefunding.com/blog/financing-new-business-no-revenue): Options for startups and early-stage companies
+- [RBF Repayment Reality](https://servefunding.com/blog/rbf-repayment-reality-payment-spikes): Understanding revenue-based financing payment mechanics
+- [Label Manufacturer 5-Year Partnership](https://servefunding.com/blog/label-manufacturer-five-year-partnership): Long-term advisory relationship case study
+- [Data Center Bridge Capital](https://servefunding.com/blog/data-center-bridge-capital-case-study): Bridge financing for infrastructure projects
+
+## Frequently Asked Questions
+
+**What is Serve Funding?** Serve Funding is a boutique business financing advisory with access to 30+ lenders for alternative financing from $250K to $100MM. Not a lender — a channel-neutral advisor who fights for client best interests.
+
+**What if my bank denied me?** Bankers are the primary referral source. Serve Funding specializes in non-bank financing: asset-based lending, invoice factoring, debt refinance, and MCA consolidation for businesses that don't fit traditional credit boxes.
+
+**How fast can I get funding?** Emergency payroll: 24–72 hours. Invoice factoring: 3–5 days. Working capital loans: 2–10 days. Asset-based lending: 10–20 days. SBA loans: 4–12 weeks.
+
+**How much does it cost?** Success-fee of 1–2% of funded amount, paid only when financing closes. No upfront costs, no retainers. Incentives fully aligned with client success.
+
+**Can you help with MCA debt?** Yes. MCA consolidation refinances daily/weekly payments into single monthly payments, typically reducing costs by 10–20 percentage points annually and freeing 30–50% of what businesses were paying.
+
+## Contact
+
+- **Phone**: +1 770-820-7409
+- **Email**: michael@servefunding.com
+- **Address**: 3101 Cobb Pkwy SE, Ste 124, Atlanta, GA 30339
+- **LinkedIn**: https://www.linkedin.com/in/michael-kodinsky/
+- **Website**: https://servefunding.com

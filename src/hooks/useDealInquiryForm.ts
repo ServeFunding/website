@@ -44,18 +44,31 @@ function getCalendlyUrlForAction(action: string, userRole: string): string {
   return CALENDLY_URLS.michael[roleType]
 }
 
-export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) => void) {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+export type ChosenPath = 'schedule' | 'ai_chat' | null
+
+export interface AnsweredQuestion {
+  questionIndex: number
+  questionId: string
+  displayTitle: string
+  answer: string | string[]
+  options: string[]
+}
+
+export function useDealInquiryForm(
+  onSubmitSuccess?: (formData: FormSubmitData) => void,
+  initialRole?: string
+) {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(initialRole ? 1 : 0)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [skippedQuestions, setSkippedQuestions] = useState<Set<string>>(new Set())
   const [triageAction, setTriageAction] = useState<TriageAction | null>(null)
-  const [questionHistory, setQuestionHistory] = useState<number[]>([])
-  const [pendingSubmit, setPendingSubmit] = useState(false)
-  const [earlySubmitted, setEarlySubmitted] = useState(false)
-  const isEarlySubmitRef = useRef(false)
+  const [questionHistory, setQuestionHistory] = useState<number[]>(initialRole ? [0] : [])
+  const [showChoicePoint, setShowChoicePoint] = useState(false)
+  const [chosenPath, setChosenPath] = useState<ChosenPath>(null)
+  const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([])
 
   // Form field states
-  const [userRole, setUserRole] = useState('')
+  const [userRole, setUserRole] = useState(initialRole || '')
   const [businessIndustry, setBusinessIndustry] = useState('')
   const [timeInBusiness, setTimeInBusiness] = useState('')
   const [annualRevenue, setAnnualRevenue] = useState('')
@@ -84,8 +97,13 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
   const totalVisibleQuestions = visibleQuestions.length
   const isLastQuestion = currentQuestionIndex === totalVisibleQuestions - 1
 
+  // Check if current question is the contact_info question
+  const isContactInfoStep = currentQuestion?.type === 'contact-info'
+
+  // The triage questions are everything between user_role and contact_info
+  const isTriageQuestion = currentQuestion?.type !== 'contact-info' && currentQuestion?.id !== 'user_role'
+
   const getFieldValue = (fieldId: string) => {
-    // Handle dynamic "other" fields
     if (fieldId.endsWith('_other')) {
       return otherResponses[fieldId] || ''
     }
@@ -107,7 +125,6 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
   }
 
   const setFieldValue = (fieldId: string, value: any) => {
-    // Handle dynamic "other" fields
     if (fieldId.endsWith('_other')) {
       setOtherResponses(prev => ({
         ...prev,
@@ -162,37 +179,6 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
     }
   }
 
-  // Early submit - captures contact info immediately after they fill it in
-  const submitEarlyContactInfo = async () => {
-    if (earlySubmitted) return // Only submit once
-
-    const earlyData = {
-      name,
-      email,
-      phone,
-      company,
-      user_role: userRole,
-      is_early_capture: true,
-    }
-
-    setEarlySubmitted(true)
-    await sendToWebhooks(earlyData, 'deal_inquiry_early')
-    trackFormSubmission('deal_inquiry_early')
-    trackHubSpotNativeForm('deal_inquiry')
-    trackEvent('deal_inquiry_contact_captured', { name, email })
-
-    // Send email notification (early capture)
-    try {
-      fetch('/api/notify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...earlyData, type: 'early' }),
-      })
-    } catch (error) {
-      console.error('Notify email error:', error)
-    }
-  }
-
   // Send current form state to webhook after each question (for Google Sheets upsert)
   const sendAnswerWebhook = (questionId: string, answerValue: any) => {
     const formState = {
@@ -212,7 +198,7 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
     setFieldValue(currentQuestion.id, value)
     setSelectedAnswer(value)
 
-    // Send webhook with updated form state (no email, just webhook for Sheets upsert)
+    // Send webhook with updated form state
     sendAnswerWebhook(currentQuestion.id, value)
 
     // Track question answered
@@ -221,18 +207,54 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
       answer: value,
     })
 
+    // Resolve display title
+    const isPartner = userRole === 'A Banker / Business Advisor'
+    const displayTitle = (isPartner && currentQuestion.partnerTitle)
+      ? currentQuestion.partnerTitle
+      : currentQuestion.title
+
     // Auto-advance for single-choice questions (not multi-select)
     if (currentQuestion?.type !== 'multi') {
-      // Delay advancement to show highlight effect, then check triage
       setTimeout(() => {
+        // Add to answered questions thread
+        setAnsweredQuestions(prev => [...prev, {
+          questionIndex: currentQuestionIndex,
+          questionId: currentQuestion.id,
+          displayTitle,
+          answer: value,
+          options: currentQuestion.answers || [],
+        }])
         checkAndAdvance(currentQuestion.id, value)
         setSelectedAnswer(null)
       }, 600)
     }
   }
 
+  // For multi-select, advance is manual via moveToNextQuestion
+  const moveToNextQuestionManual = () => {
+    if (!currentQuestion) return
+
+    const isPartner = userRole === 'A Banker / Business Advisor'
+    const displayTitle = (isPartner && currentQuestion.partnerTitle)
+      ? currentQuestion.partnerTitle
+      : currentQuestion.title
+
+    const value = getFieldValue(currentQuestion.id)
+
+    setAnsweredQuestions(prev => [...prev, {
+      questionIndex: currentQuestionIndex,
+      questionId: currentQuestion.id,
+      displayTitle,
+      answer: value as string | string[],
+      options: currentQuestion.answers || [],
+    }])
+
+    sendAnswerWebhook(currentQuestion.id, value)
+
+    checkAndAdvance(currentQuestion.id, value)
+  }
+
   const checkAndAdvance = (justAnsweredQuestionId?: string, justAnsweredValue?: any) => {
-    // Build form state with the just-answered question included (handles async state updates)
     const baseFormState = getCurrentFormState()
     const formState = justAnsweredQuestionId
       ? { ...baseFormState, [justAnsweredQuestionId]: justAnsweredValue }
@@ -240,28 +262,36 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
 
     const currentQuestionId = justAnsweredQuestionId || currentQuestion?.id
 
-    // Recalculate which questions should be skipped based on current form state
+    // Recalculate skip rules
     const newSkippedQuestions = new Set<string>()
-
-    // Check all skip rules against the current form state
     triageRules.forEach(rule => {
       if (rule.then.action === 'skip_question' && rule.then.skipQuestionId) {
-        // Check if this rule's conditions are met with current form state
         if (checkTriageRules(rule.question_id, formState)?.then.skipQuestionId === rule.then.skipQuestionId) {
           newSkippedQuestions.add(rule.then.skipQuestionId)
         }
       }
     })
-
     setSkippedQuestions(newSkippedQuestions)
 
-    // Check if a rule applies for THIS question
+    // Check triage rules for this question
     const applicableRule = checkTriageRules(currentQuestionId || '', formState)
 
-    // If a mike triage rule matches, submit immediately (contact info already collected)
     if (applicableRule?.then.action === 'mike') {
       setTriageAction(applicableRule.then.action)
-      setPendingSubmit(true)
+      setShowChoicePoint(true)
+      return
+    }
+
+    if (applicableRule?.then.action === 'kyler_with_chat') {
+      setTriageAction(applicableRule.then.action)
+    }
+
+    // If no more questions, show choice point
+    const nextIndex = currentQuestionIndex + 1
+    const updatedVisible = formQuestions.filter(q => !newSkippedQuestions.has(q.id))
+
+    if (nextIndex >= updatedVisible.length) {
+      setShowChoicePoint(true)
       return
     }
 
@@ -289,75 +319,196 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
     }
   }
 
-  // Flag the next submit as an early contact-info capture
-  const flagEarlySubmit = () => {
-    isEarlySubmitRef.current = true
+  // Go back to a specific answered question (resets everything after it)
+  const handleGoBack = (answeredIndex: number) => {
+    const targetAnswered = answeredQuestions[answeredIndex]
+    if (!targetAnswered) return
+
+    // Clear answers after this point
+    const removedAnswers = answeredQuestions.slice(answeredIndex)
+    removedAnswers.forEach(aq => {
+      if (aq.questionId === 'financing_needs') {
+        setFieldValue(aq.questionId, [])
+      } else {
+        setFieldValue(aq.questionId, '')
+      }
+    })
+
+    // Reset state
+    setAnsweredQuestions(prev => prev.slice(0, answeredIndex))
+    setCurrentQuestionIndex(targetAnswered.questionIndex)
+    setQuestionHistory(prev => prev.slice(0, answeredIndex))
+    setShowChoicePoint(false)
+    setChosenPath(null)
+    setTriageAction(null)
+    setSelectedAnswer(null)
+  }
+
+  // Handle path choice (Schedule or AI Chat)
+  const handlePathChoice = (path: ChosenPath) => {
+    setChosenPath(path)
+    setShowChoicePoint(false)
+
+    // Add the choice as an answered question in the thread
+    const choiceLabel = path === 'schedule' ? 'Schedule a Call' : 'Explore with our Funding Navigator'
+    setAnsweredQuestions(prev => [...prev, {
+      questionIndex: -1,
+      questionId: 'path_choice',
+      displayTitle: 'Thanks for sharing! Would you like to speak with our team or explore options with our Funding Navigator?',
+      answer: choiceLabel,
+      options: ['Schedule a Call', 'Explore with our Funding Navigator'],
+    }])
+
+    // Fire final submission (contact info already collected at Q2)
+    void submitFinalForm(path)
+  }
+
+  const submitFinalForm = async (path: ChosenPath) => {
+    const triagedCalendlyUrl = getTriagedCalendlyUrl()
+
+    trackEvent('deal_inquiry_form_submitted', {
+      triage_action: triageAction || 'default',
+      calendly_url: triagedCalendlyUrl,
+      user_role: userRole,
+      chosen_path: path || '',
+    })
+
+    const contactData = {
+      ...getCurrentFormState(),
+      name,
+      email,
+      phone,
+      company,
+      chosen_path: path,
+    }
+    sendToWebhooks(contactData, 'deal_inquiry')
+
+    // Only send the "scheduling a call" email when they actually pick scheduling
+    if (path === 'schedule') {
+      notifyScheduleTransition('schedule_directly')
+    }
+  }
+
+  const notifyScheduleTransition = (source: 'schedule_directly' | 'ai_chat', chatTranscript?: string) => {
+    const contactData = {
+      ...getCurrentFormState(),
+      name,
+      email,
+      phone,
+      company,
+    }
+    try {
+      fetch('/api/notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...contactData,
+          type: 'calendly',
+          transition_source: source,
+          chat_transcript: chatTranscript || '',
+        }),
+      })
+    } catch (error) {
+      console.error('Notify email error:', error)
+    }
+  }
+
+  // Continue from contact-info step (Q2) to next triage question without final submission
+  const handleContactInfoContinue = () => {
+    if (!name || !email) return
+
+    const isPartner = userRole === 'A Banker / Business Advisor'
+    const displayTitle = (isPartner && currentQuestion?.partnerTitle)
+      ? currentQuestion.partnerTitle
+      : currentQuestion?.title || ''
+
+    setAnsweredQuestions(prev => [...prev, {
+      questionIndex: currentQuestionIndex,
+      questionId: 'contact_info',
+      displayTitle,
+      answer: `${name} · ${email}`,
+      options: [],
+    }])
+
+    sendAnswerWebhook('contact_info', { name, email, phone, company })
+
+    // Fire instant notify email so we hear about the lead even if they abandon mid-triage
+    try {
+      fetch('/api/notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...getCurrentFormState(),
+          name,
+          email,
+          phone,
+          company,
+          type: 'early',
+        }),
+      })
+    } catch (error) {
+      console.error('Notify email error:', error)
+    }
+
+    trackEvent('deal_inquiry_question_answered', {
+      question_id: 'contact_info',
+      answer: 'submitted',
+    })
+
+    checkAndAdvance('contact_info', { name, email, phone, company })
   }
 
   const getTriagedCalendlyUrl = (): string => {
-    // If immediate routing rule matched, use that
-    if (triageAction === 'mike') {
-      return getCalendlyUrlForAction('mike', userRole)
+    if (triageAction) {
+      return getCalendlyUrlForAction(triageAction, userRole)
     }
-
-    // For form completion, check final state
-    const formState = getCurrentFormState()
-
-    // Check all rules one more time with complete form state
-    const applicableRule = checkTriageRules('owner_credit_score', formState)
-
-    if (applicableRule) {
-      const { action } = applicableRule.then
-      return getCalendlyUrlForAction(action, userRole)
-    }
-
-    // Default: Michael's calendar based on role
     return getCalendlyUrlForAction('mike_with_chat', userRole)
   }
 
-  // Build Calendly custom answers based on role type and form data
   const getCalendlyCustomAnswers = (): Record<string, string> => {
     const roleType = getRoleType(userRole)
 
     if (roleType === 'owner') {
-      // Owner Calendly questions:
-      // a1: "Tell us briefly about your business"
-      // a2: "What is your monthly revenue range?" (dropdown - can't reliably prefill)
-      // a3: "What is your current funding need or goal?"
-      // a4: "How soon are you looking to secure funding?" (dropdown - can't reliably prefill)
       const businessDesc = [
         company,
         businessIndustry ? `${businessIndustry} business` : '',
         timeInBusiness ? `${timeInBusiness} in operation` : '',
+        annualRevenue ? `${annualRevenue} annual revenue` : '',
       ].filter(Boolean).join(', ')
 
-      const fundingGoal = financingNeeds.length > 0
-        ? financingNeeds.join(', ')
-        : ''
+      // Map annual revenue to Calendly's monthly revenue dropdown options
+      const monthlyRevenueMap: Record<string, string> = {
+        '$500K-$1MM': '$50K-100K',
+        '$1MM-$3MM': '$100K-$500K',
+        '$3MM-$10MM': '$100K-$500K',
+        '$10MM-$20MM': '$500K+',
+        '$20MM-$50MM': '$500K+',
+        '$50MM-$100MM': '$500K+',
+        '$100MM+': '$500K+',
+      }
+      const monthlyRevenue = annualRevenue ? monthlyRevenueMap[annualRevenue] || '' : ''
+
+      const fundingGoal = [
+        fundingAmount,
+        financingNeeds.length > 0 ? `for ${financingNeeds.join(', ')}` : '',
+      ].filter(Boolean).join(' ')
 
       return {
         ...(businessDesc && { a1: businessDesc }),
+        ...(monthlyRevenue && { a2: monthlyRevenue }),
         ...(fundingGoal && { a3: fundingGoal }),
       }
     } else {
-      // Partner Calendly questions:
-      // a1: "Briefly describe your role and the clients you typically serve"
-      // a2: "What types of funding needs do your clients most often have?" (checkboxes)
-      // a3: "Where do you currently see gaps in serving your clients' funding needs?"
-      // a4: "Is there anything specific you'd like to cover during the call?"
       const roleDesc = userRole
-
       return {
         ...(roleDesc && { a1: roleDesc }),
       }
     }
   }
 
-  const resetPendingSubmit = () => setPendingSubmit(false)
-
-  // Build current partial form data (for schedule-directly escape hatch)
+  // Build current partial form data
   const getCurrentFormData = (): FormSubmitData => {
-    const calendlyUrl = getCalendlyUrlForAction('kyler_with_chat', userRole)
+    const calendlyUrl = getTriagedCalendlyUrl()
     return {
       name,
       email,
@@ -371,7 +522,7 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
       funding_amount: fundingAmount,
       owner_credit_score: ownerCreditScore,
       calendly_url: calendlyUrl,
-      triage_action: 'kyler_with_chat',
+      triage_action: triageAction || 'mike_with_chat',
     }
   }
 
@@ -392,36 +543,42 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
       (e.nativeEvent as Event).stopImmediatePropagation?.()
     }
 
-    // Early submit path: contact info capture, then continue form
-    if (isEarlySubmitRef.current) {
-      isEarlySubmitRef.current = false
-
-      // Track in HubSpot using the actual form element (native form tracking)
-      const form = e.currentTarget
-      trackHubSpotNativeForm('deal_inquiry', form)
-
-      // Also send to webhooks
-      await submitEarlyContactInfo()
-
-      // Continue to next question
-      moveToNextQuestion()
-      return
-    }
-
-    // Full submit path: end of form or mike triage
-    setPendingSubmit(false)
-
     const triagedCalendlyUrl = getTriagedCalendlyUrl()
 
-    // Track form submission
     trackEvent('deal_inquiry_form_submitted', {
       triage_action: triageAction || 'default',
       calendly_url: triagedCalendlyUrl,
       user_role: userRole,
+      chosen_path: chosenPath || '',
     })
 
-    // Add calendly URL and triage action as hidden inputs
+    // Track in HubSpot
     const form = e.currentTarget
+    trackHubSpotNativeForm('deal_inquiry', form)
+
+    // Send contact info to webhooks
+    const contactData = {
+      ...getCurrentFormState(),
+      name,
+      email,
+      phone,
+      company,
+      chosen_path: chosenPath,
+    }
+    sendToWebhooks(contactData, 'deal_inquiry')
+
+    // Send email notification
+    try {
+      fetch('/api/notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...contactData, type: 'discover' }),
+      })
+    } catch (error) {
+      console.error('Notify email error:', error)
+    }
+
+    // Add calendly URL and triage action as hidden inputs
     const calendlyInput = document.createElement('input')
     calendlyInput.type = 'hidden'
     calendlyInput.name = 'calendly_url'
@@ -460,15 +617,21 @@ export function useDealInquiryForm(onSubmitSuccess?: (formData: FormSubmitData) 
     triageAction,
     otherResponses,
     isLastQuestion,
-    pendingSubmit,
+    isContactInfoStep,
+    isTriageQuestion,
+    showChoicePoint,
+    chosenPath,
+    answeredQuestions,
     getFieldValue,
     setFieldValue,
     handleAnswer,
-    moveToNextQuestion,
+    moveToNextQuestion: moveToNextQuestionManual,
     moveToPreviousQuestion,
-    flagEarlySubmit,
+    handleGoBack,
+    handlePathChoice,
     handleSubmit,
-    resetPendingSubmit,
+    handleContactInfoContinue,
+    notifyScheduleTransition,
     getCalendlyCustomAnswers,
     getCurrentFormData,
   }

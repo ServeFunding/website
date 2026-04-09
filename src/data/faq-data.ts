@@ -49,32 +49,32 @@ export const topLevelFAQs: FAQ[] = [
   {
     id: 'top-what-is-serve-funding',
     q: "What is Serve Funding?",
-    a: "Serve Funding is a boutique business financing advisory that provides strategic guidance and access to 30+ lenders for alternative financing needs from $250K to $100MM. As a channel-neutral advisor, we're not a lender—we're your advocate who fights for your best interests."
+    a: "Serve Funding is a channel-neutral business financing advisory with access to 30+ alternative lenders for working capital from $250K to $100MM. We're not a lender — we're your advocate who compares options across multiple underwriting styles and negotiates on your behalf when traditional banks decline."
   },
   {
     id: 'top-when-banks-say-no',
     q: "What if my bank denied my loan application?",
-    a: "When banks say no, we say how. We specialize in non-bank financing options including asset-based lending, invoice factoring, debt refinance, and MCA consolidation. Bankers are our primary referral sources because we help businesses that don't fit traditional credit boxes."
+    a: "Bank declines are our most common starting point — bankers are our primary referral source. We specialize in non-bank financing including asset-based lending, invoice factoring, debt refinance, and MCA consolidation for businesses that don't fit traditional credit boxes. Alternative lenders evaluate whole businesses, not just DSCR or credit scores."
   },
   {
     id: 'top-how-fast-funding',
     q: "How fast can I get funding?",
-    a: "Speed varies by solution: emergency payroll financing in 24-72 hours, invoice factoring in 3-5 days, asset-based lending in 10-20 days. We've closed deals in as little as 3 business days when time was critical."
+    a: "Funding speed ranges from 24 hours to 8 weeks depending on the product: emergency payroll in 24-72 hours, working capital loans in 2-10 days, invoice factoring in 3-5 days, and asset-based lending in 4-8 weeks. Serve Funding has closed deals in as little as 3 business days when time was critical."
   },
   {
     id: 'top-debt-refinance',
     q: "Can you help refinance expensive debt?",
-    a: "Yes. Debt refinancing is one of our most popular solutions. We help businesses escape MCA debt traps, consolidate multiple loans, and reduce monthly payments by 30-50%. Most clients save 5-10 percentage points on their total cost of capital."
+    a: "Yes — debt refinancing reduces monthly payments by 30-50% and lowers total cost of capital by 5-10 percentage points annually. We help businesses escape MCA debt traps, consolidate multiple daily/weekly payments into a single monthly payment, and often cash out additional working capital in the process."
   },
   {
     id: 'top-how-much-cost',
     q: "How much does Serve Funding cost?",
-    a: "We operate on a success-fee basis of 1-2% of the funded amount, paid only when you receive financing. No upfront costs, no retainers. We only succeed when you do, which aligns our incentives with yours."
+    a: "Serve Funding charges a success fee of 1-2% of the funded amount, paid only when you receive financing. No upfront costs, no retainers, no hidden fees. This fee-only-on-success model aligns our incentives entirely with yours — we only get paid when you do."
   },
   {
     id: 'top-industries-served',
     q: "What industries do you serve?",
-    a: "We serve manufacturing, construction, staffing, healthcare, CPG, e-commerce, government contractors, and professional services. Based in Atlanta, we primarily serve the Southeast but work with clients nationwide."
+    a: "Serve Funding works with manufacturing, construction, staffing, healthcare, CPG, e-commerce, government contractors, and professional services. Based in Atlanta and primarily serving the Southeast, we work with clients nationwide for deals from $250K to $100MM."
   }
 ]
 

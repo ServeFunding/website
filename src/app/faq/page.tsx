@@ -28,59 +28,59 @@ export const metadata: Metadata = {
 const faqs = [
   {
     question: 'What Is Serve Funding?',
-    answer: 'Serve Funding is a boutique working capital advisory that helps businesses secure financing solutions when traditional banks aren\'t an option. We connect business owners with lenders offering loans, lines of credit, equipment leasing, and other financial products tailored to their needs.'
+    answer: 'Serve Funding is a channel-neutral business financing advisory that connects businesses with 30+ alternative lenders for working capital from $250K to $100MM. Unlike a lender or broker tied to one product, we act as your advocate — comparing options across multiple underwriting styles to find the best fit when traditional banks decline.'
   },
   {
     question: 'How Does Serve Funding Work?',
-    answer: 'We work with trusted referral partners, such as bankers and financial advisors, to receive leads for businesses in need of financing. Our process involves qualifying the lead, gathering the necessary documentation, and connecting the business with suitable funding options. We guide you through every step of the process to ensure a smooth and transparent experience.'
+    answer: 'Serve Funding follows a three-step process: Discovery (understanding your needs), Diligence (searching across 30+ lenders for the best terms), and Delivery (managing closing and negotiating on your behalf). Most engagements begin through referrals from bankers, CPAs, or financial advisors. You work directly with experienced advisors throughout — no handoffs to junior staff.'
   },
   {
     question: 'What Types Of Funding Solutions Do You Offer?',
-    answer: 'Serve Funding offers a variety of funding solutions, including: Loans and lines of credit, Asset-based financing, Equipment leasing, Contract and purchase order funding, MCA (Merchant Cash Advance) consolidations, and Equity and partner buyouts.'
+    answer: 'Serve Funding offers 12 funding solutions: working capital loans, invoice factoring, asset-based lending, equipment leasing, inventory financing, PO funding, government contract financing, real estate lending, bridge capital, SBA loans, subordinated debt, and MCA consolidation. Deal sizes range from $250K to $100MM with funding timelines from 3 days to 8 weeks depending on the product.'
   },
   {
     question: 'What Information Do I Need To Provide To Get Started?',
-    answer: 'To begin, we will request some basic information about your business, including financial statements, business plans, and identification documents. This helps us assess your eligibility and find the best financing options available.'
+    answer: 'Most solutions require 3-6 months of bank statements, a recent accounts receivable aging report, and basic financials (P&L, balance sheet). Some products like invoice factoring focus primarily on your invoices and customer creditworthiness rather than tax returns. Working capital loans may only need bank statements and a simple application.'
   },
   {
     question: 'How Long Does The Funding Process Take?',
-    answer: 'The timeline varies depending on the type of funding and the completeness of the information provided. Typically, it can take anywhere from a few days to a couple of weeks. We work diligently to expedite the process and keep you informed at every stage.'
+    answer: 'Funding speed depends on the product: working capital loans close in 2-10 business days, invoice factoring in 3-5 days (after initial 2-3 week setup), asset-based lending in 4-8 weeks, and emergency payroll financing in 24-72 hours. Serve Funding has closed deals in as little as 3 business days when time was critical.'
   },
   {
     question: 'What If I\'ve Been Denied Funding By A Bank?',
-    answer: 'Serve Funding specializes in helping businesses that have been turned down by traditional banks. We have access to alternative lenders and creative financing solutions designed to meet unique business needs, even if you\'ve been previously denied.'
+    answer: 'Bank declines are the most common starting point for Serve Funding clients — bankers are our primary referral source. Alternative lenders evaluate businesses differently: invoice factoring looks at your customers\' credit (not yours), asset-based lending focuses on collateral value, and working capital loans weigh revenue trajectory over credit scores.'
   },
   {
     question: 'Is My Information Kept Confidential?',
-    answer: 'Yes, we take your privacy seriously. All information you provide is kept confidential and is only shared with trusted partners and lenders as necessary to facilitate your funding. Please review our Privacy Policy for more details on how we protect your data.'
+    answer: 'Yes, all information is kept strictly confidential and shared only with lenders actively underwriting your deal. We operate under NDA with all lender partners. Review our Privacy Policy for full details on data protection practices.'
   },
   {
     question: 'How Does Serve Funding Ensure A Fair Process?',
-    answer: 'We operate on a foundation of transparency, integrity, and service. Our goal is to find the best financing solution that aligns with your business goals. We communicate openly about all options, fees, and potential outcomes, ensuring you have the information needed to make informed decisions.'
+    answer: 'Serve Funding operates on a success-fee model (1-2% of funded amount, paid only at closing), which aligns our incentives with yours. As a channel-neutral advisor with 30+ lender relationships, we have no incentive to push one product over another. We disclose all fees, rates, and terms upfront so you can make informed comparisons.'
   },
   {
     question: 'Can Serve Funding Help With Ongoing Financing Needs?',
-    answer: 'Absolutely! We aim to build long-term relationships with our clients. If your business requires additional funding in the future or if your needs evolve, we are here to help you navigate those changes and find the right financial solutions.'
+    answer: 'Yes — 65% of Serve Funding clients return for additional financing as their business grows. We build long-term advisory relationships, not one-time transactions. As your capital needs evolve (growth, acquisitions, seasonal cycles), we adjust your capital structure across our lender network.'
   },
   {
     question: 'What Industries Does Serve Funding Work With?',
-    answer: 'We work with a wide range of industries, including retail, manufacturing, technology, healthcare, government contracting, and more. If you\'re unsure whether your business qualifies, please contact us to discuss your specific needs.'
+    answer: 'Serve Funding works with manufacturing, construction, staffing, healthcare, CPG, e-commerce, government contractors, professional services, retail, hospitality, agriculture, and transportation. Based in Atlanta, we primarily serve the Southeast but work with clients nationwide.'
   },
   {
     question: 'How Can Healthcare Providers Benefit From Business Financing?',
-    answer: 'Healthcare providers often face challenges with cash flow due to slow insurance reimbursements, high equipment costs, and staffing needs. Asset-based lending, accounts receivable financing, and working capital loans can help medical practices, clinics, and supply companies bridge gaps and fund growth. Many healthcare organizations use these solutions to manage seasonal fluctuations, fund equipment purchases, or expand capacity.'
+    answer: 'Healthcare providers can use accounts receivable financing to bridge 60-90 day insurance reimbursement cycles, getting 75-95% of invoice value within 24-48 hours. Asset-based lending and working capital loans also help medical practices fund equipment purchases, cover staffing needs, and manage seasonal patient volume fluctuations. One healthcare supply manufacturer secured $1MM at Prime + 2% through Serve Funding.'
   },
   {
     question: 'What Financing Solutions Work Best For Manufacturers?',
-    answer: 'Manufacturers typically need capital for equipment purchases, inventory buildup, and working capital during growth phases. Asset-based lending works well for manufacturers because you can leverage equipment, real estate, and inventory. Invoice factoring is ideal if you have strong B2B customers with net-30, net-60, or net-90 payment terms. Many manufacturers also use working capital lines to manage seasonal demand swings.'
+    answer: 'Asset-based lending is the best fit for most manufacturers because it leverages existing equipment, inventory, and accounts receivable — facilities from $250K to $25M at Prime + 1-5%. Invoice factoring works well for manufacturers with strong B2B customers on net-30 to net-90 terms. Working capital lines help manage seasonal demand swings and raw material purchases.'
   },
   {
     question: 'How Does Government Contracting Financing Work?',
-    answer: 'Government contractors face unique challenges: long payment cycles (sometimes 60-90+ days), contract bond requirements, and upfront costs before receiving payment. We offer specialized solutions including contract financing, bid bonds, and accounts receivable financing that align with government payment timelines. This allows contractors to take on larger contracts without straining cash flow.'
+    answer: 'Government contract financing covers your upfront costs (materials, payroll, subcontractors) during 30-90+ day government payment cycles, then repays when the government pays. Solutions include contract financing, accounts receivable factoring against government invoices, and bid bonds. Subcontractors also qualify. Serve Funding has closed government contract deals in as few as 20 business days.'
   },
   {
     question: 'Can Serve Funding Help If My Industry Has Seasonal Fluctuations?',
-    answer: 'Absolutely. Revolving lines of credit and asset-based lending are perfect for seasonal businesses. You can draw capital when you need it (during off-season) and pay it back when cash flows in (during peak season). This flexibility allows you to maintain payroll and inventory without being constrained by temporary cash crunches.'
+    answer: 'Yes — seasonal businesses are a specialty. Revolving lines of credit and asset-based lending let you draw capital during off-season and repay when peak revenue arrives. We structure payment schedules around your actual cash flow cycle, not a standard amortization table. Prepayment options let you exit debt quickly once peak season revenue hits.'
   }
 ]
 
@@ -113,8 +113,11 @@ export default function FAQ() {
             <Heading size="h1" className="mb-4 text-olive-900">
               Frequently Asked Questions
             </Heading>
-            <Text size="lg" className="text-gray-700 max-w-3xl mx-auto">
+            <Text size="2xl" className="text-gray-700 max-w-3xl mx-auto">
               Explore our comprehensive guides or browse common questions below
+            </Text>
+            <Text size="sm" className="text-gray-400 mt-3">
+              Last updated: April 2, 2026
             </Text>
           </FadeIn>
         </Container>

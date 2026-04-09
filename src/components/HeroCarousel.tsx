@@ -58,10 +58,10 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
   const slide = slides[heroIndex]
 
   return (
-    <Container className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center justify-center lg:justify-start h-full pb-6">
-      {/* Text Column - 40% width */}
-      <div className="relative z-20 w-full lg:flex-[0.6] lg:min-w-0">
-        <Heading key={`heading-${heroIndex}`} size="h1" className="text-gray-800">
+    <Container className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center lg:items-stretch h-full pb-6">
+      {/* Text Column */}
+      <div className="relative z-20 w-full lg:flex-[0.5] lg:min-w-0 flex flex-col justify-center">
+        <Heading key={`heading-${heroIndex}`} size="hero" className="text-gray-800">
           {slide.heading}
         </Heading>
         <Text size="2xl" className="mb-6 lg:mb-8 text-gray-700">
@@ -85,27 +85,20 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
         </div>
       </div>
 
-      {/* Image Column - 60% width on lg, full width on mobile */}
-      <div
-        className="relative w-full lg:flex-[0.4] mx-4 sm:mx-6 lg:mx-0 rounded-2xl overflow-hidden shadow-lg lg:hover:shadow-xl transition-shadow duration-500 lg:min-w-0"
-        style={{
-          boxShadow: `0 10px 30px rgba(0, 0, 0, 0.1)`,
-          aspectRatio: 'auto',
-        }}>
-        {/* Render all images in HTML - browser discovers them all early */}
+      {/* Image Column - full height */}
+      <div className="relative w-full lg:flex-[0.5] lg:min-w-0 min-h-[300px] lg:min-h-0 rounded-2xl overflow-hidden shadow-lg">
         {slides.map((s, index) => (
           <Image
             key={s.image}
             src={s.image}
             alt={typeof s.heading === 'string' ? s.heading : 'Hero slide image'}
-            width={1024}
-            height={819}
-            className={`w-full h-full object-cover lg:object-contain transition-opacity duration-500 ease-out ${
-              index === heroIndex ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none absolute inset-0'
+            fill
+            className={`object-cover transition-opacity duration-500 ease-out ${
+              index === heroIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
             }`}
             priority={index === 0}
             loading="eager"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 50vw"
+            sizes="(max-width: 1024px) 100vw, 50vw"
             quality={85}
             fetchPriority={index === 0 ? "high" : "auto"}
           />

@@ -45,12 +45,18 @@ export const getOrganizationSchema = (config?: {
   "foundingDate": `${companyInfo.founded.year}`,
   "founder": {
     "@type": "Person",
-    "name": "Michael Kodinsky"
+    "name": "Michael Kodinsky",
+    "jobTitle": "Founder & CEO",
+    "sameAs": "https://www.linkedin.com/in/michael-kodinsky/"
   },
   "knowsAbout": fundingSolutions.map(solution => getTitleAsString(solution.title)),
   "sameAs": [
-    // Add social media URLs
+    "https://www.linkedin.com/in/michael-kodinsky/"
   ],
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": ["h1", ".speakable", "[data-speakable]"]
+  },
   ...(config?.aggregateRating && {
     "aggregateRating": {
       "@type": "AggregateRating",
@@ -134,7 +140,11 @@ export const getFAQPageSchema = (faqs: Array<{
       "@type": "Answer",
       "text": faq.answer
     }
-  }))
+  })),
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": ["h1", ".faq-question", ".faq-answer"]
+  }
 })
 
 // ============================================================================
@@ -163,17 +173,24 @@ export const getArticleSchema = (article: {
   "author": {
     "@type": "Person",
     "name": article.author?.name || "Serve Funding",
-    ...(article.author?.url && { "url": article.author.url })
+    ...(article.author?.url && { "url": article.author.url }),
+    "jobTitle": "Founder & CEO, Serve Funding",
+    "sameAs": "https://www.linkedin.com/in/michael-kodinsky/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Serve Funding",
+    "url": "https://servefunding.com",
     "logo": {
       "@type": "ImageObject",
       "url": "https://servefunding.com/Logo_Full-color_long_samecolor-1.webp"
     }
   },
-  "articleBody": article.content
+  "articleBody": article.content,
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": ["h1", "h2", ".speakable", "[data-speakable]"]
+  }
 })
 
 // ============================================================================
@@ -215,7 +232,7 @@ export const getPersonSchema = (person: {
   "jobTitle": person.jobTitle,
   "description": person.description,
   "image": person.image,
-  ...(person.linkedinUrl && { "sameAs": person.linkedinUrl }),
+  ...(person.linkedinUrl && { "sameAs": [person.linkedinUrl] }),
   ...(person.education && {
     "alumniOf": {
       "@type": "EducationalOrganization",

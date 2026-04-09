@@ -269,8 +269,8 @@ export function DealInquiryChat({ formData, onScheduleClick }: DealInquiryChatPr
             </div>
             {/* AI Disclaimer */}
             <div className="mt-2">
-              <p className="text-xs text-gray-500 text-center">
-                <span className="font-semibold">AI can make mistakes.</span> For important funding decisions, please speak with our team directly.
+              <p className="text-xs text-gray-400 text-center">
+                AI can make mistakes. For important funding decisions, please speak with our team directly.
               </p>
             </div>
           </div>

@@ -175,17 +175,23 @@ const nextConfig: NextConfig = {
         destination: "/partners",
         permanent: false, // 302 temporary redirect
       },
-      // Deal inquiry redirect to lets-talk
+      // Legacy lets-talk redirect to discover
+      {
+        source: "/lets-talk",
+        destination: "/discover",
+        permanent: true,
+      },
+      // Deal inquiry redirect to discover
       {
         source: "/deal-inquiry",
-        destination: "/lets-talk",
-        permanent: true, // 301 redirect for SEO
+        destination: "/discover",
+        permanent: true,
       },
-      // Contact us consolidated into lets-talk
+      // Contact us redirect to discover
       {
         source: "/contact-us",
-        destination: "/lets-talk",
-        permanent: true, // 301 redirect for SEO
+        destination: "/discover",
+        permanent: true,
       },
     ];
   },

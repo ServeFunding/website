@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { Factory, Truck, Shield, Users, UtensilsCrossed, Megaphone, ShoppingCart, Package, Briefcase, Sparkles, Lock, Wifi, HardHat, Navigation, Heart, Building2 } from 'lucide-react'
+import { Factory, Truck, Shield, Users, UtensilsCrossed, Megaphone, ShoppingCart, Package, Briefcase, Sparkles, Lock, Wifi, HardHat, Heart, Building2 } from 'lucide-react'
 import { COLORS } from '@/lib/colors'
 
 const industries = [
@@ -20,7 +20,6 @@ const industries = [
   { name: "Cleaning & Janitorial", desc: "Cover payroll and supplies upfront. Keep services running smoothly.", icon: Sparkles },
   { name: "Security Guard Services", desc: "Pay guards before clients pay. Ensure continuous protection services.", icon: Lock },
   { name: "Telecommunications & IoT", desc: "Invest in equipment and infrastructure upfront. Keep up with fast-paced tech demands.", icon: Wifi },
-  { name: "Transportation & Logistics", desc: "Cover fuel and maintenance costs. Bridge cash flow gaps between deliveries and payments.", icon: Navigation },
   { name: "Software & SaaS", desc: "Fund growth, hiring, and infrastructure. Scale faster with working capital when you're building the next big thing.", icon: Building2 }
 ]
 
@@ -60,7 +59,7 @@ export function IndustriesGrid() {
   }, [isTouchDevice, touchedIndex])
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 justify-items-center relative" onTouchStart={handleTouchStart}>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center relative" onTouchStart={handleTouchStart}>
       {industries.map((industry, index) => {
         const isHovered = hoveredIndex === index
         const Icon = industry.icon
@@ -83,19 +82,18 @@ export function IndustriesGrid() {
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
               className="w-fit"
               style={{
-                width: '220px',
-                height: '140px',
+                width: '340px',
+                height: '180px',
               }}
             >
               <div
                 style={{
-                  backgroundColor: COLORS.background,
-                  borderColor: COLORS.primary,
+                  backgroundColor: COLORS.primary,
                 }}
-                className="relative z-10 border-2 rounded-xl p-4 flex flex-col items-center justify-center text-center shadow-sm"
+                className="relative z-10 rounded-xl p-4 flex flex-col items-center justify-center text-center shadow-sm"
               >
-                <Icon size={32} className="mb-2" style={{ color: COLORS.primary }} strokeWidth={1.5} />
-                <p className="font-medium text-gray-700 line-clamp-2 text-center text-sm">
+                <Icon size={36} className="mb-3" style={{ color: COLORS.highlight }} strokeWidth={1.5} />
+                <p className="font-medium text-white line-clamp-2 text-center text-xl">
                   {industry.name}
                 </p>
 
@@ -104,7 +102,7 @@ export function IndustriesGrid() {
                   transition={{ duration: 0.2 }}
                   className="overflow-hidden"
                 >
-                  <p className="text-xs text-gray-600 leading-snug pt-2">
+                  <p className="text-xs text-white leading-snug pt-2">
                     {industry.desc}
                   </p>
                 </motion.div>

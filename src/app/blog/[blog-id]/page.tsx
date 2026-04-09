@@ -88,6 +88,7 @@ export default async function BlogPost({ params }: Props) {
   }
 
   const formattedDate = formatDate(blogPost.date)
+  const formattedLastUpdated = blogPost.lastUpdated ? formatDate(blogPost.lastUpdated) : null
 
   // Parse markdown content
   const ast = Markdoc.parse(blogPost.content)
@@ -97,7 +98,9 @@ export default async function BlogPost({ params }: Props) {
   const articleSchema = getArticleSchema({
     headline: blogPost.title,
     description: blogPost.excerpt,
-    datePublished: formattedDate,
+    datePublished: blogPost.date,
+    dateModified: blogPost.lastUpdated || blogPost.date,
+    image: blogPost.image ? `https://servefunding.com${blogPost.image}` : undefined,
     author: {
       name: blogPost.author,
       url: 'https://servefunding.com/about-us'
@@ -133,6 +136,15 @@ export default async function BlogPost({ params }: Props) {
         <Container>
           <FadeIn className="max-w-3xl mx-auto">
             {renderMarkdoc(transformed)}
+
+            {/* Last Updated indicator for freshness signals */}
+            {formattedLastUpdated && (
+              <div className="mt-8 pt-4 border-t border-gray-200">
+                <Text size="sm" className="text-gray-500">
+                  Last updated: {formattedLastUpdated}
+                </Text>
+              </div>
+            )}
           </FadeIn>
 
           {/* Social Share Buttons */}

@@ -120,7 +120,7 @@ export function NewsletterModalForm({
         <FormSuccessContent
           message={<>You&#39;re in!<br /><br />You should see an email confirmation soon.<br /><br />We&#39;d love to talk to you as well.</>}
           formData={formData}
-          calendlyUrl="/lets-talk"
+          calendlyUrl="/discover"
           ctaText="Let's Talk"
         />
       ) : (
@@ -207,22 +207,11 @@ export function DealInquiryForm({
     handleAnswer,
     moveToNextQuestion,
     moveToPreviousQuestion,
-    flagEarlySubmit,
     handleSubmit,
     otherResponses,
     isLastQuestion,
-    pendingSubmit,
-    resetPendingSubmit,
     getCurrentFormData,
   } = useDealInquiryForm(onSubmitSuccess)
-
-  // Watch for pendingSubmit flag (triggered by mike triage) and submit the form
-  useEffect(() => {
-    if (pendingSubmit && formRef.current) {
-      formRef.current.requestSubmit()
-      resetPendingSubmit()
-    }
-  }, [pendingSubmit, resetPendingSubmit])
 
   // Is the current step a triage question (after contact info)?
   const isTriageStep = currentQuestion?.type !== 'contact-info' && currentQuestionIndex > 0
@@ -448,7 +437,6 @@ export function DealInquiryForm({
                   variant="default"
                   size="lg"
                   type="submit"
-                  onClick={flagEarlySubmit}
                   disabled={!name || !email}
                   className="flex-1"
                 >

@@ -29,47 +29,21 @@ export interface Question {
 export const formQuestions: Question[] = [
   {
     id: 'user_role',
-    title: 'I am:',
+    title: "Welcome! Are you a business owner or a funding partner?",
     answers: ['A Business Owner or Operator Seeking Funding', 'A Banker / Business Advisor'],
     type: 'single'
   },
   {
     id: 'contact_info',
-    title: 'Tell us about your business',
-    partnerTitle: "Let's Discuss Your Client's or Prospect's Funding Needs.",
+    title: "Great — let's get to know you. What's your name and how can we reach you?",
+    partnerTitle: "Great — let's get to know you. What's your name and how can we reach you?",
     answers: [],
     type: 'contact-info'
   },
   {
-    id: 'annual_revenue',
-    title: 'Annual Revenue (approx.)',
-    partnerTitle: 'Client Revenue Range',
-    answers: ['$500K-$1MM', '$1MM-$3MM', '$3MM-$10MM', '$10MM-$20MM', '$20MM-$50MM', '$50MM-$100MM', '$100MM+'],
-    type: 'single'
-  },
-  {
-    id: 'funding_amount',
-    title: 'Estimated funding amount needed',
-    answers: ['$100K-$250K', '$250K-$500K', '$500K-$1MM', '$1MM-$5MM', '$5MM-$10MM', '$10MM+'],
-    type: 'single'
-  },
-  {
-    id: 'time_in_business',
-    title: 'Time in Business',
-    answers: ['< 1 year', '1-2 years', '2-3 years', '3-4 years', '5+ years'],
-    type: 'single'
-  },
-  {
-    id: 'owner_credit_score',
-    title: "What is the owner's approximate FICO score?",
-    answers: ['Excellent (750-850)', 'Good (700-750)', 'Fair (650-700)', 'Low (below 550)', 'Not sure'],
-    type: 'single',
-    helpHtml: 'Not sure? <a href="https://www.experian.com/credit/credit-report/" target="_blank" rel="noopener noreferrer" style="color: #2a231a; text-decoration: underline;">Get your free credit report</a>'
-  },
-  {
     id: 'business_industry',
-    title: 'Business Industry',
-    partnerTitle: 'Client Industry',
+    title: 'What industry is the business in?',
+    partnerTitle: "What industry is your client in?",
     answers: [
       'Manufacturing',
       'Wholesale & Distribution',
@@ -91,8 +65,27 @@ export const formQuestions: Question[] = [
     type: 'single'
   },
   {
+    id: 'annual_revenue',
+    title: "What's the approximate annual revenue?",
+    partnerTitle: "What's your client's approximate annual revenue?",
+    answers: ['$500K-$1MM', '$1MM-$3MM', '$3MM-$10MM', '$10MM-$20MM', '$20MM-$50MM', '$50MM-$100MM', '$100MM+'],
+    type: 'single'
+  },
+  {
+    id: 'time_in_business',
+    title: 'How long has the business been operating?',
+    answers: ['< 1 year', '1-2 years', '2-3 years', '3-4 years', '5+ years'],
+    type: 'single'
+  },
+  {
+    id: 'funding_amount',
+    title: 'How much funding are you looking for?',
+    answers: ['$100K-$250K', '$250K-$500K', '$500K-$1MM', '$1MM-$5MM', '$5MM-$10MM', '$10MM+'],
+    type: 'single'
+  },
+  {
     id: 'financing_needs',
-    title: 'I need financing for',
+    title: 'What do you need the financing for?',
     answers: [
       'Working capital to support growth',
       'Short term bridge capital',
