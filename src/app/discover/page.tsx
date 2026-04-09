@@ -208,7 +208,7 @@ function DiscoverContent() {
         <Container>
           <FadeIn className="text-center max-w-3xl mx-auto">
             <Heading size="h2" color="white" className="mb-6">
-              Built on Relationships. Operated With Integrity.
+              Built on Relationships.<br />Operated With Integrity.
             </Heading>
             <Text color="white" size="2xl" className="mb-6 leading-relaxed">
               Serve Funding is a relationship-based advisory — not an algorithm-driven &quot;marketplace&quot;. We do not sell leads or shop deals indiscriminately. Every client is handled with care by members of our dedicated, experienced team.

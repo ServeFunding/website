@@ -26,19 +26,19 @@ function HelpText({ html }: { html: string }) {
 // Question row — left-aligned, 80% width container
 function QuestionRow({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ width: '80%', marginRight: 'auto' }}>
-      <div className="px-8 py-4 rounded-2xl rounded-tl-sm inline-block" style={{ backgroundColor: '#323b1e' }}>
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+      <div className="px-8 py-4 rounded-2xl inline-block text-center" style={{ backgroundColor: '#323b1e' }}>
         <p className="font-semibold text-lg leading-snug" style={{ color: COLORS.highlight }}>{children}</p>
       </div>
     </div>
   )
 }
 
-// Answer row — right-aligned, 80% width container, content right-aligned inside
+// Answer row — centered
 function AnswerRow({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ width: '80%', marginLeft: 'auto' }}>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'flex-end' }}>
+    <div style={{ width: '100%' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center' }}>
         {children}
       </div>
     </div>
@@ -409,9 +409,9 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
             )}
 
             {currentQuestion.type === 'multi' && (
-              <div style={{ width: '80%', marginLeft: 'auto' }} className="flex flex-col items-end gap-3">
+              <div style={{ width: '100%' }} className="flex flex-col items-center gap-3">
                 <p className="text-white/50 text-xs">Select all that apply</p>
-                <div className="flex flex-wrap gap-3 justify-end">
+                <div className="flex flex-wrap gap-3 justify-center">
                   {currentQuestion.answers.map((option) => {
                     const currentValues = (getFieldValue(currentQuestion.id) as string[]) || []
                     const isSelected = currentValues.includes(option)
@@ -463,7 +463,7 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
           >
             <QuestionRow>{getDisplayTitle(currentQuestion!)}</QuestionRow>
 
-            <div style={{ width: '80%', marginLeft: 'auto' }}>
+            <div style={{ width: '100%', maxWidth: '600px', marginLeft: 'auto', marginRight: 'auto' }}>
               <ContactInfoFields
                 isPartner={isPartner}
                 name={name}
@@ -490,7 +490,7 @@ export function ConversationalForm({ initialRole, onComplete }: ConversationalFo
           >
             <QuestionRow>Pick a time that works for you</QuestionRow>
 
-            <div style={{ width: '95%', marginLeft: 'auto' }}>
+            <div style={{ width: '100%', marginLeft: 'auto', marginRight: 'auto' }}>
               <CalendlyWidget
                 name={name}
                 email={email}

@@ -34,35 +34,9 @@ export const formQuestions: Question[] = [
     type: 'single'
   },
   {
-    id: 'annual_revenue',
-    title: "Got it. What's your approximate annual revenue?",
-    partnerTitle: "Welcome! What's your client's approximate annual revenue?",
-    answers: ['$500K-$1MM', '$1MM-$3MM', '$3MM-$10MM', '$10MM-$20MM', '$20MM-$50MM', '$50MM-$100MM', '$100MM+'],
-    type: 'single'
-  },
-  {
-    id: 'funding_amount',
-    title: 'And how much funding are you looking for?',
-    answers: ['$100K-$250K', '$250K-$500K', '$500K-$1MM', '$1MM-$5MM', '$5MM-$10MM', '$10MM+'],
-    type: 'single'
-  },
-  {
-    id: 'time_in_business',
-    title: 'How long has the business been operating?',
-    answers: ['< 1 year', '1-2 years', '2-3 years', '3-4 years', '5+ years'],
-    type: 'single'
-  },
-  {
-    id: 'owner_credit_score',
-    title: "Thanks. What's the owner's approximate credit score?",
-    answers: ['Excellent (750-850)', 'Good (700-750)', 'Fair (650-700)', 'Low (below 550)', 'Not sure'],
-    type: 'single',
-    helpHtml: 'Not sure? <a href="https://www.experian.com/credit/credit-report/" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline;">Get your free credit report</a>'
-  },
-  {
     id: 'business_industry',
-    title: 'Almost there — what industry is the business in?',
-    partnerTitle: "Almost there — what industry is your client in?",
+    title: 'What industry is the business in?',
+    partnerTitle: "What industry is your client in?",
     answers: [
       'Manufacturing',
       'Wholesale & Distribution',
@@ -84,8 +58,27 @@ export const formQuestions: Question[] = [
     type: 'single'
   },
   {
+    id: 'annual_revenue',
+    title: "What's the approximate annual revenue?",
+    partnerTitle: "What's your client's approximate annual revenue?",
+    answers: ['$500K-$1MM', '$1MM-$3MM', '$3MM-$10MM', '$10MM-$20MM', '$20MM-$50MM', '$50MM-$100MM', '$100MM+'],
+    type: 'single'
+  },
+  {
+    id: 'time_in_business',
+    title: 'How long has the business been operating?',
+    answers: ['< 1 year', '1-2 years', '2-3 years', '3-4 years', '5+ years'],
+    type: 'single'
+  },
+  {
+    id: 'funding_amount',
+    title: 'How much funding are you looking for?',
+    answers: ['$100K-$250K', '$250K-$500K', '$500K-$1MM', '$1MM-$5MM', '$5MM-$10MM', '$10MM+'],
+    type: 'single'
+  },
+  {
     id: 'financing_needs',
-    title: 'Last one — what do you need the financing for?',
+    title: 'What do you need the financing for?',
     answers: [
       'Working capital to support growth',
       'Short term bridge capital',
