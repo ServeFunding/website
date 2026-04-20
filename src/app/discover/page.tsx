@@ -238,7 +238,7 @@ function DiscoverContent() {
 
 export default function DiscoverPage() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<div className="min-h-[80vh]" aria-hidden="true" />}>
       <DiscoverContent />
     </Suspense>
   )
