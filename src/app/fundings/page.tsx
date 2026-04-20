@@ -73,7 +73,7 @@ export default function Fundings() {
   }
 
   return (
-    <>
+    <div className="overflow-x-hidden">
       {/* Breadcrumb - includes schema */}
       <Breadcrumb items={[{ label: 'Fundings' }]} />
 
@@ -179,6 +179,6 @@ export default function Fundings() {
         onClose={() => setIsModalOpen(false)}
         caseStudy={selectedStudy}
       />
-    </>
+    </div>
   )
 }
