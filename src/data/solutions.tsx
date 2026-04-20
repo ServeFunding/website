@@ -164,7 +164,7 @@ export const fundingSolutions: FundingSolution[] = [
     image: "/solutions/Government Contract Financing.webp",
     category: "Contract-Based",
     whatIs: "Government contract financing funds federal, state, and local contracts, covering payroll, materials, and upfront costs until government payment arrives (often 30-90+ days). Works for prime and subcontractors.",
-    shortDesc: "Government contract financing for federal, state, and local contracts. Fund prime contractors, subcontractors, and vendors while awaiting government payment.",
+    shortDesc: "Government contract financing for federal, state, and local contracts. Fund prime contractors and subcontractors while awaiting government payment.",
     fullDesc: "Government contract financing bridges the timing gap between contract performance and government payment (often 30-120 days). This covers upfront materials, labor, payroll, and project costs without depleting working capital. Works for federal, state, and local contracts, as well as subcontractors. This solution is essential for contractors competing in government space—government clients prefer contractors who can fund their own projects without requesting advance payments.",
     features: [
       "Financing facilities from $250K to $50MM+",

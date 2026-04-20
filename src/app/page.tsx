@@ -31,7 +31,7 @@ import { CTA } from '@/components/cta'
 
 export const metadata: Metadata = {
   title: 'Capital That Serves You | Serve Funding',
-  description: 'Trusted working capital advisory for entrepreneurs. Get funded in 3-10 days with transparency & relationships. Debt refinance, MCA consolidation & more. $250K-$100MM.',
+  description: 'Trusted working capital advisory. Get funded in 3-10 days with transparency & relationships. Debt refinance, MCA consolidation. $250K-$100MM.',
   keywords: 'working capital, business loans, when banks say no, funding advisory, asset-based lending, invoice factoring, rapid growth funding',
   openGraph: {
     title: 'Capital That Serves You | Serve Funding',

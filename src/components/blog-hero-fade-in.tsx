@@ -18,24 +18,29 @@ interface BlogHeroFadeInProps {
 }
 
 export const BlogHeroFadeIn = ({ title, subtitle, date, author, authorTitle, authorPhoto, category = "Business/Professional Trends", backgroundImage }: BlogHeroFadeInProps) => (
-  <Section className="py-12 md:py-16 overflow-hidden relative" style={{ scrollMarginTop: LAYOUT.scrollMarginTop }}>
-    {/* Background with overlay */}
-    <div 
-      className="absolute inset-0"
-      style={{
-        backgroundImage: backgroundImage ? `url('${backgroundImage}')` : undefined,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: !backgroundImage ? COLORS.dark : undefined,
-      }}
-    />
-    <div 
-      className="absolute inset-0"
-      style={{
-        backgroundColor: backgroundImage ? `${COLORS.dark}cc` : undefined, // 80% opacity overlay
-      }}
-    />
+  <Section
+    className="py-12 md:py-16 overflow-hidden relative"
+    style={{ scrollMarginTop: LAYOUT.scrollMarginTop, backgroundColor: !backgroundImage ? COLORS.dark : undefined }}
+  >
+    {/* Optimized background image via Next/Image for better LCP */}
+    {backgroundImage && (
+      <Image
+        src={backgroundImage}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
+        aria-hidden="true"
+      />
+    )}
+    {/* Dark overlay for text contrast */}
+    {backgroundImage && (
+      <div
+        className="absolute inset-0"
+        style={{ backgroundColor: `${COLORS.dark}cc` }}
+      />
+    )}
 
     <Container className="relative z-10">
       <motion.div

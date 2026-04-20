@@ -4,6 +4,7 @@ import { solutionSpecificFAQs } from '@/data/faq-data'
 import { getFinancialServiceSchema, getHowToSchema } from '@/lib/schema-generators'
 import { serveFundingProcess } from '@/data/company-info'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
+import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ChevronRight } from 'lucide-react'
@@ -123,11 +124,14 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
 
               {/* Solution Image */}
               {solution.image && (
-                <div className="mb-8 rounded-lg overflow-hidden shadow-lg h-80">
-                  <img
+                <div className="mb-8 rounded-lg overflow-hidden shadow-lg h-80 relative">
+                  <Image
                     src={solution.image}
                     alt={getTitleAsString(solution.title)}
-                    className="w-full h-full object-cover"
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 800px, 800px"
+                    className="object-cover"
                   />
                 </div>
               )}
@@ -282,7 +286,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                         <Text size="sm" className="mb-4 line-clamp-2">
                           {relatedSolution.whatIs}
                         </Text>
-                        <span className="font-semibold text-sm text-olive-green">Learn More →</span>
+                        <span className="font-semibold text-sm text-olive-green">Learn more about {getTitleAsString(relatedSolution.title)} →</span>
                       </Card>
                     </Link>
                   ))}

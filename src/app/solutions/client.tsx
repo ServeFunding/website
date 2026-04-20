@@ -246,7 +246,7 @@ export function SolutionsClient() {
                   {/* Learn More Link to Detail Page */}
                   <Link href={`/solutions/${solution.id}`} onClick={() => handleSolutionClick(solution.id)}>
                     <Button variant="default" className="flex items-center gap-2">
-                      Learn More <ChevronRight size={18} />
+                      Learn more about {getTitleAsString(solution.title)} <ChevronRight size={18} />
                     </Button>
                   </Link>
                 </div>
