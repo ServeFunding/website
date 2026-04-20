@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import {
   Section,
   Container,
@@ -106,10 +107,13 @@ export default function AboutUs() {
 
               {/* Right: Image */}
               <div className="flex justify-center">
-                <img
+                <Image
                   src="/about/runs in our blood.webp"
                   alt="Entrepreneurship runs in our blood"
-                  className="rounded-xl w-full max-w-md object-cover"
+                  width={900}
+                  height={606}
+                  sizes="(max-width: 768px) 100vw, 448px"
+                  className="rounded-xl w-full max-w-md h-auto object-cover"
                 />
               </div>
             </div>
@@ -124,10 +128,13 @@ export default function AboutUs() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               {/* Left: Image */}
               <div className="flex justify-center order-2 md:order-1">
-                <img
+                <Image
                   src="/about/commitment to entreprenuers.webp"
                   alt="Our commitment to entrepreneurs"
-                  className="rounded-xl shadow-lg w-full max-w-md object-cover"
+                  width={900}
+                  height={531}
+                  sizes="(max-width: 768px) 100vw, 448px"
+                  className="rounded-xl shadow-lg w-full max-w-md h-auto object-cover"
                 />
               </div>
 
@@ -209,9 +216,12 @@ export default function AboutUs() {
                 {/* Right: Headshot with Social Icons */}
                 <div className="flex flex-col items-center justify-center">
                   <div className="mb-8">
-                    <img
+                    <Image
                       src="/Michael Headshot.webp"
                       alt="Michael Kodinsky, Founder of Serve Funding"
+                      width={600}
+                      height={600}
+                      sizes="256px"
                       className="rounded-full shadow-lg w-64 h-64 object-cover"
                     />
                   </div>
