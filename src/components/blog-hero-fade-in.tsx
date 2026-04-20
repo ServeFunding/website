@@ -26,12 +26,11 @@ export const BlogHeroFadeIn = ({ title, subtitle, date, author, authorTitle, aut
     {backgroundImage && (
       <Image
         src={backgroundImage}
-        alt=""
+        alt={title}
         fill
         priority
         sizes="100vw"
         className="object-cover"
-        aria-hidden="true"
       />
     )}
     {/* Dark overlay for text contrast */}
