@@ -2,6 +2,12 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Project Skills
+
+This repo ships its own Claude Code skills in `.claude/skills/`. Invoke them with the `/skill-name` command or by having Claude trigger them based on their description:
+
+- **`/create-blog-post`** — End-to-end blog post workflow: scaffolding the `.mdoc` file with correct frontmatter, avoiding Markdoc rendering traps (no `---` in body, no checkboxes), generating a cover image via the n8n webhook, converting to WebP, and following the `dev` → PR → `main` git flow. Use this any time you draft, create, or add a new blog post — it enforces conventions that are easy to miss.
+
 ## Project Overview
 
 Serve Funding is a Next.js 16 web application for a working capital advisory company. The site showcases funding solutions, company information, and includes an AI-powered chatbot using Claude API. The architecture emphasizes data centralization, SEO optimization (AIEO - AI Engine Optimization), and schema markup for LLM visibility.
@@ -146,6 +152,11 @@ Markdoc is a markdown framework that powers the blog:
 - **Performance**: All 14 blog posts pre-rendered at build time via static generation
 
 ### Adding Blog Posts (Markdoc-Based System)
+
+> **Shortcut for AI agents:** invoke the `/create-blog-post` skill at [.claude/skills/create-blog-post/SKILL.md](.claude/skills/create-blog-post/SKILL.md). It encodes every rule below as a step-by-step workflow with exact commands, a worked example, and a production debugging checklist. The sections below are the authoritative reference; the skill is the fast path.
+
+**Deploy pipeline in one sentence:** commit to `dev` → PR to `main` → Vercel runs `npm run build` (which runs `scripts/verify-seo.ts` FIRST) → if that passes, the post is live; if it fails, production keeps serving the old build and no error surfaces unless someone checks `gh api repos/ServeFunding/website/commits/{sha}/status`.
+
 Blog posts use Markdoc (.mdoc files) with YAML frontmatter for flexible content management:
 
 **Step 1: Create a new file** in `/posts/[post-slug].mdoc` (slug derived from title, kebab-case)
@@ -180,6 +191,13 @@ authorImage: "/author-headshot.webp"
 - **NEVER use `---` (horizontal rules) in blog post body content.** Markdoc renders `---` as `<hr>` which causes React hydration errors (500 errors in production). Use headings or whitespace for visual separation instead.
 - **NEVER use checkbox syntax (`- [ ]` or `- [x]`)** in blog posts. Markdoc does not support checkboxes — they render as plain text `[ ]`. Use regular bullet points (`-`) instead.
 - Only use markdown features listed above. Unsupported syntax may cause silent rendering failures or 500 errors in production.
+
+**SEO Frontmatter Length Limits (HARD REQUIREMENT — enforced by `scripts/verify-seo.ts`):**
+`npm run build` runs `verify-seo` BEFORE `next build`. If these limits are exceeded, the build exits non-zero and **Vercel's deploy fails silently** — the post never reaches production.
+- **`title` ≤ 54 characters.** The page template appends ` | Serve Funding` (16 chars) for a 70-char OG-title budget.
+- **`excerpt` 120–160 characters.** Doubles as the meta description.
+- **Always run `npm run build` locally before committing a post** to catch failures before Vercel does. Verify with `npx tsx scripts/verify-seo.ts` for a fast isolated check.
+- **Post-push verification:** check the commit's deploy status with `gh api repos/ServeFunding/website/commits/{sha}/status --jq '.state'` — if `failure`, production is serving stale content until you fix the frontmatter.
 
 **Step 4: File-based routing** - Post automatically appears at `/blog/[post-slug]` without manual route creation
 

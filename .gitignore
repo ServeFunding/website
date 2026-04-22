@@ -36,3 +36,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code — keep skills checked in, keep local settings out
+.claude/settings.local.json
