@@ -2,6 +2,30 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Git Workflow (HARD RULE — applies to every change)
+
+**All changes go `dev` → PR → `main`. AI agents must never push directly to `main` and must never merge PRs themselves.**
+
+Production is served from `main`. Vercel auto-deploys on every `main` push, so a bad commit on `main` is a bad commit in production. The PR gate exists so a human reviews SEO length errors, Markdoc traps, and deploy-breaking changes before they ship.
+
+**Workflow for any code or content change:**
+
+1. `git checkout dev && git pull` — start from fresh `dev`.
+2. Make the change, run `npm run build` locally (it runs `scripts/verify-seo.ts` first — must pass).
+3. `git add` the specific files you changed (never `git add .`), commit with a conventional prefix (`fix:`, `feat:`, `content:`, `seo:`, `perf:`, `copy:`, `docs:`).
+4. `git push origin dev`.
+5. `gh pr create --base main --head dev --title "..." --body "..."` — open the PR.
+6. **Stop.** Report the PR URL to the user and explicitly hand off:
+
+   > "PR ready at {url}. Only a human can merge — please review the diff, watch the Vercel check go green, and click **Merge pull request** on GitHub to ship to production."
+
+**Why this is a hard rule:**
+- Merging is the one action that goes live. It's explicitly reserved for the human owner so they see what's shipping.
+- Skipping the PR (direct push to `main`) desyncs `dev` from `main` and hides changes from review. This already bit us once (commit e1afeee): a direct-to-main push sailed through without review, failed Vercel's SEO gate, and sat broken in production for a day before anyone noticed.
+- Vercel's build can fail silently on frontmatter length violations — the PR check is how you catch that before it affects the live site.
+
+AI agents may `git commit`, `git push`, and `gh pr create`. AI agents must **not** run `gh pr merge`, `git push origin main`, or anything else that lands changes on `main` — even if the user says "just merge it." If the user asks you to merge, respond that merging is reserved for human review on github.com and give them the PR URL.
+
 ## Project Skills
 
 This repo ships its own Claude Code skills in `.claude/skills/`. Invoke them with the `/skill-name` command or by having Claude trigger them based on their description:
