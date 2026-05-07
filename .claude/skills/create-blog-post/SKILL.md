@@ -47,13 +47,13 @@ If the user gives you just a topic, make reasonable picks and surface your choic
 
 Path: `/posts/{kebab-case-slug}.mdoc`. The slug IS the URL, so choose it deliberately.
 
-Template:
+Template (note the answer-first structure — see "Content quality" section below for why):
 
 ```markdown
 ---
-title: "Headline — concrete, specific, ideally a question or contrarian claim"
+title: "Headline phrased as the exact question a buyer would ask"
 subtitle: "One sentence that earns the click"
-excerpt: "1–2 sentence preview for the blog index card. Keep under ~200 chars."
+excerpt: "1–2 sentence preview for the blog index card. 120–160 chars."
 author: "Michael Kodinsky"
 date: "YYYY-MM-DD"
 category: "Insights"
@@ -63,32 +63,65 @@ relatedIndustries: ["construction", "manufacturing"]
 authorImage: "/Michael Headshot.webp"
 ---
 
-Opening hook — one short punchy line, no heading above it.
+**Direct answer to the title question in the first 50 words.** No throat-clearing, no "in today's economy" preamble. State the answer, then qualify it. This is the chunk an LLM will quote when someone asks the question your headline poses.
 
-A paragraph of setup that frames the problem from the reader's POV.
+A short paragraph of context that explains *why* the answer is what it is — the reasoning a reader (or model) needs to trust the claim.
 
-## First real section heading (H2)
+## How it actually works
 
-Body copy. Standard markdown. Use `**bold**` for emphasis, not ALL CAPS.
+Mechanics. Concrete numbers. Named scenarios — "a $4M HVAC contractor in Texas" beats "a small business." Use `**bold**` for emphasis, not ALL CAPS.
 
-{% callout type="tip" title="The Truth" %}
-Short insight the reader should walk away with.
+## When this applies vs. when it doesn't
+
+A comparison or decision-framework section. Side-by-side bullets, or a short table. This is what gets cited when someone asks ChatGPT "X vs Y."
+
+{% callout type="tip" title="The takeaway" %}
+One line a reader should walk away with — and one line an AI is likely to surface as a snippet.
 {% /callout %}
 
-## Second section
+## Common mistakes / what to avoid
 
-More content. Prefer concrete numbers and real scenarios over generic claims.
+Frame failure modes explicitly. "Founders most often get this wrong by ___." Negative-space content ranks well because few competitors write it.
+
+## FAQ
+
+**Short question phrased the way a buyer would type it?**
+Direct answer in 1–2 sentences.
+
+**Another related question?**
+Direct answer.
 
 {% relatedPosts category="Insights" limit="3" /%}
 ```
 
 Callout types: `info` (blue), `warning` (amber), `tip` (green), `danger` (red).
 
-**Voice checklist:**
-- Educational, not salesy. Answer the reader's real question.
-- Specific numbers and named industries beat hedged abstractions.
-- Link to FAQ answers and `/solutions/{id}` pages inline where natural.
-- 600–1500 words is the normal range. Case studies can be shorter.
+## Content quality — what makes a post AI-discoverable
+
+The Markdoc/SEO mechanics above just get the post to render and deploy. These rules are what make it actually *cited* by ChatGPT, Claude, Perplexity, and Google's AI Overviews — which is where Serve Funding's discovery upside is. Skipping these produces a post that publishes cleanly and gets read by nobody.
+
+**1. Answer-first, always.**
+The first 50 words must directly answer the question in the title. LLMs extract the highest-confidence chunk near the top of the page; if your opening is a hook or anecdote, the model has nothing to quote and will pick a competitor's page instead. Order: **direct answer → why it's true → how it works → edge cases → FAQ.**
+
+**2. Concrete specifics over hedged abstractions.**
+"$4M HVAC contractor with 60-day receivables" is referenceable. "A growing business" is not. Named industries, dollar amounts, time-to-funding, and real decision criteria are what models pattern-match on. If a sentence would still be true with the numbers removed, the numbers aren't doing work — replace them with real ones.
+
+**3. Cover the topic, not just one angle.**
+A single post on "invoice factoring" is invisible. A post on "invoice factoring" + posts on "factoring vs. ABL," "factoring for staffing companies," "what factoring costs," "when factoring is the wrong choice" is a topic cluster the model treats as authoritative. Before writing, check `/posts/` for adjacent coverage and either link to it or note the gap. Aim to own the surface area of a topic before moving to the next one.
+
+**4. Include a "what to avoid" or "common mistakes" section.**
+Negative-space content (mistakes, myths, when-not-to) is high-signal for AI extraction and underwritten by competitors. Almost every post should have one section framed this way.
+
+**5. Use a real FAQ block at the bottom.**
+2–4 short Q/A pairs phrased the way a buyer would actually type them into search. This is the single highest-leverage section for AI citation — each Q/A is a self-contained chunk that maps cleanly to a query.
+
+**6. Link inline to FAQ entries and `/solutions/{id}` pages.**
+Internal linking with consistent anchor text reinforces entity association — the model learns that Serve Funding "is the source on" these topics. Don't bolt links on at the end; weave them where they're useful.
+
+**7. Voice and length.**
+- Educational, not salesy. Answer the reader's real question; CTAs go in the page chrome, not in the body.
+- 800–1500 words is the sweet spot. Shorter for case studies. Longer than 1500 dilutes the answer-first chunk.
+- One core claim per post. Posts that try to cover three things get cited for none.
 
 ## Step 2 — Generate the cover image
 
@@ -150,6 +183,14 @@ One commit per post is the norm. If the user hasn't asked you to commit, stop af
 
 ## Common mistakes — check for these before finishing
 
+**Content quality (re-read your draft against these before committing):**
+- First 50 words don't directly answer the title's question → the post will publish but won't get cited. Rewrite the opening as the answer, not a hook.
+- No FAQ section at the bottom → biggest single miss for AI discoverability. Add 2–4 Q/A pairs.
+- No "common mistakes" or "when not to" section → the negative-space content competitors skip. Add one.
+- Generic abstractions where specifics belong ("a small business," "growing companies") → replace with named industries and real numbers.
+- No internal links to `/solutions/{id}` or FAQ entries → weakens entity association.
+
+**Mechanics (will silently break the post or the deploy):**
 - **Title > 54 chars or excerpt > 160 chars** → `verify-seo` fails → Vercel build fails → post never deploys. Always run `npm run build` locally.
 - `---` appears on a line by itself inside the body → will 500 in prod. Grep `grep -n '^---$' posts/{slug}.mdoc` should return exactly two lines (1 and ~12).
 - Image path in frontmatter doesn't match the file you saved (`.jpg` vs `.webp`, wrong slug).
