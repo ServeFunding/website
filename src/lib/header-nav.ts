@@ -62,7 +62,15 @@ export const headerNavConfig: HeaderNavConfig = {
       type: 'dropdown',
       label: 'Solutions',
       basePath: '/solutions',
-      items: fundingSolutions.map(solution => {
+      items: [
+        {
+          name: 'Compare All Solutions',
+          id: 'compare',
+          featured: true,
+          subtitle: 'Side-by-side comparison of all 12 options',
+          icon: 'Scale',
+        } satisfies FeaturedDropdownItem,
+        ...fundingSolutions.map(solution => {
         // Mark the three featured products (working capital, invoice factoring, equipment)
         const isFeatured = ['working-capital-loans', 'invoice-factoring', 'equipment-leasing'].includes(solution.id)
         return {
@@ -81,6 +89,7 @@ export const headerNavConfig: HeaderNavConfig = {
           ) : undefined
         }
       }),
+      ],
       itemType: 'pages',
       featuredTitle: 'Core Solutions',
       regularTitle: 'All Solutions',

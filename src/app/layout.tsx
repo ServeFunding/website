@@ -10,6 +10,7 @@ import { PerformanceMonitor } from "@/components/PerformanceMonitor"
 import Script from "next/script"
 import { SchemaRenderer } from "@/components/SchemaRenderer"
 import { getOrganizationSchema } from "@/lib/schema-generators"
+import { fundingCases } from "@/data/fundingData"
 import "@/app/globals.css"
 import { Montserrat } from 'next/font/google'
 import { Chatbot, NewsletterModalLazy } from "@/components/LazyComponents"
@@ -72,8 +73,17 @@ export default async function RootLayout({
   return (
     <html lang="en" className={montserrat.variable}>
       <head>
-        {/* Schema Markup */}
-        <SchemaRenderer schema={getOrganizationSchema()} nonce={nonce} />
+        {/* Schema Markup — Organization with aggregateRating sourced from case studies
+            (each case ships 5-star Review schema on /fundings, so the count matches reality) */}
+        <SchemaRenderer
+          schema={getOrganizationSchema({
+            aggregateRating: {
+              ratingValue: 5,
+              reviewCount: fundingCases.length,
+            },
+          })}
+          nonce={nonce}
+        />
 
         {/* Preconnect to critical third-party origins for LCP improvement */}
         {process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL && (

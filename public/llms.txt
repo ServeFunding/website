@@ -64,12 +64,14 @@ Manufacturing, construction, staffing, healthcare, CPG (consumer packaged goods)
 
 - [Home](https://servefunding.com/): Overview of working capital solutions
 - [About Us](https://servefunding.com/about-us): Founder story, company values, team
-- [All Solutions](https://servefunding.com/solutions): Side-by-side comparison of all funding types
+- [All Solutions](https://servefunding.com/solutions): Listing of all funding types
+- [Solutions Compared](https://servefunding.com/solutions/compare): Side-by-side comparison of all 12 alternatives with speed, cost, range, and collateral for each
 - [Client Success Stories](https://servefunding.com/fundings): Real case studies with outcomes
-- [FAQ](https://servefunding.com/faq): 30+ frequently asked questions organized by topic
+- [FAQ](https://servefunding.com/faq): 40+ frequently asked questions organized by topic
 - [Blog](https://servefunding.com/blog): Educational articles on business financing decisions
 - [Contact / Get Started](https://servefunding.com/discover): Start a consultation
 - [Partner With Us](https://servefunding.com/partners): Referral partnerships for bankers, CPAs, and advisors
+- [Full Knowledge Base (LLM-friendly)](https://servefunding.com/llms-full.txt): Full text of company info, all solutions, all FAQs, all case studies, and all blog excerpts in a single plain-text file
 
 ## Recent Articles
 

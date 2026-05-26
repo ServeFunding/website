@@ -40,6 +40,7 @@ export function Footer() {
                   <Link href="/solutions/asset-based-lending" className="text-olive-900 hover:text-gold-500 transition-colors">Asset-Based Lending</Link>
                   <Link href="/solutions/equipment-leasing" className="text-olive-900 hover:text-gold-500 transition-colors">Equipment Leasing</Link>
                   <Link href="/solutions/purchase-order-funding" className="text-olive-900 hover:text-gold-500 transition-colors">Purchase Order Funding</Link>
+                  <Link href="/solutions/compare" className="text-olive-900 hover:text-gold-500 transition-colors">Compare All Options</Link>
                   <Link href="/solutions" className="text-gold-500 hover:text-gold-600 transition-colors font-semibold mt-2">
                     View All Solutions →
                   </Link>
