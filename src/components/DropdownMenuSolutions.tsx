@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { Zap, FileText, Wrench, Scale } from "lucide-react"
+import { Zap, FileText, Wrench, Scale, Building2, BookOpen } from "lucide-react"
 import { COLORS } from "@/lib/colors"
 import { trackNavClick } from "@/lib/tracking"
 import type { FeaturedDropdownItem } from "@/lib/header-nav"
@@ -28,6 +28,8 @@ const getIcon = (iconName?: string) => {
     FileText: <FileText size={20} className="flex-shrink-0 mt-0.5" />,
     Wrench: <Wrench size={20} className="flex-shrink-0 mt-0.5" />,
     Scale: <Scale size={20} className="flex-shrink-0 mt-0.5" />,
+    Building2: <Building2 size={20} className="flex-shrink-0 mt-0.5" />,
+    BookOpen: <BookOpen size={20} className="flex-shrink-0 mt-0.5" />,
   }
   return iconMap[iconName || '']
 }

@@ -56,6 +56,17 @@ const ABOUT_ITEMS: FeaturedDropdownItem[] = [
   { name: "Doing Good", id: "doing-good" }
 ]
 
+// Learn dropdown items — points at the new educational hub (compare, industries, glossary, FAQ, blog).
+// Uses `itemType: 'pages'` with absolute hrefs; the dropdown component handles those.
+const LEARN_ITEMS: FeaturedDropdownItem[] = [
+  { name: "Compare Funding Options", id: "compare", featured: true, subtitle: "Head-to-head comparisons", icon: "Scale" },
+  { name: "By Industry", id: "industries", featured: true, subtitle: "How funding works for your industry", icon: "Building2" },
+  { name: "Glossary", id: "glossary", featured: true, subtitle: "Plain-English definitions", icon: "BookOpen" },
+  { name: "All Solutions Compared", id: "solutions/compare" },
+  { name: "FAQ", id: "faq" },
+  { name: "Blog", id: "blog" },
+]
+
 export const headerNavConfig: HeaderNavConfig = {
   items: [
     {
@@ -114,6 +125,16 @@ export const headerNavConfig: HeaderNavConfig = {
       featuredTitle: 'Primary Partners',
       regularTitle: 'All Partners',
       description: 'We work with trusted advisors and professionals who share our commitment to helping businesses succeed. Join our growing network of referral partners.'
+    },
+    {
+      type: 'dropdown',
+      label: 'Learn',
+      basePath: '/',
+      items: LEARN_ITEMS,
+      itemType: 'pages',
+      featuredTitle: 'Education Hubs',
+      regularTitle: 'More',
+      description: 'Plain-English explanations of how business financing actually works — comparisons, industry guides, definitions, and answers to the questions real prospects ask.'
     },
     {
       type: 'dropdown',

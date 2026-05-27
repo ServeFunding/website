@@ -23,6 +23,9 @@ import {
   solutionComparisonFAQs,
 } from '@/data/faq-data'
 import { fundingCases } from '@/data/fundingData'
+import { comparisons } from '@/data/comparisons'
+import { industries } from '@/data/industries'
+import { glossaryTerms } from '@/data/glossary'
 import { getBlogPosts } from '@/lib/blog-utils'
 import { getTitleAsString } from '@/lib/solution-helpers'
 import type { FAQ } from '@/types/faq'
@@ -154,6 +157,57 @@ function renderCompany(): string {
   ].join('\n')
 }
 
+function renderComparisons(): string {
+  if (!comparisons.length) return ''
+  const blocks = comparisons.map(c => [
+    `### ${c.title}`,
+    `${SITE}/compare/${c.id}`,
+    `${c.subtitle}`,
+    '',
+    c.introduction,
+    '',
+    `**${c.productA.name}:** ${c.productA.positioning} (Speed: ${c.productA.speed} · Cost: ${c.productA.cost} · Range: ${c.productA.range})`,
+    `**${c.productB.name}:** ${c.productB.positioning} (Speed: ${c.productB.speed} · Cost: ${c.productB.cost} · Range: ${c.productB.range})`,
+  ].join('\n'))
+  return `## Head-to-Head Comparisons\n\n${blocks.join('\n\n---\n\n')}\n`
+}
+
+function renderIndustries(): string {
+  if (!industries.length) return ''
+  const blocks = industries.map(ind => [
+    `### ${ind.name}`,
+    `${SITE}/industries/${ind.id}`,
+    ind.hook,
+    '',
+    ind.introduction,
+    '',
+    `**Typical challenges:**`,
+    ...ind.challenges.map(c => `- ${c}`),
+    '',
+    `**Recommended solutions (ranked):**`,
+    ...ind.recommendedSolutions
+      .slice()
+      .sort((a, b) => a.rank - b.rank)
+      .map(r => `${r.rank}. ${r.solutionId} — ${r.why}`),
+  ].join('\n'))
+  return `## Industry Guides\n\n${blocks.join('\n\n---\n\n')}\n`
+}
+
+function renderGlossary(): string {
+  if (!glossaryTerms.length) return ''
+  const blocks = glossaryTerms.map(t => [
+    `### ${t.term}`,
+    `${SITE}/glossary#${t.slug}`,
+    `**Category:** ${t.category}`,
+    '',
+    `**Definition:** ${t.shortDefinition}`,
+    '',
+    t.fullExplanation,
+    t.example ? `\n**Example:** ${t.example}` : '',
+  ].filter(Boolean).join('\n'))
+  return `## Glossary\n\n${blocks.join('\n\n---\n\n')}\n`
+}
+
 function buildLlmsFull(): string {
   const allFaqs = [
     renderFaqList('Top Questions', topLevelFAQs),
@@ -168,6 +222,9 @@ function buildLlmsFull(): string {
     renderSolutions(),
     `For a side-by-side comparison of all 12 funding solutions, see ${SITE}/solutions/compare`,
     '',
+    renderComparisons(),
+    renderIndustries(),
+    renderGlossary(),
     renderCaseStudies(),
     allFaqs,
     renderBlogPosts(),

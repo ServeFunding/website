@@ -47,18 +47,20 @@ export function Footer() {
                 </div>
               </div>
 
-              {/* Blog */}
+              {/* Learn / Resources */}
               <div>
-                <Heading size="h3" className="text-olive-900 font-bold mb-6">Blog</Heading>
+                <Heading size="h3" className="text-olive-900 font-bold mb-6">Learn</Heading>
                 <div className="space-y-3 flex flex-col">
-                  {sortedBlogPosts.slice(0, 4).map((post) => (
-                    <Link key={post.id} href={`/blog/${post.id}`} className="text-olive-900 hover:text-gold-500 transition-colors text-sm">
-                      {post.title}
+                  <Link href="/compare" className="text-olive-900 hover:text-gold-500 transition-colors">Head-to-Head Comparisons</Link>
+                  <Link href="/industries" className="text-olive-900 hover:text-gold-500 transition-colors">By Industry</Link>
+                  <Link href="/glossary" className="text-olive-900 hover:text-gold-500 transition-colors">Glossary</Link>
+                  <Link href="/faq" className="text-olive-900 hover:text-gold-500 transition-colors">FAQ</Link>
+                  <Link href="/blog" className="text-olive-900 hover:text-gold-500 transition-colors">Blog</Link>
+                  {sortedBlogPosts.slice(0, 2).map((post) => (
+                    <Link key={post.id} href={`/blog/${post.id}`} className="text-gray-500 hover:text-gold-500 transition-colors text-xs">
+                      → {post.title}
                     </Link>
                   ))}
-                  <Link href="/blog" className="text-gold-500 hover:text-gold-600 transition-colors text-sm font-semibold mt-2">
-                    View All Posts →
-                  </Link>
                 </div>
               </div>
 

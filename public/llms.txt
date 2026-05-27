@@ -66,6 +66,9 @@ Manufacturing, construction, staffing, healthcare, CPG (consumer packaged goods)
 - [About Us](https://servefunding.com/about-us): Founder story, company values, team
 - [All Solutions](https://servefunding.com/solutions): Listing of all funding types
 - [Solutions Compared](https://servefunding.com/solutions/compare): Side-by-side comparison of all 12 alternatives with speed, cost, range, and collateral for each
+- [Head-to-Head Comparisons](https://servefunding.com/compare): 5 detailed two-product comparisons (factoring vs ABL, SBA vs working capital, working capital vs line of credit, bridge vs term, equipment vs sale-leaseback)
+- [Industry Guides](https://servefunding.com/industries): How funding works in 6 industries (staffing, healthcare, manufacturing, government contractors, construction, e-commerce/DTC)
+- [Glossary](https://servefunding.com/glossary): 32 plain-English definitions of business financing terms (factor rate, lockbox, ABL, MCA, COJ, recourse, holdback, and more)
 - [Client Success Stories](https://servefunding.com/fundings): Real case studies with outcomes
 - [FAQ](https://servefunding.com/faq): 40+ frequently asked questions organized by topic
 - [Blog](https://servefunding.com/blog): Educational articles on business financing decisions
@@ -73,7 +76,16 @@ Manufacturing, construction, staffing, healthcare, CPG (consumer packaged goods)
 - [Partner With Us](https://servefunding.com/partners): Referral partnerships for bankers, CPAs, and advisors
 - [Full Knowledge Base (LLM-friendly)](https://servefunding.com/llms-full.txt): Full text of company info, all solutions, all FAQs, all case studies, and all blog excerpts in a single plain-text file
 
-## Recent Articles
+## Recent Pillar Posts
+
+- [How Invoice Factoring Actually Works](https://servefunding.com/blog/how-invoice-factoring-actually-works): The triangle, the lockbox, the water-in-a-cup, and the math behind a $1MM line
+- [MCA vs Revenue-Based Financing in 2026](https://servefunding.com/blog/mca-vs-revenue-based-financing): The daily-pull problem, the real APR math, and how to escape stacked MCA debt
+- [The Two Underwriting Buckets You Need to Understand](https://servefunding.com/blog/the-two-underwriting-buckets): Mike's conceptual frame — every business-lending product is either asset-based or revenue-based
+- [How to Read an MCA Term Sheet](https://servefunding.com/blog/how-to-read-an-mca-term-sheet): Line-by-line, plain English, factor-rate-to-APR conversion included
+- [Layered Capital: Stacking Funding Sources Wisely](https://servefunding.com/blog/layered-capital-explained): How to combine multiple products into one capital stack without over-leveraging
+- [When Real Estate Is Your Cheapest Capital Option](https://servefunding.com/blog/when-real-estate-is-cheapest-capital): Mike's framing on why real estate equity is lenders' favorite collateral
+
+## Other Articles
 
 - [TRUST Framework for Choosing Lenders](https://servefunding.com/blog/how-to-choose-working-capital-lender): Five principles that separate good lenders from transactional ones
 - [Staffing Agencies: RBF vs Invoice Factoring](https://servefunding.com/blog/staffing-agency-rbf-vs-invoice-factoring): Comparison of financing options for staffing company cash flow
