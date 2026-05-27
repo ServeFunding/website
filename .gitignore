@@ -39,8 +39,3 @@ next-env.d.ts
 
 # claude code — keep skills checked in, keep local settings out
 .claude/settings.local.json
-
-# internal-only content sources (customer transcripts, voice patterns, scraping outputs).
-# Keeps the "no customer info in public content" rule enforced at the repo boundary —
-# these are local sources for blog drafting and chatbot training only.
-/docs/
