@@ -56,6 +56,7 @@ export function Footer() {
                   <Link href="/glossary" className="text-olive-900 hover:text-gold-500 transition-colors">Glossary</Link>
                   <Link href="/faq" className="text-olive-900 hover:text-gold-500 transition-colors">FAQ</Link>
                   <Link href="/blog" className="text-olive-900 hover:text-gold-500 transition-colors">Blog</Link>
+                  <Link href="/bankers" className="text-olive-900 hover:text-gold-500 transition-colors">Bankers</Link>
                   {sortedBlogPosts.slice(0, 2).map((post) => (
                     <Link key={post.id} href={`/blog/${post.id}`} className="text-gray-500 hover:text-gold-500 transition-colors text-xs">
                       → {post.title}

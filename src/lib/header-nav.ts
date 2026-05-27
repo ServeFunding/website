@@ -50,6 +50,9 @@ const PARTNERS_ITEMS: FeaturedDropdownItem[] = [
   { name: "Business Advisors", id: "business-advisors" }
 ]
 
+// "Bankers" sits as its own top-level link — it's the specialized referral hub
+// for the audience that drives most of Serve Funding's pipeline.
+
 const ABOUT_ITEMS: FeaturedDropdownItem[] = [
   { name: "Our Story", id: "our-story" },
   { name: "Core Values", id: "core-values" },
@@ -125,6 +128,11 @@ export const headerNavConfig: HeaderNavConfig = {
       featuredTitle: 'Primary Partners',
       regularTitle: 'All Partners',
       description: 'We work with trusted advisors and professionals who share our commitment to helping businesses succeed. Join our growing network of referral partners.'
+    },
+    {
+      type: 'link',
+      label: 'Bankers',
+      href: '/bankers'
     },
     {
       type: 'dropdown',
