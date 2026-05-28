@@ -271,6 +271,7 @@ export function Header() {
                 description={activeDropdownData.description}
                 featuredTitle={activeDropdownData.featuredTitle}
                 regularTitle={activeDropdownData.regularTitle}
+                bottomRightCta={activeDropdownData.bottomRightCta}
                 onAnchorClick={handleAnchorClick}
               />
             </Container>
@@ -323,6 +324,7 @@ export function Header() {
                       isExpanded={expandedMenu === expandKey}
                       onToggle={() => setExpandedMenu(expandedMenu === expandKey ? null : expandKey)}
                       onClose={closeMenu}
+                      bottomRightCta={item.bottomRightCta}
                       onAnchorClick={handleAnchorClick}
                     />
                   )

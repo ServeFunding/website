@@ -40,13 +40,10 @@ export async function POST(request: Request) {
       content: message,
     })
 
-    // Model routing: simple/short messages → Haiku (fast + cheap), complex/agentic → Sonnet.
-    // Heuristic: if message is short and the conversation is short, use Haiku.
-    // If the visitor has typed multiple turns or asked a multi-clause question, use Sonnet.
-    const isShortMessage = message.length < 120 && !/[?].*[?]/.test(message)
-    const isShortConversation = messages.length <= 3
-    const useSonnet = !(isShortMessage && isShortConversation)
-    const model = useSonnet ? "claude-sonnet-4-6" : "claude-haiku-4-5-20251001"
+    // Stay on Haiku 4.5 for all turns — with the rich cached system prompt, Haiku handles
+    // voice + citations well. We can route to Sonnet later once we've confirmed the model
+    // ID and weighed the cost trade-off.
+    const model = "claude-haiku-4-5-20251001"
 
     const response = await anthropic.beta.messages.create({
       model,

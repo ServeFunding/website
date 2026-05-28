@@ -178,14 +178,34 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
           </Container>
         </Section>
 
-        {/* Full Description Section */}
+        {/* Full Description Section — punchy intro visible, rest behind "Read more" */}
         <Section background="gray">
           <Container>
             <div className="max-w-4xl mx-auto">
-              <Heading size="h2" className="mb-4">How It Works</Heading>
-              <Text size="lg">
-                {solution.fullDesc}
-              </Text>
+              <Heading size="h2" className="mb-6">How It Works</Heading>
+              {(() => {
+                const paragraphs = solution.fullDesc.split('\n\n').map(p => p.trim()).filter(Boolean)
+                if (paragraphs.length <= 1) {
+                  return <Text size="lg" className="whitespace-pre-line">{solution.fullDesc}</Text>
+                }
+                const [first, ...rest] = paragraphs
+                return (
+                  <>
+                    <Text size="lg" className="mb-6">{first}</Text>
+                    <details className="group">
+                      <summary className="cursor-pointer font-semibold text-olive-green hover:underline list-none inline-flex items-center gap-1.5 select-none">
+                        <span className="group-open:hidden">Read full explanation →</span>
+                        <span className="hidden group-open:inline">Show less ↑</span>
+                      </summary>
+                      <div className="mt-6 space-y-6">
+                        {rest.map((p, i) => (
+                          <Text key={i} size="lg">{p}</Text>
+                        ))}
+                      </div>
+                    </details>
+                  </>
+                )
+              })()}
             </div>
           </Container>
         </Section>

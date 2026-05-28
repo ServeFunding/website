@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Zap, FileText, Wrench, Scale, Building2, BookOpen } from "lucide-react"
 import { COLORS } from "@/lib/colors"
 import { trackNavClick } from "@/lib/tracking"
-import type { FeaturedDropdownItem } from "@/lib/header-nav"
+import type { FeaturedDropdownItem, DropdownBottomCta } from "@/lib/header-nav"
 
 interface DropdownMenuTwoSectionProps {
   items: FeaturedDropdownItem[]
@@ -16,6 +16,7 @@ interface DropdownMenuTwoSectionProps {
   featuredTitle?: string
   regularTitle?: string
   showHereToServe?: boolean
+  bottomRightCta?: DropdownBottomCta
   onAnchorClick?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
 }
 
@@ -53,6 +54,7 @@ export function DropdownMenuTwoSection({
   featuredTitle = 'Featured',
   regularTitle = 'All Items',
   showHereToServe = true,
+  bottomRightCta,
   onAnchorClick
 }: DropdownMenuTwoSectionProps) {
   const handleClick = (id: string) => {
@@ -197,6 +199,31 @@ export function DropdownMenuTwoSection({
                   )
                 })}
               </div>
+              {bottomRightCta && (
+                <div className="mt-auto pt-4 flex justify-end">
+                  <Link
+                    href={bottomRightCta.href}
+                    onClick={() => handleClick(bottomRightCta.href)}
+                    className="inline-flex items-center gap-3 px-4 py-3 rounded-lg border transition-all hover:-translate-y-0.5 hover:shadow-md"
+                    style={{
+                      color: COLORS.dark,
+                      borderColor: `${COLORS.secondary}`,
+                      backgroundImage: `linear-gradient(135deg, ${COLORS.highlight}33 0%, ${COLORS.secondary}33 100%)`,
+                    }}
+                  >
+                    <div style={{ color: COLORS.primary }}>
+                      {getIcon(bottomRightCta.icon)}
+                    </div>
+                    <div className="flex flex-col">
+                      <div className="font-semibold text-sm leading-snug" style={{ color: COLORS.primary }}>{bottomRightCta.name}</div>
+                      {bottomRightCta.subtitle && (
+                        <div className="text-xs leading-tight" style={{ color: `${COLORS.dark}99` }}>{bottomRightCta.subtitle}</div>
+                      )}
+                    </div>
+                    <span aria-hidden style={{ color: COLORS.primary }} className="ml-1 font-semibold">→</span>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         ) : (

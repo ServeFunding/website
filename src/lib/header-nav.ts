@@ -28,6 +28,13 @@ export interface SimpleNavItem {
   href: string
 }
 
+export interface DropdownBottomCta {
+  name: string
+  href: string
+  subtitle?: string
+  icon?: string
+}
+
 export interface DropdownNavItem {
   type: 'dropdown'
   label: string
@@ -37,6 +44,7 @@ export interface DropdownNavItem {
   description?: string
   featuredTitle?: string
   regularTitle?: string
+  bottomRightCta?: DropdownBottomCta
 }
 
 export type NavItem = SimpleNavItem | DropdownNavItem
@@ -74,13 +82,6 @@ export const headerNavConfig: HeaderNavConfig = {
       label: 'Solutions',
       basePath: '/solutions',
       items: [
-        {
-          name: 'Compare All Solutions',
-          id: 'compare',
-          featured: true,
-          subtitle: 'Side-by-side comparison of all 12 options',
-          icon: 'Scale',
-        } satisfies FeaturedDropdownItem,
         ...fundingSolutions.map(solution => {
         // Mark the three featured products (working capital, invoice factoring, equipment)
         const isFeatured = ['working-capital-loans', 'invoice-factoring', 'equipment-leasing'].includes(solution.id)
@@ -104,7 +105,13 @@ export const headerNavConfig: HeaderNavConfig = {
       itemType: 'pages',
       featuredTitle: 'Core Solutions',
       regularTitle: 'All Solutions',
-      description: 'Explore our range of working capital solutions designed to keep your business running smoothly. From short-term cash needs to comprehensive working capital strategies.'
+      description: 'Explore our range of working capital solutions designed to keep your business running smoothly. From short-term cash needs to comprehensive working capital strategies.',
+      bottomRightCta: {
+        name: 'Which is right for me?',
+        href: '/solutions/compare',
+        subtitle: 'Side-by-side comparison of all 12 options',
+        icon: 'Scale',
+      }
     },
     {
       type: 'dropdown',

@@ -2,11 +2,126 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { X, Send, MessageCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { trackChatbotSessionStart, trackChatbotMessage } from '@/lib/tracking'
 import { Button } from '@/components/ui'
+import { fundingSolutions } from '@/data/solutions'
+import { comparisons } from '@/data/comparisons'
+import { industries } from '@/data/industries'
+import { getTitleAsString } from '@/lib/solution-helpers'
+
+// Page-aware contextual hook: maps the visitor's current pathname to a short
+// "Are you interested in..." nudge and a matching opener for the chat.
+function getContextualHint(pathname: string): { hook: string; opener: string } | null {
+  if (!pathname || pathname === '/discover') return null
+
+  if (pathname === '/') {
+    return {
+      hook: 'Want help finding the right capital for your business?',
+      opener: "Hi — I can help you think through what kind of capital fits your situation. What's on your mind?",
+    }
+  }
+
+  if (pathname.startsWith('/solutions/')) {
+    const id = pathname.replace('/solutions/', '').replace(/\/$/, '')
+    if (id === 'compare' || id === '') return {
+      hook: 'Exploring funding options? I can help!',
+      opener: "Looks like you're weighing options. Tell me a bit about your situation and I'll point you toward the one that actually fits.",
+    }
+    const solution = fundingSolutions.find((s) => s.id === id)
+    if (solution) {
+      const title = getTitleAsString(solution.title)
+      return {
+        hook: `Curious how ${title.toLowerCase()} would work for your business?`,
+        opener: `I see you're reading about ${title}. Want to walk through whether this fits your situation, or compare it to something else?`,
+      }
+    }
+  }
+
+  if (pathname.startsWith('/compare/')) {
+    const id = pathname.replace('/compare/', '').replace(/\/$/, '')
+    const comp = comparisons.find((c) => c.id === id)
+    if (comp) {
+      return {
+        hook: `Trying to decide between ${comp.productA.name} and ${comp.productB.name}?`,
+        opener: `${comp.productA.name} vs ${comp.productB.name} — happy to talk through which one would actually fit. What's your situation?`,
+      }
+    }
+    return {
+      hook: 'Comparing two products and not sure which to pick?',
+      opener: "Comparison pages can only go so far. Want to tell me about your situation and I'll point you to the one that actually fits?",
+    }
+  }
+
+  if (pathname.startsWith('/industries/')) {
+    const id = pathname.replace('/industries/', '').replace(/\/$/, '')
+    const ind = industries.find((i) => i.id === id)
+    if (ind) {
+      return {
+        hook: `Looking for capital in ${ind.id.replace(/-/g, ' ')}?`,
+        opener: `Looks like you're in ${ind.id.replace(/-/g, ' ')}. We do a lot of work in this space — what's the capital need you're trying to solve?`,
+      }
+    }
+  }
+
+  if (pathname.startsWith('/blog/')) {
+    return {
+      hook: 'Have a question on what you just read?',
+      opener: 'Reading something specific? I can help connect it to your situation — what brought you to this article?',
+    }
+  }
+
+  if (pathname === '/glossary' || pathname.startsWith('/glossary')) {
+    return {
+      hook: 'Want any of these terms explained in plain English?',
+      opener: "Glossary's a starting point. Want me to break any of these down or talk through how they actually apply to your situation?",
+    }
+  }
+
+  if (pathname === '/faq') {
+    return {
+      hook: "Don't see your specific question?",
+      opener: "FAQs cover the basics. What's the question that's not on the page?",
+    }
+  }
+
+  if (pathname === '/bankers') {
+    return {
+      hook: 'Have a client situation you want to talk through?',
+      opener: "Banker here? Happy to walk through a specific client situation — what kind of deal are you trying to get done?",
+    }
+  }
+
+  if (pathname === '/capital-strategy') {
+    return {
+      hook: 'Wondering which capital stack fits your goal?',
+      opener: "Capital strategy is about matching the structure to the goal. What's the goal you're trying to fund?",
+    }
+  }
+
+  if (pathname === '/partners') {
+    return {
+      hook: 'Interested in partnering with us?',
+      opener: "Looking to partner? Tell me a bit about your practice and the kinds of clients you serve.",
+    }
+  }
+
+  if (pathname === '/fundings') {
+    return {
+      hook: 'Want to know if your deal could be next?',
+      opener: "Case studies are real deals. Tell me about your situation and I'll tell you honestly whether we'd be a fit.",
+    }
+  }
+
+  // Default fallback for any other page
+  return {
+    hook: 'Got a funding question I can help with?',
+    opener: "What brought you here today? Happy to help you think through it.",
+  }
+}
 
 interface Message {
   id: string
@@ -14,6 +129,51 @@ interface Message {
   sender: 'user' | 'bot'
   timestamp: Date
   actionButtons?: Array<{ label: string; action: string }>
+}
+
+// Loading bubble that rotates through "thinking" phrases so the visitor knows
+// something useful is happening while the model is generating a reply.
+function ThinkingBubble() {
+  const phrases = [
+    'Thinking…',
+    'Pulling the right pages…',
+    'Looking at your situation…',
+    'Drafting a clear answer…',
+    'Checking the funding options…',
+  ]
+  const [idx, setIdx] = useState(0)
+  useEffect(() => {
+    const t = setInterval(() => setIdx((i) => (i + 1) % phrases.length), 1800)
+    return () => clearInterval(t)
+  }, [phrases.length])
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="flex justify-start"
+    >
+      <div className="bg-gray-100 text-gray-700 px-4 py-2.5 rounded-lg rounded-bl-none flex items-center gap-2.5">
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={idx}
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.25 }}
+            className="text-sm italic"
+          >
+            {phrases[idx]}
+          </motion.span>
+        </AnimatePresence>
+        <span className="flex gap-1">
+          <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0ms' }} />
+          <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '150ms' }} />
+          <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+        </span>
+      </div>
+    </motion.div>
+  )
 }
 
 // Render plain text with bare URLs and site paths converted to clickable links.
@@ -30,17 +190,31 @@ function renderTextWithLinks(text: string): React.ReactNode {
     }
     const url = match[0].replace(/[.,;:!?)]+$/, '') // trim trailing punctuation
     const trailing = match[0].slice(url.length)
+    const isExternal = url.startsWith('http')
     parts.push(
-      <a
-        key={key++}
-        href={url}
-        target={url.startsWith('http') ? '_blank' : undefined}
-        rel={url.startsWith('http') ? 'noopener noreferrer' : undefined}
-        className="underline font-semibold"
-        style={{ color: BRAND_COLORS.secondary }}
-      >
-        {url}
-      </a>
+      isExternal ? (
+        <a
+          key={key++}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline"
+          style={{ color: BRAND_COLORS.primary }}
+        >
+          {url}
+        </a>
+      ) : (
+        // Use Next Link for internal paths so the chat state persists across navigation
+        // (the Chatbot lives in the root layout, so soft-nav keeps the conversation).
+        <Link
+          key={key++}
+          href={url}
+          className="underline"
+          style={{ color: BRAND_COLORS.primary }}
+        >
+          {url}
+        </Link>
+      )
     )
     if (trailing) parts.push(trailing)
     lastIndex = match.index + match[0].length
@@ -58,15 +232,24 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
   const [isOpen, setIsOpen] = useState(false)
   const [aiContext, setAiContext] = useState('')
   const [storedUserRole] = useState<string | undefined>(userRole)
+  const [hasScrolled, setHasScrolled] = useState(false)
+  const [showContextual, setShowContextual] = useState(false)
+  const [contextualDismissed, setContextualDismissed] = useState(false)
+  const contextualHint = getContextualHint(pathname || '/')
   const sessionIdRef = useRef<string>(
     typeof crypto !== 'undefined' && 'randomUUID' in crypto
       ? crypto.randomUUID()
       : `s_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`
   )
+  // Email-on-reply queue: hold the latest transcript and flush after the visitor
+  // stops engaging (debounced), on chat close, or on page unload.
+  const pendingTranscriptRef = useRef<Array<{ sender: 'user' | 'bot'; text: string; timestamp: string }> | null>(null)
+  const flushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const lastSentLengthRef = useRef<number>(0)
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: 'Hello! 👋 Welcome to Serve Funding. How can I help you today? Feel free to ask me anything about our services, funding solutions, or how we can help your business grow.',
+      text: 'Welcome to Serve Funding! 👋 Feel free to ask me anything about our services, funding solutions, or how we can help your business grow.',
       sender: 'bot',
       timestamp: new Date(),
     },
@@ -97,6 +280,86 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
     }
   }, [messages, isOpen, isLoading])
 
+  // Show pill only after the user starts scrolling. Hide when they return to top.
+  useEffect(() => {
+    const SCROLL_THRESHOLD = 200
+    const handle = () => setHasScrolled(window.scrollY > SCROLL_THRESHOLD)
+    handle()
+    window.addEventListener('scroll', handle, { passive: true })
+    return () => window.removeEventListener('scroll', handle)
+  }, [])
+
+  // Reset contextual nudge whenever the page changes, then show it after engagement delay
+  useEffect(() => {
+    setShowContextual(false)
+    setContextualDismissed(false)
+    if (!contextualHint) return
+    const timer = setTimeout(() => {
+      setShowContextual(true)
+    }, 12000) // 12s on page = engagement signal
+    return () => clearTimeout(timer)
+  }, [pathname, contextualHint])
+
+  // Flush the pending transcript to /api/notify (if anything new since last send).
+  const flushNotify = useCallback((useBeacon = false) => {
+    if (flushTimerRef.current) {
+      clearTimeout(flushTimerRef.current)
+      flushTimerRef.current = null
+    }
+    const transcript = pendingTranscriptRef.current
+    if (!transcript || transcript.length === 0) return
+    if (transcript.length <= lastSentLengthRef.current) return // nothing new
+    const payload = JSON.stringify({
+      type: 'chat_message',
+      sessionId: sessionIdRef.current,
+      pageUrl: typeof window !== 'undefined' ? window.location.href : '',
+      name: 'Chat Visitor',
+      email: 'chat@servefunding.com',
+      transcript,
+    })
+    lastSentLengthRef.current = transcript.length
+    if (useBeacon && typeof navigator !== 'undefined' && 'sendBeacon' in navigator) {
+      // sendBeacon survives unload — best for tab close / nav-away.
+      const blob = new Blob([payload], { type: 'application/json' })
+      navigator.sendBeacon('/api/notify', blob)
+    } else {
+      fetch('/api/notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
+        keepalive: true, // helps if user navigates away mid-request
+      }).catch(() => { /* non-blocking */ })
+    }
+  }, [])
+
+  // Queue a transcript and schedule a debounced flush.
+  const queueNotify = useCallback((transcript: Array<{ sender: 'user' | 'bot'; text: string; timestamp: string }>) => {
+    pendingTranscriptRef.current = transcript
+    if (flushTimerRef.current) clearTimeout(flushTimerRef.current)
+    flushTimerRef.current = setTimeout(() => {
+      flushNotify(false)
+    }, 90000) // 90s of inactivity → flush
+  }, [flushNotify])
+
+  // Force-flush on page unload / tab hidden — survives navigation away.
+  useEffect(() => {
+    const onUnload = () => flushNotify(true)
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') flushNotify(true)
+    }
+    window.addEventListener('beforeunload', onUnload)
+    document.addEventListener('visibilitychange', onVisibility)
+    return () => {
+      window.removeEventListener('beforeunload', onUnload)
+      document.removeEventListener('visibilitychange', onVisibility)
+    }
+  }, [flushNotify])
+
+  // Flush when the chat panel is closed (user signal that engagement paused).
+  useEffect(() => {
+    if (!isOpen) flushNotify(false)
+  }, [isOpen, flushNotify])
+
   const handleSendMessage = useCallback(async () => {
     if (!inputValue.trim()) return
 
@@ -117,7 +380,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
 
     try {
       // Get AI response with conversation history and user role
-      const reply = await fetch('/api/chat', {
+      const apiResponse = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -125,13 +388,31 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
           conversationHistory: messages,
           userRole: storedUserRole,
         }),
-      }).then(res => res.json()).then(data => data.reply)
+      })
+      const data = await apiResponse.json()
 
-      // Parse JSON response (guaranteed to be JSON via API response_format)
-      const parsed = JSON.parse(reply)
-      const displayText = parsed.message
-      const showForm = parsed.showForm === true
-      const context = parsed.context || ''
+      if (data.error) {
+        console.error('Chat API returned error:', data.error)
+        throw new Error(data.error)
+      }
+
+      const reply: string | undefined = data.reply
+      if (!reply) throw new Error('Empty reply from chat API')
+
+      // Try to parse as structured JSON; if it fails, treat as plain text reply.
+      let displayText = reply
+      let showForm = false
+      let context = ''
+      try {
+        const parsed = JSON.parse(reply)
+        if (parsed && typeof parsed === 'object') {
+          displayText = parsed.message || reply
+          showForm = parsed.showForm === true
+          context = parsed.context || ''
+        }
+      } catch {
+        // Plain-text reply (structured-outputs didn't kick in) — render as-is.
+      }
 
       if (showForm) {
         setAiContext(context)
@@ -146,29 +427,18 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
           { label: "Schedule a Call", action: 'open_calendly' }
         ] : undefined
       }
-      setMessages((prev) => {
-        const next = [...prev, botMessage]
-        // Fire-and-forget transcript email after every AI reply
-        const transcript = next.map(m => ({
-          sender: m.sender,
-          text: m.text,
-          timestamp: m.timestamp.toISOString(),
-        }))
-        fetch('/api/notify', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            type: 'chat_message',
-            sessionId: sessionIdRef.current,
-            pageUrl: typeof window !== 'undefined' ? window.location.href : '',
-            // /api/notify validates name + email but we don't have those here; pass placeholders
-            name: 'Chat Visitor',
-            email: 'chat@servefunding.com',
-            transcript,
-          }),
-        }).catch(() => { /* non-blocking */ })
-        return next
-      })
+      // Update state with the pure updater (React Strict Mode double-invokes this in dev).
+      setMessages((prev) => [...prev, botMessage])
+
+      // Queue the latest transcript for the debounced email send. We do NOT email
+      // after every turn — we wait until the visitor stops engaging (90s idle),
+      // closes the chat, or leaves the page. Then a single email goes out.
+      const transcript = [...messages, userMessage, botMessage].map((m) => ({
+        sender: m.sender,
+        text: m.text,
+        timestamp: m.timestamp.toISOString(),
+      }))
+      queueNotify(transcript)
     } catch (error) {
       console.error('Error getting AI response:', error)
       const errorMessage: Message = {
@@ -204,61 +474,145 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
 
   return (
     <>
-      {/* Centered Bottom Trigger Pill (replaces bottom-right circle) */}
+      {/* Slide-in-from-right contextual notification (like an incoming message) */}
       <AnimatePresence>
-        {!isOpen && (
+        {!isOpen && hasScrolled && showContextual && !contextualDismissed && contextualHint && (
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, x: 400 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 400 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              position: 'fixed',
+              bottom: '96px',
+              right: '20px',
+              zIndex: 51,
+              maxWidth: 'min(360px, calc(100vw - 40px))',
+            }}
+          >
+            <div
+              style={{
+                position: 'relative',
+                backgroundColor: '#ffffff',
+                border: `1.5px solid ${BRAND_COLORS.primary}22`,
+                borderRadius: '14px',
+                padding: '14px 16px 14px 18px',
+                boxShadow: '0 10px 30px rgba(42, 35, 26, 0.18)',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '12px',
+              }}
+            >
+              {/* Red unread badge */}
+              <motion.span
+                animate={{ scale: [1, 1.15, 1] }}
+                transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+                style={{
+                  position: 'absolute',
+                  top: '-6px',
+                  left: '-6px',
+                  width: '14px',
+                  height: '14px',
+                  borderRadius: '50%',
+                  backgroundColor: '#e53935',
+                  border: '2px solid #ffffff',
+                  boxShadow: '0 2px 6px rgba(229, 57, 53, 0.5)',
+                }}
+                aria-hidden
+              />
+
+              <MessageCircle size={20} style={{ color: BRAND_COLORS.secondary, flexShrink: 0, marginTop: '2px' }} />
+
+              <button
+                onClick={() => {
+                  setIsOpen(true)
+                  setMessages([{
+                    id: '1',
+                    text: contextualHint.opener,
+                    sender: 'bot',
+                    timestamp: new Date(),
+                  }])
+                  setShowContextual(false)
+                }}
+                className="text-left flex-1 cursor-pointer"
+                style={{ color: BRAND_COLORS.primary }}
+              >
+                <span className="block text-xs font-semibold mb-1" style={{ color: BRAND_COLORS.secondary }}>
+                  Serve Funding Navigator
+                </span>
+                <span className="block text-sm leading-snug">{contextualHint.hook}</span>
+                <span className="block text-xs mt-1.5 font-medium" style={{ color: BRAND_COLORS.secondary }}>
+                  Tap to chat →
+                </span>
+              </button>
+
+              <button
+                onClick={() => setContextualDismissed(true)}
+                aria-label="Dismiss"
+                className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer flex-shrink-0 -mr-1 -mt-1 p-1"
+              >
+                <X size={14} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Centered Bottom Trigger (replaces bottom-right circle) */}
+      <AnimatePresence>
+        {!isOpen && hasScrolled && (
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 30 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
+            exit={{ opacity: 0, y: 24 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
             style={{
               position: 'fixed',
               bottom: '20px',
-              left: '50%',
-              transform: 'translateX(-50%)',
+              left: 0,
+              right: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '10px',
+              pointerEvents: 'none',
               zIndex: 50,
-              maxWidth: 'calc(100vw - 32px)',
+              padding: '0 16px',
             }}
           >
             <motion.button
-              onClick={() => {
-                setIsOpen(true)
-              }}
+              onClick={() => setIsOpen(true)}
               animate={{
-                background: [
-                  `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
-                  `linear-gradient(135deg, ${BRAND_COLORS.secondary}, ${BRAND_COLORS.primary})`,
-                  `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
-                ],
-                boxShadow: [
-                  `0 8px 24px ${BRAND_COLORS.secondary}40`,
-                  `0 12px 32px ${BRAND_COLORS.secondary}66`,
-                  `0 8px 24px ${BRAND_COLORS.secondary}40`,
+                borderColor: [
+                  `${BRAND_COLORS.primary}55`,
+                  `${BRAND_COLORS.highlight}cc`,
+                  `${BRAND_COLORS.primary}55`,
                 ],
               }}
               transition={{
-                background: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
-                boxShadow: { duration: 2.5, repeat: Infinity, ease: 'easeInOut' },
+                borderColor: { duration: 3.5, repeat: Infinity, ease: 'easeInOut' },
               }}
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-3 px-6 py-4 rounded-full text-white font-semibold shadow-lg cursor-pointer"
-              style={{ minWidth: '280px', justifyContent: 'center' }}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex items-center gap-3 px-6 py-3 cursor-pointer"
+              style={{
+                pointerEvents: 'auto',
+                backgroundColor: '#ffffff',
+                borderWidth: '1.5px',
+                borderStyle: 'solid',
+                borderRadius: '12px',
+                color: BRAND_COLORS.primary,
+                boxShadow: '0 4px 16px rgba(42, 35, 26, 0.10)',
+                maxWidth: '100%',
+              }}
               aria-label="Open Serve Funding Navigator chat"
             >
-              <MessageCircle size={22} style={{ color: BRAND_COLORS.highlight }} />
-              <span>
-                <span className="text-base">Ask the Navigator</span>
-                <span className="block text-xs opacity-80 font-normal">Capital that serves you — ask anything</span>
+              <MessageCircle size={20} style={{ color: BRAND_COLORS.secondary }} />
+              <span className="text-left">
+                <span className="block text-base font-semibold leading-tight">Ask the Navigator</span>
+                <span className="block text-xs text-gray-600 font-normal leading-tight mt-0.5">Capital that serves you</span>
               </span>
-              <motion.span
-                animate={{ x: [0, 4, 0] }}
-                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-                aria-hidden
-              >
-                →
-              </motion.span>
+              <span style={{ color: BRAND_COLORS.secondary }} aria-hidden>→</span>
             </motion.button>
           </motion.div>
         )}
@@ -284,18 +638,22 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
             role="dialog"
             aria-label="Serve Funding Chat Assistant"
           >
-            {/* Header */}
-            <div
-              style={{ backgroundColor: BRAND_COLORS.primary }}
-              className="text-white px-6 py-4 rounded-none sm:rounded-t-2xl flex items-center justify-between flex-shrink-0"
-            >
-              <div>
-                <h3 className="font-semibold">Serve Funding Navigator</h3>
-                <p className="text-sm opacity-90">Always here to serve</p>
-              </div>
+            {/* Header — gradient text, no border, minimal */}
+            <div className="px-6 py-4 rounded-none sm:rounded-t-3xl flex items-center justify-between flex-shrink-0">
+              <h3
+                className="text-lg font-bold leading-tight"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${BRAND_COLORS.primary} 0%, ${BRAND_COLORS.secondary} 100%)`,
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  color: 'transparent',
+                }}
+              >
+                Serve Funding Navigator
+              </h3>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-white hover:opacity-80 p-1 rounded transition-opacity"
+                className="text-gray-400 hover:text-gray-700 p-1 rounded transition-colors"
                 aria-label="Close chat"
               >
                 <X size={20} />
@@ -322,7 +680,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
                         : 'rounded-bl-none'
                     }`}
                   >
-                    <p className="text-sm">{renderTextWithLinks(message.text)}</p>
+                    <p className="text-sm whitespace-pre-line leading-relaxed">{renderTextWithLinks(message.text)}</p>
                   </div>
                   {/* Action Buttons */}
                   {message.actionButtons && message.actionButtons.length > 0 && (
@@ -342,21 +700,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
                 </motion.div>
               ))}
 
-              {isLoading && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex justify-start"
-                >
-                  <div className="bg-gray-100 text-gray-800 px-4 py-2 rounded-lg rounded-bl-none">
-                    <div className="flex space-x-2">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
+              {isLoading && <ThinkingBubble />}
               <div ref={messagesEndRef} />
             </div>
 

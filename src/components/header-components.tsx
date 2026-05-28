@@ -4,7 +4,7 @@ import Link from "next/link"
 import { ChevronDown } from "lucide-react"
 import { motion } from "framer-motion"
 import { trackNavClick } from "@/lib/tracking"
-import type { DropdownItem } from "@/lib/header-nav"
+import type { DropdownItem, DropdownBottomCta } from "@/lib/header-nav"
 
 interface NavItemRendererProps {
   item: DropdownItem
@@ -87,12 +87,13 @@ interface MobileMenuSectionProps {
   isExpanded: boolean
   onToggle: () => void
   onClose?: () => void
+  bottomRightCta?: DropdownBottomCta
   onAnchorClick?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
 }
 
 const mobileMenuItemClasses = "block text-base font-medium py-3 border-b border-gray-200 text-gray-700 pl-6"
 
-export function MobileMenuSection({ label, basePath, items, type = 'pages', isExpanded, onToggle, onClose, onAnchorClick }: MobileMenuSectionProps) {
+export function MobileMenuSection({ label, basePath, items, type = 'pages', isExpanded, onToggle, onClose, bottomRightCta, onAnchorClick }: MobileMenuSectionProps) {
   const handleLinkClick = () => {
     trackNavClick(label, basePath)
     onClose?.()
@@ -143,6 +144,18 @@ export function MobileMenuSection({ label, basePath, items, type = 'pages', isEx
                 />
               )
             })}
+            {bottomRightCta && (
+              <Link
+                href={bottomRightCta.href}
+                onClick={() => {
+                  trackNavClick(`${label} - ${bottomRightCta.name}`, bottomRightCta.href)
+                  onClose?.()
+                }}
+                className={mobileMenuItemClasses}
+              >
+                {bottomRightCta.name}
+              </Link>
+            )}
           </div>
         </motion.div>
       )}
