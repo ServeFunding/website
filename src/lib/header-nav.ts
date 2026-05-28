@@ -45,6 +45,8 @@ export interface DropdownNavItem {
   featuredTitle?: string
   regularTitle?: string
   bottomRightCta?: DropdownBottomCta
+  /** If true, the parent label opens the dropdown but does not navigate. */
+  noLink?: boolean
 }
 
 export type NavItem = SimpleNavItem | DropdownNavItem
@@ -81,6 +83,7 @@ export const headerNavConfig: HeaderNavConfig = {
       type: 'dropdown',
       label: 'Solutions',
       basePath: '/solutions',
+      noLink: true,
       items: [
         ...fundingSolutions.map(solution => {
         // Mark the three featured products (working capital, invoice factoring, equipment)
@@ -106,12 +109,6 @@ export const headerNavConfig: HeaderNavConfig = {
       featuredTitle: 'Core Solutions',
       regularTitle: 'All Solutions',
       description: 'Explore our range of working capital solutions designed to keep your business running smoothly. From short-term cash needs to comprehensive working capital strategies.',
-      bottomRightCta: {
-        name: 'Which is right for me?',
-        href: '/solutions/compare',
-        subtitle: 'Side-by-side comparison of all 12 options',
-        icon: 'Scale',
-      }
     },
     {
       type: 'dropdown',

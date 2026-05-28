@@ -89,11 +89,12 @@ interface MobileMenuSectionProps {
   onClose?: () => void
   bottomRightCta?: DropdownBottomCta
   onAnchorClick?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
+  noLink?: boolean
 }
 
 const mobileMenuItemClasses = "block text-base font-medium py-3 border-b border-gray-200 text-gray-700 pl-6"
 
-export function MobileMenuSection({ label, basePath, items, type = 'pages', isExpanded, onToggle, onClose, bottomRightCta, onAnchorClick }: MobileMenuSectionProps) {
+export function MobileMenuSection({ label, basePath, items, type = 'pages', isExpanded, onToggle, onClose, bottomRightCta, onAnchorClick, noLink }: MobileMenuSectionProps) {
   const handleLinkClick = () => {
     trackNavClick(label, basePath)
     onClose?.()
@@ -101,24 +102,39 @@ export function MobileMenuSection({ label, basePath, items, type = 'pages', isEx
 
   return (
     <div className="border-b border-gray-200">
-      <div className="w-full flex items-center justify-between text-base font-medium py-3 text-olive-green">
-        <Link
-          href={basePath}
-          onClick={handleLinkClick}
-          className="flex-1 text-olive-green"
-        >
-          {label}
-        </Link>
+      {noLink ? (
         <button
           onClick={onToggle}
-          className="px-3 py-1 -my-1 flex items-center"
+          className="w-full flex items-center justify-between text-base font-medium py-3 text-olive-green"
           aria-label={`Toggle ${label} menu`}
         >
-          <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.3 }}>
-            <ChevronDown size={20} />
-          </motion.div>
+          <span className="flex-1 text-left text-olive-green">{label}</span>
+          <span className="px-3 py-1 -my-1 flex items-center">
+            <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.3 }}>
+              <ChevronDown size={20} />
+            </motion.div>
+          </span>
         </button>
-      </div>
+      ) : (
+        <div className="w-full flex items-center justify-between text-base font-medium py-3 text-olive-green">
+          <Link
+            href={basePath}
+            onClick={handleLinkClick}
+            className="flex-1 text-olive-green"
+          >
+            {label}
+          </Link>
+          <button
+            onClick={onToggle}
+            className="px-3 py-1 -my-1 flex items-center"
+            aria-label={`Toggle ${label} menu`}
+          >
+            <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.3 }}>
+              <ChevronDown size={20} />
+            </motion.div>
+          </button>
+        </div>
+      )}
       {isExpanded && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}

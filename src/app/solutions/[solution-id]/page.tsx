@@ -185,24 +185,30 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
               <Heading size="h2" className="mb-6">How It Works</Heading>
               {(() => {
                 const paragraphs = solution.fullDesc.split('\n\n').map(p => p.trim()).filter(Boolean)
-                if (paragraphs.length <= 1) {
-                  return <Text size="lg" className="whitespace-pre-line">{solution.fullDesc}</Text>
-                }
-                const [first, ...rest] = paragraphs
+                // Pull a short teaser: first 1–2 sentences of paragraph 1.
+                const firstPara = paragraphs[0] || ''
+                const sentences = firstPara.match(/[^.!?]+[.!?]+/g) || [firstPara]
+                const teaser = sentences.slice(0, 2).join(' ').trim()
+                const remainderOfFirst = sentences.slice(2).join(' ').trim()
+                const rest = paragraphs.slice(1)
+                const hasMore = remainderOfFirst.length > 0 || rest.length > 0
                 return (
                   <>
-                    <Text size="lg" className="mb-6">{first}</Text>
-                    <details className="group">
-                      <summary className="cursor-pointer font-semibold text-olive-green hover:underline list-none inline-flex items-center gap-1.5 select-none">
-                        <span className="group-open:hidden">Read full explanation →</span>
-                        <span className="hidden group-open:inline">Show less ↑</span>
-                      </summary>
-                      <div className="mt-6 space-y-6">
-                        {rest.map((p, i) => (
-                          <Text key={i} size="lg">{p}</Text>
-                        ))}
-                      </div>
-                    </details>
+                    <Text size="lg" className="mb-6">{teaser || firstPara}</Text>
+                    {hasMore && (
+                      <details className="group">
+                        <summary className="cursor-pointer font-semibold text-olive-green hover:underline list-none inline-flex items-center gap-1.5 select-none">
+                          <span className="group-open:hidden">Read full explanation →</span>
+                          <span className="hidden group-open:inline">Show less ↑</span>
+                        </summary>
+                        <div className="mt-6 space-y-6">
+                          {remainderOfFirst && <Text size="lg">{remainderOfFirst}</Text>}
+                          {rest.map((p, i) => (
+                            <Text key={i} size="lg">{p}</Text>
+                          ))}
+                        </div>
+                      </details>
+                    )}
                   </>
                 )
               })()}

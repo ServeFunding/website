@@ -486,7 +486,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
               position: 'fixed',
               bottom: '96px',
               right: '20px',
-              zIndex: 51,
+              zIndex: 41,
               maxWidth: 'min(360px, calc(100vw - 40px))',
             }}
           >
@@ -576,7 +576,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
               alignItems: 'center',
               gap: '10px',
               pointerEvents: 'none',
-              zIndex: 50,
+              zIndex: 40,
               padding: '0 16px',
             }}
           >

@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, Scale } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 import { Button, Container } from "./ui"
 import { motion } from "framer-motion"
@@ -60,9 +60,22 @@ interface NavDropdownProps {
   onAnchorClick: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
   type?: 'pages' | 'anchors'
   isActive?: boolean
+  noLink?: boolean
 }
 
-function NavDropdown({ label, items, basePath, onAnchorClick, type = 'pages', isActive }: NavDropdownProps) {
+function NavDropdown({ label, basePath, isActive, noLink }: NavDropdownProps) {
+  if (noLink) {
+    return (
+      <div className="relative h-full flex items-center group">
+        <span
+          className={`${navItemClasses} group-hover:after:w-full ${isActive ? 'after:w-full' : ''} gap-1 cursor-default`}
+          style={underlineStyle}
+        >
+          {label} <ChevronDown size={18} />
+        </span>
+      </div>
+    )
+  }
   return (
     <div className="relative h-full flex items-center group">
       <Link
@@ -224,6 +237,7 @@ export function Header() {
                       isActive={getIsActive(item, pathname)}
                       onAnchorClick={handleAnchorClick}
                       type={item.itemType || 'pages'}
+                      noLink={item.noLink}
                     />
                   </div>
                 )
@@ -232,7 +246,17 @@ export function Header() {
           </nav>
 
           {/* Right side: CTA Button + Mobile Menu */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            {/* Which is right for me? — secondary CTA, desktop only */}
+            <Link
+              href="/solutions/compare"
+              onClick={() => trackNavClick("Which is right for me? (Header)", "/solutions/compare")}
+              className="hidden lg:inline-flex items-center gap-1.5 text-sm font-medium text-olive-green hover:text-gold-500 transition-colors"
+            >
+              <Scale size={16} />
+              Which is right for me?
+            </Link>
+
             {/* CTA Button */}
             <Link href="/discover" onClick={() => { trackNavClick("Let's Talk (Header)", "/discover"); trackEvent("lets_talk_click", { location: "header" }) }}>
               <Button variant="default" size="sm" className="rounded-full flex-shrink-0">
@@ -286,9 +310,10 @@ export function Header() {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
             className="lg:hidden overflow-hidden"
+            style={{ maxHeight: `calc(100vh - ${headerHeight}px)` }}
           >
             {/* Navigation Links */}
-            <div className="space-y-0 px-4 py-4">
+            <div className="space-y-0 px-4 py-4 overflow-y-auto" style={{ maxHeight: `calc(100vh - ${headerHeight}px - 24px)` }}>
               {headerNavConfig.items.map((item) => {
                 const closeMenu = () => {
                   setIsMenuOpen(false)
@@ -326,10 +351,21 @@ export function Header() {
                       onClose={closeMenu}
                       bottomRightCta={item.bottomRightCta}
                       onAnchorClick={handleAnchorClick}
+                      noLink={item.noLink}
                     />
                   )
                 }
               })}
+
+              {/* Which is right for me? — mobile */}
+              <Link
+                href="/solutions/compare"
+                onClick={() => { trackNavClick("Which is right for me? (Mobile Menu)", "/solutions/compare"); setIsMenuOpen(false) }}
+                className="flex items-center gap-2 text-base font-medium py-3 text-olive-green"
+              >
+                <Scale size={18} />
+                Which is right for me?
+              </Link>
 
               {/* Let's Talk Button */}
               <Link href="/discover" onClick={() => { trackNavClick("Let's Talk (Mobile Menu)", "/discover"); trackEvent("lets_talk_click", { location: "mobile_menu" }); setIsMenuOpen(false) }} className="w-full block pt-4">
