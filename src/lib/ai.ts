@@ -6,6 +6,9 @@ import {
 } from '@/data/company-info'
 import { fundingSolutions } from '@/data/solutions'
 import { getTitleAsString } from '@/lib/solution-helpers'
+import { comparisons } from '@/data/comparisons'
+import { industries } from '@/data/industries'
+import { glossaryTerms } from '@/data/glossary'
 
 // Names of real prospects, lenders, and people that may appear in internal docs
 // but must never be sent to the LLM context or rendered to a visitor.
@@ -78,6 +81,18 @@ export function buildAIContext(userRole?: string, blogIndex: BlogIndexEntry[] = 
     ? blogIndex.map((p) => `- /blog/${p.id} — ${p.title}: ${p.excerpt}`).join('\n')
     : '(blog catalog not provided)'
 
+  const comparisonCatalog = comparisons
+    .map((c) => `- /compare/${c.id} — ${c.title}: ${c.excerpt}`)
+    .join('\n')
+
+  const industryCatalog = industries
+    .map((i) => `- /industries/${i.id} — ${i.title}`)
+    .join('\n')
+
+  const glossaryCatalog = glossaryTerms
+    .map((g) => `- ${g.term}: ${g.shortDefinition}`)
+    .join('\n')
+
   const coreValuesSummary = coreValues.map((v) => `${v.value}: ${v.description}`).join('\n')
 
   const processSummary = serveFundingProcess
@@ -113,12 +128,27 @@ ${productCatalog}
 
 When a visitor's question maps to a product, mention it BY NAME and reference the page URL inline (e.g., "you may want to read /solutions/invoice-factoring"). Don't paraphrase the product — point to the page.
 
-Comparison pages live at /compare/[factoring-vs-abl, sba-vs-wc, wc-vs-loc, bridge-vs-term, equipment-vs-sale-leaseback]. Industry guides at /industries/[staffing, healthcare, manufacturing, gov-contractors, construction, ecommerce-dtc]. Glossary at /glossary. Bankers hub at /bankers.
+==========================================
+COMPARISON PAGES (when a visitor weighs A vs B, link the right page)
+==========================================
+${comparisonCatalog}
+
+==========================================
+INDUSTRY GUIDES (when the visitor names their vertical, link the right page)
+==========================================
+${industryCatalog}
+
+==========================================
+GLOSSARY TERMS (defined at /glossary — link the page when a term comes up)
+==========================================
+${glossaryCatalog}
 
 ==========================================
 BLOG CANON (cite by URL when relevant)
 ==========================================
 ${blogCatalog}
+
+Other anchor pages: /faq (all FAQs), /fundings (case studies), /bankers (banker referral hub), /partners (partner program), /capital-strategy (collateral × speed × cost framework), /discover (structured intake flow).
 
 ==========================================
 HOW MIKE TALKS (match this voice — these are real verbatim phrases)
