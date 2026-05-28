@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk"
 import { buildAIContext } from "@/lib/ai"
+import { getBlogPosts } from "@/lib/blog-utils"
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -39,11 +40,30 @@ export async function POST(request: Request) {
       content: message,
     })
 
+    // Model routing: simple/short messages → Haiku (fast + cheap), complex/agentic → Sonnet.
+    // Heuristic: if message is short and the conversation is short, use Haiku.
+    // If the visitor has typed multiple turns or asked a multi-clause question, use Sonnet.
+    const isShortMessage = message.length < 120 && !/[?].*[?]/.test(message)
+    const isShortConversation = messages.length <= 3
+    const useSonnet = !(isShortMessage && isShortConversation)
+    const model = useSonnet ? "claude-sonnet-4-6" : "claude-haiku-4-5-20251001"
+
     const response = await anthropic.beta.messages.create({
-      model: "claude-haiku-4-5-20251001",
+      model,
       max_tokens: 1024,
       betas: ["structured-outputs-2025-11-13"],
-      system: buildAIContext(userRole),
+      // Prompt caching: the large static voice/product corpus is cached so we only pay
+      // for it once per 5-minute window. Per-request cost drops dramatically.
+      system: [
+        {
+          type: "text",
+          text: buildAIContext(
+            userRole,
+            getBlogPosts().map((p) => ({ id: p.id, title: p.title, excerpt: p.excerpt })),
+          ),
+          cache_control: { type: "ephemeral" },
+        },
+      ],
       messages,
       output_format: {
         type: "json_schema",

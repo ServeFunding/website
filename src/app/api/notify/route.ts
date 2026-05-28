@@ -83,7 +83,8 @@ export async function POST(request: Request) {
     const body = await request.json()
     const { name, email, type = 'early' } = body
 
-    if (!name || !email) {
+    // Chat transcripts don't have a name/email (they're anonymous browser sessions)
+    if (type !== 'chat_message' && (!name || !email)) {
       return NextResponse.json({ error: 'Name and email required' }, { status: 400 })
     }
 
@@ -171,6 +172,65 @@ ${escapeHtml(dealContext)}
               Check the
               <a href="${DEAL_TRACKER_URL}" style="color: #c99c42;">deal tracker</a>
               for the full record.
+            </p>
+          </div>
+        `,
+      })
+
+      if (error) {
+        console.error('Resend error:', error)
+        return NextResponse.json({ error: error.message }, { status: 500 })
+      }
+      return NextResponse.json({ success: true, id: data?.id })
+    }
+
+    if (type === 'chat_message') {
+      // Chat transcript: fires after every AI reply with full running transcript
+      // Body: { type, sessionId, pageUrl, transcript: [{ sender: 'user'|'bot', text, timestamp }] }
+      const sessionId: string = body.sessionId || 'unknown'
+      const pageUrl: string = body.pageUrl || ''
+      const transcript: Array<{ sender: 'user' | 'bot'; text: string; timestamp?: string }> =
+        Array.isArray(body.transcript) ? body.transcript : []
+
+      if (transcript.length === 0) {
+        return NextResponse.json({ error: 'Empty transcript' }, { status: 400 })
+      }
+
+      const userTurns = transcript.filter(t => t.sender === 'user').length
+      const firstUserMsg = transcript.find(t => t.sender === 'user')?.text?.slice(0, 80) || 'New chat'
+      const subject = `Chat (${userTurns} msg${userTurns === 1 ? '' : 's'}): ${firstUserMsg}`
+
+      const transcriptHtml = transcript.map(t => {
+        const isBot = t.sender === 'bot'
+        const label = isBot ? 'Serve Funding' : 'Visitor'
+        return `<div style="margin-bottom: 12px; padding: 10px 14px; border-radius: 12px; max-width: 90%; ${
+          isBot
+            ? 'background: #ffffff; border: 1px solid #e5e5e0;'
+            : 'background: #2a231a; color: #ffffff; margin-left: auto;'
+        }"><div style="font-size: 11px; font-weight: 600; margin-bottom: 4px; ${isBot ? 'color: #c99c42;' : 'color: #d4c9a8;'}">${label}</div>${escapeHtml(t.text)}</div>`
+      }).join('')
+
+      const { data, error } = await resend.emails.send({
+        from: `Serve Funding Chat <${FROM_EMAIL}>`,
+        to: NOTIFY_RECIPIENTS,
+        subject,
+        headers: {
+          // Thread emails from the same chat session in Gmail/Outlook
+          'References': `<chat-${sessionId}@servefunding.com>`,
+          'In-Reply-To': `<chat-${sessionId}@servefunding.com>`,
+        },
+        html: `
+          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #2a231a; margin-bottom: 8px;">Chat Activity</h2>
+            <p style="color: #666; font-size: 13px; margin-bottom: 4px;">
+              <strong>Session:</strong> ${escapeHtml(sessionId)}
+            </p>
+            ${pageUrl ? `<p style="color: #666; font-size: 13px; margin-bottom: 16px;"><strong>Page:</strong> <a href="${escapeHtml(pageUrl)}" style="color: #c99c42;">${escapeHtml(pageUrl)}</a></p>` : ''}
+            <div style="background: #f5f5f0; border-radius: 8px; padding: 16px; font-size: 14px; color: #333; line-height: 1.5;">
+              ${transcriptHtml}
+            </div>
+            <p style="font-size: 12px; color: #999; margin-top: 16px;">
+              This email is sent after every AI reply. Each session is threaded so you can follow the conversation in your inbox.
             </p>
           </div>
         `,

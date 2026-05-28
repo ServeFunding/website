@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
 import { X, Send, MessageCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -16,6 +16,39 @@ interface Message {
   actionButtons?: Array<{ label: string; action: string }>
 }
 
+// Render plain text with bare URLs and site paths converted to clickable links.
+// Matches: full URLs (https://...) and relative site paths (/solutions/foo, /blog/bar).
+function renderTextWithLinks(text: string): React.ReactNode {
+  const linkPattern = /(https?:\/\/[^\s)]+|\/(?:solutions|blog|industries|compare|glossary|bankers|faq|fundings|partners|capital-strategy|about-us|contact-us|discover)\/?[\w-]*(?:#[\w\-:%~,.]+)?)/g
+  const parts: React.ReactNode[] = []
+  let lastIndex = 0
+  let match: RegExpExecArray | null
+  let key = 0
+  while ((match = linkPattern.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index))
+    }
+    const url = match[0].replace(/[.,;:!?)]+$/, '') // trim trailing punctuation
+    const trailing = match[0].slice(url.length)
+    parts.push(
+      <a
+        key={key++}
+        href={url}
+        target={url.startsWith('http') ? '_blank' : undefined}
+        rel={url.startsWith('http') ? 'noopener noreferrer' : undefined}
+        className="underline font-semibold"
+        style={{ color: BRAND_COLORS.secondary }}
+      >
+        {url}
+      </a>
+    )
+    if (trailing) parts.push(trailing)
+    lastIndex = match.index + match[0].length
+  }
+  if (lastIndex < text.length) parts.push(text.slice(lastIndex))
+  return parts.length > 0 ? parts : text
+}
+
 interface ChatbotProps {
   userRole?: string
 }
@@ -23,10 +56,13 @@ interface ChatbotProps {
 export function Chatbot({ userRole }: ChatbotProps = {}) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
-  const [showNotification, setShowNotification] = useState(false)
-  const [hasShownNotification, setHasShownNotification] = useState(false)
   const [aiContext, setAiContext] = useState('')
-  const [storedUserRole, setStoredUserRole] = useState<string | undefined>(userRole)
+  const [storedUserRole] = useState<string | undefined>(userRole)
+  const sessionIdRef = useRef<string>(
+    typeof crypto !== 'undefined' && 'randomUUID' in crypto
+      ? crypto.randomUUID()
+      : `s_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`
+  )
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -60,31 +96,6 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
       messagesEndRef.current.scrollIntoView()
     }
   }, [messages, isOpen, isLoading])
-
-  // Show notification after delay
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowNotification(true)
-      setHasShownNotification(true)
-    }, 10000)
-
-    return () => clearTimeout(timer)
-  }, [])
-
-  // // Show notification on scroll
-  // useEffect(() => {
-  //   if (hasShownNotification || isOpen) return
-
-  //   const handleScroll = () => {
-  //     if (window.scrollY > 1000 && !hasShownNotification) {
-  //       setShowNotification(true)
-  //       setHasShownNotification(true)
-  //     }
-  //   }
-
-  //   window.addEventListener('scroll', handleScroll)
-  //   return () => window.removeEventListener('scroll', handleScroll)
-  // }, [hasShownNotification, isOpen])
 
   const handleSendMessage = useCallback(async () => {
     if (!inputValue.trim()) return
@@ -135,7 +146,29 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
           { label: "Schedule a Call", action: 'open_calendly' }
         ] : undefined
       }
-      setMessages((prev) => [...prev, botMessage])
+      setMessages((prev) => {
+        const next = [...prev, botMessage]
+        // Fire-and-forget transcript email after every AI reply
+        const transcript = next.map(m => ({
+          sender: m.sender,
+          text: m.text,
+          timestamp: m.timestamp.toISOString(),
+        }))
+        fetch('/api/notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'chat_message',
+            sessionId: sessionIdRef.current,
+            pageUrl: typeof window !== 'undefined' ? window.location.href : '',
+            // /api/notify validates name + email but we don't have those here; pass placeholders
+            name: 'Chat Visitor',
+            email: 'chat@servefunding.com',
+            transcript,
+          }),
+        }).catch(() => { /* non-blocking */ })
+        return next
+      })
     } catch (error) {
       console.error('Error getting AI response:', error)
       const errorMessage: Message = {
@@ -171,144 +204,82 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
 
   return (
     <>
-      {/* Notification - appears above chatbot */}
+      {/* Centered Bottom Trigger Pill (replaces bottom-right circle) */}
       <AnimatePresence>
-        {showNotification && !isOpen && (
-        <motion.div
-          initial={{ opacity: 0, x: 100 }}
-          animate={{
-            opacity: 1,
-            x: 0,
-            background: [
-              `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
-              `linear-gradient(135deg, ${BRAND_COLORS.secondary}, ${BRAND_COLORS.dark})`,
-              `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
-            ]
-          }}
-          exit={{ opacity: 0, x: 100 }}
-          transition={{
-            opacity: { duration: 0.4, ease: 'easeOut' },
-            x: { duration: 0.4, ease: 'easeOut' },
-            background: { duration: 4, repeat: Infinity, ease: 'easeInOut' }
-          }}
-          style={{
-            position: 'fixed',
-            bottom: '100px',
-            right: '20px',
-            width: '288px',
-            zIndex: 40,
-            borderRadius: '15px',
-            padding: '3px',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
-            cursor: 'pointer',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = '0 12px 32px rgba(0, 0, 0, 0.16)'
-            e.currentTarget.style.transform = 'translateY(-2px)'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.12)'
-            e.currentTarget.style.transform = 'translateY(0)'
-          }}
-        >
-          <div
-            onClick={() => {
-              setIsOpen(true)
-              setShowNotification(false)
-            }}
+        {!isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
             style={{
-              backgroundColor: BRAND_COLORS.background,
-              borderRadius: '12px',
-              padding: '14px 16px',
-              width: '100%',
+              position: 'fixed',
+              bottom: '20px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 50,
+              maxWidth: 'calc(100vw - 32px)',
             }}
           >
-            <div className="flex justify-between items-start gap-2">
-              <div className="flex-1">
-                <p className="font-semibold mb-1 text-lg" style={{ color: BRAND_COLORS.primary }}>Have any questions?</p>
-                <p className="text-md text-gray-700 leading-relaxed">We're here to serve you.</p>
-              </div>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setShowNotification(false)
-                }}
-                className="text-gray-400 hover:text-gray-600 text-lg flex-shrink-0 leading-none transition-colors cursor-pointer"
-                style={{ marginTop: '-2px' }}
+            <motion.button
+              onClick={() => {
+                setIsOpen(true)
+              }}
+              animate={{
+                background: [
+                  `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
+                  `linear-gradient(135deg, ${BRAND_COLORS.secondary}, ${BRAND_COLORS.primary})`,
+                  `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
+                ],
+                boxShadow: [
+                  `0 8px 24px ${BRAND_COLORS.secondary}40`,
+                  `0 12px 32px ${BRAND_COLORS.secondary}66`,
+                  `0 8px 24px ${BRAND_COLORS.secondary}40`,
+                ],
+              }}
+              transition={{
+                background: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
+                boxShadow: { duration: 2.5, repeat: Infinity, ease: 'easeInOut' },
+              }}
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex items-center gap-3 px-6 py-4 rounded-full text-white font-semibold shadow-lg cursor-pointer"
+              style={{ minWidth: '280px', justifyContent: 'center' }}
+              aria-label="Open Serve Funding Navigator chat"
+            >
+              <MessageCircle size={22} style={{ color: BRAND_COLORS.highlight }} />
+              <span>
+                <span className="text-base">Ask the Navigator</span>
+                <span className="block text-xs opacity-80 font-normal">Capital that serves you — ask anything</span>
+              </span>
+              <motion.span
+                animate={{ x: [0, 4, 0] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                aria-hidden
               >
-                ✕
-              </button>
-            </div>
-          </div>
-        </motion.div>
+                →
+              </motion.span>
+            </motion.button>
+          </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Floating Button with Gradient Border */}
-      <motion.div
-        style={{
-          position: 'fixed',
-          bottom: '16px',
-          right: '16px',
-          width: '75px',
-          height: '75px',
-          borderRadius: '50%',
-          padding: '3px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 50,
-        } as React.CSSProperties}
-        animate={{
-          rotate: 360,
-          background: [
-            `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
-            `linear-gradient(135deg, ${BRAND_COLORS.primary}, ${BRAND_COLORS.background})`,
-            `linear-gradient(135deg, ${BRAND_COLORS.dark}, ${BRAND_COLORS.secondary})`,
-          ]
-        }}
-        transition={{
-          rotate: { duration: 4, repeat: Infinity, ease: 'linear' },
-          background: { duration: 4, repeat: Infinity, ease: 'easeInOut' }
-        }}
-      >
-        <motion.button
-          onClick={() => {
-            setIsOpen(!isOpen)
-            if (!isOpen) setShowNotification(false)
-          }}
-          style={{
-            backgroundColor: BRAND_COLORS.highlight,
-            width: '100%',
-            height: '100%',
-            borderRadius: '50%',
-          }}
-          className="shadow-lg flex items-center justify-center transition-colors hover:opacity-90"
-          animate={{ rotate: -360 }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          aria-label={isOpen ? "Close chat" : "Open chat"}
-        >
-          {isOpen ? <X size={28} style={{ color: BRAND_COLORS.primary }} /> : <MessageCircle size={28} style={{ color: BRAND_COLORS.primary }} />}
-        </motion.button>
-      </motion.div>
-
-      {/* Chat Window */}
+      {/* Chat Window — centered, expanding poppy panel */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ opacity: 0, y: 40, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-5 sm:w-96 sm:h-[600px] bg-white rounded-none sm:rounded-2xl shadow-2xl flex flex-col z-50"
+            exit={{ opacity: 0, y: 40, scale: 0.9 }}
+            transition={{ duration: 0.28, ease: 'easeOut' }}
+            className="fixed inset-0 sm:inset-auto sm:bottom-6 sm:left-1/2 sm:-translate-x-1/2 sm:w-[min(640px,calc(100vw-32px))] sm:h-[min(720px,calc(100vh-48px))] bg-white rounded-none sm:rounded-3xl shadow-2xl flex flex-col z-50"
             style={{
               // Mobile: full viewport height with keyboard handling
               height: typeof window !== 'undefined' && window.innerWidth < 640 ? '100vh' : undefined,
               // @ts-ignore - dvh is valid CSS but TypeScript doesn't recognize it yet
               height: typeof window !== 'undefined' && window.innerWidth < 640 ? '100dvh' : undefined,
-              maxHeight: typeof window !== 'undefined' && window.innerWidth < 640 ? 'calc(100dvh - env(keyboard-inset-height, 0px))' : 'calc(100vh - 80px)',
+              maxHeight: typeof window !== 'undefined' && window.innerWidth < 640 ? 'calc(100dvh - env(keyboard-inset-height, 0px))' : undefined,
+              border: typeof window !== 'undefined' && window.innerWidth >= 640 ? `2px solid ${BRAND_COLORS.secondary}33` : undefined,
             }}
             role="dialog"
             aria-label="Serve Funding Chat Assistant"
@@ -351,7 +322,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
                         : 'rounded-bl-none'
                     }`}
                   >
-                    <p className="text-sm">{message.text}</p>
+                    <p className="text-sm">{renderTextWithLinks(message.text)}</p>
                   </div>
                   {/* Action Buttons */}
                   {message.actionButtons && message.actionButtons.length > 0 && (
