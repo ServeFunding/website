@@ -13,6 +13,13 @@ export interface FeaturedDropdownItem extends DropdownItem {
   icon?: string
   amount?: string
   description?: string
+  /**
+   * Optional absolute href that overrides the default `basePath/{id}` or
+   * `basePath#{id}` URL construction. Use when an item in a dropdown links
+   * outside the dropdown's normal namespace (e.g. /bankers in the Partners
+   * dropdown, which otherwise generates /partners#{id} anchor links).
+   */
+  href?: string
 }
 
 export interface SimpleNavItem {
@@ -42,6 +49,10 @@ export interface HeaderNavConfig {
 export const CALENDLY_URL = "https://calendly.com/d/cxqk-t6s-72q/30-minute-funding-strategy-call"
 
 const PARTNERS_ITEMS: FeaturedDropdownItem[] = [
+  // For Bankers gets first/featured slot — it's the specialized referral hub for the
+  // audience that drives most of Serve Funding's pipeline. Uses `href` override so it
+  // links to the standalone /bankers page instead of an anchor under /partners.
+  { name: "For Bankers", id: "bankers", featured: true, subtitle: "Referral hub for commercial bankers", href: "/bankers" },
   { name: "Commercial Bankers", id: "commercial-bankers", featured: true, subtitle: "Our primary referral partners" },
   { name: "CPAs / Accountants", id: "cpas---accountants", featured: true, subtitle: "Trusted advisors for clients" },
   { name: "Fractional CFOs", id: "fractional-cfos" },
@@ -50,24 +61,10 @@ const PARTNERS_ITEMS: FeaturedDropdownItem[] = [
   { name: "Business Advisors", id: "business-advisors" }
 ]
 
-// "Bankers" sits as its own top-level link — it's the specialized referral hub
-// for the audience that drives most of Serve Funding's pipeline.
-
 const ABOUT_ITEMS: FeaturedDropdownItem[] = [
   { name: "Our Story", id: "our-story" },
   { name: "Core Values", id: "core-values" },
   { name: "Doing Good", id: "doing-good" }
-]
-
-// Learn dropdown items — points at the new educational hub (compare, industries, glossary, FAQ, blog).
-// Uses `itemType: 'pages'` with absolute hrefs; the dropdown component handles those.
-const LEARN_ITEMS: FeaturedDropdownItem[] = [
-  { name: "Compare Funding Options", id: "compare", featured: true, subtitle: "Head-to-head comparisons", icon: "Scale" },
-  { name: "By Industry", id: "industries", featured: true, subtitle: "How funding works for your industry", icon: "Building2" },
-  { name: "Glossary", id: "glossary", featured: true, subtitle: "Plain-English definitions", icon: "BookOpen" },
-  { name: "All Solutions Compared", id: "solutions/compare" },
-  { name: "FAQ", id: "faq" },
-  { name: "Blog", id: "blog" },
 ]
 
 export const headerNavConfig: HeaderNavConfig = {
@@ -128,21 +125,6 @@ export const headerNavConfig: HeaderNavConfig = {
       featuredTitle: 'Primary Partners',
       regularTitle: 'All Partners',
       description: 'We work with trusted advisors and professionals who share our commitment to helping businesses succeed. Join our growing network of referral partners.'
-    },
-    {
-      type: 'link',
-      label: 'Bankers',
-      href: '/bankers'
-    },
-    {
-      type: 'dropdown',
-      label: 'Learn',
-      basePath: '/',
-      items: LEARN_ITEMS,
-      itemType: 'pages',
-      featuredTitle: 'Education Hubs',
-      regularTitle: 'More',
-      description: 'Plain-English explanations of how business financing actually works — comparisons, industry guides, definitions, and answers to the questions real prospects ask.'
     },
     {
       type: 'dropdown',

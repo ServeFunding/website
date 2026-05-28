@@ -84,14 +84,14 @@ export function DropdownMenuTwoSection({
           // All featured - 3 column grid
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {featuredItems.map((item) => {
-              const href = type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`
+              const href = item.href ?? (type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`)
               return (
                 <Link
                   key={item.id}
                   href={href}
                   onClick={(e) => {
                     handleClick(item.id)
-                    if (type === 'anchors') {
+                    if (type === 'anchors' && !item.href) {
                       onAnchorClick?.(e as React.MouseEvent<HTMLAnchorElement>, href)
                     }
                   }}
@@ -120,7 +120,7 @@ export function DropdownMenuTwoSection({
                 </div>
               )}
               {featuredItems.map((item) => {
-                const href = type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`
+                const href = item.href ?? (type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`)
                 return (
                   <Link
                     key={item.id}
@@ -169,7 +169,7 @@ export function DropdownMenuTwoSection({
               )}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 gap-y-1">
                 {regularItems.map((item) => {
-                  const href = type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`
+                  const href = item.href ?? (type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`)
                   return (
                     <Link
                       key={item.id}
@@ -203,14 +203,14 @@ export function DropdownMenuTwoSection({
           // Only regular items - single column
           <div className="flex flex-col gap-3">
             {items.map((item) => {
-              const href = type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`
+              const href = item.href ?? (type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`)
               return (
                 <Link
                   key={item.id}
                   href={href}
                   onClick={(e) => {
                     handleClick(item.id)
-                    if (type === 'anchors') {
+                    if (type === 'anchors' && !item.href) {
                       onAnchorClick?.(e as React.MouseEvent<HTMLAnchorElement>, href)
                     }
                   }}

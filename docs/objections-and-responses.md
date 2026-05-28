@@ -298,16 +298,107 @@ Mike's response is to step back gracefully and offer a written packet to share.
 
 ---
 
-## What's missing from this sample (data gaps)
+# Phase 2 additions — objections filled from ~20 additional calls
 
-A few objections the prompt anticipated didn't appear cleanly in these 12 transcripts:
+> Sections 16–21 close several of the gaps flagged below, using verbatim material from the second pass of calls.
 
-- **"Why can't you just send me to the lender directly?"** — not asked verbatim. Closest equivalent is Stephen Deason's musing about wanting direct relationships with capital partners (sec. 6 above).
-- **"I've already worked with my bank for 10 years"** — referenced obliquely (Daryl's loyalty pitch about banker Harper), but never as a direct objection to Mike taking the deal.
-- **"I don't want to pay a fee upfront"** — the DD fee is sometimes negotiated (Lawson, sec. 4), but never refused outright in this sample.
-- **Pricing objection from someone in distress** — most distressed prospects in the sample (Carlos, Eli) were too desperate to push back on price.
+---
 
-If the bot encounters these objections in production, it should escalate to a human (Mike or team) rather than improvise — there is no verbatim Mike-response for them in this knowledge base yet.
+## 16. "I was hoping YOU were the capital provider" / "Why pay a middleman?"
+
+The go-direct objection, now with a verbatim instance (Doug Arthur, a banker himself, expected Mike to be the lender).
+
+**Prospect (Doug Arthur):** *"I was really hoping you were the capital provider."*
+**Mike:** *"You're welcome to go make some more calls and talk to them… No, we're not [the lender]… I'm just trying to find a solid bridge."* — [Doug Arthur call](https://fathom.video/calls/543844168)
+
+**The value argument for not going direct (Stephen Deason call, [25:45](https://fathom.video/calls/671917601?timestamp=1545)):**
+> *"on-deck as an example, you go to them directly… they'll put as much points and fee… as they think they can get away with… When we bring a deal to them, we know how to work with them, and so we're going to get the best possible structure. That's how we more than cover our own fee."*
+
+**Underneath it:** they think the advisor is a tax. Mike's answer is that the advisor *more than pays for himself* by getting structure/pricing a direct borrower can't, and by running a competitive process. He never argues — he invites them to go call around, confident they'll come back.
+
+---
+
+## 17. "Just send me a few lender options first, then I'll decide if I'll engage"
+
+The reverse-engagement objection — prospect wants names/quotes before signing. Mike's move: get *soft quotes* to prove value, paired with a small DD fee so there's skin in the game, and structure the engagement in steps.
+
+**Designer Eyes / Amit — owner is success-fee-oriented, won't commit upfront, [30:20](https://fathom.video/calls/588010625?timestamp=1820):**
+> Amit: *"Jack, he likes success-based, he doesn't like to commit upfront."*
+
+**Mike's phased response — soft quotes first, then a meeting, then engage, [18:00](https://fathom.video/calls/588010625?timestamp=1080):**
+> *"I'm willing to go take this to some of our real estate lenders. Get some soft quotes, what it's going to look like, and then as a next step, I would ask that we could have a meeting with you and [the owner]… earn a small DD fee… because I want to be able to say [we] can do it in steps."*
+
+**The boundary — Mike will walk if it's a free-for-all (Lewis, original sec. 5):** *"someone shows us that they're talking to all these different groups… sometimes it just causes us to go, look, maybe we're not the right fit for you because we can't work for free."*
+
+---
+
+## 18. "Why do I have to sign an exclusive agreement?"
+
+Now answerable with the client-benefit framing, not just Serve's interest.
+
+**Mal Tech Fleet call, [35:21](https://fathom.video/calls/528358910?timestamp=2121):**
+> *"if we're not performing, you can fire us at any time. You're not locked in to anything. We have to ultimately prove to you that we're doing what we say we're going to do."*
+
+**The "why" — Mike only earns on success, so exclusivity protects the work, not traps the client (Lewis, original sec. 5):** *"we can't work for free because that's ultimately what we're doing unless we succeed."* The agreement lists who the prospect is already talking to, and they can exit anytime performance lags.
+
+> **Still partly on Mike's recording list:** the fullest *client-side* benefit pitch for exclusivity. What we have is grounded; a cleaner canonical version would help.
+
+---
+
+## 19. "Your rate is too high" / "I already have 6% from my bank — can I keep that?"
+
+Rate-expectation reset, now with multiple instances.
+
+**Prospect (Doug Arthur):** wants sub-15%. **Mike:** *"I have a group that does that kind of rates, and it goes to a two-year term, problem is they're capped at 350, so they just do smaller deals."* (Honest about the tradeoff, doesn't pretend.)
+
+**Prospect (Maria Rojas):** has a 6% Bank of America equipment rate, wants the same on working capital. **Mike, [54:21](https://fathom.video/calls/592239574?timestamp=3261):**
+> *"Bank money is always the cheapest too… We do non-bank lending because that's why we get introduced by a banker… You're a higher risk borrower right now because of different reasons… As soon as you [qualify], you can transition back to that."*
+
+**The teaching line — equipment vs WC, why the rate differs, [54:11](https://fathom.video/calls/592239574?timestamp=3251):**
+> *"Equipment loans are cheaper… for working capital, it's not going to be 6%. It'll be in the teens because it's not secured by specific assets like equipment."*
+
+---
+
+## 20. "Everyone's calling me offering money — why are you different?" (bad-broker, deepened)
+
+**Prospect (Maria Rojas):** being aggressively solicited by funders. **Mike, [1:02:19](https://fathom.video/calls/592239574?timestamp=3739):**
+> *"the people who are basically making you feel like, take our money, take our money, take our money, are the ones that are extremely expensive. Because why else would they be working so hard to sell you on taking their money? Some of these are going to be 30, 40, 50% rate, and higher… We stand directly opposed to that."*
+
+**The mission-level differentiation, [1:03:35](https://fathom.video/calls/592239574?timestamp=3815):**
+> *"Our company is called Serve Funding, where our slogan is here to serve… It comes from a scripture… 'for even the Son of Man did not come to be served, but to serve.'… We want to do the best possible thing for our client and make an honest living doing it without overcharging."*
+
+---
+
+## 21. "It's simple, just move fast" — when urgency claims collapse the deal
+
+The distressed/urgent prospect who insists the deal is simpler than it is. Mike probes the repayment source and walks away honestly when it doesn't hold (Doug Van Poppel — $1.5M bridge in 10 days against soft-committed investor money + raw land).
+
+**Mike probing the repayment source, [20:04](https://fathom.video/calls/648731444?timestamp=1204):**
+> *"Why is not one of these investors able to put that up since they have millions upon millions and they're aware of this whole project…? That would be the obvious question."*
+
+**Mike resetting "it's a simple land deal," [44:57](https://fathom.video/calls/648731444?timestamp=2697):**
+> *"I have lenders that can fund in a day or two, but they require a historically cash flowing company… And then we have real estate folks that can also close… in a week's time. But even then with land, it's always a 50% LTV."*
+
+**The honest walk-away, [45:31](https://fathom.video/calls/648731444?timestamp=2731):**
+> *"I wouldn't say it could be of help, guys… But we can't find them in an instant. I'm sure they're out there."*
+
+**Underneath it:** Mike protects his own time as much as the client's. *"my ability to be successful in my business is where I allocate my time and where I believe things can get done."* ([10:38](https://fathom.video/calls/648731444?timestamp=638))
+
+---
+
+## What's still missing from the sample (remaining data gaps)
+
+The Phase 2 pass resolved most of the previously flagged gaps. Status:
+
+- ✅ **"Why can't you just send me to the lender directly?"** — now covered (sec. 16).
+- ✅ **Pricing objection from distress** — now covered (Doug Arthur sub-15% ask, sec. 19; Van Poppel urgency, sec. 21).
+- ✅ **"Send me options before I engage"** — now covered (sec. 17).
+- ✅ **"Why an exclusive agreement?"** — mostly covered (sec. 18); a fuller client-benefit version is on Mike's recording list.
+- ⚠️ **"I've worked with my bank for 10 years / I'm loyal to my bank"** — still thin. Referenced obliquely (Daryl's loyalty to banker Harper) but never as a direct objection to engaging Serve. **Needs Mike.**
+- ⚠️ **"I refuse to pay any upfront fee, period"** — the DD fee is *negotiated* (Lawson cut to $2,500; Schuyler $500 min) but never flatly refused in the sample. **Needs Mike** for the hard-refusal response.
+- ⚠️ **Professional-services-specific objections** — not grounded (see industry-scripts.md §7).
+
+If the bot hits one of the ⚠️ objections, it should escalate to a human rather than improvise — there's no verbatim Mike response for them yet.
 
 ---
 

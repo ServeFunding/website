@@ -248,9 +248,210 @@ Mike pulls this product out for situations where the business itself can't quali
 
 ---
 
+---
+
+# Phase 2 additions — deepened mechanics from ~20 additional calls
+
+> Sections 18–29 were added from a second pass of Fathom calls (construction, GovCon, equipment, healthcare, manufacturing, SBA-partner calls) to fill gaps the original 12 didn't cover. Same rule: verbatim only.
+
+---
+
+## 18. PO Financing standalone — "the PO lender gets paid off at invoice"
+
+The original §12 only covered PO+AR as a combo. Here's Mike explaining standalone PO mechanics and *why it always needs an AR takeout*:
+
+**Oliver Weilandt / DSNY call, [06:34](https://fathom.video/calls/539473125?timestamp=394):**
+> *"One of the things that a PO finance group is going to look for is, how are you going to pay them off? Because they want to be paid off at the time of invoice… once you create that vehicle, you ship it over to New York, they approve it… and then they say, okay, great, invoice us, and then you're going to wait another 60 days plus to get paid. Well, the PO lender wants to be paid off at that point… PO financing, the float time of the money is more expensive than AR financing, because… AR is obviously closer to liquidity, so therefore it's less risk and it comes out half the price."*
+
+**The cash-conversion benchmark — Mike anchors on 60–90 days (Sourcetobottle):**
+> *"often when I'm dealing with a PO situation, it's often 60 to 90 day cycle. No, this is fast. It's good for you."* — [13:11](https://fathom.video/calls/606431519?timestamp=791)
+
+**Pricing — PO is ~2-3%/month, AR ~half that (Mal Tech Fleet):**
+> *"On the PO side, traditionally, typically what you can expect is in the 2% to 3% a month range… one of the groups that we work with… can even get potentially closer to one and a half, maybe one and three quarters. So even under 2% a month for PO, which is almost unheard of."* — [23:09](https://fathom.video/calls/528358910?timestamp=1389) / [24:31](https://fathom.video/calls/528358910?timestamp=1471)
+
+**What a PO lender actually does — pays your supplier directly (Sourcetobottle):**
+> *"they'll front you, so to speak, $100,000 worth of product… and everything beyond that, you've got to prepay."* — [09:13](https://fathom.video/calls/606431519?timestamp=553)
+
+---
+
+## 19. WIP (Work-in-Process) Financing — when there's no clean PO→finished good
+
+Mike's variant for custom manufacturers who buy components, not finished goods.
+
+**Mal Tech Fleet call, [26:21](https://fathom.video/calls/528358910?timestamp=1581):**
+> *"essentially what we call whip financing, which is like PO, except it's called work in progress because the difference is there's not a full PO and a full finished product. We're basically funding the purchase of materials."*
+
+**Why it's hard to place — DANNIK explains the complexity lenders balk at, [22:50](https://fathom.video/calls/522862734?timestamp=1370):**
+> Gary: *"we are a medical device manufacturing company, so we buy all the little widgets that go into making a finished good. I do not cut a purchase order to some company that just makes the finished good… people find it complex because they would really rather me be a guy who goes down to Granger and buys a motor and then sells that motor."*
+
+**The supplier-credit structure (SupplySci "Supply Credit"):** lender pays approved suppliers within terms, then re-invoices the client on ~90-day terms with a markup. Build cycle (60–90 days) + receivable cycle (60 days) = up to 150–180 days of total capital commitment. — [24:35](https://fathom.video/calls/522862734?timestamp=1475) / [25:18](https://fathom.video/calls/522862734?timestamp=1518)
+
+---
+
+## 20. Government-Contract Financing — mechanics
+
+**The defining GovCon pattern — no dealer, self-fund, paid 60 days from acceptance (DSNY):**
+> Oliver: *"The city of New York… want to have a direct contract with the OEM, so there's no dealer flooring, so we're just funding it on our own… it takes them about 60 days from the time that they accept the vehicle… then 60 days later, they pay us."* — [00:51](https://fathom.video/calls/539473125?timestamp=51)
+
+**Assignment of claims + CO sign-off slow it down → set up a facility, not spot (Helicon):**
+> *"you've got to get the assignment of claims, you've got to get the CO to sign off. So… it's probably better to set up a true facility… they may build in… an unused line fee of 50 basis points."* — [14:02](https://fathom.video/calls/509683042?timestamp=842)
+
+**100% GovCon → specialist lender; mixed → generalist (Helicon):**
+> *"if 100% of what this company does… is GovCon work, then… your best bet is to go with a company that specializes in that."* — [09:37](https://fathom.video/calls/509683042?timestamp=577)
+
+**The unused-line-fee solution for sporadic/just-in-case facilities (Helicon):**
+> *"these lenders don't prefer that [spot usage]… [but] they can address… by having just a, almost like an unused line fee type of structure… very nominal."* — [09:37](https://fathom.video/calls/509683042?timestamp=577)
+
+---
+
+## 21. Factor-Rate → APR — the conversion, in Mike's room
+
+This was a flagged gap (#12). It's now partially filled by a live example — though a clean teaching version is still on Mike's recording list.
+
+**TCR Rail call — Mike reads the First Commercial Credit term sheet, [05:16](https://fathom.video/calls/647210931?timestamp=316):**
+> *"They're offering a million dollar facility… 85% advance rate… 12 month term, no minimums… it's a discount of a one and a half percent per month… it's a flat one and a half [for the first 30 days], and then it's 50 BIPs every 10 days thereafter, no other [fees]."*
+
+**The client does the APR math out loud — Mike doesn't dispute it, [06:36](https://fathom.video/calls/647210931?timestamp=396):**
+> Tom Cira: *"Does that equate to an 18% rate, annual rate? That is, that is like an 80% annual rate, that's right."*
+
+**Mike's rate-range framing — distressed vs. clean, [13:05](https://fathom.video/calls/647210931?timestamp=785):**
+> *"if the company was in a bit of a cleaner place, you can secure deals in the below 14 easily, like 12, 13 is even… even lower than that sometimes."* (Bank-owned ABL alternative, if they qualify: *~9% all-in.*)
+
+**Mike's key nuance — watch for layered fees, [06:48](https://fathom.video/calls/647210931?timestamp=408):**
+> *"some factors will do both a discount fee like this, which will be lower, and then a rate… on the money borrowed… this is a simpler, more straightforward way, but sometimes ends up being a little more costly."*
+
+---
+
+## 22. SBA — 7(a), 504, fee rules, and why Serve refers it out
+
+Mike doesn't originate SBA in-house — he refers it to a specialist (Sterling Birdsong / Lendstra) for a 25% rev share. The mechanics below come from those partner calls.
+
+**Why refer it out — heavy lifting, low margin, can't double-dip (RTMI pre-call):**
+> *"the SBA is really strict, like they won't let us collect our fee and still pay us. And most SBA lenders pay anywhere from 1% to 2%, and our fee is 2%. So… you don't make much on them. They're really tedious. They take a long time."* — [01:59](https://fathom.video/calls/579575844?timestamp=119)
+
+**The SBA double-dip prohibition (Sterling):**
+> *"if the bank knows that the customer's already paying a success fee, then they won't pay a success fee themselves… they don't allow brokers to double dip."* — [16:04](https://fathom.video/calls/567877438?timestamp=964)
+
+**The packaging-fee workaround + Form 159 disclosure (Sterling):**
+> *"that packaging fee is not technically a success fee. It is a packaging fee for the work that I've done… I actually have to provide an hourly invoice for that packaging fee… that hourly invoice usually equates to exactly what you're able to charge… the 2% on the first million, and then 25 basis points on every million after."* — [16:04](https://fathom.video/calls/567877438?timestamp=964)
+> *"there's the 159 form, which is… a requirement per SBA that the customer knows how much the bank is paying."* — [08:41](https://fathom.video/calls/567877438?timestamp=521)
+
+**Rate-vs-points tradeoff — how lender-paid points can raise the borrower's rate (Sterling):**
+> *"if you can get your customer to take prime plus three, versus prime plus one and a half, well, then we can pay you two. Otherwise, we're going to have to pay you one."* — [12:31](https://fathom.video/calls/567877438?timestamp=751)
+
+> **Note:** $5M is the SBA max. 7(a) and 504 are the focus; **SBA Express was not discussed** in these calls. The clean "7(a) vs 504 vs Express — what each is good for" layperson framing is still on Mike's recording list.
+
+---
+
+## 23. Equipment Leasing — deepened (international, deferred payments, "story credit")
+
+The original §11 was a fragment. Fuller mechanics:
+
+**What good equipment terms look like (Taycor/Gene, DANNIK call):**
+> *"Sixty-month term, sometimes we can go up to 72 months… we're able to offer three months deferred payments sometimes… Rate's probably going to start around nine and go up from there."* — [01:16](https://fathom.video/calls/533045162?timestamp=76)
+
+**International equipment — borrower bridges, lender reimburses after customs (Mike):**
+> *"That's pretty much par for the course in the equipment leasing space if it's manufactured abroad — the borrower pays for it and then gets reimbursed once it hits U.S. shores, U.S. customs."* — [03:30](https://fathom.video/calls/533045162?timestamp=210)
+
+**Why equipment is cheaper than working capital (Maria Rojas):**
+> *"if something happens in your business, god forbid… they can go get the equipment, turn around and sell it… that's why equipment is cheaper because there's an asset."* — [58:58](https://fathom.video/calls/592239574?timestamp=3538)
+
+**"Story credit" — Mike's term for a no-collateral deal that needs a believer (DANNIK):**
+> *"We call it a story credit because they really have to buy that. And yours is a very viable story. It just has to be somebody who's willing to see it through that lens."* — [25:54](https://fathom.video/calls/533045162?timestamp=1554)
+
+**Vendor financing first — Mike will tell a client to take the manufacturer's deal (Maria Rojas):**
+> *"it's probably going to be your best bet to go with the manufacturers if they have direct financing provided… And then you just need the working capital, which we can easily [do]."* — [46:06](https://fathom.video/calls/592239574?timestamp=2766)
+
+> **Note:** **Sale-leaseback** is still thin — only the brief Daryl fragment in §11 plus the DANNIK reimbursement structure. A full sale-leaseback explanation is on Mike's recording list.
+
+---
+
+## 24. HELOC / Home Equity Advance — the self-solve for small/thin deals
+
+When a deal is too small for institutional refi, Mike steers owners to tap home equity (Nick Scaff call).
+
+**HELOC as MCA payoff path, [07:00](https://fathom.video/calls/557118237?timestamp=420):**
+> *"get a small HELOC, use it to pay off the MCAs, and then come back to us when you need more working capital… I can pretty much guarantee you that we can put you in a longer term, lower cost, better structure."*
+
+**The "Home Equity Advance" product — a HELOC alternative with no payments, [~08:00](https://fathom.video/calls/557118237?timestamp=480):**
+> *"it's called a home equity advance… an alternative to a HELOC… you'll have no payments… up to the earlier of whenever you sell your home, or 10 years… they cannot charge more than about 19 and a half percent… if you paid off in 10 years… about 100% on the money… on a 10-year float, that averages out to about 10% annual cost of capital."* He benchmarks it: *"like a SBA 7A loan, and that's like as good as it gets."* (Frames it as a "second cousin of a reverse mortgage.")
+
+**Why small deals can't be refinanced institutionally (the honest no):**
+> *"no one wants to do it for $50K. They don't have the volume to make money on it… I'm just being very candid with you."* — [~08:30](https://fathom.video/calls/557118237?timestamp=510)
+
+---
+
+## 25. Real Estate Cash-Out — deepened (LTV by asset, sell-leaseback, PROPCO/OPCO)
+
+**Land = 50% LTV max, and slow (Doug Van Poppel):**
+> *"Land is generally going to be 50% LTV… getting someone to lend on land in a matter of days is very tough… we're looking at a 65%, 70% or more percent LTV, which just doesn't apply for land as a whole."* — [25:31](https://fathom.video/calls/648731444?timestamp=1531)
+
+**Owner-occupied commercial = 65%+ LTV, plus a layered LOC (Il Kim, Designer Eyes):**
+> *"if we go 65% LTV on the building and then… layer on a line of credit… say 80% secured both by the business and the real estate."* — [11:06](https://fathom.video/calls/629451527?timestamp=666)
+
+**Permanent mortgage vs. interest-only bridge (Mike, Designer Eyes pre-call):**
+> *"a fully [amortizing] mortgage versus a bridge that you're only paying interest payments… the bridge is going to cost a few points higher, but your debt services are going to be considerably lower. So what's more important?"* — [15:46](https://fathom.video/calls/588010625?timestamp=946)
+
+**Sell-leaseback as the max-cash-extraction option (Amit, Designer Eyes):**
+> *"we can also look into sales leaseback, if that's an option… I would like to get as much cash as possible to the owner."* — [24:30](https://fathom.video/calls/629451527?timestamp=1470)
+
+**RE-backed SBA for a business with a few bad years (Il Kim):**
+> *"a really good, primarily real estate backed SBA lender… a business that has had a few bad years over the past definitely does not scare him away… they can do pro forma underwrites."* — [14:53](https://fathom.video/calls/629451527?timestamp=893)
+
+---
+
+## 26. Bridge / Unsecured — the "one-then-three" sequencing logic
+
+Mike's clearest articulation of *when and why* to bridge despite the higher cost.
+
+**Bridge first because ABL takes 6–8 weeks (Acela):**
+> *"let's get this bridge in place because it can be quick… and then knowing that the ABL structure is going to take six to eight weeks to get in place anyway, I started a one, three approach, and we started with one which is this kind of revenue-based approach for quick funding."* — [28:12](https://fathom.video/calls/579188462?timestamp=1692)
+
+**When NOT to bridge — repayment from soft-committed investors isn't a bridge (Doug Van Poppel):**
+> *"What I'm hearing is that even though you guys talk about a 10-day window… the source of funds that's going to be used to repay this is from the investment capital that's coming in from these folks that are… soft."* — [21:26](https://fathom.video/calls/648731444?timestamp=1286). Mike walks away: *"I wouldn't say it could be of help, guys."*
+
+**Bridge to clear a venture-debt gating requirement (Visa Law AI):** Leiter required 12 months runway; the company had 3–4. The bridge exists to get them to a state where cheaper, larger capital opens up. Mike refuses to oversell: *"I'm not going to blow smoke and just tell you stuff just to sound good."* — [20:15](https://fathom.video/calls/640730963?timestamp=1215)
+
+---
+
+## 27. Validity Guarantee vs. Personal Guarantee
+
+A distinction that reassures owners worried about personal liability (TCR Rail).
+
+**Mike, [08:32](https://fathom.video/calls/647210931?timestamp=512):**
+> *"almost equivalent to what they may call a bad boy guarantee. It's basically saying, hey look, as long as there's no fraud or no evidence or anything that was misrepresented, then you're not liable… if we sell them a bad receivable knowing that it's a fraudulent receivable, then they… can come after you, if they can prove it's something like that."*
+
+---
+
+## 28. Spot Factoring & the "drug" you don't want — MCA reframes (deepened)
+
+**Spot/one-off factoring exists for irregular AR (Doug Arthur):**
+> *"there's one that's truly unsecured… it's almost like spot factoring, they will buy invoices from you on just a one-off basis… they turn around and re-invoice the customer on a fresh net 30… it's a 3% flat fee on the first 30 days."*
+
+**True-term consolidation product (Doug Arthur) — the step up the ladder:**
+> *"They do a true-term loan product, monthly payments, two-year term… right around 20 APR, but it's a true loan product… You can get out of it after six months with a small prepayment of like two points… and they're willing to take out a couple of positions of MCAs if the deal looks right."*
+
+---
+
+## 29. The "what Serve refers out" list
+
+For honest expectation-setting. Built from the partner calls:
+
+| Need | Refer out? | To whom / approach |
+|---|---|---|
+| SBA 7(a) & 504 | **Yes** — refer all out | Sterling Birdsong / Lendstra (25% rev share back to Serve) |
+| WIP / specialty PO | Refer to specialist | e.g. SupplySci "Supply Credit" for component-buyers |
+| Pure equity / mezz | **Yes** — not Serve's product | Mike notes SBA won't allow convertible mez in the gap |
+| Bank-owned ABL (when client qualifies) | Refer to bank partner | e.g. when a distressed client turns the corner |
+| AR factoring / ABL / MCA-consolidation / PO / RBF / equipment / RE | **No** — core, placed in-house | Serve's network |
+
+> Per the triage doc, Kyler should validate this list before any public version — and decide which lender names (if any) are safe to publish.
+
+---
+
 ## How to choose the product — Mike's working logic
 
-Across all 12 transcripts, Mike's product-fit decision tree looks like this:
+Across the full corpus (~30 calls), Mike's product-fit decision tree looks like this:
 
 1. **Does the business have commercial B2B receivables?** → Factoring or ABL (his default). For Lwany ($3M revenue, 60-day Encore terms) → factoring. For Chuck Wahr (Lowe & Fletcher, blue-chip OEM customers) → factoring or ABL. *Not viable* for Stephen Deason (D2C home care) or Schuyler (Nanny Network has only $42k AR average — too small).
 2. **Does the business have inventory at cost on the balance sheet?** → Standalone inventory lender or inventory-backed line. For Carlos (Venicasa, claimed $2M inventory at cost) → potential inventory + PO + AR stack.
@@ -259,6 +460,11 @@ Across all 12 transcripts, Mike's product-fit decision tree looks like this:
 5. **Acquisition with a profitable seller?** → SBA or non-SBA 10-year term loan (no home lien).
 6. **None of the above, only cash flow / revenue history?** → Revenue-based line or term. Sized at ~10-15% of annual revenue.
 7. **MCA-stacked, no assets, no equity to leverage?** → Article 9 (last resort) or honest walkaway.
+8. **Won a government contract, has to fund production before getting paid?** → PO + AR under one roof; specialist lender if 100% GovCon. (Gov receivables = low credit risk, slow + procedurally heavy.)
+9. **Custom manufacturer with a long build cycle and many vendors?** → Revenue-based bridge now (step one), ABL in 6–8 weeks (step two). PO financing usually won't work.
+10. **Buying equipment?** → Take vendor/manufacturer financing if it's reasonable; otherwise an equipment lease (60–84 mo, single digits–low teens). For international equipment, expect to bridge then get reimbursed post-customs.
+11. **Deal too small for institutional refi (sub-$100k) but owner has home equity?** → HELOC or Home Equity Advance to self-solve; come back when they scale.
+12. **Acquisition / business purchase, or needs the longest cheapest term?** → SBA (referred out to a specialist; 7(a) or 504).
 
 ---
 

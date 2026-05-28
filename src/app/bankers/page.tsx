@@ -11,7 +11,7 @@ import {
 import { Breadcrumb } from '@/components/breadcrumb'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
 import { CTA } from '@/components/cta'
-import { getFAQPageSchema } from '@/lib/schema-generators'
+import { FAQSectionWithSchema } from '@/components/FAQSection'
 
 const PAGE_URL = 'https://servefunding.com/bankers'
 
@@ -38,56 +38,47 @@ export const metadata: Metadata = {
   },
 }
 
+// FAQ data in the site's standard { q, a } shape so it works with FAQSectionWithSchema.
 const bankerFaqs = [
   {
-    question: "Will my client switch their depository relationship to a different bank?",
-    answer:
-      "No. Serve Funding is a financing advisory, not a bank. We don't take deposits, we don't open operating accounts, and we don't compete with you for the relationship. Your depository, treasury, ACH, payroll, and FX business all stay where they are. The only new account that gets opened in a typical placement is a lockbox or DACA account at the alternative lender's bank — and that account specifically serves the AR-collateralized facility. Your operating account is untouched.",
+    q: "Will my client switch their depository relationship to a different bank?",
+    a: "No. Serve Funding is a financing advisory, not a bank. We don't take deposits, we don't open operating accounts, and we don't compete with you for the relationship. Your depository, treasury, ACH, payroll, and FX business all stay where they are. The only new account that gets opened in a typical placement is a lockbox or DACA account at the alternative lender's bank — and that account specifically serves the AR-collateralized facility. Your operating account is untouched.",
   },
   {
-    question: "Do you pay banker referral fees?",
-    answer:
-      "No. We don't pay bankers for referrals. Most banks don't allow it under their compliance policies, and even where it would be permissible, paying for referrals introduces a misalignment we don't want. The benefit of referring to us is structural: your client gets credit they couldn't get at the bank, you stay the hero of the relationship, the depository business doesn't go to a competing bank, and the client comes back to you cleaner and more bankable when the trajectory allows it.",
+    q: "Do you pay banker referral fees?",
+    a: "No. We don't pay bankers for referrals. Most banks don't allow it under their compliance policies, and even where it would be permissible, paying for referrals introduces a misalignment we don't want. The benefit of referring to us is structural: your client gets credit they couldn't get at the bank, you stay the hero of the relationship, the depository business doesn't go to a competing bank, and the client comes back to you cleaner and more bankable when the trajectory allows it.",
   },
   {
-    question: "What happens to my client after I refer them?",
-    answer:
-      "We take a 20-minute discovery call to map the situation — collateral position, revenue trajectory, use of funds, timing. We tell the client honestly which path fits (often two or three layered products). We shop the deal across our 30+ lender network — asset-based lenders, factors, equipment specialists, SBA partners, real estate lenders. We come back to the client with two or three real options to choose from. You're kept in the loop throughout if the client wants you in the loop; we don't run separately from the banking relationship.",
+    q: "What happens to my client after I refer them?",
+    a: "We take a 20-minute discovery call to map the situation — collateral position, revenue trajectory, use of funds, timing. We tell the client honestly which path fits (often two or three layered products). We shop the deal across our 30+ lender network — asset-based lenders, factors, equipment specialists, SBA partners, real estate lenders. We come back to the client with two or three real options to choose from. You're kept in the loop throughout if the client wants you in the loop; we don't run separately from the banking relationship.",
   },
   {
-    question: "When will my client be bankable again?",
-    answer:
-      "Depends on what got them declined and what we put in place. A factoring or asset-based facility used to bridge slow AR while the business cleans up its tax returns typically produces a bankable profile within 12 to 24 months. An MCA consolidation refinance into a term loan is often a longer arc — 18 to 36 months. A real-estate cash-out for working capital can pencil out to bankable inside a year. The point is we're not trying to keep your client off your bank line forever; we're stabilizing them so they can come back to you.",
+    q: "When will my client be bankable again?",
+    a: "Depends on what got them declined and what we put in place. A factoring or asset-based facility used to bridge slow AR while the business cleans up its tax returns typically produces a bankable profile within 12 to 24 months. An MCA consolidation refinance into a term loan is often a longer arc — 18 to 36 months. A real-estate cash-out for working capital can pencil out to bankable inside a year. The point is we're not trying to keep your client off your bank line forever; we're stabilizing them so they can come back to you.",
   },
   {
-    question: "What kind of deals do you actually do?",
-    answer:
-      "Revenue range $500K to $100MM+, with most placements between $2MM and $50MM in revenue. Deal sizes $250K to $100MM+. Products: invoice factoring, asset-based lending, working capital loans, equipment financing, purchase order funding, government contract financing, bridge capital, SBA (referred through specialty non-bank SBA lenders), real estate cash-out, MCA consolidation. Industries: staffing, manufacturing, healthcare supply, government contractors, construction, distribution, professional services, e-commerce. Channel-neutral, product-neutral — we shop whichever lender fits the situation, not whichever pays us the most.",
+    q: "What kind of deals do you actually do?",
+    a: "Revenue range $500K to $100MM+, with most placements between $2MM and $50MM in revenue. Deal sizes $250K to $100MM+. Products: invoice factoring, asset-based lending, working capital loans, equipment financing, purchase order funding, government contract financing, bridge capital, SBA (referred through specialty non-bank SBA lenders), real estate cash-out, MCA consolidation. Industries: staffing, manufacturing, healthcare supply, government contractors, construction, distribution, professional services, e-commerce. Channel-neutral, product-neutral — we shop whichever lender fits the situation, not whichever pays us the most.",
   },
   {
-    question: "What kind of deals do you not do?",
-    answer:
-      "Pure equity rounds (we refer out to capital advisors). Consumer-facing lending. Cannabis. Crypto-specific. Anything where the business doesn't have at least $500K in trailing revenue or a clear path to it. Deals where the client is unwilling to put up any collateral, has no PG-creditworthy owner, and has thin revenue — we'll tell them honestly that none of our network will write it. We say no plainly when no is the right answer.",
+    q: "What kind of deals do you not do?",
+    a: "Pure equity rounds (we refer out to capital advisors). Consumer-facing lending. Cannabis. Crypto-specific. Anything where the business doesn't have at least $500K in trailing revenue or a clear path to it. Deals where the client is unwilling to put up any collateral, has no PG-creditworthy owner, and has thin revenue — we'll tell them honestly that none of our network will write it. We say no plainly when no is the right answer.",
   },
   {
-    question: "What do I tell my client when I refer them?",
-    answer:
-      'Something like: "Our credit team can\'t get this done in our box, but I know a financing advisory that works with bankers exactly like us. They\'ll shop the deal across 30+ alternative lenders and bring back honest options. They don\'t take your deposits — your accounts stay with us — and they\'ve been doing this 20+ years. The first call is 20 minutes and they\'ll tell you straight whether they can help. Here\'s the link." Then send servefunding.com/discover or servefunding.com/bankers (whichever feels right). We take it from there.',
+    q: "What do I tell my client when I refer them?",
+    a: 'Something like: "Our credit team can\'t get this done in our box, but I know a financing advisory that works with bankers exactly like us. They\'ll shop the deal across 30+ alternative lenders and bring back honest options. They don\'t take your deposits — your accounts stay with us — and they\'ve been doing this 20+ years. The first call is 20 minutes and they\'ll tell you straight whether they can help. Here\'s the link." Then send servefunding.com/discover or servefunding.com/bankers (whichever feels right). We take it from there.',
   },
   {
-    question: "How fast do you fund?",
-    answer:
-      "Depends on the product. Working capital loans and bridge capital fund in 2 to 10 business days. Invoice factoring closes in 2 to 3 weeks (then 24–48 hours per invoice after). Asset-based lending takes 4 to 8 weeks. Government contract financing 10 to 20 business days. SBA 4 to 12 weeks (we refer those to non-bank SBA lenders). When timing is genuinely critical we can usually find a bridge structure that funds in days while a permanent facility closes in the background.",
+    q: "How fast do you fund?",
+    a: "Depends on the product. Working capital loans and bridge capital fund in 2 to 10 business days. Invoice factoring closes in 2 to 3 weeks (then 24–48 hours per invoice after). Asset-based lending takes 4 to 8 weeks. Government contract financing 10 to 20 business days. SBA 4 to 12 weeks (we refer those to non-bank SBA lenders). When timing is genuinely critical we can usually find a bridge structure that funds in days while a permanent facility closes in the background.",
   },
   {
-    question: "Who's actually doing the work — Mike or an intake person?",
-    answer:
-      "Mike Kodinsky personally handles initial discovery on every banker-referred deal. After the discovery call, depending on the product complexity, he may bring in additional team members for placement and closing — but the relationship stays with him. We're deliberately a small boutique because the relationship-driven approach doesn't scale through a call center. We've turned down hiring expansions specifically to keep that hands-on character.",
+    q: "Who's actually doing the work — Mike or an intake person?",
+    a: "Mike Kodinsky personally handles initial discovery on every banker-referred deal. After the discovery call, depending on the product complexity, he may bring in additional team members for placement and closing — but the relationship stays with him. We're deliberately a small boutique because the relationship-driven approach doesn't scale through a call center. We've turned down hiring expansions specifically to keep that hands-on character.",
   },
   {
-    question: "Can I just send my client to your discovery form?",
-    answer:
-      "Yes. The fastest path is servefunding.com/discover. Mention you're a banker referral and we'll prioritize the discovery call. If you'd prefer to make a warm introduction over email, michael@servefunding.com goes straight to Mike — happy to coordinate a three-way call if that fits the situation better than a hand-off.",
+    q: "Can I just send my client to your discovery form?",
+    a: "Yes. The fastest path is servefunding.com/discover. Mention you're a banker referral and we'll prioritize the discovery call. If you'd prefer to make a warm introduction over email, michael@servefunding.com goes straight to Mike — happy to coordinate a three-way call if that fits the situation better than a hand-off.",
   },
 ]
 
@@ -131,33 +122,25 @@ const itemListSchema = {
   ],
 }
 
-const faqSchema = getFAQPageSchema(bankerFaqs)
-
 export default function ForBankersPage() {
   return (
     <>
       <SchemaRenderer schema={itemListSchema} />
-      <SchemaRenderer schema={faqSchema} />
 
       <Breadcrumb items={[{ label: 'Bankers' }]} />
 
-      {/* Above-the-fold for the banker who just had to decline */}
+      {/* Hero — one consolidated section, no separate "answer block" card */}
       <Section className="pt-32 pb-12 bg-gradient-to-b from-gray-50 to-white">
         <Container>
           <FadeIn className="max-w-4xl mx-auto">
             <Heading size="h1" className="mb-4 text-olive-900">
               When You Have to Decline the Deal, Stay the Hero
             </Heading>
-            <Text size="2xl" className="text-gray-700 mb-6">
-              You can&apos;t get the credit done in your box. Your client still needs the capital. The right referral keeps the relationship — and the depository — where it should be.
+            <Text size="2xl" className="text-gray-700 mb-4">
+              A non-bank financing advisory built around banker referrals. You stay the relationship; we extend your reach. We don&apos;t take deposits, we don&apos;t compete for the depository, and the client comes back to you cleaner when the trajectory allows.
             </Text>
-            <Card className="p-6 bg-white border-l-4 border-l-gold-500">
-              <Text className="text-gray-800">
-                Serve Funding is a non-bank financing advisory built around exactly this moment. Bankers are our primary referral source — almost every deal we close came from a banker who couldn&apos;t fund the credit but wanted to keep the client. We place $250K to $100MM+ in alternative financing across 30+ lenders. We don&apos;t take deposits, we don&apos;t compete for the depository, and we don&apos;t pay referral fees. The benefit to you is structural: your client gets capital they couldn&apos;t get in your credit box, you stay the trusted advisor in the relationship, and the depository business stays where it is.
-              </Text>
-            </Card>
-            <Text size="sm" className="text-gray-500 mt-3">
-              Founder & CEO Michael Kodinsky personally handles every banker-referred discovery call. Last reviewed May 2026.
+            <Text size="sm" className="text-gray-500">
+              Founder &amp; CEO Michael Kodinsky personally handles every banker-referred discovery call.
             </Text>
           </FadeIn>
         </Container>
@@ -392,28 +375,14 @@ export default function ForBankersPage() {
         </Container>
       </Section>
 
-      {/* FAQ */}
-      <Section className="py-12 bg-white">
-        <Container>
-          <div className="max-w-3xl mx-auto">
-            <Heading size="h2" className="mb-6 text-olive-900">
-              Banker FAQ
-            </Heading>
-            <div className="space-y-6">
-              {bankerFaqs.map((faq, i) => (
-                <div key={i} className="border-b border-gray-200 pb-6 last:border-b-0">
-                  <Heading size="h4" className="mb-2 text-olive-900">
-                    {faq.question}
-                  </Heading>
-                  <Text className="text-gray-700 whitespace-pre-line">
-                    {faq.answer}
-                  </Text>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </Section>
+      {/* FAQ — uses the site's standard accordion + auto-emits FAQPage schema */}
+      <FAQSectionWithSchema
+        title="Banker FAQ"
+        description="The questions referring bankers ask before sending the first client."
+        faqs={bankerFaqs}
+        background="white"
+        schemaName="Serve Funding Banker Referral"
+      />
 
       {/* Useful links for bankers */}
       <Section className="py-12 bg-gray-50">
