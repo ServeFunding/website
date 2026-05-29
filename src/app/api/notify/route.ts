@@ -11,10 +11,6 @@ const NOTIFY_RECIPIENTS = (process.env.RESEND_NOTIFY_EMAILS || 'tim@ai-ascend.co
 
 const DEAL_TRACKER_URL = 'https://docs.google.com/spreadsheets/d/1uvyjzPHvMMKQX_DdoMg2HfMzKL6naRqXFeRpaUZUSTI/edit?gid=1459245510#gid=1459245510'
 
-// 90s server-side debounce: each chat ping cancels the prior scheduled Resend email and books a new one.
-const CHAT_DEBOUNCE_MS = 90 * 1000
-const pendingChatEmails = new Map<string, string>() // sessionId → scheduled email id
-
 function escapeHtml(str: string): string {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 }
@@ -214,29 +210,12 @@ ${escapeHtml(dealContext)}
         }"><div style="font-size: 11px; font-weight: 600; margin-bottom: 4px; ${isBot ? 'color: #c99c42;' : 'color: #d4c9a8;'}">${label}</div>${escapeHtml(t.text)}</div>`
       }).join('')
 
-      // Cancel any prior scheduled email for this session; tolerate failures (cold start, already fired).
-      const prevEmailId = pendingChatEmails.get(sessionId)
-      if (prevEmailId) {
-        try {
-          await resend.emails.cancel(prevEmailId)
-        } catch (e) {
-          console.warn('Resend cancel failed for', prevEmailId, e)
-        }
-      }
-
-      // flushImmediate (e.g. Schedule a Call click) skips the 90s debounce.
-      const flushImmediate = body.flushImmediate === true
-      const scheduledAt = flushImmediate
-        ? undefined
-        : new Date(Date.now() + CHAT_DEBOUNCE_MS).toISOString()
-
       const { data, error } = await resend.emails.send({
         from: `Serve Funding Chat <${FROM_EMAIL}>`,
         to: NOTIFY_RECIPIENTS,
         subject,
-        scheduledAt,
         headers: {
-          // Thread emails from the same chat session in Gmail/Outlook
+          // Thread by sessionId so each chat reads as one Gmail conversation.
           'References': `<chat-${sessionId}@servefunding.com>`,
           'In-Reply-To': `<chat-${sessionId}@servefunding.com>`,
         },
@@ -251,7 +230,7 @@ ${escapeHtml(dealContext)}
               ${transcriptHtml}
             </div>
             <p style="font-size: 12px; color: #999; margin-top: 16px;">
-              Server-debounced: fires ~90s after the visitor's last message (or sooner if they hit Schedule a Call). Each session is threaded so the conversation reads as one chain in your inbox.
+              Sent on each AI reply; threaded by session so the conversation reads as one chain in your inbox.
             </p>
           </div>
         `,
@@ -259,14 +238,10 @@ ${escapeHtml(dealContext)}
 
       if (error) {
         console.error('Resend error:', error)
-        pendingChatEmails.delete(sessionId)
         return NextResponse.json({ error: error.message }, { status: 500 })
       }
 
-      // Only track scheduled sends; immediate sends are already gone.
-      if (data?.id && scheduledAt) pendingChatEmails.set(sessionId, data.id)
-      else pendingChatEmails.delete(sessionId)
-      return NextResponse.json({ success: true, id: data?.id, scheduledAt: scheduledAt ?? null })
+      return NextResponse.json({ success: true, id: data?.id })
     }
 
     return NextResponse.json({ error: 'Invalid type' }, { status: 400 })
