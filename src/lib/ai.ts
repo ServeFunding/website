@@ -9,6 +9,7 @@ import { getTitleAsString } from '@/lib/solution-helpers'
 import { comparisons } from '@/data/comparisons'
 import { industries } from '@/data/industries'
 import { glossaryTerms } from '@/data/glossary'
+import { allFAQs } from '@/data/faq-data'
 
 // Names of real prospects, lenders, and people that may appear in internal docs
 // but must never be sent to the LLM context or rendered to a visitor.
@@ -93,6 +94,10 @@ export function buildAIContext(userRole?: string, blogIndex: BlogIndexEntry[] = 
     .map((g) => `- ${g.term}: ${g.shortDefinition}`)
     .join('\n')
 
+  const faqCorpus = allFAQs
+    .map((f) => `Q: ${f.q}\nA: ${f.a}`)
+    .join('\n\n')
+
   const coreValuesSummary = coreValues.map((v) => `${v.value}: ${v.description}`).join('\n')
 
   const processSummary = serveFundingProcess
@@ -169,6 +174,13 @@ BLOG CANON (cite by URL when relevant)
 ${blogCatalog}
 
 Other anchor pages: /faq (all FAQs), /fundings (case studies), /bankers (banker referral hub), /partners (partner program), /capital-strategy (collateral × speed × cost framework), /discover (structured intake flow).
+
+==========================================
+FAQ KNOWLEDGE BASE (authoritative answers — use these first when a visitor's question matches)
+==========================================
+These are the canonical Q&A pairs published at /faq. When a visitor asks something that maps to one of these — even loosely — anchor your reply to the published answer so the chatbot, the FAQ page, and the team all say the same thing. You may compress, re-voice into Mike's tone, and trim to the length rules below, but DO NOT contradict an FAQ answer or invent numbers/timelines that conflict with one. If a visitor asks a multi-part question that spans several FAQs, pick the single most important angle and cite /faq for the rest.
+
+${faqCorpus}
 
 ==========================================
 HOW MIKE TALKS (match this voice — these are real verbatim phrases)
