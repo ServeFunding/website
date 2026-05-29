@@ -7,11 +7,34 @@ import {
   Text,
   FadeIn,
   Card,
+  Button,
 } from '@/components/ui'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
-import { CTA } from '@/components/cta'
 import { FAQSectionWithSchema } from '@/components/FAQSection'
+
+// Email draft a banker can forward to their client — written in the voice we'd
+// want the introduction to land in: warm, direct, transparent. Pulled from
+// Mike's recurring banker-referral talk track (docs/mike-voice-patterns.md and
+// the FAQ on this page) so the framing matches how Mike describes Serve.
+const INTRO_EMAIL_SUBJECT = 'Quick intro — a financing advisory I trust'
+const INTRO_EMAIL_BODY = [
+  'Hi [name],',
+  '',
+  "Wanted to put a name in front of you. Serve Funding is a family-owned business financing advisory I work with when a deal doesn't fit our credit box. They're not a direct lender — think of them more like your advocate to the non-bank lending world. Channel-neutral, product-neutral, 20+ years doing this.",
+  '',
+  'A few things worth knowing up front:',
+  "  •  Your accounts stay with us — they don't take deposits.",
+  "  •  The first call is about 20 minutes. They'll tell you straight whether they can help.",
+  "  •  They shop the deal across their lender network and come back with two or three real options, not a single quoted rate.",
+  '',
+  'Easiest way to start is here: https://servefunding.com/discover',
+  '',
+  "Mention you came through me and they'll prioritize the call.",
+  '',
+  '[your name]',
+].join('\n')
+const INTRO_MAILTO = `mailto:?subject=${encodeURIComponent(INTRO_EMAIL_SUBJECT)}&body=${encodeURIComponent(INTRO_EMAIL_BODY)}`
 
 const PAGE_URL = 'https://servefunding.com/bankers'
 
@@ -436,12 +459,28 @@ export default function ForBankersPage() {
         </Container>
       </Section>
 
-      <CTA
-        title="Ready to make the introduction?"
-        text="Send your client to servefunding.com/discover, or email michael@servefunding.com to coordinate a warm hand-off."
-        buttonText="Start a Conversation"
-        useBG
-      />
+      <Section background="background">
+        <Container>
+          <FadeIn className="text-center">
+            <Heading size="h2">Ready to make the introduction?</Heading>
+            <Text size="2xl" className="mt-4 text-gray-600 max-w-2xl mx-auto mb-8">
+              Open a pre-drafted intro email in your own client. Edit it however you like — we just wanted to take the blank-page problem off your plate.
+            </Text>
+            <a href={INTRO_MAILTO}>
+              <Button variant="default" size="lg">
+                Draft the Intro Email
+              </Button>
+            </a>
+            <Text size="sm" className="mt-4 text-gray-500">
+              Or send your client straight to{' '}
+              <Link href="/discover" className="underline hover:no-underline">
+                servefunding.com/discover
+              </Link>
+              .
+            </Text>
+          </FadeIn>
+        </Container>
+      </Section>
     </>
   )
 }
