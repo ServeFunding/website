@@ -11,9 +11,8 @@ import {
   Card,
 } from '@/components/ui'
 import { Breadcrumb } from '@/components/breadcrumb'
-import { SchemaRenderer } from '@/components/SchemaRenderer'
 import { CTA } from '@/components/cta'
-import { getFAQPageSchema } from '@/lib/schema-generators'
+import { FAQSectionWithSchema } from '@/components/FAQSection'
 import { getIndustry, getIndustryIds } from '@/data/industries'
 import { fundingSolutions } from '@/data/solutions'
 import { fundingCases } from '@/data/fundingData'
@@ -67,12 +66,8 @@ export default async function IndustryPage({ params }: Props) {
     ? fundingCases.find(c => c.title === ind.publicCaseStudyTitle)
     : undefined
 
-  const faqSchema = getFAQPageSchema(ind.faqs)
-
   return (
     <>
-      <SchemaRenderer schema={faqSchema} />
-
       <Breadcrumb
         items={[
           { label: 'Industries', href: '/industries' },
@@ -260,30 +255,13 @@ export default async function IndustryPage({ params }: Props) {
       )}
 
       {/* FAQ */}
-      <Section className="py-12 bg-white">
-        <Container>
-          <div className="max-w-3xl mx-auto">
-            <Heading size="h2" className="mb-6 text-olive-900">
-              Common questions from {ind.name.toLowerCase()}
-            </Heading>
-            <div className="space-y-6">
-              {ind.faqs.map((faq, i) => (
-                <div
-                  key={i}
-                  className="border-b border-gray-200 pb-6 last:border-b-0"
-                >
-                  <Heading size="h4" className="mb-2 text-olive-900">
-                    {faq.question}
-                  </Heading>
-                  <Text className="text-gray-700 whitespace-pre-line">
-                    {faq.answer}
-                  </Text>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </Section>
+      <FAQSectionWithSchema
+        title={`Common questions from ${ind.name.toLowerCase()}`}
+        faqs={ind.faqs.map(f => ({ q: f.question, a: f.answer }))}
+        background="white"
+        showTease
+        schemaName={ind.name}
+      />
 
       <CTA
         title={`Ready to talk about your business?`}

@@ -19,18 +19,26 @@ interface FAQSectionProps {
   background?: 'white' | 'gray'
   maxDisplay?: number // Limit how many FAQs to show
   columns?: 1 | 2 // Single or two-column layout
+  showTease?: boolean // Show first sentence of answer when collapsed
+}
+
+function teaseFrom(answer: string): string {
+  const match = answer.match(/^(.+?[.!?])\s/)
+  return match ? match[1] : answer.slice(0, 140)
 }
 
 function FAQAccordionItem({
   question,
   answer,
   videoId,
-  videoTranscript
+  videoTranscript,
+  showTease
 }: {
   question: string
   answer: string
   videoId?: string
   videoTranscript?: string
+  showTease?: boolean
 }) {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -38,12 +46,19 @@ function FAQAccordionItem({
     <div className="relative z-10 border border-gray-200 rounded-xl overflow-hidden hover:border-gold-500 transition-colors">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full p-6 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors text-left"
+        className="w-full p-6 flex items-center justify-between gap-4 bg-white hover:bg-gray-50 transition-colors text-left"
         aria-expanded={isOpen}
       >
-        <Heading size="h4" className="text-olive-900 pr-4">
-          {question}
-        </Heading>
+        <div className="flex-1 min-w-0">
+          <Heading size="h4" className="text-olive-900">
+            {question}
+          </Heading>
+          {showTease && !isOpen && (
+            <Text size="sm" className="text-gray-500 mt-2 line-clamp-1">
+              {teaseFrom(answer)}
+            </Text>
+          )}
+        </div>
         <ChevronDown
           size={24}
           className={`text-gold-500 flex-shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
@@ -95,7 +110,8 @@ export function FAQSection({
   faqs,
   background = 'gray',
   maxDisplay,
-  columns = 1
+  columns = 1,
+  showTease
 }: FAQSectionProps) {
   // Limit FAQs if maxDisplay is set
   const displayFaqs = maxDisplay ? faqs.slice(0, maxDisplay) : faqs
@@ -128,6 +144,7 @@ export function FAQSection({
               answer={faq.a}
               videoId={faq.videoId}
               videoTranscript={faq.videoTranscript}
+              showTease={showTease}
             />
           ))}
         </StaggerContainer>
@@ -162,6 +179,7 @@ export function FAQSectionWithSchema({
   faqs,
   background = 'gray',
   maxDisplay,
+  showTease,
   schemaName
 }: FAQSectionProps & { schemaName?: string }) {
   const displayFaqs = maxDisplay ? faqs.slice(0, maxDisplay) : faqs
@@ -215,6 +233,7 @@ export function FAQSectionWithSchema({
         description={description}
         faqs={displayFaqs}
         background={background}
+        showTease={showTease}
       />
     </>
   )
