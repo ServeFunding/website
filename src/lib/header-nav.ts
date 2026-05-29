@@ -28,7 +28,7 @@ export interface SimpleNavItem {
   href: string
 }
 
-export interface DropdownBottomCta {
+export interface DropdownHeaderCta {
   name: string
   href: string
   subtitle?: string
@@ -44,7 +44,8 @@ export interface DropdownNavItem {
   description?: string
   featuredTitle?: string
   regularTitle?: string
-  bottomRightCta?: DropdownBottomCta
+  /** Optional CTA rendered on the right of the dropdown's title/description header section. */
+  headerCta?: DropdownHeaderCta
   /** If true, the parent label opens the dropdown but does not navigate. */
   noLink?: boolean
 }
@@ -109,6 +110,12 @@ export const headerNavConfig: HeaderNavConfig = {
       featuredTitle: 'Core Solutions',
       regularTitle: 'All Solutions',
       description: 'Explore our range of working capital solutions designed to keep your business running smoothly. From short-term cash needs to comprehensive working capital strategies.',
+      headerCta: {
+        name: 'Which is right for me?',
+        href: '/solutions/compare',
+        subtitle: 'Side-by-side comparison of all 12 options',
+        icon: 'Scale',
+      },
     },
     {
       type: 'dropdown',

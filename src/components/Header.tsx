@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { ChevronDown, Scale } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 import { Button, Container } from "./ui"
 import { motion } from "framer-motion"
@@ -246,17 +246,7 @@ export function Header() {
           </nav>
 
           {/* Right side: CTA Button + Mobile Menu */}
-          <div className="flex items-center gap-3">
-            {/* Which is right for me? — secondary CTA, desktop only */}
-            <Link
-              href="/solutions/compare"
-              onClick={() => trackNavClick("Which is right for me? (Header)", "/solutions/compare")}
-              className="hidden lg:inline-flex items-center gap-1.5 text-sm font-medium text-olive-green hover:text-gold-500 transition-colors"
-            >
-              <Scale size={16} />
-              Which is right for me?
-            </Link>
-
+          <div className="flex items-center gap-4">
             {/* CTA Button */}
             <Link href="/discover" onClick={() => { trackNavClick("Let's Talk (Header)", "/discover"); trackEvent("lets_talk_click", { location: "header" }) }}>
               <Button variant="default" size="sm" className="rounded-full flex-shrink-0">
@@ -295,7 +285,7 @@ export function Header() {
                 description={activeDropdownData.description}
                 featuredTitle={activeDropdownData.featuredTitle}
                 regularTitle={activeDropdownData.regularTitle}
-                bottomRightCta={activeDropdownData.bottomRightCta}
+                headerCta={activeDropdownData.headerCta}
                 onAnchorClick={handleAnchorClick}
               />
             </Container>
@@ -349,23 +339,13 @@ export function Header() {
                       isExpanded={expandedMenu === expandKey}
                       onToggle={() => setExpandedMenu(expandedMenu === expandKey ? null : expandKey)}
                       onClose={closeMenu}
-                      bottomRightCta={item.bottomRightCta}
+                      headerCta={item.headerCta}
                       onAnchorClick={handleAnchorClick}
                       noLink={item.noLink}
                     />
                   )
                 }
               })}
-
-              {/* Which is right for me? — mobile */}
-              <Link
-                href="/solutions/compare"
-                onClick={() => { trackNavClick("Which is right for me? (Mobile Menu)", "/solutions/compare"); setIsMenuOpen(false) }}
-                className="flex items-center gap-2 text-base font-medium py-3 text-olive-green"
-              >
-                <Scale size={18} />
-                Which is right for me?
-              </Link>
 
               {/* Let's Talk Button */}
               <Link href="/discover" onClick={() => { trackNavClick("Let's Talk (Mobile Menu)", "/discover"); trackEvent("lets_talk_click", { location: "mobile_menu" }); setIsMenuOpen(false) }} className="w-full block pt-4">

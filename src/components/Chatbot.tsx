@@ -484,7 +484,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             style={{
               position: 'fixed',
-              bottom: '96px',
+              bottom: '76px',
               right: '20px',
               zIndex: 41,
               maxWidth: 'min(360px, calc(100vw - 40px))',
@@ -568,7 +568,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
             transition={{ duration: 0.3, ease: 'easeOut' }}
             style={{
               position: 'fixed',
-              bottom: '20px',
+              bottom: 0,
               left: 0,
               right: 0,
               display: 'flex',
@@ -588,21 +588,26 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
                   `${BRAND_COLORS.highlight}cc`,
                   `${BRAND_COLORS.primary}55`,
                 ],
+                boxShadow: [
+                  '0 -2px 14px rgba(201, 156, 66, 0.18), 0 -6px 28px rgba(201, 156, 66, 0.08)',
+                  '0 -2px 22px rgba(239, 224, 115, 0.55), 0 -8px 44px rgba(201, 156, 66, 0.30)',
+                  '0 -2px 14px rgba(201, 156, 66, 0.18), 0 -6px 28px rgba(201, 156, 66, 0.08)',
+                ],
               }}
               transition={{
                 borderColor: { duration: 3.5, repeat: Infinity, ease: 'easeInOut' },
+                boxShadow: { duration: 3.5, repeat: Infinity, ease: 'easeInOut' },
               }}
-              whileHover={{ y: -2 }}
+              whileHover={{ y: -4 }}
               whileTap={{ scale: 0.98 }}
-              className="flex items-center gap-3 px-6 py-3 cursor-pointer"
+              className="flex items-center gap-3 px-7 py-3.5 pb-4 cursor-pointer"
               style={{
                 pointerEvents: 'auto',
                 backgroundColor: '#ffffff',
-                borderWidth: '1.5px',
+                borderWidth: '1.5px 1.5px 0 1.5px',
                 borderStyle: 'solid',
-                borderRadius: '12px',
+                borderRadius: '16px 16px 0 0',
                 color: BRAND_COLORS.primary,
-                boxShadow: '0 4px 16px rgba(42, 35, 26, 0.10)',
                 maxWidth: '100%',
               }}
               aria-label="Open Serve Funding Navigator chat"

@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Zap, FileText, Wrench, Scale, Building2, BookOpen } from "lucide-react"
 import { COLORS } from "@/lib/colors"
 import { trackNavClick } from "@/lib/tracking"
-import type { FeaturedDropdownItem, DropdownBottomCta } from "@/lib/header-nav"
+import type { FeaturedDropdownItem, DropdownHeaderCta } from "@/lib/header-nav"
 
 interface DropdownMenuTwoSectionProps {
   items: FeaturedDropdownItem[]
@@ -16,7 +16,7 @@ interface DropdownMenuTwoSectionProps {
   featuredTitle?: string
   regularTitle?: string
   showHereToServe?: boolean
-  bottomRightCta?: DropdownBottomCta
+  headerCta?: DropdownHeaderCta
   onAnchorClick?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
 }
 
@@ -54,7 +54,7 @@ export function DropdownMenuTwoSection({
   featuredTitle = 'Featured',
   regularTitle = 'All Items',
   showHereToServe = true,
-  bottomRightCta,
+  headerCta,
   onAnchorClick
 }: DropdownMenuTwoSectionProps) {
   const handleClick = (id: string) => {
@@ -69,14 +69,39 @@ export function DropdownMenuTwoSection({
   return (
     <div className="flex flex-col gap-0">
       {/* Header - Always show */}
-      <div className="border-b p-6 lg:p-8 gap-3 flex flex-col" style={{ borderColor: `${COLORS.primary}15` }}>
-        <div className="text-lg font-semibold" style={{ color: COLORS.dark }}>
-          {label}
-        </div>
-        {description && (
-          <div className="text-sm leading-relaxed max-w-2xl" style={{ color: COLORS.dark }}>
-            {description}
+      <div className="border-b p-6 lg:p-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-8" style={{ borderColor: `${COLORS.primary}15` }}>
+        <div className="flex flex-col gap-3 flex-1 min-w-0">
+          <div className="text-lg font-semibold" style={{ color: COLORS.dark }}>
+            {label}
           </div>
+          {description && (
+            <div className="text-sm leading-relaxed max-w-2xl" style={{ color: COLORS.dark }}>
+              {description}
+            </div>
+          )}
+        </div>
+        {headerCta && (
+          <Link
+            href={headerCta.href}
+            onClick={() => handleClick(headerCta.href)}
+            className="inline-flex items-center gap-3 px-4 py-3 rounded-lg border transition-all hover:-translate-y-0.5 hover:shadow-md flex-shrink-0"
+            style={{
+              color: COLORS.dark,
+              borderColor: `${COLORS.secondary}`,
+              backgroundImage: `linear-gradient(135deg, ${COLORS.highlight}33 0%, ${COLORS.secondary}33 100%)`,
+            }}
+          >
+            <div style={{ color: COLORS.primary }}>
+              {getIcon(headerCta.icon)}
+            </div>
+            <div className="flex flex-col">
+              <div className="font-semibold text-sm leading-snug" style={{ color: COLORS.primary }}>{headerCta.name}</div>
+              {headerCta.subtitle && (
+                <div className="text-xs leading-tight" style={{ color: `${COLORS.dark}99` }}>{headerCta.subtitle}</div>
+              )}
+            </div>
+            <span aria-hidden style={{ color: COLORS.primary }} className="ml-1 font-semibold">→</span>
+          </Link>
         )}
       </div>
 
@@ -199,31 +224,6 @@ export function DropdownMenuTwoSection({
                   )
                 })}
               </div>
-              {bottomRightCta && (
-                <div className="mt-auto pt-4 flex justify-end">
-                  <Link
-                    href={bottomRightCta.href}
-                    onClick={() => handleClick(bottomRightCta.href)}
-                    className="inline-flex items-center gap-3 px-4 py-3 rounded-lg border transition-all hover:-translate-y-0.5 hover:shadow-md"
-                    style={{
-                      color: COLORS.dark,
-                      borderColor: `${COLORS.secondary}`,
-                      backgroundImage: `linear-gradient(135deg, ${COLORS.highlight}33 0%, ${COLORS.secondary}33 100%)`,
-                    }}
-                  >
-                    <div style={{ color: COLORS.primary }}>
-                      {getIcon(bottomRightCta.icon)}
-                    </div>
-                    <div className="flex flex-col">
-                      <div className="font-semibold text-sm leading-snug" style={{ color: COLORS.primary }}>{bottomRightCta.name}</div>
-                      {bottomRightCta.subtitle && (
-                        <div className="text-xs leading-tight" style={{ color: `${COLORS.dark}99` }}>{bottomRightCta.subtitle}</div>
-                      )}
-                    </div>
-                    <span aria-hidden style={{ color: COLORS.primary }} className="ml-1 font-semibold">→</span>
-                  </Link>
-                </div>
-              )}
             </div>
           </div>
         ) : (
