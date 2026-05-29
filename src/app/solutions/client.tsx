@@ -14,7 +14,6 @@ import {
   FadeIn,
   StaggerContainer
 } from '@/components/ui'
-import { FeatureList } from '@/components/FeatureList'
 import { LAYOUT } from '@/lib/layout'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CTA } from '@/components/cta'
@@ -236,17 +235,12 @@ export function SolutionsClient() {
                     <span className="text-olive-900">{solution.title}</span>
                   </Heading>
                   <Text className="text-gray-700 mb-6 leading-relaxed text-lg">
-                    {solution.fullDesc}
+                    {solution.whatIs}
                   </Text>
 
-                  <div className="mb-8">
-                    <FeatureList features={solution.features} />
-                  </div>
-
-                  {/* Learn More Link to Detail Page */}
                   <Link href={`/solutions/${solution.id}`} onClick={() => handleSolutionClick(solution.id)}>
                     <Button variant="default" className="flex items-center gap-2">
-                      Learn more about {getTitleAsString(solution.title)} <ChevronRight size={18} />
+                      Read more <ChevronRight size={18} />
                     </Button>
                   </Link>
                 </div>

@@ -112,15 +112,12 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
           <Container>
             <div className="max-w-4xl mx-auto">
               <Heading size="h1" className="mb-4">
-                {`What ${getTitleAsString(solution.title).endsWith('s') ? 'are' : 'is'} ${getTitleAsString(solution.title)}?`}
+                {(() => {
+                  const titleStr = getTitleAsString(solution.title)
+                  const isPlural = titleStr.split(/\s+/).some(w => /s$/.test(w) && !/(ss|us|is)$/i.test(w))
+                  return `What ${isPlural ? 'are' : 'is'} ${titleStr}?`
+                })()}
               </Heading>
-{/* 
-              {/* Category Badge
-              <div className="mb-6">
-                <Text>
-                  {solution.category}
-                </Text>
-              </div> */}
 
               {/* Solution Image */}
               {solution.image && (
@@ -142,79 +139,72 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                   {solution.whatIs}
                 </Text>
               </div>
-
-              {/* Rates & Benefits Highlights Table */}
-              {solution.features && solution.features.length > 0 && (
-                <table className="w-full border-collapse border border-olive-green mt-8">
-                  <tbody>
-                    {(() => {
-                      // Extract key highlights from features
-                      const facilitySize = solution.features.find(f => f.toLowerCase().includes('size') || f.toLowerCase().includes('amount')) || ''
-                      const costOfCapital = solution.features.find(f => f.toLowerCase().includes('cost') || f.toLowerCase().includes('rate')) || ''
-                      const fundingTimeline = solution.features.find(f => f.toLowerCase().includes('funding') || f.toLowerCase().includes('timeline')) || ''
-                      const bestForText = solution.bestFor?.join(', ') || ''
-
-                      const highlights = [
-                        { label: "Facility/Loan Size", value: facilitySize },
-                        { label: "Cost of Capital", value: costOfCapital },
-                        { label: "Funding Timeline", value: fundingTimeline },
-                        { label: "Best For", value: bestForText }
-                      ]
-
-                      return highlights.map((item, index) => (
-                        item.value && (
-                          <tr key={index} className={index % 2 === 0 ? "bg-gold-light/20" : ""}>
-                            <td className="border border-olive-green p-4 font-semibold text-olive-green w-1/4">{item.label}</td>
-                            <td className="border border-olive-green p-4">{item.value}</td>
-                          </tr>
-                        )
-                      ))
-                    })()}
-                  </tbody>
-                </table>
-              )}
-
             </div>
           </Container>
         </Section>
 
-        {/* Full Description Section — punchy intro visible, rest behind "Read more" */}
+        {/* Full Description Section */}
         <Section background="gray">
           <Container>
             <div className="max-w-4xl mx-auto">
               <Heading size="h2" className="mb-6">How It Works</Heading>
-              {(() => {
-                const paragraphs = solution.fullDesc.split('\n\n').map(p => p.trim()).filter(Boolean)
-                // Pull a short teaser: first 1–2 sentences of paragraph 1.
-                const firstPara = paragraphs[0] || ''
-                const sentences = firstPara.match(/[^.!?]+[.!?]+/g) || [firstPara]
-                const teaser = sentences.slice(0, 2).join(' ').trim()
-                const remainderOfFirst = sentences.slice(2).join(' ').trim()
-                const rest = paragraphs.slice(1)
-                const hasMore = remainderOfFirst.length > 0 || rest.length > 0
-                return (
-                  <>
-                    <Text size="lg" className="mb-6">{teaser || firstPara}</Text>
-                    {hasMore && (
-                      <details className="group">
-                        <summary className="cursor-pointer font-semibold text-olive-green hover:underline list-none inline-flex items-center gap-1.5 select-none">
-                          <span className="group-open:hidden">Read full explanation →</span>
-                          <span className="hidden group-open:inline">Show less ↑</span>
-                        </summary>
-                        <div className="mt-6 space-y-6">
-                          {remainderOfFirst && <Text size="lg">{remainderOfFirst}</Text>}
-                          {rest.map((p, i) => (
-                            <Text key={i} size="lg">{p}</Text>
-                          ))}
-                        </div>
-                      </details>
-                    )}
-                  </>
-                )
-              })()}
+              <div className="space-y-6">
+                {solution.fullDesc.split('\n\n').map(p => p.trim()).filter(Boolean).map((p, i) => (
+                  <Text key={i} size="lg">{p}</Text>
+                ))}
+              </div>
             </div>
           </Container>
         </Section>
+
+        {/* Quick Facts Panel */}
+        {solution.features && solution.features.length > 0 && (
+          <Section>
+            <Container>
+              <div className="max-w-4xl mx-auto">
+                <Heading size="h2" className="mb-6">Quick Facts</Heading>
+                <Card noHover>
+                  {(() => {
+                    const facilitySize = solution.features.find(f => f.toLowerCase().includes('size') || f.toLowerCase().includes('amount')) || ''
+                    const costOfCapital = solution.features.find(f => f.toLowerCase().includes('cost') || f.toLowerCase().includes('rate')) || ''
+                    const fundingTimeline = solution.features.find(f => f.toLowerCase().includes('funding') || f.toLowerCase().includes('timeline')) || ''
+                    const bestForList = solution.bestFor || []
+
+                    const scalars = [
+                      { label: "Facility / Loan Size", value: facilitySize },
+                      { label: "Cost of Capital", value: costOfCapital },
+                      { label: "Funding Timeline", value: fundingTimeline },
+                    ].filter(s => s.value)
+
+                    return (
+                      <div className="divide-y divide-gray-100">
+                        {scalars.map((item, i) => (
+                          <div key={i} className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-3 md:gap-8 py-5 first:pt-0">
+                            <div className="font-semibold text-olive-900">{item.label}</div>
+                            <div className="text-gray-700 leading-relaxed">{item.value}</div>
+                          </div>
+                        ))}
+                        {bestForList.length > 0 && (
+                          <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-3 md:gap-8 py-5 last:pb-0">
+                            <div className="font-semibold text-olive-900">Best For</div>
+                            <ul className="text-gray-700 space-y-2">
+                              {bestForList.map((b, i) => (
+                                <li key={i} className="flex gap-3">
+                                  <span className="text-gold-500 flex-shrink-0 mt-1.5 leading-none">•</span>
+                                  <span className="leading-relaxed">{b}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })()}
+                </Card>
+              </div>
+            </Container>
+          </Section>
+        )}
 
         {/* Features/Benefits Section */}
         <Section>

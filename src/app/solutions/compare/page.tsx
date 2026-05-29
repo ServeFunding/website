@@ -118,7 +118,7 @@ export default function SolutionsComparePage() {
             <Text className="text-gray-700 mb-8 max-w-3xl">
               Every row is a real option. Read the table for the shape, then jump down to the section that fits your situation — each one explains when to pick it over the others.
             </Text>
-            <div className="overflow-x-auto rounded-xl border border-gray-200">
+            <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
               <table className="w-full text-left text-sm">
                 <thead className="bg-gray-50 text-olive-900">
                   <tr>

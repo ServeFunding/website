@@ -84,7 +84,6 @@ export const headerNavConfig: HeaderNavConfig = {
       type: 'dropdown',
       label: 'Solutions',
       basePath: '/solutions',
-      noLink: true,
       items: [
         ...fundingSolutions.map(solution => {
         // Mark the three featured products (working capital, invoice factoring, equipment)

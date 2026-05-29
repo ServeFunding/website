@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { X, Send, MessageCircle } from 'lucide-react'
+import { X, Send, MessageCircle, ArrowUpRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { trackChatbotSessionStart, trackChatbotMessage } from '@/lib/tracking'
@@ -12,6 +12,48 @@ import { fundingSolutions } from '@/data/solutions'
 import { comparisons } from '@/data/comparisons'
 import { industries } from '@/data/industries'
 import { getTitleAsString } from '@/lib/solution-helpers'
+
+// Map an internal URL path to a short, human-readable label so inline citations
+// render as compact pill chips instead of dumping raw slugs into the chat.
+// Falls back to title-casing the last path segment when no catalog entry exists.
+function labelForUrl(url: string): string {
+  if (!url.startsWith('/')) return url
+  const clean = url.replace(/\/$/, '')
+
+  if (clean.startsWith('/solutions/')) {
+    const id = clean.replace('/solutions/', '')
+    const s = fundingSolutions.find((x) => x.id === id)
+    if (s) return getTitleAsString(s.title)
+  }
+  if (clean.startsWith('/compare/')) {
+    const id = clean.replace('/compare/', '')
+    const c = comparisons.find((x) => x.id === id)
+    if (c) return c.title
+  }
+  if (clean.startsWith('/industries/')) {
+    const id = clean.replace('/industries/', '')
+    const i = industries.find((x) => x.id === id)
+    if (i) return i.title
+  }
+
+  const pageNames: Record<string, string> = {
+    '/faq': 'FAQ',
+    '/fundings': 'Case Studies',
+    '/bankers': 'For Bankers',
+    '/partners': 'Partners',
+    '/glossary': 'Glossary',
+    '/capital-strategy': 'Capital Strategy',
+    '/about-us': 'About',
+    '/contact-us': 'Contact',
+    '/discover': 'Get Started',
+    '/blog': 'Blog',
+    '/solutions': 'Solutions',
+  }
+  if (pageNames[clean]) return pageNames[clean]
+
+  const last = clean.split('/').filter(Boolean).pop() || clean
+  return last.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+}
 
 // Page-aware contextual hook: maps the visitor's current pathname to a short
 // "Are you interested in..." nudge and a matching opener for the chat.
@@ -177,7 +219,13 @@ function ThinkingBubble() {
 }
 
 // Render plain text with bare URLs and site paths converted to clickable links.
-// Matches: full URLs (https://...) and relative site paths (/solutions/foo, /blog/bar).
+// Internal paths render as compact pill chips with a friendly label (so the chat
+// shows "[Purchase Order Funding ↗]" instead of "/solutions/purchase-order-funding").
+// External http(s) URLs render as a plain underlined link with the host shown.
+//
+// We also collapse the AI's common citation pattern "Name (/path)" — if a chip
+// is preceded by " (" and followed by ")", we eat both parens so the chip stands
+// alone and the surrounding sentence stays clean.
 function renderTextWithLinks(text: string): React.ReactNode {
   const linkPattern = /(https?:\/\/[^\s)]+|\/(?:solutions|blog|industries|compare|glossary|bankers|faq|fundings|partners|capital-strategy|about-us|contact-us|discover)\/?[\w-]*(?:#[\w\-:%~,.]+)?)/g
   const parts: React.ReactNode[] = []
@@ -185,12 +233,24 @@ function renderTextWithLinks(text: string): React.ReactNode {
   let match: RegExpExecArray | null
   let key = 0
   while ((match = linkPattern.exec(text)) !== null) {
-    if (match.index > lastIndex) {
-      parts.push(text.slice(lastIndex, match.index))
-    }
+    let preceding = text.slice(lastIndex, match.index)
     const url = match[0].replace(/[.,;:!?)]+$/, '') // trim trailing punctuation
-    const trailing = match[0].slice(url.length)
+    let trailing = match[0].slice(url.length)
     const isExternal = url.startsWith('http')
+
+    // Collapse "Name (/path)" — if the preceding text ends with " (" and the
+    // very next char after the URL is ")", drop both so the chip stands alone.
+    const afterChar = text[match.index + match[0].length] || ''
+    if (!isExternal && /\s\($/.test(preceding) && afterChar === ')') {
+      preceding = preceding.replace(/\s\($/, ' ')
+      trailing = '' // we'll skip the close-paren below
+      lastIndex = match.index + match[0].length + 1
+    } else {
+      lastIndex = match.index + match[0].length
+    }
+
+    if (preceding) parts.push(preceding)
+
     parts.push(
       isExternal ? (
         <a
@@ -201,7 +261,7 @@ function renderTextWithLinks(text: string): React.ReactNode {
           className="underline"
           style={{ color: BRAND_COLORS.primary }}
         >
-          {url}
+          {url.replace(/^https?:\/\//, '').replace(/\/$/, '')}
         </a>
       ) : (
         // Use Next Link for internal paths so the chat state persists across navigation
@@ -209,15 +269,20 @@ function renderTextWithLinks(text: string): React.ReactNode {
         <Link
           key={key++}
           href={url}
-          className="underline"
-          style={{ color: BRAND_COLORS.primary }}
+          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-semibold no-underline align-baseline transition-colors hover:brightness-95"
+          style={{
+            backgroundColor: `${BRAND_COLORS.primary}14`,
+            color: BRAND_COLORS.primary,
+            border: `1px solid ${BRAND_COLORS.primary}33`,
+            whiteSpace: 'nowrap',
+          }}
         >
-          {url}
+          {labelForUrl(url)}
+          <ArrowUpRight size={11} strokeWidth={2.5} aria-hidden />
         </Link>
       )
     )
     if (trailing) parts.push(trailing)
-    lastIndex = match.index + match[0].length
   }
   if (lastIndex < text.length) parts.push(text.slice(lastIndex))
   return parts.length > 0 ? parts : text
@@ -241,10 +306,10 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
       ? crypto.randomUUID()
       : `s_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`
   )
-  // Email-on-reply queue: hold the latest transcript and flush after the visitor
-  // stops engaging (debounced), on chat close, or on page unload.
+  // Holds the latest transcript so the unload/close handlers can re-flush it
+  // if anything came in after the last server push. The 90s debounce now lives
+  // on the server (Resend scheduledAt) — no client-side timer needed.
   const pendingTranscriptRef = useRef<Array<{ sender: 'user' | 'bot'; text: string; timestamp: string }> | null>(null)
-  const flushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const lastSentLengthRef = useRef<number>(0)
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -300,15 +365,19 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
     return () => clearTimeout(timer)
   }, [pathname, contextualHint])
 
-  // Flush the pending transcript to /api/notify (if anything new since last send).
-  const flushNotify = useCallback((useBeacon = false) => {
-    if (flushTimerRef.current) {
-      clearTimeout(flushTimerRef.current)
-      flushTimerRef.current = null
-    }
+  // Push the pending transcript to /api/notify. The server holds the 90s
+  // debounce via Resend's scheduledAt (cancel + reschedule per turn), so this
+  // can fire freely — we don't need a client-side timer.
+  //
+  // `flushImmediate` tells the server to skip the debounce and send right now.
+  // Use this for high-intent moments (Schedule a Call) where we want Mike to
+  // see the transcript instantly. `useBeacon` is the legacy unload path —
+  // still here as a belt-and-suspenders for browsers that don't deliver the
+  // final fetch on tab close.
+  const flushNotify = useCallback((useBeacon = false, flushImmediate = false) => {
     const transcript = pendingTranscriptRef.current
     if (!transcript || transcript.length === 0) return
-    if (transcript.length <= lastSentLengthRef.current) return // nothing new
+    if (transcript.length <= lastSentLengthRef.current && !flushImmediate) return
     const payload = JSON.stringify({
       type: 'chat_message',
       sessionId: sessionIdRef.current,
@@ -316,10 +385,10 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
       name: 'Chat Visitor',
       email: 'chat@servefunding.com',
       transcript,
+      flushImmediate,
     })
     lastSentLengthRef.current = transcript.length
     if (useBeacon && typeof navigator !== 'undefined' && 'sendBeacon' in navigator) {
-      // sendBeacon survives unload — best for tab close / nav-away.
       const blob = new Blob([payload], { type: 'application/json' })
       navigator.sendBeacon('/api/notify', blob)
     } else {
@@ -327,18 +396,18 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: payload,
-        keepalive: true, // helps if user navigates away mid-request
+        keepalive: true,
       }).catch(() => { /* non-blocking */ })
     }
   }, [])
 
-  // Queue a transcript and schedule a debounced flush.
+  // Push the latest transcript to the server immediately. The server holds the
+  // 90s debounce via Resend's scheduledAt (cancels + reschedules on each turn),
+  // so the email only goes out once activity stops — even if the visitor closes
+  // the tab in the middle of the conversation.
   const queueNotify = useCallback((transcript: Array<{ sender: 'user' | 'bot'; text: string; timestamp: string }>) => {
     pendingTranscriptRef.current = transcript
-    if (flushTimerRef.current) clearTimeout(flushTimerRef.current)
-    flushTimerRef.current = setTimeout(() => {
-      flushNotify(false)
-    }, 90000) // 90s of inactivity → flush
+    flushNotify(false)
   }, [flushNotify])
 
   // Force-flush on page unload / tab hidden — survives navigation away.
@@ -455,6 +524,11 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
 
   const handleActionButtonClick = useCallback((action: string) => {
     if (action === 'open_calendly') {
+      // Visitor is converting to a call — push the latest transcript through
+      // immediately (flushImmediate skips the 90s server debounce) so Mike has
+      // the full conversation in his inbox by the time the Calendly tab opens.
+      flushNotify(false, true)
+
       const baseUrl = 'https://calendly.com/michael_kodinsky/discovery'
       const now = new Date()
       const monthParam = now.toISOString().split('T')[0].substring(0, 7) // YYYY-MM format
@@ -466,7 +540,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
       const calendlyUrl = `${baseUrl}?${params.toString()}`
       window.open(calendlyUrl, '_blank')
     }
-  }, [aiContext])
+  }, [aiContext, flushNotify])
 
 
   // Hide chatbot on the discover page (has its own inline AI chat)
@@ -598,9 +672,15 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
                 borderColor: { duration: 3.5, repeat: Infinity, ease: 'easeInOut' },
                 boxShadow: { duration: 3.5, repeat: Infinity, ease: 'easeInOut' },
               }}
-              whileHover={{ y: -4 }}
+              whileHover={{
+                backgroundColor: BRAND_COLORS.background,
+                borderColor: BRAND_COLORS.highlight,
+                boxShadow:
+                  '0 -2px 28px rgba(239, 224, 115, 0.75), 0 -10px 56px rgba(201, 156, 66, 0.42), inset 0 1px 0 rgba(255,255,255,0.65)',
+                transition: { duration: 0.25, ease: 'easeOut' },
+              }}
               whileTap={{ scale: 0.98 }}
-              className="flex items-center gap-3 px-7 py-3.5 pb-4 cursor-pointer"
+              className="group flex items-center gap-3 px-7 py-3.5 pb-4 cursor-pointer"
               style={{
                 pointerEvents: 'auto',
                 backgroundColor: '#ffffff',
@@ -617,7 +697,13 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
                 <span className="block text-base font-semibold leading-tight">Ask the Navigator</span>
                 <span className="block text-xs text-gray-600 font-normal leading-tight mt-0.5">Capital that serves you</span>
               </span>
-              <span style={{ color: BRAND_COLORS.secondary }} aria-hidden>→</span>
+              <span
+                className="transition-transform duration-200 ease-out group-hover:translate-x-1"
+                style={{ color: BRAND_COLORS.secondary }}
+                aria-hidden
+              >
+                →
+              </span>
             </motion.button>
           </motion.div>
         )}

@@ -152,6 +152,12 @@ export function Header() {
     }
   }, [isScrolled])
 
+  useEffect(() => {
+    setActiveDropdown(null)
+    setIsMenuOpen(false)
+    setExpandedMenu(null)
+  }, [pathname])
+
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     // Only handle same-page anchor links
     if (!href.startsWith('#')) {
