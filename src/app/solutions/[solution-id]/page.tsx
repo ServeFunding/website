@@ -270,7 +270,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                   <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {relatedPosts.map(post => (
                       <Link key={post.id} href={`/blog/${post.id}`} className="group h-full">
-                        <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-2 bg-white flex flex-col">
+                        <Card>
                           <Heading size="h3" className="mb-3 text-olive-900 group-hover:text-gold-500 transition-colors line-clamp-2">
                             {post.title}
                           </Heading>
@@ -305,7 +305,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                   .slice(0, 3)
                   .map(relatedSolution => (
                     <Link key={relatedSolution.id} href={`/solutions/${relatedSolution.id}`} className="h-full block">
-                      <Card className="h-full">
+                      <Card>
                         <Heading size="h3" className="mb-2">
                           {relatedSolution.title}
                         </Heading>

@@ -172,7 +172,7 @@ export default async function BlogPost({ params }: Props) {
                 const solution = fundingSolutions.find(s => s.id === solutionId)
                 return solution ? (
                   <Link key={solutionId} href={`/solutions#${solutionId}`} className="group">
-                    <Card className="p-6 h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
+                    <Card padding="md">
                       <Heading size="h3" className="mb-3 text-olive-900 group-hover:text-gold-500 transition-colors">
                         {solution.title}
                       </Heading>

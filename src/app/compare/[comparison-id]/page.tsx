@@ -111,7 +111,7 @@ export default async function ComparisonPage({ params }: Props) {
             <Text size="2xl" className="text-gray-700 mb-6">
               {c.subtitle}
             </Text>
-            <Card className="p-6 bg-white border-l-4 border-l-gold-500">
+            <Card padding="md" noHover className="border-l-4 border-l-gold-500">
               <Text className="text-gray-800 whitespace-pre-line">
                 {c.introduction}
               </Text>
@@ -250,7 +250,7 @@ export default async function ComparisonPage({ params }: Props) {
             <Text className="text-gray-700 mb-6 whitespace-pre-line">
               <strong>How the math works out:</strong> {c.workedExample.math}
             </Text>
-            <Card className="p-4 bg-gold-50 border-l-4 border-l-gold-500">
+            <Card padding="sm" noHover className="bg-gold-50 border-l-4 border-l-gold-500">
               <Text className="text-gray-800">
                 <strong>Takeaway:</strong> {c.workedExample.takeaway}
               </Text>
@@ -268,7 +268,7 @@ export default async function ComparisonPage({ params }: Props) {
             </Heading>
             <div className="space-y-6">
               {c.mikeQuotes.map((q, i) => (
-                <Card key={i} className="p-6 bg-gray-50">
+                <Card key={i} padding="md" noHover className="bg-gray-50">
                   <Text className="text-gray-800 italic mb-3">
                     &ldquo;{q.quote}&rdquo;
                   </Text>

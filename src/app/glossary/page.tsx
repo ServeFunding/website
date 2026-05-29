@@ -151,7 +151,7 @@ export default function GlossaryPage() {
                         {term.fullExplanation}
                       </Text>
                       {term.example && (
-                        <Card className="p-4 mb-4 bg-gold-50 border-l-4 border-l-gold-500">
+                        <Card padding="sm" noHover className="mb-4 bg-gold-50 border-l-4 border-l-gold-500">
                           <Text size="sm" className="text-gray-800">
                             <strong>Example:</strong> {term.example}
                           </Text>

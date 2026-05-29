@@ -72,7 +72,7 @@ export default function CompareIndexPage() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {comparisons.map(c => (
               <Link key={c.id} href={`/compare/${c.id}`} className="group">
-                <Card className="p-6 h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-l-4 border-l-gold-500">
+                <Card padding="md" className="border-2 border-gray-200">
                   <Heading
                     size="h3"
                     className="mb-2 text-olive-900 group-hover:text-gold-500 transition-colors"

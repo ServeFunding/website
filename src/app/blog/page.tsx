@@ -91,7 +91,7 @@ export default function BlogPage() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {sortedPosts.map((post) => (
               <Link key={post.id} href={`/blog/${post.id}`}>
-                <Card className="p-8 h-full flex flex-col hover:shadow-lg transition-all duration-300 cursor-pointer group">
+                <Card className="cursor-pointer group">
                   <div className="flex items-center gap-4 mb-4 text-sm text-gray-600">
                     <Calendar size={16} className="text-gold-500" />
                     <span>{formatDate(post.date)}</span>

@@ -63,7 +63,7 @@ export default function IndustriesIndexPage() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {industries.map(ind => (
               <Link key={ind.id} href={`/industries/${ind.id}`} className="group">
-                <Card className="h-full overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                <Card className="overflow-hidden">
                   {ind.image && (
                     <div className="relative h-48 w-full">
                       <Image

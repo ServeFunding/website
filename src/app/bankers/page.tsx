@@ -182,7 +182,7 @@ export default function ForBankersPage() {
             <Text className="text-gray-700 mb-6">
               The alternative is a referral to an advisor whose business model depends on never threatening yours. That&apos;s how Serve Funding works. We exist downstream of your decline. The client gets credit; you stay the hero; the operating account stays with you; and 12 to 36 months later, when the trajectory has cleaned up the financials, the client comes back to your credit team in a position to qualify.
             </Text>
-            <Card className="p-6 bg-gray-50 border-l-4 border-l-gold-500">
+            <Card padding="md" noHover className="bg-gray-50 border-l-4 border-l-gold-500">
               <Text className="text-gray-800 italic mb-3">
                 &ldquo;We&apos;re a, sort of, financing is our own — my wife and I work it together. It&apos;s a business financing advisory. So we&apos;re not a direct lender. We are like a broker that represents our client to the lending world, alternative from banks. Bankers that we partner with are often introducing us when a client has a need that the bank can&apos;t fulfill for one reason or another, and we seek to understand the full scope of what you&apos;re trying to do, what the options are.&rdquo;
               </Text>
@@ -204,7 +204,7 @@ export default function ForBankersPage() {
             <Text className="text-gray-700 mb-6">
               Mike Kodinsky came up on the direct-lender side. For years he was the person bankers referred their declined clients to — running asset-based deals out of one specific credit box. That experience is what built Serve Funding, and it&apos;s the reason banker referrals are at the center of how we operate today.
             </Text>
-            <Card className="p-6 bg-gray-50 border-l-4 border-l-gold-500 mb-6">
+            <Card padding="md" noHover className="bg-gray-50 border-l-4 border-l-gold-500 mb-6">
               <Text className="text-gray-800 italic mb-3">
                 &ldquo;David Phillips and I — we were competitors at one time. I was doing very much what he was doing on the asset-based side, and we would get referrals from bankers primarily. I did a study at one point, looked back two years, and figured out we were closing one deal out of every 15 or 16 looks we got. And the problem with that wasn&apos;t so much the closing ratio — sales is sales, it&apos;s always going to be a numbers game. It was the fact that on so many of those other ones we didn&apos;t end up closing, we still <em>thought</em> we had a deal, and we went down the road and spent time — which is to say, spent the client&apos;s time, and our own time — only to hit a wall later.&rdquo;
               </Text>
@@ -231,7 +231,7 @@ export default function ForBankersPage() {
             </Heading>
 
             <div className="grid md:grid-cols-2 gap-6">
-              <Card className="p-6 bg-white">
+              <Card padding="md" noHover>
                 <Heading size="h3" className="mb-3 text-olive-900">We do</Heading>
                 <ul className="space-y-2 text-gray-700 text-sm">
                   <li className="flex gap-2"><span className="text-gold-500 font-bold">•</span><span>Invoice factoring and asset-based lending</span></li>
@@ -247,7 +247,7 @@ export default function ForBankersPage() {
                 </ul>
               </Card>
 
-              <Card className="p-6 bg-white">
+              <Card padding="md" noHover>
                 <Heading size="h3" className="mb-3 text-olive-900">We don&apos;t</Heading>
                 <ul className="space-y-2 text-gray-700 text-sm">
                   <li className="flex gap-2"><span className="text-gray-400 font-bold">•</span><span>Take deposits or open operating accounts</span></li>
@@ -364,7 +364,7 @@ export default function ForBankersPage() {
       <Section className="py-12 bg-white">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <Card className="p-6 bg-gray-50 border-l-4 border-l-gold-500">
+            <Card padding="md" noHover className="bg-gray-50 border-l-4 border-l-gold-500">
               <Text className="text-gray-800 italic mb-3">
                 &ldquo;How our time is our most valuable resource, because it&apos;s literally the one that&apos;s finite. You cannot make more — everything else in the world, you can make more of, but not time. It&apos;s part of my talk track to bankers, because the worst outcome for a banker referral is when the client wastes three weeks with the wrong advisor and comes back angry. We&apos;d rather tell a client honestly on the first call that we can&apos;t help than spend their time pretending we can.&rdquo;
               </Text>
@@ -386,7 +386,7 @@ export default function ForBankersPage() {
             <Text className="text-gray-700 mb-6">
               You know your client better than we do. The framing below is just a starting point — adapt it to how the two of you actually talk.
             </Text>
-            <Card className="p-6 bg-white border-l-4 border-l-olive-500">
+            <Card padding="md" noHover className="border-l-4 border-l-olive-500">
               <Text className="text-gray-800 italic">
                 &ldquo;Our credit team can&apos;t get this done in our box — it&apos;s a structural fit issue, not a question of whether your business is sound. I want to introduce you to a financing advisory we&apos;ve worked with before. They&apos;re channel-neutral, banker-referred, and they shop deals across about 30 alternative lenders to find what actually fits the situation. They don&apos;t take deposits, so your accounts stay with us. The founder personally takes the first call and he&apos;s straight with people about whether he can help — he&apos;ll tell you on the call if it&apos;s not a fit. First call is 20 minutes. Here&apos;s the link.&rdquo;
               </Text>
@@ -419,37 +419,37 @@ export default function ForBankersPage() {
             </Text>
             <div className="grid md:grid-cols-2 gap-4">
               <Link href="/solutions/compare" className="block">
-                <Card className="p-4 hover:shadow-lg transition-all">
+                <Card padding="sm">
                   <div className="font-semibold text-olive-900 mb-1">All 12 funding solutions compared</div>
                   <Text size="sm" className="text-gray-600">For clients who want to see the full menu first.</Text>
                 </Card>
               </Link>
               <Link href="/compare" className="block">
-                <Card className="p-4 hover:shadow-lg transition-all">
+                <Card padding="sm">
                   <div className="font-semibold text-olive-900 mb-1">Head-to-head comparisons</div>
                   <Text size="sm" className="text-gray-600">For clients weighing two specific products.</Text>
                 </Card>
               </Link>
               <Link href="/industries" className="block">
-                <Card className="p-4 hover:shadow-lg transition-all">
+                <Card padding="sm">
                   <div className="font-semibold text-olive-900 mb-1">Industry-specific guides</div>
                   <Text size="sm" className="text-gray-600">Send a manufacturing or staffing client straight to their industry page.</Text>
                 </Card>
               </Link>
               <Link href="/blog/the-two-underwriting-buckets" className="block">
-                <Card className="p-4 hover:shadow-lg transition-all">
+                <Card padding="sm">
                   <div className="font-semibold text-olive-900 mb-1">The Two Underwriting Buckets</div>
                   <Text size="sm" className="text-gray-600">For clients who need a conceptual frame before our call.</Text>
                 </Card>
               </Link>
               <Link href="/blog/mca-vs-revenue-based-financing" className="block">
-                <Card className="p-4 hover:shadow-lg transition-all">
+                <Card padding="sm">
                   <div className="font-semibold text-olive-900 mb-1">MCA vs Revenue-Based Financing</div>
                   <Text size="sm" className="text-gray-600">For clients already in stacked MCAs — the consolidation arc.</Text>
                 </Card>
               </Link>
               <Link href="/glossary" className="block">
-                <Card className="p-4 hover:shadow-lg transition-all">
+                <Card padding="sm">
                   <div className="font-semibold text-olive-900 mb-1">Glossary</div>
                   <Text size="sm" className="text-gray-600">32 plain-English definitions of terms your client might encounter on a term sheet.</Text>
                 </Card>

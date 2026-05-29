@@ -89,7 +89,7 @@ export default async function IndustryPage({ params }: Props) {
             <Text size="2xl" className="text-gray-700 mb-6">
               {ind.hook}
             </Text>
-            <Card className="p-6 bg-white border-l-4 border-l-gold-500">
+            <Card padding="md" noHover className="border-l-4 border-l-gold-500">
               <Text className="text-gray-800 whitespace-pre-line">
                 {ind.introduction}
               </Text>
@@ -151,7 +151,7 @@ export default async function IndustryPage({ params }: Props) {
                     href={`/solutions/${rec.solutionId}`}
                     className="block"
                   >
-                    <Card className="p-6 hover:shadow-lg transition-all border-l-4 border-l-gold-500 group">
+                    <Card padding="md" className="border-2 border-gray-200 group">
                       <div className="flex items-baseline gap-3 mb-2">
                         <span className="text-gold-500 font-bold text-sm">
                           #{rec.rank}
@@ -184,7 +184,7 @@ export default async function IndustryPage({ params }: Props) {
             </Text>
 
             {matchedCase && (
-              <Card className="p-6 mt-8 bg-gold-50 border-l-4 border-l-gold-500">
+              <Card padding="md" noHover className="mt-8 bg-gold-50 border-l-4 border-l-gold-500">
                 <Heading size="h4" className="mb-2 text-olive-900">
                   Public case study: {matchedCase.title} — {matchedCase.amount}
                 </Heading>
@@ -213,7 +213,7 @@ export default async function IndustryPage({ params }: Props) {
               </Heading>
               <div className="space-y-6">
                 {ind.mikeQuotes.map((q, i) => (
-                  <Card key={i} className="p-6 bg-gray-50">
+                  <Card key={i} padding="md" noHover className="bg-gray-50">
                     <Text className="text-gray-800 italic mb-3">
                       &ldquo;{q.quote}&rdquo;
                     </Text>
@@ -244,7 +244,7 @@ export default async function IndustryPage({ params }: Props) {
               </Text>
               <div className="space-y-4">
                 {ind.whatDoesntFit.map((item, i) => (
-                  <Card key={i} className="p-4 bg-white">
+                  <Card key={i} padding="sm" noHover>
                     <div className="font-semibold text-olive-900 mb-1">
                       {nameFor(item.solutionId)}
                     </div>

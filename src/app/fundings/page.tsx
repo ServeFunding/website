@@ -98,7 +98,7 @@ export default function Fundings() {
                   onClick={() => openModal(study)}
                   className="w-full h-full text-left focus:outline-none scroll-mt-32"
                 >
-                  <Card className="flex flex-col h-full cursor-pointer group">
+                  <Card className="cursor-pointer group">
                     <Heading size="h4" className="mb-4 text-olive-900 group-hover:text-gold-500 transition-colors">
                       <span
                         className="bg-gradient-to-b bg-clip-text text-transparent"
