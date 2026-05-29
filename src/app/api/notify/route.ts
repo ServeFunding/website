@@ -11,17 +11,7 @@ const NOTIFY_RECIPIENTS = (process.env.RESEND_NOTIFY_EMAILS || 'tim@ai-ascend.co
 
 const DEAL_TRACKER_URL = 'https://docs.google.com/spreadsheets/d/1uvyjzPHvMMKQX_DdoMg2HfMzKL6naRqXFeRpaUZUSTI/edit?gid=1459245510#gid=1459245510'
 
-// Server-side debounce for chat transcripts. Each new transcript from a session
-// schedules a Resend email 90s in the future and stores its ID; the next ping
-// from the same session cancels the prior scheduled email and replaces it with
-// a fresh one carrying the updated transcript. When the visitor goes idle (or
-// closes the tab), the last scheduled email simply fires — no client-side
-// beacon, no race conditions.
-//
-// State lives in module scope so it survives across requests on a warm Vercel
-// instance. Cold starts reset the map; the degradation is "the visitor's
-// transcript arrives in two threaded emails instead of one" — same Gmail
-// thread via the In-Reply-To header, so it still reads cleanly.
+// 90s server-side debounce: each chat ping cancels the prior scheduled Resend email and books a new one.
 const CHAT_DEBOUNCE_MS = 90 * 1000
 const pendingChatEmails = new Map<string, string>() // sessionId → scheduled email id
 
@@ -224,10 +214,7 @@ ${escapeHtml(dealContext)}
         }"><div style="font-size: 11px; font-weight: 600; margin-bottom: 4px; ${isBot ? 'color: #c99c42;' : 'color: #d4c9a8;'}">${label}</div>${escapeHtml(t.text)}</div>`
       }).join('')
 
-      // Cancel any previously-scheduled email for this session so we only ever
-      // have one pending send per visitor. If cancellation fails (cold start
-      // lost the map entry, Resend already fired it, etc.) we just continue —
-      // worst case the visitor's transcript arrives in two threaded emails.
+      // Cancel any prior scheduled email for this session; tolerate failures (cold start, already fired).
       const prevEmailId = pendingChatEmails.get(sessionId)
       if (prevEmailId) {
         try {
@@ -237,8 +224,7 @@ ${escapeHtml(dealContext)}
         }
       }
 
-      // If the client signals a high-intent moment (clicked Schedule a Call),
-      // skip the 90s debounce and send the transcript immediately.
+      // flushImmediate (e.g. Schedule a Call click) skips the 90s debounce.
       const flushImmediate = body.flushImmediate === true
       const scheduledAt = flushImmediate
         ? undefined
@@ -277,8 +263,7 @@ ${escapeHtml(dealContext)}
         return NextResponse.json({ error: error.message }, { status: 500 })
       }
 
-      // Only track the email if it's actually scheduled — immediate sends are
-      // already gone, nothing to cancel.
+      // Only track scheduled sends; immediate sends are already gone.
       if (data?.id && scheduledAt) pendingChatEmails.set(sessionId, data.id)
       else pendingChatEmails.delete(sessionId)
       return NextResponse.json({ success: true, id: data?.id, scheduledAt: scheduledAt ?? null })

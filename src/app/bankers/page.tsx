@@ -13,10 +13,7 @@ import { Breadcrumb } from '@/components/breadcrumb'
 import { SchemaRenderer } from '@/components/SchemaRenderer'
 import { FAQSectionWithSchema } from '@/components/FAQSection'
 
-// Email draft a banker can forward to their client — written in the voice we'd
-// want the introduction to land in: warm, direct, transparent. Pulled from
-// Mike's recurring banker-referral talk track (docs/mike-voice-patterns.md and
-// the FAQ on this page) so the framing matches how Mike describes Serve.
+// Banker → client intro email draft, voiced per docs/mike-voice-patterns.md.
 const INTRO_EMAIL_SUBJECT = 'Quick intro — a financing advisory I trust'
 const INTRO_EMAIL_BODY = [
   'Hi [name],',

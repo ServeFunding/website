@@ -13,9 +13,7 @@ import { comparisons } from '@/data/comparisons'
 import { industries } from '@/data/industries'
 import { getTitleAsString } from '@/lib/solution-helpers'
 
-// Map an internal URL path to a short, human-readable label so inline citations
-// render as compact pill chips instead of dumping raw slugs into the chat.
-// Falls back to title-casing the last path segment when no catalog entry exists.
+// Resolve an internal URL to a short, human-readable label for the inline pill chips.
 function labelForUrl(url: string): string {
   if (!url.startsWith('/')) return url
   const clean = url.replace(/\/$/, '')
@@ -218,14 +216,8 @@ function ThinkingBubble() {
   )
 }
 
-// Render plain text with bare URLs and site paths converted to clickable links.
-// Internal paths render as compact pill chips with a friendly label (so the chat
-// shows "[Purchase Order Funding ↗]" instead of "/solutions/purchase-order-funding").
-// External http(s) URLs render as a plain underlined link with the host shown.
-//
-// We also collapse the AI's common citation pattern "Name (/path)" — if a chip
-// is preceded by " (" and followed by ")", we eat both parens so the chip stands
-// alone and the surrounding sentence stays clean.
+// Render text with bare URLs replaced by pill chips (internal) or underlined links (external).
+// Also collapses the "Name (/path)" pattern so the chip stands alone without empty parens.
 function renderTextWithLinks(text: string): React.ReactNode {
   const linkPattern = /(https?:\/\/[^\s)]+|\/(?:solutions|blog|industries|compare|glossary|bankers|faq|fundings|partners|capital-strategy|about-us|contact-us|discover)\/?[\w-]*(?:#[\w\-:%~,.]+)?)/g
   const parts: React.ReactNode[] = []
@@ -238,9 +230,8 @@ function renderTextWithLinks(text: string): React.ReactNode {
     let trailing = match[0].slice(url.length)
     const isExternal = url.startsWith('http')
 
-    // Collapse "Name (/path)" — if the preceding text ends with " (" and the
-    // very next char after the URL is ")", drop both so the chip stands alone.
     const afterChar = text[match.index + match[0].length] || ''
+    // Eat the "Name ( ... )" wrapping parens if both sides are present.
     if (!isExternal && /\s\($/.test(preceding) && afterChar === ')') {
       preceding = preceding.replace(/\s\($/, ' ')
       trailing = '' // we'll skip the close-paren below
@@ -306,9 +297,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
       ? crypto.randomUUID()
       : `s_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`
   )
-  // Holds the latest transcript so the unload/close handlers can re-flush it
-  // if anything came in after the last server push. The 90s debounce now lives
-  // on the server (Resend scheduledAt) — no client-side timer needed.
+  // Latest transcript; 90s debounce lives on the server (Resend scheduledAt).
   const pendingTranscriptRef = useRef<Array<{ sender: 'user' | 'bot'; text: string; timestamp: string }> | null>(null)
   const lastSentLengthRef = useRef<number>(0)
   const [messages, setMessages] = useState<Message[]>([
@@ -365,15 +354,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
     return () => clearTimeout(timer)
   }, [pathname, contextualHint])
 
-  // Push the pending transcript to /api/notify. The server holds the 90s
-  // debounce via Resend's scheduledAt (cancel + reschedule per turn), so this
-  // can fire freely — we don't need a client-side timer.
-  //
-  // `flushImmediate` tells the server to skip the debounce and send right now.
-  // Use this for high-intent moments (Schedule a Call) where we want Mike to
-  // see the transcript instantly. `useBeacon` is the legacy unload path —
-  // still here as a belt-and-suspenders for browsers that don't deliver the
-  // final fetch on tab close.
+  // Push the pending transcript to /api/notify. flushImmediate skips the server's 90s debounce.
   const flushNotify = useCallback((useBeacon = false, flushImmediate = false) => {
     const transcript = pendingTranscriptRef.current
     if (!transcript || transcript.length === 0) return
@@ -401,10 +382,6 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
     }
   }, [])
 
-  // Push the latest transcript to the server immediately. The server holds the
-  // 90s debounce via Resend's scheduledAt (cancels + reschedules on each turn),
-  // so the email only goes out once activity stops — even if the visitor closes
-  // the tab in the middle of the conversation.
   const queueNotify = useCallback((transcript: Array<{ sender: 'user' | 'bot'; text: string; timestamp: string }>) => {
     pendingTranscriptRef.current = transcript
     flushNotify(false)
@@ -524,9 +501,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
 
   const handleActionButtonClick = useCallback((action: string) => {
     if (action === 'open_calendly') {
-      // Visitor is converting to a call — push the latest transcript through
-      // immediately (flushImmediate skips the 90s server debounce) so Mike has
-      // the full conversation in his inbox by the time the Calendly tab opens.
+      // High-intent moment — flush immediately, skip the 90s debounce.
       flushNotify(false, true)
 
       const baseUrl = 'https://calendly.com/michael_kodinsky/discovery'

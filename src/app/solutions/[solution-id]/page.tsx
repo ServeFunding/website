@@ -163,44 +163,58 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
             <Container>
               <div className="max-w-4xl mx-auto">
                 <Heading size="h2" className="mb-6">Quick Facts</Heading>
-                <Card noHover>
-                  {(() => {
-                    const facilitySize = solution.features.find(f => f.toLowerCase().includes('size') || f.toLowerCase().includes('amount')) || ''
-                    const costOfCapital = solution.features.find(f => f.toLowerCase().includes('cost') || f.toLowerCase().includes('rate')) || ''
-                    const fundingTimeline = solution.features.find(f => f.toLowerCase().includes('funding') || f.toLowerCase().includes('timeline')) || ''
-                    const bestForList = solution.bestFor || []
+              </div>
+              <div className="max-w-7xl mx-auto">
+                {(() => {
+                  const facilitySize = solution.features.find(f => f.toLowerCase().includes('size') || f.toLowerCase().includes('amount')) || ''
+                  const costOfCapital = solution.features.find(f => f.toLowerCase().includes('cost') || f.toLowerCase().includes('rate')) || ''
+                  const fundingTimeline = solution.features.find(f => f.toLowerCase().includes('funding') || f.toLowerCase().includes('timeline')) || ''
+                  const bestForList = solution.bestFor || []
 
-                    const scalars = [
-                      { label: "Facility / Loan Size", value: facilitySize },
-                      { label: "Cost of Capital", value: costOfCapital },
-                      { label: "Funding Timeline", value: fundingTimeline },
-                    ].filter(s => s.value)
+                  const scalars = [
+                    { label: "Facility / Loan Size", value: facilitySize },
+                    { label: "Cost of Capital", value: costOfCapital },
+                    { label: "Funding Timeline", value: fundingTimeline },
+                  ].filter(s => s.value)
 
-                    return (
-                      <div className="divide-y divide-gray-100">
-                        {scalars.map((item, i) => (
-                          <div key={i} className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-3 md:gap-8 py-5 first:pt-0">
-                            <div className="font-semibold text-olive-900">{item.label}</div>
-                            <div className="text-gray-700 leading-relaxed">{item.value}</div>
-                          </div>
-                        ))}
-                        {bestForList.length > 0 && (
-                          <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-3 md:gap-8 py-5 last:pb-0">
-                            <div className="font-semibold text-olive-900">Best For</div>
-                            <ul className="text-gray-700 space-y-2">
-                              {bestForList.map((b, i) => (
-                                <li key={i} className="flex gap-3">
-                                  <span className="text-gold-500 flex-shrink-0 mt-1.5 leading-none">•</span>
-                                  <span className="leading-relaxed">{b}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-                    )
-                  })()}
-                </Card>
+                  // Render as a definition-list "table": label column on the
+                  // left, content on the right. On narrow screens it collapses
+                  // to a stacked block (label sits above content). Visible
+                  // dividers between every row so it reads as a table.
+                  // Real HTML table. The browser's table layout guarantees all
+                  // rows share the same column widths automatically. Each row
+                  // collapses to a stacked block below 640px via max-sm:block.
+                  const cellPad = "px-6 py-6 max-sm:px-5 max-sm:py-4"
+                  const labelCell = `${cellPad} align-top font-semibold text-olive-900 whitespace-nowrap text-right max-sm:block max-sm:w-full max-sm:text-left max-sm:whitespace-normal max-sm:pb-1`
+                  const valueCell = `${cellPad} text-left align-top text-gray-700 leading-relaxed max-sm:block max-sm:w-full max-sm:pt-0`
+
+                  return (
+                    <div className="rounded-2xl border border-gray-200 bg-white overflow-hidden">
+                      <table className="w-full border-collapse max-sm:block">
+                        <tbody className="max-sm:block">
+                          {scalars.map((item, i) => (
+                            <tr key={item.label} className={`max-sm:block ${i > 0 ? 'border-t border-gray-200' : ''}`}>
+                              <th scope="row" className={labelCell}>{item.label}</th>
+                              <td className={valueCell}>{item.value}</td>
+                            </tr>
+                          ))}
+                          {bestForList.length > 0 && (
+                            <tr className={`max-sm:block ${scalars.length > 0 ? 'border-t border-gray-200' : ''}`}>
+                              <th scope="row" className={labelCell}>Best For</th>
+                              <td className={valueCell}>
+                                <ul className="list-disc pl-5 space-y-1.5 marker:text-gold-500">
+                                  {bestForList.map((b, j) => (
+                                    <li key={j}>{b}</li>
+                                  ))}
+                                </ul>
+                              </td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  )
+                })()}
               </div>
             </Container>
           </Section>
