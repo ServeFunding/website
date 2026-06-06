@@ -3,7 +3,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { X, Send, MessageCircle, ArrowUpRight } from 'lucide-react'
+import Image from 'next/image'
+import { X, Send, ArrowUpRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { COLORS as BRAND_COLORS } from '@/lib/colors'
 import { trackChatbotSessionStart, trackChatbotMessage } from '@/lib/tracking'
@@ -570,7 +571,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
                 aria-hidden
               />
 
-              <MessageCircle size={20} style={{ color: BRAND_COLORS.secondary, flexShrink: 0, marginTop: '2px' }} />
+              <Image src="/navigator-icon.svg" alt="" width={20} height={20} unoptimized aria-hidden style={{ flexShrink: 0, marginTop: '2px' }} />
 
               <button
                 onClick={() => {
@@ -667,7 +668,7 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
               }}
               aria-label="Open Serve Funding Navigator chat"
             >
-              <MessageCircle size={20} style={{ color: BRAND_COLORS.secondary }} />
+              <Image src="/navigator-icon.svg" alt="" width={22} height={22} unoptimized aria-hidden />
               <span className="text-left">
                 <span className="block text-base font-semibold leading-tight">Ask the Navigator</span>
                 <span className="block text-xs text-gray-600 font-normal leading-tight mt-0.5">Capital that serves you</span>
@@ -704,19 +705,22 @@ export function Chatbot({ userRole }: ChatbotProps = {}) {
             role="dialog"
             aria-label="Serve Funding Chat Assistant"
           >
-            {/* Header — gradient text, no border, minimal */}
+            {/* Header — brand icon + gradient text, no border, minimal */}
             <div className="px-6 py-4 rounded-none sm:rounded-t-3xl flex items-center justify-between flex-shrink-0">
-              <h3
-                className="text-lg font-bold leading-tight"
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${BRAND_COLORS.primary} 0%, ${BRAND_COLORS.secondary} 100%)`,
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  color: 'transparent',
-                }}
-              >
-                Serve Funding Navigator
-              </h3>
+              <div className="flex items-center gap-2">
+                <Image src="/navigator-icon.svg" alt="" width={22} height={22} unoptimized aria-hidden />
+                <h3
+                  className="text-lg font-bold leading-tight"
+                  style={{
+                    backgroundImage: `linear-gradient(90deg, ${BRAND_COLORS.primary} 0%, ${BRAND_COLORS.secondary} 100%)`,
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    color: 'transparent',
+                  }}
+                >
+                  Serve Funding Navigator
+                </h3>
+              </div>
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-gray-400 hover:text-gray-700 p-1 rounded transition-colors"
