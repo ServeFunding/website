@@ -12,6 +12,17 @@ export interface FundingCase {
 
 export const fundingCases: FundingCase[] = [
   {
+    amount: '$2.8MM',
+    title: 'Portfolio Equity Unlock',
+    company: 'Private Real Estate Investor, Multi-State',
+    description: 'A seasoned high-net-worth investor had built a portfolio of income-producing properties across several states, each held in its own LLC. He came to Serve Funding to refinance higher-cost debt and unlock equity across key properties, but a complex multi-entity structure, variable property-level income, and a pending legal matter had disqualified him from the bank financing he was pursuing.',
+    fullStory: 'The challenge was never the quality of the portfolio; it was the structure. The original request, a bank standby letter of credit for more than $11MM, had stalled completely, and multiple institutions had already passed. He needed a creative partner, not another no.\n\nServe Funding went to work identifying lenders equipped to underwrite against real equity rather than just clean tax returns and tidy entity charts. After an extensive market search, we sourced a preferred equity lender with the appetite to fund against the portfolio property-by-property. Instead of forcing a single large transaction that required every property to qualify at once, we structured the deal as six tranches across four properties, letting each asset close on its own timeline as underwriting completed.\n\nThat approach got capital moving immediately. The first two closings happened within weeks of engaging the lender, deal risk dropped because no single property\'s complexity could derail the program, and each tranche was right-sized to the property\'s specific equity and cash-flow profile. Over roughly 60 days from first close to final tranche, Serve Funding funded $2,820,000 in preferred equity, giving the investor meaningful liquidity against a portfolio conventional lenders had declined to touch, without a forced sale, a personal-guarantee blowout, or months of bank-committee timelines.',
+    industry: 'Private Real Estate Investment',
+    fundingType: 'Preferred Equity (Multi-Tranche)',
+    challengeResolved: 'Unlocked $2.8MM of equity across 4 properties after banks declined an $11MM LOC request',
+    timeline: '~60 days (6 tranches)'
+  },
+  {
     amount: '$1.475MM',
     title: 'Bridge To M&A Exit',
     company: 'Medical & Surgical Practice Group, Southeast',
