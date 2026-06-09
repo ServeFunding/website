@@ -5,11 +5,11 @@ import { COLORS as BRAND_COLORS } from '@/lib/colors'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | Serve Funding',
-  description: 'Read Serve Funding\'s privacy policy to understand how we collect, use, and protect your personal information and data.',
+  description: 'Read Serve Funding\'s privacy policy to understand how we collect, use, store, and safeguard your personal information across our website and services.',
   robots: 'index, follow',
   openGraph: {
     title: 'Privacy Policy | Serve Funding',
-    description: 'Read Serve Funding\'s privacy policy to understand how we collect, use, and protect your personal information and data.',
+    description: 'Read Serve Funding\'s privacy policy to understand how we collect, use, store, and safeguard your personal information across our website and services.',
     url: 'https://servefunding.com/privacy-policy',
     type: 'website',
     images: [

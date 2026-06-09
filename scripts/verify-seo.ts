@@ -30,6 +30,41 @@ interface ValidationResult {
 }
 
 /**
+ * Extract a string-literal value for `key:` from a code block (escape-aware).
+ * Handles single, double, and backtick quotes; returns the unescaped value or null.
+ */
+function extractStringLiteral(block: string, key: string): string | null {
+  const patterns = [
+    new RegExp(`${key}\\s*:\\s*'((?:\\\\.|[^'\\\\])*)'`),
+    new RegExp(`${key}\\s*:\\s*"((?:\\\\.|[^"\\\\])*)"`),
+    new RegExp(`${key}\\s*:\\s*\`((?:\\\\.|[^\`\\\\])*)\``),
+  ]
+  let best: { index: number; value: string } | null = null
+  for (const re of patterns) {
+    const m = block.match(re)
+    if (m && m.index !== undefined && (best === null || m.index < best.index)) {
+      best = { index: m.index, value: m[1] }
+    }
+  }
+  return best ? best.value.replace(/\\(['"`\\])/g, '$1') : null
+}
+
+/**
+ * Validate a description/excerpt against the DESCRIPTION_MIN/MAX window.
+ */
+function checkDescription(file: string, field: string, value: string): ValidationResult {
+  if (value.length > DESCRIPTION_MAX_LENGTH) {
+    return { file, field, value, length: value.length, maxLength: DESCRIPTION_MAX_LENGTH, valid: false,
+      error: `Description exceeds ${DESCRIPTION_MAX_LENGTH} chars (${value.length} chars)` }
+  }
+  if (value.length < DESCRIPTION_MIN_LENGTH) {
+    return { file, field, value, length: value.length, minLength: DESCRIPTION_MIN_LENGTH, valid: false,
+      error: `Description is below recommended minimum ${DESCRIPTION_MIN_LENGTH} chars (${value.length} chars)` }
+  }
+  return { file, field, value, length: value.length, maxLength: DESCRIPTION_MAX_LENGTH, valid: true }
+}
+
+/**
  * Extract YAML frontmatter from Markdoc files
  */
 function extractFrontmatter(content: string): Record<string, string> {
@@ -343,6 +378,86 @@ function validateSolutionsData(): ValidationResult[] {
 }
 
 /**
+ * Validate inline `export const metadata` blocks in src/app/.../page.tsx.
+ * These render as-is (no " | Serve Funding" suffix appended), so titles are
+ * checked at full length. Pages that pull metadata from src/lib/seo.ts have no
+ * inline string literal and are skipped here (covered by validateCentralizedSEO).
+ */
+function validateAppPageMetadata(): ValidationResult[] {
+  const results: ValidationResult[] = []
+  const appDir = path.join(process.cwd(), 'src', 'app')
+
+  if (!fs.existsSync(appDir)) {
+    return results
+  }
+
+  const pages: string[] = []
+  const walk = (dir: string) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name)
+      if (entry.isDirectory()) walk(full)
+      else if (entry.name === 'page.tsx') pages.push(full)
+    }
+  }
+  walk(appDir)
+
+  for (const filePath of pages) {
+    const content = fs.readFileSync(filePath, 'utf-8')
+    const idx = content.indexOf('export const metadata')
+    if (idx === -1) continue
+
+    // Scope to the metadata object so we read its top-level title/description,
+    // not an openGraph or nested value further down the block.
+    const block = content.slice(idx, idx + 1500)
+    const file = path.relative(process.cwd(), filePath)
+
+    const title = extractStringLiteral(block, 'title')
+    if (title !== null) {
+      const valid = title.length <= TITLE_MAX_LENGTH
+      results.push({
+        file, field: 'title', value: title, length: title.length, maxLength: TITLE_MAX_LENGTH, valid,
+        error: valid ? undefined : `Title exceeds ${TITLE_MAX_LENGTH} chars (${title.length} chars)`
+      })
+    }
+
+    const description = extractStringLiteral(block, 'description')
+    if (description !== null) {
+      results.push(checkDescription(file, 'description', description))
+    }
+  }
+
+  return results
+}
+
+/**
+ * Validate excerpt fields in data files that become page meta descriptions
+ * (comparisons → /compare/[id], industries → /industries/[id]).
+ */
+function validateDataExcerpts(): ValidationResult[] {
+  const results: ValidationResult[] = []
+  const files = ['src/data/comparisons.ts', 'src/data/industries.ts']
+
+  for (const rel of files) {
+    const filePath = path.join(process.cwd(), rel)
+    if (!fs.existsSync(filePath)) continue
+
+    const content = fs.readFileSync(filePath, 'utf-8')
+    const re = /excerpt:\s*('((?:\\.|[^'\\])*)'|"((?:\\.|[^"\\])*)"|`((?:\\.|[^`\\])*)`)/g
+    let m: RegExpExecArray | null
+
+    while ((m = re.exec(content)) !== null) {
+      const value = (m[2] ?? m[3] ?? m[4] ?? '').replace(/\\(['"`\\])/g, '$1')
+      // Label by the nearest preceding id so failures are easy to locate.
+      const idMatch = [...content.slice(0, m.index).matchAll(/id:\s*['"`]([^'"`]+)['"`]/g)].pop()
+      const label = idMatch ? idMatch[1] : `#${results.length + 1}`
+      results.push(checkDescription(`${rel} (${label})`, 'excerpt', value))
+    }
+  }
+
+  return results
+}
+
+/**
  * Display validation results in a clear format
  */
 function displayResults(allResults: ValidationResult[]): void {
@@ -379,7 +494,9 @@ function validateAllSEO(): void {
   const allResults = [
     ...validateBlogPosts(),
     ...validateCentralizedSEO(),
-    ...validateSolutionsData()
+    ...validateSolutionsData(),
+    ...validateAppPageMetadata(),
+    ...validateDataExcerpts()
   ]
 
   if (allResults.length === 0) {
