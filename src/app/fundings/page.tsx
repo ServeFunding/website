@@ -80,7 +80,7 @@ export default function Fundings() {
       {/* Hero Section */}
       <HeroFadeIn
         title="Client Success Stories"
-        subtitle={<>At Serve Funding, we provide flexible, customized working capital solutions<br />to help businesses overcome financial challenges and seize new growth opportunities. From acquisition funding to payroll financing and beyond, we deliver fast,<br />reliable financial solutions that drive success.</>}
+        subtitle={<>At Serve Funding, we provide flexible, customized working capital solutions<br />to help businesses overcome financial challenges and seize new growth opportunities. From acquisition funding to payroll financing and beyond,<br />we deliver fast, reliable financial solutions that drive success.</>}
         compact
       />
 
@@ -115,7 +115,7 @@ export default function Fundings() {
 
                     <div className='flex-1'>
                       <Text className="line-clamp-5">
-                        {study.fullStory}
+                        {study.description}
                       </Text>
                     </div>
 
