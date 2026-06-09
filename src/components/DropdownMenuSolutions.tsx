@@ -1,10 +1,10 @@
 'use client'
 
 import Link from "next/link"
-import { Zap, FileText, Wrench } from "lucide-react"
+import { Zap, FileText, Wrench, Scale, Building2, BookOpen } from "lucide-react"
 import { COLORS } from "@/lib/colors"
 import { trackNavClick } from "@/lib/tracking"
-import type { FeaturedDropdownItem } from "@/lib/header-nav"
+import type { FeaturedDropdownItem, DropdownHeaderCta } from "@/lib/header-nav"
 
 interface DropdownMenuTwoSectionProps {
   items: FeaturedDropdownItem[]
@@ -16,6 +16,7 @@ interface DropdownMenuTwoSectionProps {
   featuredTitle?: string
   regularTitle?: string
   showHereToServe?: boolean
+  headerCta?: DropdownHeaderCta
   onAnchorClick?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
 }
 
@@ -27,6 +28,9 @@ const getIcon = (iconName?: string) => {
     Zap: <Zap size={20} className="flex-shrink-0 mt-0.5" />,
     FileText: <FileText size={20} className="flex-shrink-0 mt-0.5" />,
     Wrench: <Wrench size={20} className="flex-shrink-0 mt-0.5" />,
+    Scale: <Scale size={20} className="flex-shrink-0 mt-0.5" />,
+    Building2: <Building2 size={20} className="flex-shrink-0 mt-0.5" />,
+    BookOpen: <BookOpen size={20} className="flex-shrink-0 mt-0.5" />,
   }
   return iconMap[iconName || '']
 }
@@ -50,6 +54,7 @@ export function DropdownMenuTwoSection({
   featuredTitle = 'Featured',
   regularTitle = 'All Items',
   showHereToServe = true,
+  headerCta,
   onAnchorClick
 }: DropdownMenuTwoSectionProps) {
   const handleClick = (id: string) => {
@@ -64,14 +69,39 @@ export function DropdownMenuTwoSection({
   return (
     <div className="flex flex-col gap-0">
       {/* Header - Always show */}
-      <div className="border-b p-6 lg:p-8 gap-3 flex flex-col" style={{ borderColor: `${COLORS.primary}15` }}>
-        <div className="text-lg font-semibold" style={{ color: COLORS.dark }}>
-          {label}
-        </div>
-        {description && (
-          <div className="text-sm leading-relaxed max-w-2xl" style={{ color: COLORS.dark }}>
-            {description}
+      <div className="border-b p-6 lg:p-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-8" style={{ borderColor: `${COLORS.primary}15` }}>
+        <div className="flex flex-col gap-3 flex-1 min-w-0">
+          <div className="text-lg font-semibold" style={{ color: COLORS.dark }}>
+            {label}
           </div>
+          {description && (
+            <div className="text-sm leading-relaxed max-w-2xl" style={{ color: COLORS.dark }}>
+              {description}
+            </div>
+          )}
+        </div>
+        {headerCta && (
+          <Link
+            href={headerCta.href}
+            onClick={() => handleClick(headerCta.href)}
+            className="inline-flex items-center gap-3 px-4 py-3 rounded-lg border transition-all hover:-translate-y-0.5 hover:shadow-md flex-shrink-0"
+            style={{
+              color: COLORS.dark,
+              borderColor: `${COLORS.secondary}`,
+              backgroundImage: `linear-gradient(135deg, ${COLORS.highlight}33 0%, ${COLORS.secondary}33 100%)`,
+            }}
+          >
+            <div style={{ color: COLORS.primary }}>
+              {getIcon(headerCta.icon)}
+            </div>
+            <div className="flex flex-col">
+              <div className="font-semibold text-sm leading-snug" style={{ color: COLORS.primary }}>{headerCta.name}</div>
+              {headerCta.subtitle && (
+                <div className="text-xs leading-tight" style={{ color: `${COLORS.dark}99` }}>{headerCta.subtitle}</div>
+              )}
+            </div>
+            <span aria-hidden style={{ color: COLORS.primary }} className="ml-1 font-semibold">→</span>
+          </Link>
         )}
       </div>
 
@@ -81,14 +111,14 @@ export function DropdownMenuTwoSection({
           // All featured - 3 column grid
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {featuredItems.map((item) => {
-              const href = type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`
+              const href = item.href ?? (type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`)
               return (
                 <Link
                   key={item.id}
                   href={href}
                   onClick={(e) => {
                     handleClick(item.id)
-                    if (type === 'anchors') {
+                    if (type === 'anchors' && !item.href) {
                       onAnchorClick?.(e as React.MouseEvent<HTMLAnchorElement>, href)
                     }
                   }}
@@ -117,7 +147,7 @@ export function DropdownMenuTwoSection({
                 </div>
               )}
               {featuredItems.map((item) => {
-                const href = type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`
+                const href = item.href ?? (type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`)
                 return (
                   <Link
                     key={item.id}
@@ -166,7 +196,7 @@ export function DropdownMenuTwoSection({
               )}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 gap-y-1">
                 {regularItems.map((item) => {
-                  const href = type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`
+                  const href = item.href ?? (type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`)
                   return (
                     <Link
                       key={item.id}
@@ -200,14 +230,14 @@ export function DropdownMenuTwoSection({
           // Only regular items - single column
           <div className="flex flex-col gap-3">
             {items.map((item) => {
-              const href = type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`
+              const href = item.href ?? (type === 'anchors' ? `${basePath}#${item.id}` : `${basePath}/${item.id}`)
               return (
                 <Link
                   key={item.id}
                   href={href}
                   onClick={(e) => {
                     handleClick(item.id)
-                    if (type === 'anchors') {
+                    if (type === 'anchors' && !item.href) {
                       onAnchorClick?.(e as React.MouseEvent<HTMLAnchorElement>, href)
                     }
                   }}

@@ -14,7 +14,6 @@ import {
   FadeIn,
   StaggerContainer
 } from '@/components/ui'
-import { FeatureList } from '@/components/FeatureList'
 import { LAYOUT } from '@/lib/layout'
 import { HeroFadeIn } from '@/components/hero-fade-in'
 import { CTA } from '@/components/cta'
@@ -67,7 +66,7 @@ export function SolutionsClient() {
                   onClick={() => handleSolutionClick(solution.id)}
                   className="group cursor-pointer block h-full"
                 >
-                  <Card color='background' className="p-8 h-full hover:shadow-lg transition-all duration-300">
+                  <Card color='background'>
                     <Heading size="h3" color='primary' className="mb-3 group-hover:text-gold-500 transition-colors">
                       {solution.title}
                     </Heading>
@@ -132,7 +131,7 @@ export function SolutionsClient() {
           <StaggerContainer className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-4">
             {comparisonData.map((item) => (
               <Link key={item.id} href={`/solutions/${item.id}`} className="block group">
-                <Card color="background" className="p-6 h-full hover:shadow-lg transition-all duration-300">
+                <Card color="background" padding="md">
                   <Heading size="h4" className="mb-3 text-olive-900 group-hover:text-gold-500 transition-colors">
                     {item.name}
                   </Heading>
@@ -185,7 +184,7 @@ export function SolutionsClient() {
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <Card className="p-8 h-full">
+            <Card>
               <Heading size="h4" className="mb-4 text-olive-900">
                 Tailored Solutions
               </Heading>
@@ -194,7 +193,7 @@ export function SolutionsClient() {
               </Text>
             </Card>
 
-            <Card className="p-8 h-full">
+            <Card>
               <Heading size="h4" className="mb-4 text-olive-900">
                 Expert Guidance
               </Heading>
@@ -203,7 +202,7 @@ export function SolutionsClient() {
               </Text>
             </Card>
 
-            <Card className="p-8 h-full">
+            <Card>
               <Heading size="h4" className="mb-4 text-olive-900">
                 Flexible Terms
               </Heading>
@@ -236,17 +235,12 @@ export function SolutionsClient() {
                     <span className="text-olive-900">{solution.title}</span>
                   </Heading>
                   <Text className="text-gray-700 mb-6 leading-relaxed text-lg">
-                    {solution.fullDesc}
+                    {solution.whatIs}
                   </Text>
 
-                  <div className="mb-8">
-                    <FeatureList features={solution.features} />
-                  </div>
-
-                  {/* Learn More Link to Detail Page */}
                   <Link href={`/solutions/${solution.id}`} onClick={() => handleSolutionClick(solution.id)}>
                     <Button variant="default" className="flex items-center gap-2">
-                      Learn more about {getTitleAsString(solution.title)} <ChevronRight size={18} />
+                      Read more <ChevronRight size={18} />
                     </Button>
                   </Link>
                 </div>

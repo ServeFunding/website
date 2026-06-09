@@ -13,12 +13,26 @@ export interface FeaturedDropdownItem extends DropdownItem {
   icon?: string
   amount?: string
   description?: string
+  /**
+   * Optional absolute href that overrides the default `basePath/{id}` or
+   * `basePath#{id}` URL construction. Use when an item in a dropdown links
+   * outside the dropdown's normal namespace (e.g. /bankers in the Partners
+   * dropdown, which otherwise generates /partners#{id} anchor links).
+   */
+  href?: string
 }
 
 export interface SimpleNavItem {
   type: 'link'
   label: string
   href: string
+}
+
+export interface DropdownHeaderCta {
+  name: string
+  href: string
+  subtitle?: string
+  icon?: string
 }
 
 export interface DropdownNavItem {
@@ -30,6 +44,10 @@ export interface DropdownNavItem {
   description?: string
   featuredTitle?: string
   regularTitle?: string
+  /** Optional CTA rendered on the right of the dropdown's title/description header section. */
+  headerCta?: DropdownHeaderCta
+  /** If true, the parent label opens the dropdown but does not navigate. */
+  noLink?: boolean
 }
 
 export type NavItem = SimpleNavItem | DropdownNavItem
@@ -42,6 +60,10 @@ export interface HeaderNavConfig {
 export const CALENDLY_URL = "https://calendly.com/d/cxqk-t6s-72q/30-minute-funding-strategy-call"
 
 const PARTNERS_ITEMS: FeaturedDropdownItem[] = [
+  // For Bankers gets first/featured slot — it's the specialized referral hub for the
+  // audience that drives most of Serve Funding's pipeline. Uses `href` override so it
+  // links to the standalone /bankers page instead of an anchor under /partners.
+  { name: "For Bankers", id: "bankers", featured: true, subtitle: "Referral hub for commercial bankers", href: "/bankers" },
   { name: "Commercial Bankers", id: "commercial-bankers", featured: true, subtitle: "Our primary referral partners" },
   { name: "CPAs / Accountants", id: "cpas---accountants", featured: true, subtitle: "Trusted advisors for clients" },
   { name: "Fractional CFOs", id: "fractional-cfos" },
@@ -62,7 +84,8 @@ export const headerNavConfig: HeaderNavConfig = {
       type: 'dropdown',
       label: 'Solutions',
       basePath: '/solutions',
-      items: fundingSolutions.map(solution => {
+      items: [
+        ...fundingSolutions.map(solution => {
         // Mark the three featured products (working capital, invoice factoring, equipment)
         const isFeatured = ['working-capital-loans', 'invoice-factoring', 'equipment-leasing'].includes(solution.id)
         return {
@@ -81,10 +104,17 @@ export const headerNavConfig: HeaderNavConfig = {
           ) : undefined
         }
       }),
+      ],
       itemType: 'pages',
       featuredTitle: 'Core Solutions',
       regularTitle: 'All Solutions',
-      description: 'Explore our range of working capital solutions designed to keep your business running smoothly. From short-term cash needs to comprehensive working capital strategies.'
+      description: 'Explore our range of working capital solutions designed to keep your business running smoothly. From short-term cash needs to comprehensive working capital strategies.',
+      headerCta: {
+        name: 'Which is right for me?',
+        href: '/solutions/compare',
+        subtitle: 'Side-by-side comparison of all 12 options',
+        icon: 'Scale',
+      },
     },
     {
       type: 'dropdown',

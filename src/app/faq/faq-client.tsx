@@ -21,6 +21,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full p-6 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors"
+        aria-expanded={isOpen}
       >
         <Heading size="h4" className="text-left text-olive-900">
           {question}
@@ -32,32 +33,50 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
       </button>
       {isOpen && (
         <div className="border-t border-gray-200 bg-gray-50 p-6">
-          <Text className="text-gray-700">{answer}</Text>
+          <Text className="text-gray-700 whitespace-pre-line">{answer}</Text>
         </div>
       )}
     </div>
   )
 }
 
-interface FAQClientProps {
+export interface FAQSection {
+  title: string
+  description?: string
   faqs: Array<{ question: string; answer: string }>
 }
 
-export default function FAQClient({ faqs }: FAQClientProps) {
+interface FAQClientProps {
+  sections: FAQSection[]
+}
+
+export default function FAQClient({ sections }: FAQClientProps) {
   return (
     <div className="bg-white font-sans text-gray-800">
-      {/* FAQ Section */}
       <Section>
         <Container>
-          <StaggerContainer className="max-w-3xl mx-auto space-y-4">
-            {faqs.map((faq, index) => (
-              <FAQItem key={index} question={faq.question} answer={faq.answer} />
+          <div className="max-w-3xl mx-auto space-y-16">
+            {sections.map((section, sIdx) => (
+              <div key={sIdx} id={section.title.toLowerCase().replace(/\s+/g, '-')}>
+                <div className="mb-6">
+                  <Heading size="h2" className="text-olive-900 mb-2">
+                    {section.title}
+                  </Heading>
+                  {section.description && (
+                    <Text className="text-gray-600">{section.description}</Text>
+                  )}
+                </div>
+                <StaggerContainer className="space-y-4">
+                  {section.faqs.map((faq, i) => (
+                    <FAQItem key={i} question={faq.question} answer={faq.answer} />
+                  ))}
+                </StaggerContainer>
+              </div>
             ))}
-          </StaggerContainer>
+          </div>
         </Container>
       </Section>
 
-      {/* Contact Section */}
       <CTA
         title="Still Have Questions?"
         text="Don't see your question answered? Get in touch with our team and we'll be happy to help."

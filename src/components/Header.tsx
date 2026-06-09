@@ -60,9 +60,22 @@ interface NavDropdownProps {
   onAnchorClick: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
   type?: 'pages' | 'anchors'
   isActive?: boolean
+  noLink?: boolean
 }
 
-function NavDropdown({ label, items, basePath, onAnchorClick, type = 'pages', isActive }: NavDropdownProps) {
+function NavDropdown({ label, basePath, isActive, noLink }: NavDropdownProps) {
+  if (noLink) {
+    return (
+      <div className="relative h-full flex items-center group">
+        <span
+          className={`${navItemClasses} group-hover:after:w-full ${isActive ? 'after:w-full' : ''} gap-1 cursor-default`}
+          style={underlineStyle}
+        >
+          {label} <ChevronDown size={18} />
+        </span>
+      </div>
+    )
+  }
   return (
     <div className="relative h-full flex items-center group">
       <Link
@@ -138,6 +151,12 @@ export function Header() {
       setHeaderHeight(headerRef.current.offsetHeight)
     }
   }, [isScrolled])
+
+  useEffect(() => {
+    setActiveDropdown(null)
+    setIsMenuOpen(false)
+    setExpandedMenu(null)
+  }, [pathname])
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     // Only handle same-page anchor links
@@ -224,6 +243,7 @@ export function Header() {
                       isActive={getIsActive(item, pathname)}
                       onAnchorClick={handleAnchorClick}
                       type={item.itemType || 'pages'}
+                      noLink={item.noLink}
                     />
                   </div>
                 )
@@ -271,6 +291,7 @@ export function Header() {
                 description={activeDropdownData.description}
                 featuredTitle={activeDropdownData.featuredTitle}
                 regularTitle={activeDropdownData.regularTitle}
+                headerCta={activeDropdownData.headerCta}
                 onAnchorClick={handleAnchorClick}
               />
             </Container>
@@ -285,9 +306,10 @@ export function Header() {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
             className="lg:hidden overflow-hidden"
+            style={{ maxHeight: `calc(100vh - ${headerHeight}px)` }}
           >
             {/* Navigation Links */}
-            <div className="space-y-0 px-4 py-4">
+            <div className="space-y-0 px-4 py-4 overflow-y-auto" style={{ maxHeight: `calc(100vh - ${headerHeight}px - 24px)` }}>
               {headerNavConfig.items.map((item) => {
                 const closeMenu = () => {
                   setIsMenuOpen(false)
@@ -323,7 +345,9 @@ export function Header() {
                       isExpanded={expandedMenu === expandKey}
                       onToggle={() => setExpandedMenu(expandedMenu === expandKey ? null : expandKey)}
                       onClose={closeMenu}
+                      headerCta={item.headerCta}
                       onAnchorClick={handleAnchorClick}
+                      noLink={item.noLink}
                     />
                   )
                 }

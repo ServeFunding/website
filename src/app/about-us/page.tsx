@@ -166,7 +166,7 @@ export default function AboutUs() {
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {coreValues.map((value, index) => (
-              <Card key={index} color='background' className="text-center h-full flex flex-col items-center justify-start pt-8 group hover:bg-[#D3CE75] transition-all duration-300 hover:-translate-y-2">
+              <Card key={index} color='background' className="text-center items-center justify-start pt-8 group hover:bg-[#D3CE75]">
                 <span className="font-extrabold text-5xl mb-6 block" style={{ color: COLORS.primary }}>
                   {value.title.charAt(0)}
                 </span>

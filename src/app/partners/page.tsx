@@ -58,16 +58,23 @@ export default function Partners() {
         <Container>
           <FadeIn className="text-center max-w-3xl mx-auto">
             <Heading size="h2" className="mb-8">
-              Let's Discuss Your Client's or Prospect's Funding Needs.
+              Let&apos;s Discuss Your Client&apos;s or Prospect&apos;s Funding Needs.
             </Heading>
             <Text className="max-w-xl mx-auto my-6">
-              Answer a few questions and schedule a call at your convenience. <br /> Takes a few minutes and there's no obligation.
+              Answer a few questions and schedule a call at your convenience. <br /> Takes a few minutes and there&apos;s no obligation.
             </Text>
             <Link href="/discover?role=partner">
               <Button variant="default" size="lg">
-                Discuss a Client's Funding Needs
+                Discuss a Client&apos;s Funding Needs
               </Button>
             </Link>
+            <Text size="sm" className="mt-6 text-gray-600">
+              Commercial bankers — see the{' '}
+              <Link href="/bankers" className="text-gold-500 hover:underline font-semibold">
+                Bankers
+              </Link>
+              {' '}page for how the referral works, what happens to your client after the hand-off, and the depository-relationship protections.
+            </Text>
           </FadeIn>
         </Container>
       </Section>
@@ -83,21 +90,21 @@ export default function Partners() {
             </FadeIn>
 
             <StaggerContainer className="space-y-6">
-              <Card color='background' className="bg-white border-l-4 p-8">
+              <Card noHover>
                 <Heading size="h3" className="text-olive-900 mb-3">You are the Hero in Their Story</Heading>
                 <Text className="text-gray-700 leading-relaxed">
                   When we come through for your prospect, they remember that you went out of your way. They see you as the banker or advisor who didn't give up, who found a solution. They often come back to you as a stronger, more loyal client. When we solve for your existing clients, you strengthen that relationship by being the one who delivered. Either way—you've deepened trust, enhanced your reputation, and positioned yourself as the trusted advisor your clients can count on.
                 </Text>
               </Card>
 
-              <Card color='background' className="bg-white border-l-4 p-8">
+              <Card noHover>
                 <Heading size="h3" className="text-olive-900 mb-3">Time Wasted, Credibility Lost</Heading>
                 <Text className="text-gray-700 leading-relaxed">
                   You refer a prospect or client to an alternative lender. They go down the road. Two to four weeks of underwriting pass. Then the lender hits a wall—maybe it's a customer contract clause that makes the deal impossible, maybe it's collateral issues, maybe the leverage doesn't work. The business owner gets turned down. Again. Meanwhile, weeks have passed, their opportunity window is closing, and your credibility takes a hit for the referral that didn't work out.
                 </Text>
               </Card>
 
-              <Card color='background' className="bg-white border-l-4 p-8">
+              <Card noHover>
                 <Heading size="h3" className="text-olive-900 mb-3">If There's a Way, We'll Find It</Heading>
                 <Text className="text-gray-700 leading-relaxed">
                   Here's our commitment: if there's a way to get it done, we will find a way. We're not locked into one product or one box. We can layer solutions. We can look at multiple lenders at once. We can use real estate, equipment, personal assets, cash flow—whatever combination works. The only time we can't help is if expectations are just unrealistic. But as long as there's something viable to build on, we'll sweep the corners of the known credit universe to find it. That's how we protect your reputation.
@@ -190,7 +197,7 @@ export default function Partners() {
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, idx) => (
-              <Card key={idx} className="relative p-8 h-full group hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <Card key={idx} className="group">
                 <Quote className="mb-4" size={32} style={{ color: COLORS.secondary }} />
                 <Text className="text-gray-700 mb-6 italic leading-relaxed flex-1">
                   "{testimonial.text}"

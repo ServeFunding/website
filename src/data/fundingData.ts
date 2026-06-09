@@ -12,6 +12,83 @@ export interface FundingCase {
 
 export const fundingCases: FundingCase[] = [
   {
+    amount: '$2.8MM',
+    title: 'Portfolio Equity Unlock',
+    company: 'Private Real Estate Investor, Multi-State',
+    description: 'A seasoned high-net-worth investor had built a portfolio of income-producing properties across several states, each held in its own LLC. He came to Serve Funding to refinance higher-cost debt and unlock equity across key properties, but a complex multi-entity structure, variable property-level income, and a pending legal matter had disqualified him from the bank financing he was pursuing.',
+    fullStory: 'The challenge was never the quality of the portfolio; it was the structure. The original request, a bank standby letter of credit for more than $11MM, had stalled completely, and multiple institutions had already passed. He needed a creative partner, not another no.\n\nServe Funding went to work identifying lenders equipped to underwrite against real equity rather than just clean tax returns and tidy entity charts. After an extensive market search, we sourced a preferred equity lender with the appetite to fund against the portfolio property-by-property. Instead of forcing a single large transaction that required every property to qualify at once, we structured the deal as six tranches across four properties, letting each asset close on its own timeline as underwriting completed.\n\nThat approach got capital moving immediately. The first two closings happened within weeks of engaging the lender, deal risk dropped because no single property\'s complexity could derail the program, and each tranche was right-sized to the property\'s specific equity and cash-flow profile. Over roughly 60 days from first close to final tranche, Serve Funding funded $2,820,000 in preferred equity, giving the investor meaningful liquidity against a portfolio conventional lenders had declined to touch, without a forced sale, a personal-guarantee blowout, or months of bank-committee timelines.',
+    industry: 'Private Real Estate Investment',
+    fundingType: 'Preferred Equity (Multi-Tranche)',
+    challengeResolved: 'Unlocked $2.8MM of equity across 4 properties after banks declined an $11MM LOC request',
+    timeline: '~60 days (6 tranches)'
+  },
+  {
+    amount: '$1.475MM',
+    title: 'Bridge To M&A Exit',
+    company: 'Medical & Surgical Practice Group, Southeast',
+    description: 'A successful surgeon running multiple medical and surgical practices in the Southeast accepted an offer from a large hospital system to acquire his companies. With a liquidity event pending but not yet closed, he needed substantial short-term capital to bridge the gap, and he needed it fast.',
+    fullStory: 'Their private banker at a major national bank referred them to a counterpart on the bank\'s commercial team, a banker with a nine-year relationship with Serve Funding. After the introduction, we determined the doctor needed capital in excess of $1.25MM within a few short weeks to cover important year-end business expenses ahead of the sale.\n\nServe delivered multiple options, including an interest-only bridge loan tied to the doctor\'s property and several revenue-based business term loans. As usual, we negotiated terms aggressively on the client\'s behalf and secured the structure that best matched the required timing, cost of funds, and repayment profile.\n\nThe result: $1.475MM funded with a flexible bridge structure and aggressive prepayment discounts, delivered in under two weeks, well inside the client\'s tight timeframe. The deal didn\'t just solve for cash flow; it gave the founder peace of mind and protected their upside heading into the acquisition.',
+    industry: 'Healthcare / Medical Practices',
+    fundingType: 'Bridge Loan',
+    challengeResolved: 'Bridged a pending hospital-system acquisition; funded a $1.25MM+ need in under 2 weeks',
+    timeline: '< 2 weeks'
+  },
+  {
+    amount: '$1.5MM',
+    title: 'Post-Acquisition ABL',
+    company: 'Commercial Roofing Contractor, GA',
+    description: 'A 38-year-old commercial roofing contractor with roughly $16MM in annual revenue, acquired 15 months earlier by a private equity group, needed liquidity to pre-purchase materials, smooth receivable cycles, and support larger commercial contracts during its post-acquisition growth phase.',
+    fullStory: 'Despite a strong track record, including nearly $20MM in revenue and $1.4MM in net income in 2023, the company\'s topline dipped in 2024 and it posted a roughly $600K net loss in 2025. That loss was driven by acquisition costs and some internal operational misalignment, not operational weakness, but it still placed the request just outside a conventional bank\'s box.\n\nServe Funding arranged a $1,500,000 asset-based revolving line of credit with an 85% advance rate on eligible receivables, Prime + 3% pricing, a 24-month facility with a 90-day exit option, and no unused line fee. The facility took a first-position lien on accounts receivable and working capital assets while remaining subordinate on equipment and fixed assets.\n\nThis structure allowed the business to scale contract volume without compressing cash flow or layering on high-cost short-term debt, exactly the kind of aligned growth capital a post-acquisition contractor needs.',
+    industry: 'Commercial Roofing',
+    fundingType: 'Asset-Based Line of Credit',
+    challengeResolved: 'Funded post-PE-acquisition growth despite a 2025 net loss with a $1.5MM ABL revolver',
+    timeline: 'Weeks'
+  },
+  {
+    amount: '$1.5MM',
+    title: 'Tier IV Data Center Bridge',
+    company: 'Data Center Developer, FL',
+    description: 'A seasoned developer with more than 20 years building mission-critical infrastructure was nearing completion of a flagship Tier IV data center at its new headquarters campus in Central Florida when expedited final-phase work created a short-term funding gap ahead of an anticipated equity close.',
+    fullStory: 'To preserve commissioning timelines and Tier IV performance standards, the team accelerated key workstreams as the project entered its final phase. Those decisions, common in complex mission-critical builds, introduced incremental costs tied to expedited execution, scope refinement, and seasonal timing.\n\nRather than slow progress or take on long-term leverage at a critical moment, the company sought $1.5MM in short-term capital as a proactive bridge, ensuring uninterrupted momentum while preserving strategic flexibility ahead of the liquidity event.\n\nIn under two weeks, Serve Funding structured and closed a highly flexible bridge tailored to the sponsor\'s capital plan and project timeline. It provided immediate liquidity for final-stage execution, bridged cleanly to an upcoming equity injection, and included a performance-based interest-forgiveness mechanism tied to early payoff that materially reduced the total cost of capital once the liquidity event closed. Strong project controls and a clear path to takeout let the capital function as a strategic tool rather than a constraint.',
+    industry: 'Data Center Infrastructure',
+    fundingType: 'Bridge Loan',
+    challengeResolved: 'Bridged final-phase construction costs to an equity close; funded in under 2 weeks',
+    timeline: '< 2 weeks'
+  },
+  {
+    amount: '$300K',
+    title: 'Seasonal Working Capital',
+    company: 'Corporate & Wedding Event Venue, Southeast',
+    description: 'A high-end corporate and wedding event venue with strong demand but heavy seasonality, servicing 60-70% of its annual event volume in the last three months of the year, needed working capital to bridge receivables and protect a critical revenue window ahead of a planned sale.',
+    fullStory: 'The referring bank already held an all-asset senior UCC-1 tied to an existing term loan, and had to decline the additional credit the client requested. The reason was historical losses that were a byproduct of seasonality and high fixed costs, not operational weakness.\n\nServe Funding secured a $300,000 term loan to provide the seasonal working capital in under one week, structured over a 22-month term with steady payments and an option to waive 100% of remaining interest upon prepayment. That gave the client immediate relief and a clean runway to exit the facility once cash flow normalized, without carrying unnecessary interest. It was a textbook example of smart money over fast money: a structure that worked today and didn\'t punish the owner tomorrow.',
+    industry: 'Events & Hospitality',
+    fundingType: 'Term Loan',
+    challengeResolved: 'Funded Q4-concentrated seasonal cash flow ahead of a planned sale; closed in under a week',
+    timeline: '< 1 week'
+  },
+  {
+    amount: '$150K',
+    title: 'Funded In 3 Days',
+    company: 'Wedding & Events Venue, FL',
+    description: 'When the owner of a Florida wedding venue realized they could not cover payroll before a packed schedule of 15 weddings booked across three consecutive weeks, panic set in, and their bank\'s credit box could not move quickly enough to help.',
+    fullStory: 'Their commercial banker recognized the urgency immediately and, rather than walk away, introduced Serve Funding. Together we reviewed competing offers and identified better, fairer terms, educated the client on repayment options and prepayment discounts, and delivered $150,000 in 72 hours, fast, affordable, and transparent.\n\nThe result was more than a funded deal. Fifteen weddings stayed on schedule, staff stayed paid, and operations kept thriving through the busiest month of the year. The banker became the trusted advisor the client will never forget, a reminder that in high-pressure moments, the banker who brings the solution becomes the hero of the story.',
+    industry: 'Events & Hospitality',
+    fundingType: 'Working Capital Loan',
+    challengeResolved: 'Covered payroll for 15 weddings in 3 weeks; $150K delivered in 72 hours',
+    timeline: '3 business days'
+  },
+  {
+    amount: '$1MM',
+    title: 'PO Financing Line',
+    company: 'Green Coffee Importer, TX',
+    description: 'A family-owned international green coffee trader saw demand from corporate roasters surge almost overnight. The opportunity was real, but their existing purchase order facility was capped at $150,000 and that lender would not increase the line, leaving growth to outpace working capital.',
+    fullStory: 'Serve Funding was introduced to the specialty coffee importer by one of our asset-based lending partners. Leveraging a nearly ten-year lender relationship, Serve secured a $1,000,000 purchase order financing facility.\n\nThe new line enabled the client to offset rising costs from tariffs through bulk-order discounts, pay overseas suppliers without delays, and keep production moving and customers happy. It was more than just a loan; it was the right structure at the right time, capital that scaled with the company\'s growth instead of capping it.',
+    industry: 'Coffee Importing / Trading',
+    fundingType: 'Purchase Order Financing',
+    challengeResolved: 'Replaced a capped $150K PO line with a $1MM facility to capture surging roaster demand',
+    timeline: 'Days'
+  },
+  {
     amount: '$2MM',
     title: 'Short-Term Cashflow',
     company: 'Transportation Company, FL',

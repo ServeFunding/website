@@ -112,15 +112,12 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
           <Container>
             <div className="max-w-4xl mx-auto">
               <Heading size="h1" className="mb-4">
-                {`What ${getTitleAsString(solution.title).endsWith('s') ? 'are' : 'is'} ${getTitleAsString(solution.title)}?`}
+                {(() => {
+                  const titleStr = getTitleAsString(solution.title)
+                  const isPlural = titleStr.split(/\s+/).some(w => /s$/.test(w) && !/(ss|us|is)$/i.test(w))
+                  return `What ${isPlural ? 'are' : 'is'} ${titleStr}?`
+                })()}
               </Heading>
-{/* 
-              {/* Category Badge
-              <div className="mb-6">
-                <Text>
-                  {solution.category}
-                </Text>
-              </div> */}
 
               {/* Solution Image */}
               {solution.image && (
@@ -142,38 +139,6 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                   {solution.whatIs}
                 </Text>
               </div>
-
-              {/* Rates & Benefits Highlights Table */}
-              {solution.features && solution.features.length > 0 && (
-                <table className="w-full border-collapse border border-olive-green mt-8">
-                  <tbody>
-                    {(() => {
-                      // Extract key highlights from features
-                      const facilitySize = solution.features.find(f => f.toLowerCase().includes('size') || f.toLowerCase().includes('amount')) || ''
-                      const costOfCapital = solution.features.find(f => f.toLowerCase().includes('cost') || f.toLowerCase().includes('rate')) || ''
-                      const fundingTimeline = solution.features.find(f => f.toLowerCase().includes('funding') || f.toLowerCase().includes('timeline')) || ''
-                      const bestForText = solution.bestFor?.join(', ') || ''
-
-                      const highlights = [
-                        { label: "Facility/Loan Size", value: facilitySize },
-                        { label: "Cost of Capital", value: costOfCapital },
-                        { label: "Funding Timeline", value: fundingTimeline },
-                        { label: "Best For", value: bestForText }
-                      ]
-
-                      return highlights.map((item, index) => (
-                        item.value && (
-                          <tr key={index} className={index % 2 === 0 ? "bg-gold-light/20" : ""}>
-                            <td className="border border-olive-green p-4 font-semibold text-olive-green w-1/4">{item.label}</td>
-                            <td className="border border-olive-green p-4">{item.value}</td>
-                          </tr>
-                        )
-                      ))
-                    })()}
-                  </tbody>
-                </table>
-              )}
-
             </div>
           </Container>
         </Section>
@@ -182,13 +147,78 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
         <Section background="gray">
           <Container>
             <div className="max-w-4xl mx-auto">
-              <Heading size="h2" className="mb-4">How It Works</Heading>
-              <Text size="lg">
-                {solution.fullDesc}
-              </Text>
+              <Heading size="h2" className="mb-6">How It Works</Heading>
+              <div className="space-y-6">
+                {solution.fullDesc.split('\n\n').map(p => p.trim()).filter(Boolean).map((p, i) => (
+                  <Text key={i} size="lg">{p}</Text>
+                ))}
+              </div>
             </div>
           </Container>
         </Section>
+
+        {/* Quick Facts Panel */}
+        {solution.features && solution.features.length > 0 && (
+          <Section>
+            <Container>
+              <div className="max-w-4xl mx-auto">
+                <Heading size="h2" className="mb-6">Quick Facts</Heading>
+              </div>
+              <div className="max-w-7xl mx-auto">
+                {(() => {
+                  const facilitySize = solution.features.find(f => f.toLowerCase().includes('size') || f.toLowerCase().includes('amount')) || ''
+                  const costOfCapital = solution.features.find(f => f.toLowerCase().includes('cost') || f.toLowerCase().includes('rate')) || ''
+                  const fundingTimeline = solution.features.find(f => f.toLowerCase().includes('funding') || f.toLowerCase().includes('timeline')) || ''
+                  const bestForList = solution.bestFor || []
+
+                  const scalars = [
+                    { label: "Facility / Loan Size", value: facilitySize },
+                    { label: "Cost of Capital", value: costOfCapital },
+                    { label: "Funding Timeline", value: fundingTimeline },
+                  ].filter(s => s.value)
+
+                  // Render as a definition-list "table": label column on the
+                  // left, content on the right. On narrow screens it collapses
+                  // to a stacked block (label sits above content). Visible
+                  // dividers between every row so it reads as a table.
+                  // Real HTML table. The browser's table layout guarantees all
+                  // rows share the same column widths automatically. Each row
+                  // collapses to a stacked block below 640px via max-sm:block.
+                  const cellPad = "px-6 py-6 max-sm:px-5 max-sm:py-4"
+                  const labelCell = `${cellPad} align-top font-semibold text-olive-900 whitespace-nowrap text-right max-sm:block max-sm:w-full max-sm:text-left max-sm:whitespace-normal max-sm:pb-1`
+                  const valueCell = `${cellPad} text-left align-top text-gray-700 leading-relaxed max-sm:block max-sm:w-full max-sm:pt-0`
+
+                  return (
+                    <div className="rounded-2xl border border-gray-200 bg-white overflow-hidden">
+                      <table className="w-full border-collapse max-sm:block">
+                        <tbody className="max-sm:block">
+                          {scalars.map((item, i) => (
+                            <tr key={item.label} className={`max-sm:block ${i > 0 ? 'border-t border-gray-200' : ''}`}>
+                              <th scope="row" className={labelCell}>{item.label}</th>
+                              <td className={valueCell}>{item.value}</td>
+                            </tr>
+                          ))}
+                          {bestForList.length > 0 && (
+                            <tr className={`max-sm:block ${scalars.length > 0 ? 'border-t border-gray-200' : ''}`}>
+                              <th scope="row" className={labelCell}>Best For</th>
+                              <td className={valueCell}>
+                                <ul className="list-disc pl-5 space-y-1.5 marker:text-gold-500">
+                                  {bestForList.map((b, j) => (
+                                    <li key={j}>{b}</li>
+                                  ))}
+                                </ul>
+                              </td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  )
+                })()}
+              </div>
+            </Container>
+          </Section>
+        )}
 
         {/* Features/Benefits Section */}
         <Section>
@@ -244,7 +274,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                   <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {relatedPosts.map(post => (
                       <Link key={post.id} href={`/blog/${post.id}`} className="group h-full">
-                        <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-2 bg-white flex flex-col">
+                        <Card>
                           <Heading size="h3" className="mb-3 text-olive-900 group-hover:text-gold-500 transition-colors line-clamp-2">
                             {post.title}
                           </Heading>
@@ -279,7 +309,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                   .slice(0, 3)
                   .map(relatedSolution => (
                     <Link key={relatedSolution.id} href={`/solutions/${relatedSolution.id}`} className="h-full block">
-                      <Card className="h-full">
+                      <Card>
                         <Heading size="h3" className="mb-2">
                           {relatedSolution.title}
                         </Heading>

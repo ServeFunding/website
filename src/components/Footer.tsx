@@ -25,6 +25,7 @@ export function Footer() {
                   <Link href="/solutions" className="text-olive-900 hover:text-gold-500 transition-colors">Solutions</Link>
                   <Link href="/fundings" className="text-olive-900 hover:text-gold-500 transition-colors">Fundings</Link>
                   <Link href="/partners" className="text-olive-900 hover:text-gold-500 transition-colors">Partners</Link>
+                  <Link href="/bankers" className="text-olive-900 hover:text-gold-500 transition-colors">Bankers</Link>
                   <Link href="/about-us" className="text-olive-900 hover:text-gold-500 transition-colors">About Us</Link>
                   <Link href="/discover" className="text-olive-900 hover:text-gold-500 transition-colors">Discover</Link>
                   <Link href="/faq" className="text-olive-900 hover:text-gold-500 transition-colors">FAQ</Link>
@@ -40,22 +41,31 @@ export function Footer() {
                   <Link href="/solutions/asset-based-lending" className="text-olive-900 hover:text-gold-500 transition-colors">Asset-Based Lending</Link>
                   <Link href="/solutions/equipment-leasing" className="text-olive-900 hover:text-gold-500 transition-colors">Equipment Leasing</Link>
                   <Link href="/solutions/purchase-order-funding" className="text-olive-900 hover:text-gold-500 transition-colors">Purchase Order Funding</Link>
+                  <Link href="/solutions/compare" className="text-olive-900 hover:text-gold-500 transition-colors">Compare All Options</Link>
                   <Link href="/solutions" className="text-gold-500 hover:text-gold-600 transition-colors font-semibold mt-2">
                     View All Solutions →
                   </Link>
                 </div>
               </div>
 
-              {/* Blog */}
+              {/* Learn / Resources */}
               <div>
-                <Heading size="h3" className="text-olive-900 font-bold mb-6">Blog</Heading>
+                <Heading size="h3" className="text-olive-900 font-bold mb-6">Learn</Heading>
+                <div className="space-y-3 flex flex-col">
+                  <Link href="/compare" className="text-olive-900 hover:text-gold-500 transition-colors">Head-to-Head Comparisons</Link>
+                  <Link href="/industries" className="text-olive-900 hover:text-gold-500 transition-colors">By Industry</Link>
+                  <Link href="/glossary" className="text-olive-900 hover:text-gold-500 transition-colors">Glossary</Link>
+                </div>
+
+                {/* From the Blog */}
+                <p className="text-olive-900 font-semibold mt-8 mb-3">From the Blog</p>
                 <div className="space-y-3 flex flex-col">
                   {sortedBlogPosts.slice(0, 4).map((post) => (
-                    <Link key={post.id} href={`/blog/${post.id}`} className="text-olive-900 hover:text-gold-500 transition-colors text-sm">
-                      {post.title}
+                    <Link key={post.id} href={`/blog/${post.id}`} className="text-gray-500 hover:text-gold-500 transition-colors text-sm">
+                      → {post.title}
                     </Link>
                   ))}
-                  <Link href="/blog" className="text-gold-500 hover:text-gold-600 transition-colors text-sm font-semibold mt-2">
+                  <Link href="/blog" className="text-gold-500 hover:text-gold-600 transition-colors font-semibold mt-2">
                     View All Posts →
                   </Link>
                 </div>

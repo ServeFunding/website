@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk"
 import { buildAIContext } from "@/lib/ai"
+import { getBlogPosts } from "@/lib/blog-utils"
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -39,11 +40,27 @@ export async function POST(request: Request) {
       content: message,
     })
 
+    // Stay on Haiku 4.5 for all turns — with the rich cached system prompt, Haiku handles
+    // voice + citations well. We can route to Sonnet later once we've confirmed the model
+    // ID and weighed the cost trade-off.
+    const model = "claude-haiku-4-5-20251001"
+
     const response = await anthropic.beta.messages.create({
-      model: "claude-haiku-4-5-20251001",
+      model,
       max_tokens: 1024,
       betas: ["structured-outputs-2025-11-13"],
-      system: buildAIContext(userRole),
+      // Prompt caching: the large static voice/product corpus is cached so we only pay
+      // for it once per 5-minute window. Per-request cost drops dramatically.
+      system: [
+        {
+          type: "text",
+          text: buildAIContext(
+            userRole,
+            getBlogPosts().map((p) => ({ id: p.id, title: p.title, excerpt: p.excerpt })),
+          ),
+          cache_control: { type: "ephemeral" },
+        },
+      ],
       messages,
       output_format: {
         type: "json_schema",

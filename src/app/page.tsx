@@ -121,7 +121,7 @@ export default function Home() {
                 desc: <>We represent your firm to our trusted lender partners to protect <br />your best interests.</>
               }
             ].map((item, index) => (
-              <Card key={`value-prop-${index}`} className="flex flex-col items-center text-center h-full group transition-all duration-300 md:hover:-translate-y-2 bg-white value-card" style={{}}>
+              <Card key={`value-prop-${index}`} className="items-center text-center group value-card">
                   <div
                     className="icon-flip-outer w-24 h-24 rounded-full mb-8"
                     style={{
@@ -205,7 +205,7 @@ export default function Home() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {fundingSolutions.map((solution) => (
               <Link key={solution.id} href={`/solutions#${solution.id}`} className="group cursor-pointer block h-full">
-                <Card className="p-8 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col" style={{ background: `linear-gradient(to bottom, white, ${BRAND_COLORS.background})` }}>
+                <Card style={{ background: `linear-gradient(to bottom, white, ${BRAND_COLORS.background})` }}>
                   <div className="flex-1">
                     <Heading size="h3" color='primary'>
                       {solution.title}
@@ -259,7 +259,7 @@ export default function Home() {
                 desc: "We take responsibility to guide your lender engagements all the way to a timely closing. We are here to serve you."
               }
             ].map((item) => (
-              <Card key={item.step} className="h-full flex flex-col items-center text-center group transition-all duration-300" hoverColor={BRAND_COLORS.secondary}>
+              <Card key={item.step} className="items-center text-center group" hoverColor={BRAND_COLORS.secondary}>
                 <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 transition-all duration-300 bg-white/50 border-2 border-gold-light" style={{ color: BRAND_COLORS.primary }}>
                   <span className="text-2xl font-bold">{item.step}</span>
                 </div>
@@ -288,7 +288,7 @@ export default function Home() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {fundingCases.slice(0, 6).map((caseStudy, index) => (
               <Link key={`case-study-${index}`} href={`/fundings#${caseStudy.title.toLowerCase().replace(/\s+/g, '-')}`} className="group cursor-pointer block h-full">
-                <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white flex flex-col">
+                <Card padding="md">
                     <Heading size="h4" className="mb-2 text-olive-900 group-hover:text-gold-500 transition-colors line-clamp-2">
                       <span 
                         className="bg-gradient-to-b bg-clip-text text-transparent"

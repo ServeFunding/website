@@ -165,7 +165,7 @@ function DiscoverContent() {
               animate={{ opacity: 1 }}
               className="w-full"
             >
-              <Card className="md:p-12 bg-white" noHover>
+              <Card className="md:p-12" noHover>
                 <DealInquiryChat formData={formData} onScheduleClick={handleScheduleClick} />
               </Card>
             </motion.div>
@@ -178,7 +178,7 @@ function DiscoverContent() {
               animate={{ opacity: 1 }}
               className="w-full"
             >
-              <Card className="md:p-12 bg-white" noHover>
+              <Card className="md:p-12" noHover>
                 <div className="flex flex-col gap-6">
                   <Heading size="h3" color="primary" className="text-center">
                     Let&#39;s schedule a time to talk!
