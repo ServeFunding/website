@@ -38,7 +38,7 @@ const PAGE_URL = 'https://servefunding.com/bankers'
 export const metadata: Metadata = {
   title: 'Bankers — When You Have to Decline a Loan',
   description:
-    'What to do when you have to decline a commercial loan but want to keep the client. How Serve Funding works with banker referrals — and why your depository stays with you.',
+    'When you must decline a commercial loan but want to keep the client: how Serve Funding works with banker referrals — and why your deposits stay with you.',
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: 'Bankers — When You Have to Decline a Loan',
