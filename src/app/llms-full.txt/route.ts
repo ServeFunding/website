@@ -134,7 +134,7 @@ function renderCompany(): string {
     `- Deal range: $250K – $100MM`,
     `- Funding speed: 3–10 business days (vs. 60–90 days at traditional banks)`,
     `- Fee structure: success-only, 1–2% of funded amount`,
-    `- Lender network: 30+ alternative lenders`,
+    `- Lender network: an extensive network of vetted alternative lenders`,
     '',
     `## Founder`,
     '',

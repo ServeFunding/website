@@ -98,7 +98,7 @@ export default function SolutionsComparePage() {
             </Text>
             <Card className="p-6 bg-white border-l-4 border-l-gold-500">
               <Text className="text-gray-800">
-                <strong>Quick answer:</strong> growing companies that can&apos;t get a bank line have twelve real alternatives. They split along three axes — <strong>speed</strong> (days vs. weeks vs. months), <strong>cost</strong> (Prime + 2% on the cheap end, ~4% per month on the expensive end), and <strong>collateral</strong> (some products want AR, some want inventory, some want nothing). Serve Funding has placed $50MM+ across 100+ clients since 2021 by matching each business to the right combination across our 30+ lender network. The right answer is almost never one product — it&apos;s two or three layered together.
+                <strong>Quick answer:</strong> growing companies that can&apos;t get a bank line have twelve real alternatives. They split along three axes — <strong>speed</strong> (days vs. weeks vs. months), <strong>cost</strong> (Prime + 2% on the cheap end, ~4% per month on the expensive end), and <strong>collateral</strong> (some products want AR, some want inventory, some want nothing). Serve Funding has placed $50MM+ across 100+ clients since 2021 by matching each business to the right combination across our extensive lender network. The right answer is almost never one product — it&apos;s two or three layered together.
               </Text>
             </Card>
             <Text size="sm" className="text-gray-500 mt-3">
@@ -317,7 +317,7 @@ export default function SolutionsComparePage() {
 
       <CTA
         title="Not sure which one fits your business?"
-        text="A 20-minute call with Michael narrows it to one or two — and we shop the deal across our 30+ lender network if it makes sense."
+        text="A 20-minute call with Michael narrows it to one or two — and we shop the deal across our extensive lender network if it makes sense."
         buttonText="Start a Consultation"
         useBG
       />

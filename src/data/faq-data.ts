@@ -49,7 +49,7 @@ export const topLevelFAQs: FAQ[] = [
   {
     id: 'top-what-is-serve-funding',
     q: "What is Serve Funding?",
-    a: "Serve Funding is a channel-neutral business financing advisory with access to 30+ alternative lenders for working capital from $250K to $100MM. We're not a lender — we're your advocate who compares options across multiple underwriting styles and negotiates on your behalf when traditional banks decline."
+    a: "Serve Funding is a channel-neutral business financing advisory with access to an extensive network of alternative lenders for working capital from $250K to $100MM. We're not a lender — we're your advocate who compares options across multiple underwriting styles and negotiates on your behalf when traditional banks decline."
   },
   {
     id: 'top-when-banks-say-no',
@@ -86,7 +86,7 @@ export const aboutServeFundingFAQs: FAQ[] = [
   {
     id: 'what-is-serve-funding',
     q: 'What is Serve Funding?',
-    a: 'Serve Funding is a boutique business financing advisory that provides strategic guidance and access to 30+ lenders for alternative financing from $250K to $100MM. As a channel-neutral advisor, we\'re not limited by a single lender\'s "credit box"—we tap into multiple underwriting styles. We operate with servant leadership and 15+ years of experience in asset-based and cash-flow lending.'
+    a: 'Serve Funding is a boutique business financing advisory that provides strategic guidance and access to an extensive network of lenders for alternative financing from $250K to $100MM. As a channel-neutral advisor, we\'re not limited by a single lender\'s "credit box"—we tap into multiple underwriting styles. We operate with servant leadership and 15+ years of experience in asset-based and cash-flow lending.'
   },
   {
     id: 'relationships-over-bots',
@@ -101,7 +101,7 @@ export const aboutServeFundingFAQs: FAQ[] = [
   {
     id: 'what-makes-serve-different',
     q: 'What makes Serve Funding different from other lenders or brokers?',
-    a: 'We\'re not a lender—we\'re your trusted advisor with relationships across 30+ lenders and multiple underwriting styles. Unlike captive brokers tied to one lender, we provide unbiased guidance throughout your company\'s growth trajectory. We operate on a success-fee basis (1-2% when you fund), so our incentives align with yours. We fight hard to negotiate 10-20 percentage point rate reductions compared to going direct.'
+    a: 'We\'re not a lender—we\'re your trusted advisor with relationships across an extensive lender network and multiple underwriting styles. Unlike captive brokers tied to one lender, we provide unbiased guidance throughout your company\'s growth trajectory. We fight hard to negotiate 10-20 percentage point rate reductions compared to going direct.'
   },
   {
     id: 'can-you-help-if-bank-denied',
@@ -111,7 +111,7 @@ export const aboutServeFundingFAQs: FAQ[] = [
   {
     id: 'channel-neutral-advisor',
     q: 'What is a channel-neutral advisor?',
-    a: 'A channel-neutral advisor is not tied to any single lender or product. Unlike captive brokers who earn commissions from one lender, we maintain relationships across 30+ lenders with different underwriting styles, rate structures, and specialties. This means we can match you with the best lender for your situation—and negotiate aggressively because we\'re not beholden to any single relationship.'
+    a: 'A channel-neutral advisor is not tied to any single lender or product. Unlike captive brokers who earn commissions from one lender, we maintain relationships across an extensive lender network with different underwriting styles, rate structures, and specialties. This means we can match you with the best lender for your situation—and negotiate aggressively because we\'re not beholden to any single relationship.'
   },
   {
     id: 'why-banks-first',
@@ -161,7 +161,7 @@ export const aboutServeFundingFAQs: FAQ[] = [
   {
     id: 'why-use-serve-vs-direct',
     q: 'Why should I use Serve Funding instead of going direct to a lender?',
-    a: 'Working with a channel-neutral advisor typically reduces your cost of capital by 10-20 percentage points vs. going direct. Here\'s why: we have relationships with 30+ lenders and can negotiate aggressively on your behalf because we\'re not committed to any one relationship. We also guide you away from predatory products and help you avoid costly mistakes. Our 65% repeat client rate shows we deliver value—we succeed only when you do.'
+    a: 'Working with a channel-neutral advisor typically reduces your cost of capital by 10-20 percentage points vs. going direct. Here\'s why: we have relationships across an extensive lender network and can negotiate aggressively on your behalf because we\'re not committed to any one relationship. We also guide you away from predatory products and help you avoid costly mistakes. Our 65% repeat client rate shows we deliver value—we succeed only when you do.'
   }
 ]
 
@@ -254,7 +254,7 @@ export const workingCapitalFAQs: FAQ[] = [
   {
     id: 'how-to-escape-mca-process',
     q: 'How do I actually escape MCA debt?',
-    a: 'Stop taking new advances immediately, then refinance your balance into a term loan, asset-based line, or invoice factoring—typically closing in 10-20 business days. We shop your situation across 30+ lenders because your invoices, AR, and revenue are real collateral; most clients qualify for solutions that cost 10-20 percentage points less annually than their current MCA. Real example: a staffing company paying $15K/month in MCA fees refinanced into an $8K/month term loan, freeing up $7K monthly for growth.',
+    a: 'Stop taking new advances immediately, then refinance your balance into a term loan, asset-based line, or invoice factoring—typically closing in 10-20 business days. We shop your situation across an extensive lender network because your invoices, AR, and revenue are real collateral; most clients qualify for solutions that cost 10-20 percentage points less annually than their current MCA. Real example: a staffing company paying $15K/month in MCA fees refinanced into an $8K/month term loan, freeing up $7K monthly for growth.',
     relatedSolutions: ['debt-refinance', 'asset-based-lending', 'invoice-factoring']
   },
 
@@ -906,7 +906,7 @@ export const solutionComparisonFAQs: FAQ[] = [
   {
     id: 'bank-declined-options',
     q: 'What if my bank declined me?',
-    a: 'When banks say no, we say how. Bank declines are actually our most common starting point—bankers are our primary referral source. Alternative lenders evaluate businesses differently: invoice factoring looks at your customers\' credit (not yours), asset-based lending focuses on collateral value, and working capital loans weigh revenue trajectory. We have 30+ lender relationships to find the right fit.',
+    a: 'When banks say no, we say how. Bank declines are actually our most common starting point—bankers are our primary referral source. Alternative lenders evaluate businesses differently: invoice factoring looks at your customers\' credit (not yours), asset-based lending focuses on collateral value, and working capital loans weigh revenue trajectory. We have an extensive network of lender relationships to find the right fit.',
     relatedSolutions: ['asset-based-lending', 'invoice-factoring', 'working-capital-loans']
   },
   {
