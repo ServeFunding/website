@@ -105,7 +105,7 @@ export const solutionComparisons: SolutionComparison[] = [
       'Your only collateral is AR (factoring will be simpler and faster)',
     ],
     proof:
-      'Most ABL banks won\'t look below $3–5MM. We facilitate facilities from $250K because we shop the deal across 30+ lenders with different size minimums.',
+      'Most ABL banks won\'t look below $3–5MM. We facilitate facilities from $250K because we shop the deal across an extensive lender network with different size minimums.',
   },
   {
     id: 'equipment-leasing',

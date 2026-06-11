@@ -52,7 +52,7 @@ export default function IndustriesIndexPage() {
               Each industry has its own cash-flow shape — and a different right answer.
             </Text>
             <Text className="text-gray-600">
-              These guides walk through the funding products that actually fit each industry, with the math, the trade-offs, and what doesn&apos;t typically work. Serve Funding is channel-neutral and product-neutral — we shop the deal across 30+ lenders to find what fits, regardless of industry.
+              These guides walk through the funding products that actually fit each industry, with the math, the trade-offs, and what doesn&apos;t typically work. Serve Funding is channel-neutral and product-neutral — we shop the deal across an extensive lender network to find what fits, regardless of industry.
             </Text>
           </FadeIn>
         </Container>

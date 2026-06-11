@@ -16,7 +16,7 @@ export const companyInfo = {
   name: "Serve Funding LLC",
   tagline: "Creative Working Capital",
 
-  description: "A boutique business financing advisory firm serving growing companies with creative working capital from $250 to $100MM. As a channel-neutral advisor, we're not a lender—we're your trusted advocate with relationships across 30+ lenders. We specialize in debt refinance, payroll financing, MCA consolidation, asset-based lending, and alternative financing when traditional banks decline. Operating with servant leadership, we fight for your best interests and negotiate the best terms across multiple underwriting styles. Relationships over bots. Strategy over algorithms.",
+  description: "A boutique business financing advisory firm serving growing companies with creative working capital from $250 to $100MM. As a channel-neutral advisor, we're not a lender—we're your trusted advocate with relationships across an extensive lender network. We specialize in debt refinance, payroll financing, MCA consolidation, asset-based lending, and alternative financing when traditional banks decline. Operating with servant leadership, we fight for your best interests and negotiate the best terms across multiple underwriting styles. Relationships over bots. Strategy over algorithms.",
 
   contact: {
     phone: "+1 770-820-7409",
@@ -193,7 +193,7 @@ export const competitivePositioning = {
 
   vsPeerAdvisors: {
     experience: "15+ years in capital advisory with proven track record",
-    lenderNetwork: "Relationships with 30+ lenders across all major funding types",
+    lenderNetwork: "Relationships across an extensive lender network spanning all major funding types",
     successRate: "100% of referred deals funded within target timelines",
     clientSatisfaction: "65% repeat client rate demonstrates lasting value"
   }
@@ -240,7 +240,7 @@ export const qualificationCriteria = {
 export const messagingTemplates = {
   rejectionNarrative: {
     headline: "Turned Down by Your Bank? We Can Help.",
-    message: "You have strong fundamentals and real growth. Your bank's credit box just doesn't fit your situation. We work with 30+ alternative lenders who evaluate whole businesses, not just DSCR."
+    message: "You have strong fundamentals and real growth. Your bank's credit box just doesn't fit your situation. We work with an extensive network of alternative lenders who evaluate whole businesses, not just DSCR."
   },
 
   speedNarrative: {

@@ -70,7 +70,7 @@ const bankerFaqs = [
   },
   {
     q: "What happens to my client after I refer them?",
-    a: "We take a 20-minute discovery call to map the situation — collateral position, revenue trajectory, use of funds, timing. We tell the client honestly which path fits (often two or three layered products). We shop the deal across our 30+ lender network — asset-based lenders, factors, equipment specialists, SBA partners, real estate lenders. We come back to the client with two or three real options to choose from. You're kept in the loop throughout if the client wants you in the loop; we don't run separately from the banking relationship.",
+    a: "We take a 20-minute discovery call to map the situation — collateral position, revenue trajectory, use of funds, timing. We tell the client honestly which path fits (often two or three layered products). We shop the deal across our extensive lender network — asset-based lenders, factors, equipment specialists, SBA partners, real estate lenders. We come back to the client with two or three real options to choose from. You're kept in the loop throughout if the client wants you in the loop; we don't run separately from the banking relationship.",
   },
   {
     q: "When will my client be bankable again?",
@@ -86,7 +86,7 @@ const bankerFaqs = [
   },
   {
     q: "What do I tell my client when I refer them?",
-    a: 'Something like: "Our credit team can\'t get this done in our box, but I know a financing advisory that works with bankers exactly like us. They\'ll shop the deal across 30+ alternative lenders and bring back honest options. They don\'t take your deposits — your accounts stay with us — and they\'ve been doing this 20+ years. The first call is 20 minutes and they\'ll tell you straight whether they can help. Here\'s the link." Then send servefunding.com/discover or servefunding.com/bankers (whichever feels right). We take it from there.',
+    a: 'Something like: "Our credit team can\'t get this done in our box, but I know a financing advisory that works with bankers exactly like us. They\'ll shop the deal across an extensive network of alternative lenders and bring back honest options. They don\'t take your deposits — your accounts stay with us — and they\'ve been doing this 20+ years. The first call is 20 minutes and they\'ll tell you straight whether they can help. Here\'s the link." Then send servefunding.com/discover or servefunding.com/bankers (whichever feels right). We take it from there.',
   },
   {
     q: "How fast do you fund?",
@@ -131,7 +131,7 @@ const itemListSchema = {
       '@type': 'HowToStep',
       position: 4,
       name: 'Lender shopping and placement',
-      text: 'Serve Funding shops the deal across its 30+ lender network and returns to the client with two or three real options. You stay in the loop if the client wants you in the loop.',
+      text: 'Serve Funding shops the deal across its extensive lender network and returns to the client with two or three real options. You stay in the loop if the client wants you in the loop.',
     },
     {
       '@type': 'HowToStep',
@@ -321,7 +321,7 @@ export default function ForBankersPage() {
                   <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gold-500 text-white font-bold flex items-center justify-center">2</div>
                   <div>
                     <Heading size="h4" className="mb-1 text-olive-900">Diligence and lender shopping</Heading>
-                    <Text className="text-gray-700">Serve Funding builds a data room with the client, shops the deal across the relevant subset of our 30+ lender network, and returns with two or three real options — not just one quoted rate but actual term sheets the client can compare.</Text>
+                    <Text className="text-gray-700">Serve Funding builds a data room with the client, shops the deal across the relevant subset of our extensive lender network, and returns with two or three real options — not just one quoted rate but actual term sheets the client can compare.</Text>
                   </div>
                 </div>
               </li>
